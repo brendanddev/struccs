@@ -20,7 +20,7 @@ int main() {
     printf("BEFORE REMOVE: \n");
     _print(da);
 
-    _remove(da);
+    _remove_back(da);
 
     printf("AFTER REMOVE: \n");
     _print(da);

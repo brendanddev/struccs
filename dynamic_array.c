@@ -2,8 +2,9 @@
 #include <stdlib.h>
 #include "dynamic_array.h"
 
-// Set capacity, initial length
-// Create instance of struct - allocate memory
+/// dynamic_array.c
+
+/// Initializes an instance of the DynamicArray
 struct DynamicArray * _init() {
 
     // Allocate memory for the struct DynamicArray
@@ -56,7 +57,7 @@ int _get(struct DynamicArray *da, int index) {
 }
 
 
-void _remove(struct DynamicArray *da) { 
+void _remove_back(struct DynamicArray *da) { 
     da->ptrData[da->length--];
 }
 
