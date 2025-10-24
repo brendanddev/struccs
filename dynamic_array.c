@@ -37,6 +37,11 @@ int _add(struct DynamicArray *da, int element) {
         // Set new capacity to old size * 2
         da->capacity = da->capacity * 2;
 
+        // Consider: If 'realloc' fails assisinging directly to 'da->ptrData' would lose the pointer
+        // to the old array and cause a memory leak
+
+        // Consider: 'malloc' and make copy of array
+
         // Allocate more memory for the new size of the array
         // Will allocate: ((old size * 2) * sizeof(int))
         da->ptrData = realloc(da->ptrData, da->capacity * sizeof(int));
@@ -45,8 +50,11 @@ int _add(struct DynamicArray *da, int element) {
 
 }
 
-
-int _get(int index) {}
+/// Get an element from the array at the specified index
+int _get(struct DynamicArray *da, int index) {
+    if (index < 0 || index > da->length) return -1;
+    return da->ptrData[index];
+}
 
 int _remove(int element) { }
 
