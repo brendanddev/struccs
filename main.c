@@ -14,6 +14,7 @@ int main() {
         _add(da, i);
     }
 
+    printf("GET: %d\n", _get(da, 4));
     _print(da);
 
     return 0;
