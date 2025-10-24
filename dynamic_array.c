@@ -47,7 +47,6 @@ int _add(struct DynamicArray *da, int element) {
         da->ptrData = realloc(da->ptrData, da->capacity * sizeof(int));
         da->ptrData[da->length++] = element;
     }
-
 }
 
 /// Get an element from the array at the specified index
@@ -56,10 +55,18 @@ int _get(struct DynamicArray *da, int index) {
     return da->ptrData[index];
 }
 
-int _remove(int element) { }
 
-void _discard(struct DynamicArray) {}
+void _remove(struct DynamicArray *da) { 
+    da->ptrData[da->length--];
+}
 
+/// Frees the memory in use by the DynamicArray
+void _discard(struct DynamicArray *da) {
+    free(da->ptrData);
+    da->ptrData = NULL;
+}
+
+/// Prints the elements of the DynamicArray
 void _print(struct DynamicArray *da) {
     for (int i = 0; i < da->length; i++) {
         printf("[%d] %d\n", i, da->ptrData[i]);
