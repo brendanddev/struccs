@@ -7,15 +7,12 @@
 int main() {
 
     struct DynamicArray *da = _init();
-    printf("\nInitial Capacity: %d", da->capacity);
-    printf("\nInitial Length/Size: %d\n", da->length);
 
-    _add(da, 100);
-    _add(da, 13320);
-    _add(da, 545);
-
-    printf("\nCurrent Capacity: %d", da->capacity);
-    printf("\nCurrent Length/Size: %d\n", da->length);
+    for (int i = 0; i <= 10; i++) {
+        printf("\nInitial Capacity: %d", da->capacity);
+        printf("\nInitial Length/Size: %d\n", da->length);
+        _add(da, i);
+    }
 
     _print(da);
 
