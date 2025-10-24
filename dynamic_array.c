@@ -13,6 +13,7 @@ struct DynamicArray * _init() {
     // Initialize the structs fields (members)
     da->length = 0;
     da->capacity = 4;
+    da->ptrData = NULL;
 
     // Allocate memory for the data the struct DyanmicArray will hold
     // Each int typically takes sizeof(int) bytes
@@ -29,7 +30,19 @@ int _add(struct DynamicArray *da, int element) {
     // Ensure capacity
     if (da->length < da->capacity) {
         da->ptrData[da->length++] = element;
+    
+    // Reached capacity, needs resize
+    } else {
+
+        // Set new capacity to old size * 2
+        da->capacity = da->capacity * 2;
+
+        // Allocate more memory for the new size of the array
+        // Will allocate: ((old size * 2) * sizeof(int))
+        da->ptrData = realloc(da->ptrData, da->capacity * sizeof(int));
+        da->ptrData[da->length++] = element;
     }
+
 }
 
 
