@@ -11,8 +11,6 @@ static void _shift_left(struct DynamicArray *da, int index);
 
 
 
-/// Initializes an instance of the DynamicArray
-
 /// @brief Initializes a new instance of the DynamicArray structure
 struct DynamicArray * _init() {
 
@@ -34,7 +32,6 @@ struct DynamicArray * _init() {
     return da;
 }
 
-
 /// @brief Adds an integer to the back of the DynamicArray
 /// @param da A pointer to the DynamicArray structure
 /// @param element The element being added to the array
@@ -49,7 +46,6 @@ void _add(struct DynamicArray *da, int element) {
     // Insert the new element at the end and increment length
     da->ptrData[da->length++] = element;
 }
-
 
 /// @brief Adds an integer at a specified index in the DynamicArray
 /// @param da A pointer to the DynamicArray structure
@@ -76,13 +72,11 @@ void _add_at(struct DynamicArray *da, int index, int element) {
     }
 }
 
-
 /// Get an element from the array at the specified index
 int _get(struct DynamicArray *da, int index) {
     if (index < 0 || index > da->length) return -1;
     return da->ptrData[index];
 }
-
 
 /// @brief Removes an element at the specified index in the DynamicArray.
 ///        All elements after the removed element are shifted to the left to fill the gap.
@@ -104,7 +98,6 @@ void _remove_at(struct DynamicArray *da, int index) {
     }
 }
 
-
 /// @brief Removes the first occurrence of a specified element from the DynamicArray.
 ///        If the element is found, all subsequent elements are shifted left to fill the gap.
 /// @param da A pointer to the DynamicArray structure.
@@ -121,13 +114,11 @@ void _remove(struct DynamicArray *da, int element) {
     }
 }
 
-
 /// @brief Removes an element from the back of the array by decrementing the length.
 /// @param da A pointer to the DynamicArray structure.
 void _remove_back(struct DynamicArray *da) { 
     da->length--;
 }
-
 
 /// @brief Frees the memory in use by the DynamicArray.
 void _discard(struct DynamicArray *da) {
@@ -135,18 +126,15 @@ void _discard(struct DynamicArray *da) {
     da->ptrData = NULL;
 }
 
-
 /// @brief Returns the size of the DynamicArray
 int _size(struct DynamicArray *da) {
     return da->length;
 }
 
-
 /// @brief Returns the DynamicArray capacity
 int _capacity(struct DynamicArray *da) {
     return da->capacity;
 }
-
 
 /// @brief Prints the elements stored in the DynamicArray
 void _print(struct DynamicArray *da) {
@@ -155,7 +143,11 @@ void _print(struct DynamicArray *da) {
     }
 }
 
-void _status(struct DynamicArray *da);
+/// @brief Prints the current length and capacity of the DynamicArray
+void _status(struct DynamicArray *da) {
+    printf("\nCurrent Size/Length: %d\n", _size(da));
+    printf("Current Capacity: %d\n", _capacity(da));
+}
 
 
 
