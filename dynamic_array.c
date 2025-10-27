@@ -176,6 +176,11 @@ static void _resize(struct DynamicArray *da) {
 }
 
 
+// idea: if length is alot smaller than capacity, allocate smaller block of memory
+// Copy existing elements or realloc
+static void _shrink(struct DynamicArray *da) { }
+
+
 /// @brief Shifts elements of the DynamicArray one position to the right starting from a specified index.
 ///        This is used to make room for a new element to be inserted at 'index'.
 ///
