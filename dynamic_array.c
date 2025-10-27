@@ -35,17 +35,10 @@ int _add(struct DynamicArray *da, int element) {
     // Reached capacity, needs resize
     } else {
 
-        // Set new capacity to old size * 2
-        da->capacity = da->capacity * 2;
+        // Array is full - reisze to make room
+        _resize(da);
 
-        // Consider: If 'realloc' fails assisinging directly to 'da->ptrData' would lose the pointer
-        // to the old array and cause a memory leak
-
-        // Consider: 'malloc' and make copy of array
-
-        // Allocate more memory for the new size of the array
-        // Will allocate: ((old size * 2) * sizeof(int))
-        da->ptrData = realloc(da->ptrData, da->capacity * sizeof(int));
+        // Insert the new element at the end and increment length
         da->ptrData[da->length++] = element;
     }
 }
@@ -86,9 +79,33 @@ void _print(struct DynamicArray *da) {
 }
 
 
-/// @brief If the internal array has hit capacity, double the initial capacity to allow room for the new element
-/// @param da A pointer to the DynamicArray struct in memory
+
+/// @brief Doubles the internal arrays capacity when the current capacity is full,
+///         allowing space for the additional elements.
+///
+/// Consider: If 'realloc()' fails assigning directly to 'da->ptrData', would lose the 
+//            pointer to the old array and cause a memory leak
+//            Could use 'malloc()' and copy elements one by one
+/// 
+/// @param da A pointer to the DynamicArray structure to be resized.
 static void _resize(struct DynamicArray *da) { 
+
+    // Set new capacity to old cap * 2
     da->capacity *= 2;
-    da->ptrData = realloc(da->ptrData, da->capacity * sizeof(int));
+
+    // Allocate more memory for the new size of the array
+    // In this case, we request a new larger memory block using realloc, which tries to
+    // resize the existing block if possible, and store the result in a temporary pointer 
+    // for safety
+    int *newData = realloc(da->ptrData, da->capacity * sizeof(int));
+
+    // If the realloc operations returns NULL, the allocation failed but old data is still
+    // valid. We exit here to prevent undefined behavior and data loss.
+    if (newData == NULL) {
+        printf("Memory allocation failed during resize.\n");
+        exit(1);
+    }
+
+    // If realloc succeeded, update the arrays pointer to reference the new memory block
+    da->ptrData = newData;
 }
