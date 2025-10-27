@@ -45,6 +45,14 @@ int main() {
     printf("\nCurrent Length/Size: %d\n", da->length);
 
 
+    // Remove at
+    printf("\nElement at Index 4: %d\n", _get(da, 4));
+    printf("REMOVING AT: INDEX 4\n");
+    _remove_at(da, 4);
+    printf("AFTER REMOVE AT: \n");
+    _print(da);
+
+
 
     return 0;
 
