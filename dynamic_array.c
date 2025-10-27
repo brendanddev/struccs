@@ -21,7 +21,7 @@ struct DynamicArray * _init() {
 
     // Initialize the structs fields (members)
     da->length = 0;
-    da->capacity = 4;
+    da->capacity = INITIAL_CAPACITY;
     da->ptrData = NULL;
 
     // Allocate memory for the data the struct DyanmicArray will hold
@@ -172,27 +172,48 @@ static void _resize(struct DynamicArray *da) {
     // In this case, we request a new larger memory block using realloc, which tries to
     // resize the existing block if possible, and store the result in a temporary pointer 
     // for safety
-    int *newData = realloc(da->ptrData, da->capacity * sizeof(int));
+    int *newPtrData = realloc(da->ptrData, da->capacity * sizeof(int));
 
     // If the realloc operations returns NULL, the allocation failed but old data is still
     // valid. We exit here to prevent undefined behavior and data loss.
-    if (newData == NULL) {
+    if (newPtrData == NULL) {
         printf("Memory allocation failed during resize.\n");
         exit(1);
     }
 
     // If realloc succeeded, update the arrays pointer to reference the new memory block
-    da->ptrData = newData;
+    da->ptrData = newPtrData;
 }
 
 // idea: if length is alot smaller than capacity, allocate smaller block of memory
 // Copy existing elements or realloc
+
+/// @brief 
+/// @param da 
 static void _shrink(struct DynamicArray *da) {
 
     double threshold = 25.0;
     double usage = ((double)da->length / da->capacity) * 100;
-    if (usage < 25) {
+
+    if (usage < threshold) {
         printf("Current Array Usage Below 25 percent: %f \n", usage);
+
+        // Calculate new capacity and 
+        int newCapacity = da->capacity / 2;
+        if (newCapacity < INITIAL_CAPACITY) {
+            newCapacity = INITIAL_CAPACITY;
+        }
+
+        int *newPtrData = NULL;
+        newPtrData = realloc(da->ptrData, newCapacity * sizeof(int));
+
+        if (newPtrData == NULL) {
+            printf("Memory allocation failed during shrinking.\n");
+            exit(1);
+        }
+
+        da->capacity = newCapacity;
+        da->ptrData = newPtrData;
     }
 }
 
