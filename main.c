@@ -35,6 +35,16 @@ int main() {
     printf("\nCurrent Length/Size: %d\n", da->length);
 
 
+    // Add at
+    _add_at(da, 3, 999);
+    printf("\nAFTER ADD_AT AT INDEX 3: \n");
+    _print(da);
+
+    printf("\nLength and Capacity After Adding: ");
+    printf("\nCurrent Capacity: %d", da->capacity);
+    printf("\nCurrent Length/Size: %d\n", da->length);
+
+
 
     return 0;
 
