@@ -84,21 +84,28 @@ int _get(struct DynamicArray *da, int index) {
 }
 
 
+/// @brief Removes an element at the specified index in the DynamicArray.
+///        All elements after the removed element are shifted to the left to fill the gap.
+/// @param da A pointer to the DynamicArray structure.
+/// @param index The index of the element to remove.
 void _remove_at(struct DynamicArray *da, int index) { 
 
     // Check index is within bounds of array
+
+    // Check that index is within valid range of the array
     if (index >= 0 && index < da->length) {
+
+        // Shift all elements after the specified index one position to the left
+        // Overrides the element at 'index' and fills the gap
         _shift_left(da, index);
+
+        // Decrement length since array contains one less element
         da->length--;
     }
 }
 
 
-
-
-void _remove(struct DynamicArray *da, int element) { 
-
-}
+void _remove(struct DynamicArray *da, int element) { }
 
 
 /// Removes an element from the back of the array by decrementing length
