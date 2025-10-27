@@ -7,13 +7,11 @@
 int main() {
 
     struct DynamicArray *da = _init();
-    printf("\nInitial Capacity: %d", da->capacity);
-    printf("\nInitial Length/Size: %d\n", da->length);
+    _status(da);
 
     for (int i = 0; i <= 10; i++) {
         _add(da, i);
-        printf("\nCurrent Capacity: %d", da->capacity);
-        printf("\nCurrent Length/Size: %d\n", da->length);
+        _status(da);
     }
 
     printf("GET: %d\n", _get(da, 4));
@@ -31,8 +29,7 @@ int main() {
     _print(da);
 
     printf("\nLength and Capacity After Removals: ");
-    printf("\nCurrent Capacity: %d", da->capacity);
-    printf("\nCurrent Length/Size: %d\n", da->length);
+    _status(da);
 
 
     // Add at
@@ -41,8 +38,7 @@ int main() {
     _print(da);
 
     printf("\nLength and Capacity After Adding: ");
-    printf("\nCurrent Capacity: %d", da->capacity);
-    printf("\nCurrent Length/Size: %d\n", da->length);
+    _status(da);
 
 
     // Remove at
