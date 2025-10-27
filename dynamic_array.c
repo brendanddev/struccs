@@ -38,8 +38,6 @@ struct DynamicArray * _init() {
 /// @param element The element being added to the array
 void _add(struct DynamicArray *da, int element) { 
 
-    _shrink(da);
-
     // Check if array is full
     if (da->length == da->capacity) {
         // Array is full - resize to make room
@@ -149,9 +147,8 @@ void _print(struct DynamicArray *da) {
 
 /// @brief Prints the current length and capacity of the DynamicArray
 void _status(struct DynamicArray *da) {
-    _shrink(da);
-    // printf("\nCurrent Size/Length: %d\n", _size(da));
-    // printf("Current Capacity: %d\n", _capacity(da));
+    printf("\nCurrent Size/Length: %d\n", _size(da));
+    printf("Current Capacity: %d\n", _capacity(da));
 }
 
 
@@ -192,6 +189,7 @@ static void _resize(struct DynamicArray *da) {
 // Copy existing elements or realloc
 static void _shrink(struct DynamicArray *da) {
 
+    double threshold = 25.0;
     double usage = ((double)da->length / da->capacity) * 100;
     if (usage < 25) {
         printf("Current Array Usage Below 25 percent: %f \n", usage);

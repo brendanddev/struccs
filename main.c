@@ -16,19 +16,7 @@ int main() {
         // _status(da);
     }
 
-
-    for (int i = 0; i < 750; i++) {
-        _remove_back(da);
-    }
-
-    _status(da);
-
-
-    for (int i = 0; i < 150; i++) {
-        _remove_back(da);
-    }
-
-    _status(da);
+    
 
     // printf("GET: %d\n", _get(da, 4));
     // printf("BEFORE REMOVE: \n");
