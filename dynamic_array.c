@@ -4,6 +4,11 @@
 
 /// dynamic_array.c
 
+// Prototypes
+static void _resize(struct DynamicArray *da);
+
+
+
 /// Initializes an instance of the DynamicArray
 struct DynamicArray * _init() {
 
