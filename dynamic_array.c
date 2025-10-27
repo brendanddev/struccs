@@ -12,6 +12,8 @@ static void _shift_left(struct DynamicArray *da, int index);
 
 
 /// Initializes an instance of the DynamicArray
+
+/// @brief Initializes a new instance of the DynamicArray structure
 struct DynamicArray * _init() {
 
     // Allocate memory for the struct DynamicArray
@@ -117,6 +119,19 @@ static void _resize(struct DynamicArray *da) {
 }
 
 
-static void _shift_right(struct DynamicArray *da, int index) { }
+/// @brief Shifts elements of the DynamicArray one position to the right starting from a specified index.
+///        This is used to make room for a new element to be inserted at 'index'.
+///
+/// @param da A pointer to the DynamicArray structure whose elements are being shifted.
+/// @param index The position at which the new element will be inserted. All elements from this index
+//               to the last element will be moved one position to the right.
+static void _shift_right(struct DynamicArray *da, int index) { 
+    // Loop backwards from the last element to the specified index
+    // Each element is moved one position to the right to make space at 'index'
+    for (int i = da->length - 1; i >= index; i--) {
+        da->ptrData[i + 1] = da->ptrData[i];
+    }
+}
+
 
 static void _shift_left(struct DynamicArray *da, int index) { }
