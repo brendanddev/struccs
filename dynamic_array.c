@@ -105,7 +105,16 @@ void _remove_at(struct DynamicArray *da, int index) {
 }
 
 
-void _remove(struct DynamicArray *da, int element) { }
+void _remove(struct DynamicArray *da, int element) { 
+    
+    for (int i = 0; i < da->length; i++) {
+        if (da->ptrData[i] == element) {
+            _remove_at(da, i);
+            return;
+        }
+    }
+
+}
 
 
 /// Removes an element from the back of the array by decrementing length
