@@ -6,6 +6,7 @@
 
 // Prototypes
 static void _resize(struct DynamicArray *da);
+static void _shrink(struct DynamicArray *da);
 static void _shift_right(struct DynamicArray *da, int index);
 static void _shift_left(struct DynamicArray *da, int index);
 
