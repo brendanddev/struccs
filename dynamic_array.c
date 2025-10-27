@@ -73,7 +73,10 @@ void _add_at(struct DynamicArray *da, int index, int element) {
     }
 }
 
-/// Get an element from the array at the specified index
+/// @brief Get an element from the array at the specified index
+/// @param da A pointer to the DynamicArray structure allocated in heap memory
+/// @param index The index of the element being retrieved
+/// @return The value at the specified index if valid, otherwise -1
 int _get(struct DynamicArray *da, int index) {
     if (index < 0 || index > da->length) return -1;
     return da->ptrData[index];
@@ -84,8 +87,6 @@ int _get(struct DynamicArray *da, int index) {
 /// @param da A pointer to the DynamicArray structure.
 /// @param index The index of the element to remove.
 void _remove_at(struct DynamicArray *da, int index) { 
-
-    // Check index is within bounds of array
 
     // Check that index is within valid range of the array
     if (index >= 0 && index < da->length) {

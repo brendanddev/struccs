@@ -55,6 +55,7 @@ int main() {
     printf("AFTER REMOVING ELEMENT 999: \n");
     _print(da);
 
+    _discard(da);
 
 
     return 0;
