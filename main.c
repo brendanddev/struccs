@@ -15,11 +15,20 @@ int main() {
         _add(da, r);
     }
 
+    _status(da);
+
     for (int i = 0; i < 800; i++) {
         _remove_back(da);
     }
 
-    
+    _status(da);
+
+    // Should be under 25% and cause a shrink
+    _shrink(da);
+
+    _status(da);
+
+
 
 
 

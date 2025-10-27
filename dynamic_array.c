@@ -6,7 +6,7 @@
 
 // Prototypes
 static void _resize(struct DynamicArray *da);
-static void _shrink(struct DynamicArray *da);
+void _shrink(struct DynamicArray *da);
 static void _shift_right(struct DynamicArray *da, int index);
 static void _shift_left(struct DynamicArray *da, int index);
 
@@ -149,6 +149,7 @@ void _print(struct DynamicArray *da) {
 void _status(struct DynamicArray *da) {
     printf("\nCurrent Size/Length: %d\n", _size(da));
     printf("Current Capacity: %d\n", _capacity(da));
+    printf("Current Usage: %f \n", ((double)da->length / da->capacity) * 100);
 }
 
 
@@ -185,25 +186,25 @@ static void _resize(struct DynamicArray *da) {
     da->ptrData = newPtrData;
 }
 
-// idea: if length is alot smaller than capacity, allocate smaller block of memory
-// Copy existing elements or realloc
+/// @brief Shrinks the memory allocated for the internal array if the usage falls below a threshold.
+/// @param da A pointer to the DynamicArray struct
+void _shrink(struct DynamicArray *da) {
 
-/// @brief 
-/// @param da 
-static void _shrink(struct DynamicArray *da) {
-
+    // Set threshold and calculate array usage
     double threshold = 25.0;
     double usage = ((double)da->length / da->capacity) * 100;
 
     if (usage < threshold) {
         printf("Current Array Usage Below 25 percent: %f \n", usage);
 
-        // Calculate new capacity and 
+        // Calculate new capacity, which is half the existing capacity
         int newCapacity = da->capacity / 2;
         if (newCapacity < INITIAL_CAPACITY) {
             newCapacity = INITIAL_CAPACITY;
         }
 
+        // Allocate a smaller block of memory for the new size of the array
+        // Storing in a temporary pointer for safety
         int *newPtrData = NULL;
         newPtrData = realloc(da->ptrData, newCapacity * sizeof(int));
 
@@ -212,6 +213,7 @@ static void _shrink(struct DynamicArray *da) {
             exit(1);
         }
 
+        // Set the new capacity and update the pointer to point to the new memory
         da->capacity = newCapacity;
         da->ptrData = newPtrData;
     }
