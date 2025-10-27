@@ -149,8 +149,9 @@ void _print(struct DynamicArray *da) {
 
 /// @brief Prints the current length and capacity of the DynamicArray
 void _status(struct DynamicArray *da) {
-    printf("\nCurrent Size/Length: %d\n", _size(da));
-    printf("Current Capacity: %d\n", _capacity(da));
+    _shrink(da);
+    // printf("\nCurrent Size/Length: %d\n", _size(da));
+    // printf("Current Capacity: %d\n", _capacity(da));
 }
 
 
@@ -190,8 +191,11 @@ static void _resize(struct DynamicArray *da) {
 // idea: if length is alot smaller than capacity, allocate smaller block of memory
 // Copy existing elements or realloc
 static void _shrink(struct DynamicArray *da) {
+
     double usage = ((double)da->length / da->capacity) * 100;
-    printf("Current Array Usage: %f\n", usage);
+    if (usage < 25) {
+        printf("Current Array Usage Below 25 percent: %f \n", usage);
+    }
 }
 
 /// @brief Shifts elements of the DynamicArray one position to the right starting from a specified index.
