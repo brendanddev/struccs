@@ -86,4 +86,9 @@ void _print(struct DynamicArray *da) {
 }
 
 
-static void _resize(struct DynamicArray *da) { }
+/// @brief If the internal array has hit capacity, double the initial capacity to allow room for the new element
+/// @param da A pointer to the DynamicArray struct in memory
+static void _resize(struct DynamicArray *da) { 
+    da->capacity *= 2;
+    da->ptrData = realloc(da->ptrData, da->capacity * sizeof(int));
+}
