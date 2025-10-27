@@ -20,10 +20,20 @@ int main() {
     printf("BEFORE REMOVE: \n");
     _print(da);
 
+    // Remove (1)
     _remove_back(da);
-
     printf("AFTER REMOVE: \n");
     _print(da);
+
+    // Remove (2)
+    _remove_back(da);
+    printf("AFTER REMOVE: \n");
+    _print(da);
+
+    printf("\nLength and Capacity After Removals: ");
+    printf("\nCurrent Capacity: %d", da->capacity);
+    printf("\nCurrent Length/Size: %d\n", da->length);
+
 
 
     return 0;
