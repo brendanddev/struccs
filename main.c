@@ -53,6 +53,13 @@ int main() {
     _print(da);
 
 
+    // Remove element
+    printf("\nREMOVING ELEMENT: 999\n");
+    _remove(da, 999);
+    printf("AFTER REMOVING ELEMENT 999: \n");
+    _print(da);
+
+
 
     return 0;
 
