@@ -38,6 +38,8 @@ struct DynamicArray * _init() {
 /// @param element The element being added to the array
 void _add(struct DynamicArray *da, int element) { 
 
+    _shrink(da);
+
     // Check if array is full
     if (da->length == da->capacity) {
         // Array is full - resize to make room
@@ -153,6 +155,8 @@ void _status(struct DynamicArray *da) {
 
 
 
+
+
 /// @brief Doubles the internal arrays capacity when the current capacity is full,
 ///         allowing space for the additional elements.
 ///
@@ -183,11 +187,12 @@ static void _resize(struct DynamicArray *da) {
     da->ptrData = newData;
 }
 
-
 // idea: if length is alot smaller than capacity, allocate smaller block of memory
 // Copy existing elements or realloc
-static void _shrink(struct DynamicArray *da) { }
-
+static void _shrink(struct DynamicArray *da) {
+    double usage = ((double)da->length / da->capacity) * 100;
+    printf("Current Array Usage: %f\n", usage);
+}
 
 /// @brief Shifts elements of the DynamicArray one position to the right starting from a specified index.
 ///        This is used to make room for a new element to be inserted at 'index'.
@@ -202,7 +207,6 @@ static void _shift_right(struct DynamicArray *da, int index) {
         da->ptrData[i + 1] = da->ptrData[i];
     }
 }
-
 
 /// @brief Shifts elements of the DynamicArray one position to the left starting from a specified index.
 ///        This is used to fill the gap left by a removed element at 'index'.
