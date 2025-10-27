@@ -50,15 +50,26 @@ int _add(struct DynamicArray *da, int element) {
     }
 }
 
+/// Adds an integer at a specified index in the array
+int _add_at(struct DynamicArray *da, int index, int element) {
+
+    // Ensure capacity
+    if (da->length < da->capacity) {
+
+    }
+
+}
+
+
 /// Get an element from the array at the specified index
 int _get(struct DynamicArray *da, int index) {
     if (index < 0 || index > da->length) return -1;
     return da->ptrData[index];
 }
 
-
+/// Removes an element from the back of the array by decrementing length
 void _remove_back(struct DynamicArray *da) { 
-    da->ptrData[da->length--];
+    da->length--;
 }
 
 /// Frees the memory in use by the DynamicArray
@@ -73,3 +84,6 @@ void _print(struct DynamicArray *da) {
         printf("[%d] %d\n", i, da->ptrData[i]);
     }
 }
+
+
+static void _resize(struct DynamicArray *da) { }
