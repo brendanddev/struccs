@@ -7,6 +7,8 @@
 #ifndef DYNAMIC_ARRAY_H
 #define DYNAMIC_ARRAY_H
 
+#define INITIAL_CAPACITY 4
+
 // Defines the DynamicArray struct and creates a type alias 'DynamicArray'
 typedef struct DynamicArray {
     int *ptrData;       // Pointer to the data where the array will store its elements

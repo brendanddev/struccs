@@ -13,10 +13,15 @@ int main() {
     for (int i = 0; i <= 1000; i++) {
         int r = rand();     // Generate a random value to add
         _add(da, r);
-        // _status(da);
+    }
+
+    for (int i = 0; i < 800; i++) {
+        _remove_back(da);
     }
 
     
+
+
 
     // printf("GET: %d\n", _get(da, 4));
     // printf("BEFORE REMOVE: \n");
