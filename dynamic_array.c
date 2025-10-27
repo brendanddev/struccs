@@ -105,15 +105,20 @@ void _remove_at(struct DynamicArray *da, int index) {
 }
 
 
+/// @brief Removes the first occurrence of a specified element from the DynamicArray.
+///        If the element is found, all subsequent elements are shifted left to fill the gap.
+/// @param da A pointer to the DynamicArray structure.
+/// @param element The value to remove from the array.
 void _remove(struct DynamicArray *da, int element) { 
     
+    // Iterate through to find the specified element
     for (int i = 0; i < da->length; i++) {
         if (da->ptrData[i] == element) {
+            // If found, remove element at index 'i'
             _remove_at(da, i);
             return;
         }
     }
-
 }
 
 
