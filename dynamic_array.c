@@ -133,5 +133,14 @@ static void _shift_right(struct DynamicArray *da, int index) {
     }
 }
 
+/// @brief 
+/// @param da 
+/// @param index 
+static void _shift_left(struct DynamicArray *da, int index) {
 
-static void _shift_left(struct DynamicArray *da, int index) { }
+    // Loop from the index of the removed element up to the second last element
+    // Each element at 'i+1' is copied into 'i', moving elements left to fill the gap
+    for (int i = index; i < da->length - 1; i++) {
+        da->ptrData[i] = da->ptrData[i + 1];
+    }
+}
