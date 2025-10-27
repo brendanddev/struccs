@@ -122,12 +122,15 @@ void _remove(struct DynamicArray *da, int element) {
 }
 
 
-/// Removes an element from the back of the array by decrementing length
+/// @brief Removes an element from the back of the array by decrementing the length.
+/// @param da A pointer to the DynamicArray structure.
 void _remove_back(struct DynamicArray *da) { 
     da->length--;
 }
 
-/// Frees the memory in use by the DynamicArray
+
+/// @brief Frees the memory in use by the DynamicArray.
+/// @param da A pointer to the DynamicArray structure.
 void _discard(struct DynamicArray *da) {
     free(da->ptrData);
     da->ptrData = NULL;
