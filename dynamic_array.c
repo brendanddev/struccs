@@ -83,6 +83,24 @@ int _get(struct DynamicArray *da, int index) {
     return da->ptrData[index];
 }
 
+
+void _remove_at(struct DynamicArray *da, int index) { 
+
+    // Check index is within bounds of array
+    if (index >= 0 && index < da->length) {
+        _shift_left(da, index);
+        da->length--;
+    }
+}
+
+
+
+
+void _remove(struct DynamicArray *da, int element) { 
+
+}
+
+
 /// Removes an element from the back of the array by decrementing length
 void _remove_back(struct DynamicArray *da) { 
     da->length--;
