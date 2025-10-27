@@ -16,7 +16,7 @@ struct DynamicArray {
 
 
 struct DynamicArray * _init();
-int _add(struct DynamicArray *da, int element);
+void _add(struct DynamicArray *da, int element);
 int _add_at(struct DynamicArray *da, int index, int element);
 int _get(struct DynamicArray *da, int index);
 void _remove_at(struct DynamicArray *da);
