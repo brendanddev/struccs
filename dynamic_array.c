@@ -54,17 +54,23 @@ void _add(struct DynamicArray *da, int element) {
 /// Adds an integer at a specified index in the array
 int _add_at(struct DynamicArray *da, int index, int element) {
 
-    // Ensure capacity
-    if (da->length < da->capacity) {
-    
-    //
-    } else if (index == da->length) {
-    
-    // Reached capacity, needs resize
-    } else {
-
+    // Check if array is full
+    if (da->length == da->capacity) {
+        // Array is full - resize to make room
+        _resize(da);
     }
 
+    // Check if insertion is at the end
+    if (index == da->length) {
+        // Insert the new element at the end and increment length
+        da->ptrData[da->length++] = element;
+
+    // Shift is needed
+    } else {
+        _shift_right(da, index);
+        da->ptrData[index] = element;
+        da->length++;
+    }
 }
 
 
