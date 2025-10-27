@@ -23,7 +23,10 @@ void _remove_at(struct DynamicArray *da, int index);
 void _remove(struct DynamicArray *da, int element);
 void _remove_back(struct DynamicArray *da);
 void _discard(struct DynamicArray *da);
+int _size(struct DynamicArray *da);
+int _capacity(struct DynamicArray *da);
 void _print(struct DynamicArray *da);
+void _status(struct DynamicArray *da);
 
 
 #endif

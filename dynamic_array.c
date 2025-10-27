@@ -130,18 +130,32 @@ void _remove_back(struct DynamicArray *da) {
 
 
 /// @brief Frees the memory in use by the DynamicArray.
-/// @param da A pointer to the DynamicArray structure.
 void _discard(struct DynamicArray *da) {
     free(da->ptrData);
     da->ptrData = NULL;
 }
 
-/// Prints the elements of the DynamicArray
+
+/// @brief Returns the size of the DynamicArray
+int _size(struct DynamicArray *da) {
+    return da->length;
+}
+
+
+/// @brief Returns the DynamicArray capacity
+int _capacity(struct DynamicArray *da) {
+    return da->capacity;
+}
+
+
+/// @brief Prints the elements stored in the DynamicArray
 void _print(struct DynamicArray *da) {
     for (int i = 0; i < da->length; i++) {
         printf("[%d] %d\n", i, da->ptrData[i]);
     }
 }
+
+void _status(struct DynamicArray *da);
 
 
 
