@@ -133,9 +133,13 @@ static void _shift_right(struct DynamicArray *da, int index) {
     }
 }
 
-/// @brief 
-/// @param da 
-/// @param index 
+
+/// @brief Shifts elements of the DynamicArray one position to the left starting from a specified index.
+///        This is used to fill the gap left by a removed element at 'index'.
+///
+/// @param da A pointer to the DynamicArray whose elements are being shifted.
+/// @param index The index of the element being removed. All elements after this index will be moved one 
+///              one position to the left to fill the gap.
 static void _shift_left(struct DynamicArray *da, int index) {
 
     // Loop from the index of the removed element up to the second last element
