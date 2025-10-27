@@ -34,7 +34,10 @@ struct DynamicArray * _init() {
     return da;
 }
 
-/// Adds an integer to the back of the DynamicArray
+
+/// @brief Adds an integer to the back of the DynamicArray
+/// @param da A pointer to the DynamicArray structure
+/// @param element The element being added to the array
 void _add(struct DynamicArray *da, int element) { 
 
     // Check if array is full
@@ -48,11 +51,8 @@ void _add(struct DynamicArray *da, int element) {
 }
 
 
-
-
-
 /// Adds an integer at a specified index in the array
-int _add_at(struct DynamicArray *da, int index, int element) {
+void _add_at(struct DynamicArray *da, int index, int element) {
 
     // Check if array is full
     if (da->length == da->capacity) {
