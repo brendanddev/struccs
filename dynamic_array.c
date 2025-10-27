@@ -6,6 +6,8 @@
 
 // Prototypes
 static void _resize(struct DynamicArray *da);
+static void _shift_right(struct DynamicArray *da, int index);
+static void _shift_left(struct DynamicArray *da, int index);
 
 
 
@@ -39,7 +41,6 @@ int _add(struct DynamicArray *da, int element) {
     
     // Reached capacity, needs resize
     } else {
-
         // Array is full - reisze to make room
         _resize(da);
 
@@ -114,3 +115,8 @@ static void _resize(struct DynamicArray *da) {
     // If realloc succeeded, update the arrays pointer to reference the new memory block
     da->ptrData = newData;
 }
+
+
+static void _shift_right(struct DynamicArray *da, int index) { }
+
+static void _shift_left(struct DynamicArray *da, int index) { }
