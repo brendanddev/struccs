@@ -5,12 +5,25 @@ A dynamic array implementation in C that demonstrates manual memory management, 
 
 ---
 
+## Implementations
+
+1. **Dynamic Array**: A simple dynamic array that stores integers with automatic resizing capabilities.
+
+2. **Generic Array**: In progress...
+
+---
 ## Project Structure
 
 ```
-├── dynamic_array.h       # Header file with struct definition and function declarations
-├── dynamic_array.c       # Implementation of all dynamic array operations
-├── main.c                # Demo program showing usage
+arrays-from-scratch/
+├── dynamic_array/
+│   ├── dynamic_array.h
+│   ├── dynamic_array.c
+│   └── main.c
+├── generic_array/
+│   ├── generic_array.h
+│   ├── generic_array.c
+│   └── main.c
 └── README.md
 ```
 
@@ -18,6 +31,7 @@ A dynamic array implementation in C that demonstrates manual memory management, 
 
 ## Performance Characteristics
 
+### Dynamic Array Operations
 |Operation|Time Complexity|Notes|
 |---------|---------------|-----|
 | add     | O(1) amortized | O(n) when resize needed |
