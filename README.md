@@ -1,5 +1,5 @@
 
-# Dynamic Array From Scratch (In C)
+# Arrays from Scratch (In C)
 
 A dynamic array implementation in C that demonstrates manual memory management, automatic resizing, and fundamental data structure operations.
 
@@ -33,7 +33,7 @@ A dynamic array implementation in C that demonstrates manual memory management, 
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/brendanddev/array-from-scratch.git
+git clone https://github.com/brendanddev/arrays-from-scratch.git
 cd array-from-scratch
 ```
 
