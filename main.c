@@ -10,6 +10,7 @@ int main() {
     struct DynamicArray *da = _init();
     _status(da);
 
+    // Add elements
     for (int i = 0; i <= 1000; i++) {
         int r = rand();     // Generate a random value to add
         _add(da, r);
@@ -17,14 +18,8 @@ int main() {
 
     _status(da);
 
-    for (int i = 0; i < 800; i++) {
-        _remove_back(da);
-    }
-
-    _status(da);
-
-    // Should be under 25% and cause a shrink
-    _shrink(da);
+    // Remove elements
+    for (int i = 0; i < 800; i++) _remove_back(da);
 
     _status(da);
 

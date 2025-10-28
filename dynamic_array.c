@@ -6,7 +6,7 @@
 
 // Prototypes
 static void _resize(struct DynamicArray *da);
-void _shrink(struct DynamicArray *da);
+static void _shrink(struct DynamicArray *da);
 static void _shift_right(struct DynamicArray *da, int index);
 static void _shift_left(struct DynamicArray *da, int index);
 
@@ -188,7 +188,7 @@ static void _resize(struct DynamicArray *da) {
 
 /// @brief Shrinks the memory allocated for the internal array if the usage falls below a threshold.
 /// @param da A pointer to the DynamicArray struct
-void _shrink(struct DynamicArray *da) {
+static void _shrink(struct DynamicArray *da) {
 
     // Set threshold and calculate array usage
     double threshold = 25.0;

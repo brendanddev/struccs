@@ -30,6 +30,5 @@ int _capacity(struct DynamicArray *da);
 void _print(struct DynamicArray *da);
 void _status(struct DynamicArray *da);
 
-void _shrink(struct DynamicArray *da);
 
 #endif
