@@ -124,8 +124,10 @@ void _remove_back(struct DynamicArray *da) {
 
 /// @brief Frees the memory in use by the DynamicArray.
 void _discard(struct DynamicArray *da) {
-    free(da->ptrData);
-    da->ptrData = NULL;
+    if (da != NULL) {
+        free(da->ptrData);
+        free(da);
+    }
 }
 
 /// @brief Returns the size of the DynamicArray

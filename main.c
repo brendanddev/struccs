@@ -69,6 +69,7 @@ int main() {
     // _print(da);
 
     _discard(da);
+    da = NULL;
 
 
     return 0;
