@@ -37,8 +37,8 @@ void _add(struct DynamicArray *da, int item, int index) {
         resize(da);
     }
 
-    shift_right(da, index);
     da->ptrData[da->length++] = item;
+    shift_right(da, index);
 }
 
 // Adds an item to the back of the array
