@@ -23,14 +23,22 @@ int main() {
         // or 'da->ptrData[da->length++] = item;' with of conditional in the _add func
     }
 
+
+    // Get item at index 0
+    // int val = _get(da, 0);
+    // printf("GET [0]: %d\n", val);
+
+    // Remove last item
+    // _remove_last(da);
+    // _print(da);
+    // _status(da);
+
+    printf("BEFORE REMOVE AT: \n");
     _print(da);
     _status(da);
 
-
-    printf("GET [0]: %d\n", _get(da, 0));
-
-    // Remove last item
-    _remove_last(da);
+    printf("AFTER REMOVE AT: \n");
+    _remove_at(da, 0);
     _print(da);
     _status(da);
 
