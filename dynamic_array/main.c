@@ -18,12 +18,11 @@ int main() {
     // memory that may be in use or will be used by another system
     for (int i = 0; i < 50; i++) {
         int rd_num = rand() % 100;
-        da->ptrData[i] = rd_num;
+        _add(da, rd_num);
+        printf("[%d] added, length now %d\n", i, da->length);
+        // da->ptrData[i] = rd_num;
+        // or 'da->ptrData[da->length++] = item;' with of conditional in the _add func
     }
-
-    _status(da);
-    _add(da, 10);
-
 
     _print(da);
     _status(da);
