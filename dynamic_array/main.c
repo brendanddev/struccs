@@ -17,12 +17,14 @@ int main() {
     // This causes the segmentation fault because the pointer will try to access
     // memory that may be in use or will be used by another system
     for (int i = 0; i < 50; i++) {
-        int rd_num = rand() % 100;
+        int rd_num = rand() % 101;
         _append(da, rd_num);
         // da->ptrData[i] = rd_num;
         // or 'da->ptrData[da->length++] = item;' with of conditional in the _add func
     }
 
+    _print(da);
+    _status(da);
 
     // Get item at index 0
     // int val = _get(da, 0);
@@ -33,14 +35,20 @@ int main() {
     // _print(da);
     // _status(da);
 
-    printf("BEFORE REMOVE AT: \n");
+    // printf("BEFORE REMOVE AT: \n");
+    // _print(da);
+    // _status(da);
+
+    // printf("AFTER REMOVE AT: \n");
+    // _remove_at(da, 0);
+    // _print(da);
+    // _status(da);
+
+    printf("ADD AT INDEX: 1\n");
+    _add(da, 999, 1);
     _print(da);
     _status(da);
 
-    printf("AFTER REMOVE AT: \n");
-    _remove_at(da, 0);
-    _print(da);
-    _status(da);
 
 
 
