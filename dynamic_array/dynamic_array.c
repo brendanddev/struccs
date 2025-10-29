@@ -29,7 +29,8 @@ struct DynamicArray * _init() {
 }
 
 
-void _add(struct DynamicArray *da, int item) {
+// Adds an item to the back of the array
+void _append(struct DynamicArray *da, int item) {
 
     // Capacity reached, resize needed
     if (da->length == da->capacity) {
@@ -40,11 +41,25 @@ void _add(struct DynamicArray *da, int item) {
     da->ptrData[da->length++] = item;
 }
 
+
 int _get(struct DynamicArray *da, int index) {
     return da->ptrData[index];
 }
 
-void _remove(struct DynamicArray *da, int index);
+// Removes the last item in the array
+void _remove_last(struct DynamicArray *da) {
+    da->ptrData[da->length--];
+}
+
+void _remove_at(struct DynamicArray *da) {
+
+
+}
+
+
+void _remove(struct DynamicArray *da) {
+
+}
 
 void _print(struct DynamicArray *da) {
     for (int i = 0; i < da->length; i++) {

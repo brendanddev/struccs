@@ -18,8 +18,7 @@ int main() {
     // memory that may be in use or will be used by another system
     for (int i = 0; i < 50; i++) {
         int rd_num = rand() % 100;
-        _add(da, i);
-        // printf("[%d] added, length now %d\n", i, da->length);
+        _append(da, rd_num);
         // da->ptrData[i] = rd_num;
         // or 'da->ptrData[da->length++] = item;' with of conditional in the _add func
     }
@@ -29,5 +28,13 @@ int main() {
 
 
     printf("GET [0]: %d\n", _get(da, 0));
+
+    // Remove last item
+    _remove_last(da);
+    _print(da);
+    _status(da);
+
+
+
 
 }
