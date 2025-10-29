@@ -1,14 +1,16 @@
 
-# Arrays from Scratch (In C)
+# Arrays from Scratch (In C)    v0.1
 
-A dynamic array implementation in C that demonstrates manual memory management, automatic resizing, and fundamental data structure operations.
+I’m currently implementing a **dynamically resizing, memory-efficient array** from scratch in **C**.  
+This involves optimizing how capacity expands and contracts to balance **performance** and **memory usage**.
+
+Once this is complete, I plan to build on it by creating a **generic dynamically resizing array** that supports **`void*` types**, allowing storage of any data type while maintaining efficiency.
 
 ---
 
 ## Implementations
 
-1. **Dynamic Array**: A simple dynamic array that stores integers with automatic resizing capabilities.
-
+1. **Dynamic Array**: In progress...
 2. **Generic Array**: In progress...
 
 ---
@@ -20,10 +22,6 @@ arrays-from-scratch/
 │   ├── dynamic_array.h
 │   ├── dynamic_array.c
 │   └── main.c
-├── generic_array/
-│   ├── generic_array.h
-│   ├── generic_array.c
-│   └── main.c
 └── README.md
 ```
 
@@ -34,12 +32,7 @@ arrays-from-scratch/
 ### Dynamic Array Operations
 |Operation|Time Complexity|Notes|
 |---------|---------------|-----|
-| add     | O(1) amortized | O(n) when resize needed |
-| add_at  | O(n)           | Requires shifting elements |
-| get     | O(1)           | Direct array access |
-| remove  | O(n)           | Must search for element |
-| remove_at | O(n)         | Requires shifting elements |
-| remove_back | O(1)       | No shifting needed |
+| Working on it...|       |     |
 
 ---
 
