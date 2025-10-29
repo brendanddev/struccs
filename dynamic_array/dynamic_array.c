@@ -31,6 +31,16 @@ struct DynamicArray * _init() {
 }
 
 
+// Adds an item at the specified index
+void _add(struct DynamicArray *da, int item, int index) {
+    if (da->length == da->capacity) {
+        resize(da);
+    }
+
+    shift_right(da, index);
+    da->ptrData[da->length++] = item;
+}
+
 // Adds an item to the back of the array
 void _append(struct DynamicArray *da, int item) {
 
@@ -53,6 +63,7 @@ void _remove_last(struct DynamicArray *da) {
     da->length--;
 }
 
+// Removes an item at a specifed index
 void _remove_at(struct DynamicArray *da, int index) {
     shift_left(da, index);
     da->length--;
@@ -80,6 +91,7 @@ void _status(struct DynamicArray *da) {
 }
 
 
+// Resizes the array by doubling its capacity and reallocating more memory
 static void resize(struct DynamicArray *da) {
 
     // Set new capacity, double the initial
@@ -96,8 +108,12 @@ static void resize(struct DynamicArray *da) {
 
 
 static void shift_right(struct DynamicArray *da, int index) {
+    for (int i = index; i < da->length - 1; i++) {
+        da->ptrData[i + 1] = da->ptrData[i];
+    }
 }
 
+// Shifts items in the array to the left to fill the gap from the item being removed
 static void shift_left(struct DynamicArray *da, int index) {
     for (int i = index; i < da->length - 1; i++) {
         da->ptrData[i] = da->ptrData[i + 1];
