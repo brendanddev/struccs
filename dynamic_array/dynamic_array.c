@@ -35,10 +35,9 @@ void _add(struct DynamicArray *da, int item) {
     if (da->length == da->capacity) {
         // resize
         _resize(da);
-        da->length++;
-    } else {
-        da->ptrData[da->length++] = item;
     }
+
+    da->ptrData[da->length++] = item;
 }
 
 int _get(struct DynamicArray *da, int index) {
