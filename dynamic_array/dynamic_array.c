@@ -1,0 +1,52 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "dynamic_array.h"
+
+/// dynamic_array.c
+
+// Initializes a DynamicArray
+struct DynamicArray * _init() {
+
+    // Declare the pointer to the DynamicArray struct and 
+    // Allocate enough memory for the struct
+    struct DynamicArray *da = NULL;
+    da = malloc(sizeof(struct DynamicArray));
+
+    // Set initial capacity and length
+    da->capacity = 4;
+    da->length = 0;
+    da->item_size = sizeof(int);
+
+    // Allocate memory for the items the array will store
+    da->ptrData = malloc(sizeof(int) * da->capacity);
+
+    // Return the pointer to the struct
+    return da;
+}
+
+
+void _add(struct DynamicArray *da, int item) {
+
+    // Capacity reached, resize needed
+    if (da->length == da->capacity) {
+        // resize
+    } else {
+        da->ptrData[da->length++] = item;
+    }
+}
+
+int _get(struct DynamicArray *da, int index) {
+    return da->ptrData[index];
+}
+
+void _remove(struct DynamicArray *da, int index);
+
+void _print(struct DynamicArray *da) {
+    for (int i = 0; i < da->length; i++) {
+        printf("[%d] - %d\n", i, da->ptrData[i]);
+    }
+}
+
+void _status(struct DynamicArray *da) {
+    printf("Capacity: %d\nLength: %d\n", da->capacity, da->length);
+}
