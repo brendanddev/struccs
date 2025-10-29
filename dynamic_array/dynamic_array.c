@@ -5,7 +5,9 @@
 /// dynamic_array.c
 
 // Prototypes
-static void _resize(struct DynamicArray *da);
+static void resize(struct DynamicArray *da);
+static void shift_right(struct DynamicArray *da, int index);
+static void shift_left(struct DynamicArray *da, int index);
 
 
 // Initializes a DynamicArray
@@ -35,7 +37,7 @@ void _append(struct DynamicArray *da, int item) {
     // Capacity reached, resize needed
     if (da->length == da->capacity) {
         // resize
-        _resize(da);
+        resize(da);
     }
 
     da->ptrData[da->length++] = item;
@@ -48,19 +50,25 @@ int _get(struct DynamicArray *da, int index) {
 
 // Removes the last item in the array
 void _remove_last(struct DynamicArray *da) {
-    da->ptrData[da->length--];
+    da->length--;
 }
 
-void _remove_at(struct DynamicArray *da) {
-
-
+void _remove_at(struct DynamicArray *da, int index) {
+    shift_left(da, index);
+    da->length--;
 }
 
-
-void _remove(struct DynamicArray *da) {
-
+// Remove the first occurence of a specified item
+void _remove(struct DynamicArray *da, int item) {
+    for (int i = 0; i < da->length; i++) {
+        if (da->ptrData[i] == item) {
+            shift_left(da, i);
+            da->length--;
+        }
+    }
 }
 
+// Prints the contents of the DynamicArray
 void _print(struct DynamicArray *da) {
     for (int i = 0; i < da->length; i++) {
         printf("[%d] - %d\n", i, da->ptrData[i]);
@@ -72,7 +80,7 @@ void _status(struct DynamicArray *da) {
 }
 
 
-static void _resize(struct DynamicArray *da) {
+static void resize(struct DynamicArray *da) {
 
     // Set new capacity, double the initial
     da->capacity = da->capacity * 2;
@@ -84,4 +92,14 @@ static void _resize(struct DynamicArray *da) {
     // and point the pointer at the 
     ptrTemp = realloc(da->ptrData, sizeof(int) * da->capacity);
     da->ptrData = ptrTemp;
+}
+
+
+static void shift_right(struct DynamicArray *da, int index) {
+}
+
+static void shift_left(struct DynamicArray *da, int index) {
+    for (int i = index; i < da->length - 1; i++) {
+        da->ptrData[i] = da->ptrData[i + 1];
+    }
 }

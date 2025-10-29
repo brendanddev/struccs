@@ -18,8 +18,8 @@ struct DynamicArray * _init();
 void _append(struct DynamicArray *da, int item);
 int _get(struct DynamicArray *da, int index);
 void _remove_last(struct DynamicArray *da);
-void _remove_at(struct DynamicArray *da);
-void _remove(struct DynamicArray *da);
+void _remove_at(struct DynamicArray *da, int index);
+void _remove(struct DynamicArray *da, int item);
 void _print(struct DynamicArray *da);
 void _status(struct DynamicArray *da);
 
