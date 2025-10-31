@@ -6,6 +6,7 @@
 
 // Prototypes
 static void resize(struct DynamicArray *da);
+static void shrink(struct DynamicArray *da);
 static void shift_right(struct DynamicArray *da, int index);
 static void shift_left(struct DynamicArray *da, int index);
 
@@ -54,7 +55,7 @@ void _append(struct DynamicArray *da, int item) {
     da->ptrData[da->length++] = item;
 }
 
-
+// Retrieves an element at a specified index
 int _get(struct DynamicArray *da, int index) {
     return da->ptrData[index];
 }
@@ -79,7 +80,6 @@ void _remove(struct DynamicArray *da, int item) {
         }
     }
 }
-
 
 // Returns the length/size of the array
 int _size(struct DynamicArray *da) {
@@ -121,6 +121,8 @@ void _print(struct DynamicArray *da) {
     for (int i = 0; i < da->length; i++) {
         printf("[%d] - %d\n", i, da->ptrData[i]);
     }
+
+    shrink(da);
 }
 
 
@@ -140,6 +142,16 @@ static void resize(struct DynamicArray *da) {
     // and point the pointer at the 
     ptrTemp = realloc(da->ptrData, sizeof(int) * da->capacity);
     da->ptrData = ptrTemp;
+}
+
+// Shrinks the internal array if the length of the array is alot less than the capacity
+static void shrink(struct DynamicArray *da) {
+    // Check length compared to capacity to determine usage
+    // Ensure we dont reallocate too little, will need to ensure we dont go past a default capacity
+    // If usage falls below a certain amount, reallocate less memory for the array
+
+    double usage = (double) da->length / da->capacity;
+    printf("Current Array Usage: %f\n", usage * 100);
 }
 
 // Shifts elements starting at the last index, to the insertion index to make room for the item being added
