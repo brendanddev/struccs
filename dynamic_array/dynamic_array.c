@@ -61,6 +61,11 @@ int _get(struct DynamicArray *da, int index) {
     return da->ptrData[index];
 }
 
+
+void _set(struct DynamicArray *da, int item, int index) {
+    da->ptrData[index] = item;
+}
+
 // Removes the last item in the array
 void _remove_last(struct DynamicArray *da) {
     da->length--;
