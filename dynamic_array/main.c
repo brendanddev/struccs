@@ -5,45 +5,15 @@
 
 /// main.c
 
+// Prototypes
+void test_add_at();
+void test_shrink();
 
 int main() {
 
-    // Create an instance of the DynamicArray
-    struct DynamicArray *da = _init();
+    test_add_at();
+    test_shrink();
 
-
-    // Print current status and contents of the arr
-    _print(da);
-
-
-    // Append 50 random ints to the arr
-    for (int i = 0; i < 500; i++) {
-        int rd_num = rand() % 101;
-        _append(da, rd_num);
-    }
-
-    _print(da);
-    printf("Current Usage: %f\n", _usage(da));
-
-    while (_size(da) > 6) {
-        _remove_last(da);
-        printf("Current Usage: %f\n", _usage(da));
-    }
-
-    _print(da);
-    printf("Current Usage: %f\n", _usage(da));
-
-
-
-
-    // // Print current status and contents after appending 50 ints
-    // _print(da);
-
-
-    // // Add an item at a specified index
-    // printf("Adding an item at index: 0\n");
-    // _add(da, 999, 0);
-    // _print(da);
 
 
     // // Get the item at index 0
@@ -80,10 +50,7 @@ int main() {
     // _print(da);
 
 
-    // // Free memory previously occupied by the internal array and struct
-    // _discard(da);
-    // da = NULL;
-
+    return 0;
 
 
 
@@ -112,4 +79,42 @@ int main() {
 
 
 
+}
+
+
+
+void test_add_at() {
+    struct DynamicArray *da = _init();
+    for (int i = 0; i < 10; i++) _append(da, i);
+
+    printf("Before add_at: \n");
+    _print(da);
+
+    printf("Adding an item (999) at Index: 1\n");
+    _add(da, 999, 1);
+    _print(da);
+}
+
+void test_shrink() {
+    struct DynamicArray *da = _init();
+    printf("Initial State: Capacity=%d, Length=%d\n", _capacity(da), _size(da));
+
+    // Append 100 items to the array
+    for (int i = 0; i < 100; i++) {
+        int rd_num = rand() % 101;
+        _append(da, rd_num);
+    }
+
+    printf("Before removals: Capacity=%d, Length=%d\n", _capacity(da), _size(da));
+
+    // Remove 95 items from the array
+    while (_size(da) > 5) {
+        _remove_last(da);
+    }
+
+    printf("After removals: Capacity=%d, Length=%d\n", _capacity(da), _size(da));
+
+    // Free memory previously occupied by the internal array and struct
+    _discard(da);
+    da = NULL;
 }
