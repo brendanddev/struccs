@@ -12,10 +12,6 @@ int main() {
     struct DynamicArray *da = _init();
 
 
-    printf("Initial Capacity: %d\n", da->initial_capacity);
-    printf("Capacity: %d\n", da->capacity);
-
-
     // Print current status and contents of the arr
     _print(da);
 
@@ -69,12 +65,6 @@ int main() {
     _clear(da);
     _print(da);
 
-
-
-
-
-    printf("Initial Capacity: %d\n", da->initial_capacity);
-    printf("Capacity: %d\n", da->capacity);
 
     // Free memory previously occupied by the internal array and struct
     _discard(da);

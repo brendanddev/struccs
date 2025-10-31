@@ -156,6 +156,26 @@ static void shrink(struct DynamicArray *da) {
 
     // Check if the arr usage has fallen below the threshold
     if (usage < threshold) {
+        
+        int new_capacity;
+        // Check if current length is larger than the initial capacity
+        // If it is, the length is the new capacity
+        // Otherwise the new capacity is the initial capacity to avoid shrinking too low
+        if (da->length > da->initial_capacity) {
+            new_capacity = da->length;
+        } else {
+            new_capacity = da->initial_capacity;
+        }
+
+        // Create a temporary pointer to realloc the new amount of memory
+        int *newPtrData = NULL;
+        newPtrData = realloc(da->ptrData, new_capacity);
+
+        // Point the struct pointer to the new resized memory
+        da->ptrData = newPtrData;
+
+
+
         // Reallocate less memory, but enough for the current size and default capacity
         printf("The current Array Usage: %f has fallen below the threshold: %f\n", usage, threshold);
     }
