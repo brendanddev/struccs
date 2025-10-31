@@ -28,7 +28,7 @@ void _remove(struct DynamicArray *da, int item);
 
 int _size(struct DynamicArray *da);
 int _capacity(struct DynamicArray *da);
-bool _contains(struct DynamicArray *da);
+bool _contains(struct DynamicArray *da, int item);
 void _clear(struct DynamicArray *da);
 void _discard(struct DynamicArray *da);
 void _print(struct DynamicArray *da);

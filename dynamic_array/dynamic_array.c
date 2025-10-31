@@ -91,7 +91,15 @@ int _capacity(struct DynamicArray *da) {
     return da->capacity;
 }
 
-bool _contains(struct DynamicArray *da);
+// Checks if the array contains a specified item
+bool _contains(struct DynamicArray *da, int item) {
+    for (int i = 0; i < da->length; i++) {
+        if (da->ptrData[i] == item) {
+            return true;
+        }
+    }
+    return false;
+}
 
 
 void _clear(struct DynamicArray *da);
