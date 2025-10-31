@@ -17,12 +17,13 @@ void test_get_v2();
 
 int main() {
 
-    test_add_at();
-    test_get();
-    test_set();
-    test_remove_at();
-    test_contains();
-    test_shrink();
+    // test_add_at();
+    // test_get();
+    // test_set();
+    // test_remove_at();
+    // test_contains();
+    // test_shrink();
+    test_get_v2();
     return 0;
 
 
@@ -139,32 +140,13 @@ void test_shrink() {
 }
 
 
-
-
-
-
-// bool _get_v2(struct DynamicArray *da, int index, int *out_value) {
-
-//     // Return false indicating failure if index is invalid
-//     if (index < 0 || index > da->length) {
-//         fprintf(stderr, "Index is out of bounds for the array\n");
-//         return false;
-//     }
-
-//     // Store the value in the address of the out value pointer
-//     // and return true indicating success
-//     out_value = &da->ptrData[index];
-//     return true;
-// }
-
-
 void test_get_v2() {
     printf("\nGET TEST V2: \n");
     struct DynamicArray *da = _init();
     for (int i = 0; i < 10; i++) _append(da, i);
 
     int value;
-    if (_get_v2(da, 1, value)) {
+    if (_get_v2(da, 1, &value)) {
         printf("Return value: %d\n", value);
     } else {
         printf("Get failed...\n");
