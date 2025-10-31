@@ -237,11 +237,6 @@ static void shift_left(struct DynamicArray *da, int index) {
 
 
 
-
-
-
-
-
 bool _get_v2(struct DynamicArray *da, int index, int *out_value) {
 
     // Return false indicating failure if index is invalid
@@ -250,8 +245,8 @@ bool _get_v2(struct DynamicArray *da, int index, int *out_value) {
         return false;
     }
 
-    // Store the value in the address of the out value pointer
-    // and return true indicating success
-    out_value = &da->ptrData[index];
+    // Store the value from the array into the variable pointed to by *out_value
+    // and return true to indicate the operation succeeded
+    *out_value = da->ptrData[index];
     return true;
 }
