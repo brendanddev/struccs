@@ -38,4 +38,8 @@ void _discard(struct DynamicArray *da);
 void _print(struct DynamicArray *da);
 
 
+
+bool _get_v2(struct DynamicArray *da, int index, int *out_value);
+
+
 #endif

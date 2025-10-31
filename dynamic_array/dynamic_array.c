@@ -63,16 +63,16 @@ void _append(struct DynamicArray *da, int item) {
 
 // Retrieves an element at a specified index
 int _get(struct DynamicArray *da, int index) {
-    if (index < 0 || index > da->length) {
+    if (index < 0 || index >= da->length) {
         fprintf(stderr, "Index is out of bounds for the array\n");
-        return;
+        return -1;  // Chnage this
     }
     return da->ptrData[index];
 }
 
 // Sets an item in the array to a new specified item at the specified index
 void _set(struct DynamicArray *da, int item, int index) {
-    if (index < 0 || index > da->length) {
+    if (index < 0 || index >= da->length) {
         fprintf(stderr, "Index is out of bounds for the array\n");
         return;
     }
@@ -100,7 +100,7 @@ void _remove_at(struct DynamicArray *da, int index) {
         return;
     }
 
-    if (index < 0 || index > da->length) {
+    if (index < 0 || index >= da->length) {
         fprintf(stderr, "Index is out of bounds for the array\n");
         return;
     }
@@ -114,7 +114,7 @@ void _remove(struct DynamicArray *da, int item) {
         fprintf(stderr, "Cannot remove from an empty array\n");
         return;
     }
-    
+
     for (int i = 0; i < da->length; i++) {
         if (da->ptrData[i] == item) {
             shift_left(da, i);
@@ -183,15 +183,21 @@ static void resize(struct DynamicArray *da) {
     // Initialize a temporary pointer to NULL
     int *ptrTemp = NULL;
 
-    // Reallocate more memory for the new capacity of the array
-    // and point the pointer at the 
+    // Reallocate more memory for the new capacity of the internal array
     ptrTemp = realloc(da->ptrData, sizeof(int) * da->capacity);
+
+    // Handle case where allocation failed
+    if (ptrTemp == NULL) {
+        fprintf(stderr, "Memory allocation failed during resize\n");
+        exit(EXIT_FAILURE);
+    }
+
+    // Update the arrays internal pointer to point to the new memory
     da->ptrData = ptrTemp;
 }
 
 // Shrinks the internal array if the arrays usage falls below a set threshold
 static void shrink(struct DynamicArray *da) {
-
     printf("TRIGGERING SHRINK\n");
 
     int new_capacity;
@@ -227,4 +233,25 @@ static void shift_left(struct DynamicArray *da, int index) {
     for (int i = index; i < da->length - 1; i++) {
         da->ptrData[i] = da->ptrData[i + 1];
     }
+}
+
+
+
+
+
+
+
+
+bool _get_v2(struct DynamicArray *da, int index, int *out_value) {
+
+    // Return false indicating failure if index is invalid
+    if (index < 0 || index > da->length) {
+        fprintf(stderr, "Index is out of bounds for the array\n");
+        return false;
+    }
+
+    // Store the value in the address of the out value pointer
+    // and return true indicating success
+    out_value = &da->ptrData[index];
+    return true;
 }
