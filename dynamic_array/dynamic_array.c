@@ -83,14 +83,14 @@ void _remove(struct DynamicArray *da, int item) {
 
 // Prints the contents of the DynamicArray
 void _print(struct DynamicArray *da) {
+    printf("Capacity: %d\nLength: %d\n", da->capacity, da->length);
     for (int i = 0; i < da->length; i++) {
         printf("[%d] - %d\n", i, da->ptrData[i]);
     }
 }
 
-void _status(struct DynamicArray *da) {
-    printf("Capacity: %d\nLength: %d\n", da->capacity, da->length);
-}
+
+/// Static methods that belong to the current file
 
 
 // Resizes the array by doubling its capacity and reallocating more memory
