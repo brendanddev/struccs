@@ -154,6 +154,8 @@ static void resize(struct DynamicArray *da) {
 // Shrinks the internal array if the arrays usage falls below a set threshold
 static void shrink(struct DynamicArray *da) {
 
+    printf("TRIGGERING SHRINK\n");
+
     int new_capacity;
     // Check if current length is larger than the initial capacity
     // If it is, the length is the new capacity
