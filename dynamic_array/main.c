@@ -47,6 +47,24 @@ int main() {
     _remove_at(da, 0);          // TODO: Bug - Removes item at index '1' not '0' ?
     _print(da);
 
+
+    // Retrieve current size and capacity of the array
+    int size = _size(da);
+    int cap = _capacity(da);
+    printf("Size: %d, Capacity: %d\n", size, cap);
+
+
+    // Check if the array contains an item
+    int item = 999;
+    bool exists = _contains(da, item);
+    printf("The array contains %d: %s\n", item, exists ? "true" : "false");
+
+
+
+
+
+
+
     // Free memory previously occupied by the internal array and struct
     _discard(da);
     da = NULL;
