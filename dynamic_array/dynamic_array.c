@@ -6,7 +6,7 @@
 
 // Prototypes
 static void resize(struct DynamicArray *da);
-// static void shrink(struct DynamicArray *da);
+static void shrink(struct DynamicArray *da);
 static void shift_right(struct DynamicArray *da, int index);
 static void shift_left(struct DynamicArray *da, int index);
 
@@ -107,6 +107,10 @@ void _clear(struct DynamicArray *da) {
     da->length = 0;
 }
 
+int _usage(struct DynamicArray *da) {
+    return ((double) da->length / da->capacity) * 100;
+}
+
 
 // Frees the memory used by the DynamicArray, including its internal array 
 void _discard(struct DynamicArray *da) {
@@ -119,11 +123,10 @@ void _discard(struct DynamicArray *da) {
 // Prints the contents of the DynamicArray
 void _print(struct DynamicArray *da) {
     printf("Capacity: %d\nLength: %d\n", da->capacity, da->length);
+    printf("Usage: %f\n", (double) da->length / da->capacity * 100);
     for (int i = 0; i < da->length; i++) {
         printf("[%d] - %d\n", i, da->ptrData[i]);
     }
-
-    shrink(da);
 }
 
 
@@ -146,35 +149,35 @@ static void resize(struct DynamicArray *da) {
 }
 
 // Shrinks the internal array if the arrays usage falls below a set threshold
-void shrink(struct DynamicArray *da) {
+// static void shrink(struct DynamicArray *da) {
 
-    // Set threshold and calculate usage
-    double threshold = 25.0;
-    double usage = (double) da->length / da->capacity * 100;
+//     // Set threshold and calculate usage
+//     double threshold = 6.0;
+//     double usage = (double) da->length / da->capacity * 100;
 
-    // Check if the arr usage has fallen below the threshold
-    if (usage < threshold) {
+//     // Check if the arr usage has fallen below the threshold
+//     if (usage < threshold) {
         
-        int new_capacity;
-        // Check if current length is larger than the initial capacity
-        // If it is, the length is the new capacity
-        // Otherwise the new capacity is the initial capacity to avoid shrinking too low
-        if (da->length > da->initial_capacity) {
-            new_capacity = da->length;
-        } else {
-            new_capacity = da->initial_capacity;
-        }
+//         int new_capacity;
+//         // Check if current length is larger than the initial capacity
+//         // If it is, the length is the new capacity
+//         // Otherwise the new capacity is the initial capacity to avoid shrinking too low
+//         if (da->length > da->initial_capacity) {
+//             new_capacity = da->length;
+//         } else {
+//             new_capacity = da->initial_capacity;
+//         }
 
-        // Create a temporary pointer to realloc the new amount of memory
-        int *newPtrData = NULL;
-        newPtrData = realloc(da->ptrData, sizeof(int) * new_capacity);
+//         // Create a temporary pointer to realloc the new amount of memory
+//         int *newPtrData = NULL;
+//         newPtrData = realloc(da->ptrData, sizeof(int) * new_capacity);
 
-        // Point the struct pointer to the new resized memory
-        // and set new capacity
-        da->ptrData = newPtrData;
-        da->capacity = new_capacity;
-    }
-}
+//         // Point the struct pointer to the new resized memory
+//         // and set new capacity
+//         da->ptrData = newPtrData;
+//         da->capacity = new_capacity;
+//     }
+// }
 
 // Shifts elements starting at the last index, to the insertion index to make room for the item being added
 static void shift_right(struct DynamicArray *da, int index) {

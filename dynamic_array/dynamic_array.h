@@ -31,15 +31,9 @@ int _size(struct DynamicArray *da);
 int _capacity(struct DynamicArray *da);
 bool _contains(struct DynamicArray *da, int item);
 void _clear(struct DynamicArray *da);
+int _usage(struct DynamicArray *da);
 void _discard(struct DynamicArray *da);
 void _print(struct DynamicArray *da);
-
-
-
-
-
-
-void shrink(struct DynamicArray *da);
 
 
 #endif
