@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include "dynamic_array.h"
 
 /// dynamic_array.c
@@ -35,6 +36,11 @@ struct DynamicArray * _init() {
 
 // Adds an item at the specified index
 void _add(struct DynamicArray *da, int item, int index) {
+    if (index < 0 || index > da->length) {
+        fprintf(stderr, "Index is out of bounds for the array\n");
+        return;
+    }
+
     if (da->length == da->capacity) {
         resize(da);
     }
@@ -46,7 +52,6 @@ void _add(struct DynamicArray *da, int item, int index) {
 
 // Adds an item to the back of the array
 void _append(struct DynamicArray *da, int item) {
-
     // Capacity reached, resize needed
     if (da->length == da->capacity) {
         // resize
@@ -58,16 +63,29 @@ void _append(struct DynamicArray *da, int item) {
 
 // Retrieves an element at a specified index
 int _get(struct DynamicArray *da, int index) {
+    if (index < 0 || index > da->length) {
+        fprintf(stderr, "Index is out of bounds for the array\n");
+        return;
+    }
     return da->ptrData[index];
 }
 
-
+// Sets an item in the array to a new specified item at the specified index
 void _set(struct DynamicArray *da, int item, int index) {
+    if (index < 0 || index > da->length) {
+        fprintf(stderr, "Index is out of bounds for the array\n");
+        return;
+    }
     da->ptrData[index] = item;
 }
 
 // Removes the last item in the array
 void _remove_last(struct DynamicArray *da) {
+    if (da->length == 0) {
+        fprintf(stderr, "Cannot remove from an empty array\n");
+        return;
+    }
+    
     da->length--;
 
     if (_usage(da) < SHRINK_THRESHOLD) {
@@ -77,16 +95,31 @@ void _remove_last(struct DynamicArray *da) {
 
 // Removes an item at a specifed index
 void _remove_at(struct DynamicArray *da, int index) {
+    if (da->length == 0) {
+        fprintf(stderr, "Cannot remove from an empty array\n");
+        return;
+    }
+
+    if (index < 0 || index > da->length) {
+        fprintf(stderr, "Index is out of bounds for the array\n");
+        return;
+    }
     shift_left(da, index);
     da->length--;
 }
 
 // Remove the first occurence of a specified item
 void _remove(struct DynamicArray *da, int item) {
+    if (da->length == 0) {
+        fprintf(stderr, "Cannot remove from an empty array\n");
+        return;
+    }
+    
     for (int i = 0; i < da->length; i++) {
         if (da->ptrData[i] == item) {
             shift_left(da, i);
             da->length--;
+            break;
         }
     }
 }

@@ -114,7 +114,6 @@ void test_contains() {
     da = NULL;
 }
 
-
 void test_shrink() {
     printf("\nSHRINK TEST: \n");
     struct DynamicArray *da = _init();
@@ -129,10 +128,7 @@ void test_shrink() {
     printf("Before removals: Capacity=%d, Length=%d\n", _capacity(da), _size(da));
 
     // Remove 95 items from the array
-    while (_size(da) > 5) {
-        _remove_last(da);
-    }
-
+    while (_size(da) > 5) _remove_last(da);
     printf("After removals: Capacity=%d, Length=%d\n", _capacity(da), _size(da));
 
     // Free memory previously occupied by the internal array and struct
