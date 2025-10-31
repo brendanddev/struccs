@@ -25,6 +25,12 @@ int main() {
     _print(da);
 
 
+    // Add an item at a specified index
+    printf("Adding an item at index: 0\n");
+    _add(da, 999, 0);
+    _print(da);
+
+
     // Get the item at index 0
     int value = _get(da, 0);
     printf("\nValue at index 0: %d\n", value);
@@ -36,22 +42,14 @@ int main() {
     _print(da);
 
 
+    // Remove an item at a specified index
+    printf("Removing item at index 0: \n");
+    _remove_at(da, 0);          // TODO: Bug - Removes item at index '1' not '0' ?
+    _print(da);
 
-
-
-    // printf("BEFORE REMOVE AT: \n");
-    // _print(da);
-    // _status(da);
-
-    // printf("AFTER REMOVE AT: \n");
-    // _remove_at(da, 0);
-    // _print(da);
-    // _status(da);
-
-    // printf("ADD AT INDEX: 1\n");
-    // _add(da, 999, 1);
-    // _print(da);
-    // _status(da);
+    // Free memory previously occupied by the internal array and struct
+    _discard(da);
+    da = NULL;
 
 
 
