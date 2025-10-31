@@ -19,8 +19,6 @@ int main() {
     test_remove_at();
     test_contains();
     test_shrink();
-
-
     return 0;
 
 
@@ -73,6 +71,7 @@ void test_remove_at() {
     for (int i = 0; i < 10; i++) _append(da, i);
 
     printf("Removing item at index 0: \n");
+    printf("SHOULD REMOVE ITEM: %d\n", _get(da, 0));
     _remove_at(da, 0);  // TODO: Bug - Removes item at index '1' not '0' ?
     _print(da);
 
