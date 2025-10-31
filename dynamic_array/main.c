@@ -70,9 +70,17 @@ void test_remove_at() {
     struct DynamicArray *da = _init();
     for (int i = 0; i < 10; i++) _append(da, i);
 
+    printf("BEFORE REMOVAL: \n");
+    _print(da);
+
     printf("Removing item at index 0: \n");
     printf("SHOULD REMOVE ITEM: %d\n", _get(da, 0));
     _remove_at(da, 0);  // TODO: Bug - Removes item at index '1' not '0' ?
+    _print(da);
+
+    printf("Removing item at index 4: \n");
+    printf("SHOULD REMOVE ITEM: %d\n", _get(da, 4));
+    _remove_at(da, 4);
     _print(da);
 
     _discard(da);

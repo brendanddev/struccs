@@ -186,7 +186,7 @@ static void shift_right(struct DynamicArray *da, int index) {
 
 // Shifts items in the array to the left to fill the gap from the item being removed
 static void shift_left(struct DynamicArray *da, int index) {
-    for (int i = index + 1; i < da->length - 1; i++) {
+    for (int i = index; i < da->length - 1; i++) {
         da->ptrData[i] = da->ptrData[i + 1];
     }
 }
