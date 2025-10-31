@@ -7,57 +7,21 @@
 
 // Prototypes
 void test_add_at();
+void test_get();
+void test_remove_at();
+void test_contains();
 void test_shrink();
 
 int main() {
 
     test_add_at();
+    test_get();
+    test_remove_at();
+    test_contains();
     test_shrink();
 
 
-
-    // // Get the item at index 0
-    // int value = _get(da, 0);
-    // printf("\nValue at index 0: %d\n", value);
-
-
-    // // Remove the last item in the arr
-    // printf("Removing the last item...\n");
-    // _remove_last(da);
-    // _print(da);
-
-
-    // // Remove an item at a specified index
-    // printf("Removing item at index 0: \n");
-    // _remove_at(da, 0);          // TODO: Bug - Removes item at index '1' not '0' ?
-    // _print(da);
-
-
-    // // Retrieve current size and capacity of the array
-    // int size = _size(da);
-    // int cap = _capacity(da);
-    // printf("Size: %d, Capacity: %d\n", size, cap);
-
-
-    // // Check if the array contains an item
-    // int item = 999;
-    // bool exists = _contains(da, item);
-    // printf("The array contains %d: %s\n", item, exists ? "true" : "false");
-
-
-    // // Clear the contents of the array
-    // _clear(da);
-    // _print(da);
-
-
     return 0;
-
-
-
-
-
-
-
 
 
     // This will currently produce an error: zsh: segmentation fault  ./out
@@ -72,18 +36,11 @@ int main() {
     //     // da->ptrData[i] = rd_num;
     //     // or 'da->ptrData[da->length++] = item;' with of conditional in the _add func
     // }
-
-
-
-
-
-
-
 }
 
 
-
 void test_add_at() {
+    printf("\nADD_AT TEST: \n");
     struct DynamicArray *da = _init();
     for (int i = 0; i < 10; i++) _append(da, i);
 
@@ -93,9 +50,56 @@ void test_add_at() {
     printf("Adding an item (999) at Index: 1\n");
     _add(da, 999, 1);
     _print(da);
+
+    _discard(da);
+    da = NULL;
 }
 
+void test_get() {
+    printf("\nGET TEST: \n");
+    struct DynamicArray *da = _init();
+    for (int i = 0; i < 10; i++) _append(da, i);
+
+    int value = _get(da, 0);
+    printf("\nValue at index 0: %d\n", value);
+
+    _discard(da);
+    da = NULL;
+}
+
+void test_remove_at() {
+    printf("\nREMOVE_AT TEST: \n");
+    struct DynamicArray *da = _init();
+    for (int i = 0; i < 10; i++) _append(da, i);
+
+    printf("Removing item at index 0: \n");
+    _remove_at(da, 0);  // TODO: Bug - Removes item at index '1' not '0' ?
+    _print(da);
+
+    _discard(da);
+    da = NULL;
+}
+
+void test_contains() {
+    printf("\nCONTAINS TEST: \n");
+    struct DynamicArray *da = _init();
+    for (int i = 0; i < 10; i++) _append(da, i);
+
+    int itemOne = 999;
+    int itemTwo = 1;
+    bool existsOne = _contains(da, itemOne);
+    bool existsTwo = _contains(da, itemTwo);
+
+    printf("The array contains %d: %s\n", itemOne, existsOne ? "true" : "false");
+    printf("The array contains %d: %s\n", itemTwo, existsTwo ? "true" : "false");
+
+    _discard(da);
+    da = NULL;
+}
+
+
 void test_shrink() {
+    printf("\nSHRINK TEST: \n");
     struct DynamicArray *da = _init();
     printf("Initial State: Capacity=%d, Length=%d\n", _capacity(da), _size(da));
 
