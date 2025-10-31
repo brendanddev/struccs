@@ -111,21 +111,11 @@ static void resize(struct DynamicArray *da) {
 
 static void shift_right(struct DynamicArray *da, int index) {
 
-    for (int i = da->length - 1; i > index + 1; i--) {
+    for (int i = da->length - 1; i >= index; i--) {
         printf("Before move: [%d] -> %d\n", i, da->ptrData[i]);
         da->ptrData[i + 1] = da->ptrData[i];
         printf("After move: [%d] = %d\n", i + 1, da->ptrData[i + 1]);
     }
-
-
-
-
-    // for (int i = index; i < da->length - 1; i++) {
-    //     printf("Before move: [%d] -> %d\n", i, da->ptrData[i]);
-    //     da->ptrData[i + 1] = da->ptrData[i];
-    //     printf("After move: [%d] = %d\n", i + 1, da->ptrData[i + 1]);
-    //     // printf("Moving element %d from %d to %d\n", da->ptrData[i], i, i + 1);
-    // }
 }
 
 // Shifts items in the array to the left to fill the gap from the item being removed
