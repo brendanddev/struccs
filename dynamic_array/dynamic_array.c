@@ -101,8 +101,10 @@ bool _contains(struct DynamicArray *da, int item) {
     return false;
 }
 
-
-void _clear(struct DynamicArray *da);
+// Clears the contents of the array by setting the length to 0
+void _clear(struct DynamicArray *da) {
+    da->length = 0;
+}
 
 
 // Frees the memory used by the DynamicArray, including its internal array 
