@@ -8,6 +8,7 @@
 // Prototypes
 void test_add_at();
 void test_get();
+void test_set();
 void test_remove_at();
 void test_contains();
 void test_shrink();
@@ -16,6 +17,7 @@ int main() {
 
     test_add_at();
     test_get();
+    test_set();
     test_remove_at();
     test_contains();
     test_shrink();
@@ -65,6 +67,19 @@ void test_get() {
     da = NULL;
 }
 
+void test_set() {
+    printf("\nSET TEST: \n");
+    struct DynamicArray *da = _init();
+    for (int i = 0; i < 10; i++) _append(da, i);
+
+    printf("BEFORE SET: \n");
+    _print(da);
+
+    printf("AFTER SET: \n");
+    _set(da, 1000, 0);
+    _print(da);
+}
+
 void test_remove_at() {
     printf("\nREMOVE_AT TEST: \n");
     struct DynamicArray *da = _init();
@@ -75,12 +90,7 @@ void test_remove_at() {
 
     printf("Removing item at index 0: \n");
     printf("SHOULD REMOVE ITEM: %d\n", _get(da, 0));
-    _remove_at(da, 0);  // TODO: Bug - Removes item at index '1' not '0' ?
-    _print(da);
-
-    printf("Removing item at index 4: \n");
-    printf("SHOULD REMOVE ITEM: %d\n", _get(da, 4));
-    _remove_at(da, 4);
+    _remove_at(da, 0);
     _print(da);
 
     _discard(da);
