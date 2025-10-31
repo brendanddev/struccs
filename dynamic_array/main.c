@@ -60,6 +60,9 @@ int main() {
     printf("The array contains %d: %s\n", item, exists ? "true" : "false");
 
 
+    // Clear the contents of the array
+    _clear(da);
+    _print(da);
 
 
 
