@@ -149,9 +149,17 @@ static void shrink(struct DynamicArray *da) {
     // Check length compared to capacity to determine usage
     // Ensure we dont reallocate too little, will need to ensure we dont go past a default capacity
     // If usage falls below a certain amount, reallocate less memory for the array
+    
+    double usage = (double) da->length / da->capacity * 100;
+    double threshold = 25.0;
 
-    double usage = (double) da->length / da->capacity;
-    printf("Current Array Usage: %f\n", usage * 100);
+    // Check if the arr usage has fallen below the threshold
+    if (usage < threshold) {
+        // Reallocate less memory, but enough for the current size and default capacity
+        printf("The current Array Usage: %f has fallen below the threshold: %f\n", usage, threshold);
+    }
+
+    printf("Current Array Usage: %f\n", usage);
 }
 
 // Shifts elements starting at the last index, to the insertion index to make room for the item being added

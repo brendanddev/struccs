@@ -65,6 +65,23 @@ int main() {
     _print(da);
 
 
+    // Add elements
+    for (int i = 0; i < 100; i++) {
+        _append(da, i);
+    }
+
+    _print(da);
+
+    // Simulate removing ~75 elements
+    for (int i = da->length; i > 15; i--) {
+        _remove_last(da);
+    }
+
+    // Should orint that usage has fallen below threshold
+    _print(da);
+
+
+
 
 
 
