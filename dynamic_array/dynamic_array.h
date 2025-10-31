@@ -5,7 +5,7 @@
 #ifndef DYNAMIC_ARRAY_H
 #define DYNAMIC_ARRAY_H 
 
-#define SHRINK_THRESHOLD 6.0
+#define SHRINK_THRESHOLD 5.0
 
 /// dynamic_array.h
 
