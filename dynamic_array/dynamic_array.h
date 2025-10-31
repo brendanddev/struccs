@@ -34,4 +34,12 @@ void _clear(struct DynamicArray *da);
 void _discard(struct DynamicArray *da);
 void _print(struct DynamicArray *da);
 
+
+
+
+
+
+void shrink(struct DynamicArray *da);
+
+
 #endif

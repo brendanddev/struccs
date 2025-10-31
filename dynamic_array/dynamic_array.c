@@ -6,7 +6,7 @@
 
 // Prototypes
 static void resize(struct DynamicArray *da);
-static void shrink(struct DynamicArray *da);
+// static void shrink(struct DynamicArray *da);
 static void shift_right(struct DynamicArray *da, int index);
 static void shift_left(struct DynamicArray *da, int index);
 
@@ -145,14 +145,12 @@ static void resize(struct DynamicArray *da) {
     da->ptrData = ptrTemp;
 }
 
-// Shrinks the internal array if the length of the array is alot less than the capacity
-static void shrink(struct DynamicArray *da) {
-    // Check length compared to capacity to determine usage
-    // Ensure we dont reallocate too little, will need to ensure we dont go past a default capacity
-    // If usage falls below a certain amount, reallocate less memory for the array
-    
-    double usage = (double) da->length / da->capacity * 100;
+// Shrinks the internal array if the arrays usage falls below a set threshold
+void shrink(struct DynamicArray *da) {
+
+    // Set threshold and calculate usage
     double threshold = 25.0;
+    double usage = (double) da->length / da->capacity * 100;
 
     // Check if the arr usage has fallen below the threshold
     if (usage < threshold) {
@@ -169,18 +167,13 @@ static void shrink(struct DynamicArray *da) {
 
         // Create a temporary pointer to realloc the new amount of memory
         int *newPtrData = NULL;
-        newPtrData = realloc(da->ptrData, new_capacity);
+        newPtrData = realloc(da->ptrData, sizeof(int) * new_capacity);
 
         // Point the struct pointer to the new resized memory
+        // and set new capacity
         da->ptrData = newPtrData;
-
-
-
-        // Reallocate less memory, but enough for the current size and default capacity
-        printf("The current Array Usage: %f has fallen below the threshold: %f\n", usage, threshold);
+        da->capacity = new_capacity;
     }
-
-    printf("Current Array Usage: %f\n", usage);
 }
 
 // Shifts elements starting at the last index, to the insertion index to make room for the item being added
