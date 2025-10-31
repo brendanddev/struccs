@@ -24,6 +24,7 @@ void _remove_last(struct DynamicArray *da);
 void _remove_at(struct DynamicArray *da, int index);
 void _remove(struct DynamicArray *da, int item);
 
+void _discard(struct DynamicArray *da);
 void _print(struct DynamicArray *da);
 
 #endif

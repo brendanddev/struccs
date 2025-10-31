@@ -38,7 +38,6 @@ void _add(struct DynamicArray *da, int item, int index) {
     }
 
     shift_right(da, index);
-    printf("Inserting %d at index %d\n", item, index);
     da->ptrData[index] = item;
     da->length++;
 }
@@ -78,6 +77,14 @@ void _remove(struct DynamicArray *da, int item) {
             shift_left(da, i);
             da->length--;
         }
+    }
+}
+
+// Frees the memory used by the DynamicArray, including its internal array 
+void _discard(struct DynamicArray *da) {
+    if (da != NULL) {
+        free(da->ptrData);
+        free(da);
     }
 }
 
