@@ -108,13 +108,11 @@ static void resize(struct DynamicArray *da) {
     da->ptrData = ptrTemp;
 }
 
-
+// Shifts elements starting at the last index, to the insertion index to make room for the item being added
 static void shift_right(struct DynamicArray *da, int index) {
-
+    // Start at last index, loop until we reach the insertion index
     for (int i = da->length - 1; i >= index; i--) {
-        printf("Before move: [%d] -> %d\n", i, da->ptrData[i]);
         da->ptrData[i + 1] = da->ptrData[i];
-        printf("After move: [%d] = %d\n", i + 1, da->ptrData[i + 1]);
     }
 }
 
