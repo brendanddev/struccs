@@ -107,7 +107,7 @@ void _clear(struct DynamicArray *da) {
     da->length = 0;
 }
 
-int _usage(struct DynamicArray *da) {
+double _usage(struct DynamicArray *da) {
     return ((double) da->length / da->capacity) * 100;
 }
 
@@ -123,7 +123,6 @@ void _discard(struct DynamicArray *da) {
 // Prints the contents of the DynamicArray
 void _print(struct DynamicArray *da) {
     printf("Capacity: %d\nLength: %d\n", da->capacity, da->length);
-    printf("Usage: %f\n", (double) da->length / da->capacity * 100);
     for (int i = 0; i < da->length; i++) {
         printf("[%d] - %d\n", i, da->ptrData[i]);
     }
