@@ -38,7 +38,8 @@ void _add(struct DynamicArray *da, int item, int index) {
     }
 
     shift_right(da, index);
-    da->ptrData[da->length] = item;
+    printf("Inserting %d at index %d\n", item, index);
+    da->ptrData[index] = item;
     da->length++;
 }
 
@@ -110,7 +111,7 @@ static void resize(struct DynamicArray *da) {
 
 static void shift_right(struct DynamicArray *da, int index) {
 
-    for (int i = da->length - 1; i > index; i --) {
+    for (int i = da->length - 1; i > index + 1; i--) {
         printf("Before move: [%d] -> %d\n", i, da->ptrData[i]);
         da->ptrData[i + 1] = da->ptrData[i];
         printf("After move: [%d] = %d\n", i + 1, da->ptrData[i + 1]);
