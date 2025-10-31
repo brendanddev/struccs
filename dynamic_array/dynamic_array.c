@@ -19,8 +19,9 @@ struct DynamicArray * _init() {
     struct DynamicArray *da = NULL;
     da = malloc(sizeof(struct DynamicArray));
 
-    // Set initial capacity and length
-    da->capacity = 4;
+    // Set initial capacity, current capacity, and length
+    da->initial_capacity = 4;
+    da->capacity = da->initial_capacity;
     da->length = 0;
     da->item_size = sizeof(int);
 

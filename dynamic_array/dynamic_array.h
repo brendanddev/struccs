@@ -10,6 +10,7 @@
 // Defines the struct DynamicArray
 typedef struct DynamicArray {
     int *ptrData;               // A pointer to the memory where the array elements will be stored
+    int initial_capacity;       // The initial capacity of the array
     int capacity;               // The capacity of the array
     int length;                 // The length of the array
     size_t item_size;           // The size of the items stored in the array    (not needed rn)
