@@ -22,8 +22,6 @@ int main() {
         _append(da, rd_num);
     }
 
-    // Check usage test
-    printf("Current Usage: %f\n", _usage(da));
 
     // Print current status and contents after appending 50 ints
     _print(da);

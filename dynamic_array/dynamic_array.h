@@ -3,7 +3,9 @@
 #include <stdbool.h>
 
 #ifndef DYNAMIC_ARRAY_H
-#define DYNAMIC_ARRAY_H
+#define DYNAMIC_ARRAY_H 
+
+#define SHRINK_THRESHOLD 6.0
 
 /// dynamic_array.h
 

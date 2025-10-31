@@ -64,6 +64,10 @@ int _get(struct DynamicArray *da, int index) {
 // Removes the last item in the array
 void _remove_last(struct DynamicArray *da) {
     da->length--;
+
+    if (_usage(da) < SHRINK_THRESHOLD) {
+        shrink(da);
+    }
 }
 
 // Removes an item at a specifed index
@@ -148,35 +152,27 @@ static void resize(struct DynamicArray *da) {
 }
 
 // Shrinks the internal array if the arrays usage falls below a set threshold
-// static void shrink(struct DynamicArray *da) {
+static void shrink(struct DynamicArray *da) {
 
-//     // Set threshold and calculate usage
-//     double threshold = 6.0;
-//     double usage = (double) da->length / da->capacity * 100;
+    int new_capacity;
+    // Check if current length is larger than the initial capacity
+    // If it is, the length is the new capacity
+    // Otherwise the new capacity is the initial capacity to avoid shrinking too low
+    if (da->length > da->initial_capacity) {
+        new_capacity = da->length;
+    } else {
+        new_capacity = da->initial_capacity;
+    }
 
-//     // Check if the arr usage has fallen below the threshold
-//     if (usage < threshold) {
-        
-//         int new_capacity;
-//         // Check if current length is larger than the initial capacity
-//         // If it is, the length is the new capacity
-//         // Otherwise the new capacity is the initial capacity to avoid shrinking too low
-//         if (da->length > da->initial_capacity) {
-//             new_capacity = da->length;
-//         } else {
-//             new_capacity = da->initial_capacity;
-//         }
+    // Create a temporary pointer to realloc the new amount of memory
+    int *newPtrData = NULL;
+    newPtrData = realloc(da->ptrData, sizeof(int) * new_capacity);
 
-//         // Create a temporary pointer to realloc the new amount of memory
-//         int *newPtrData = NULL;
-//         newPtrData = realloc(da->ptrData, sizeof(int) * new_capacity);
-
-//         // Point the struct pointer to the new resized memory
-//         // and set new capacity
-//         da->ptrData = newPtrData;
-//         da->capacity = new_capacity;
-//     }
-// }
+    // Point the struct pointer to the new resized memory
+    // and set new capacity
+    da->ptrData = newPtrData;
+    da->capacity = new_capacity;
+}
 
 // Shifts elements starting at the last index, to the insertion index to make room for the item being added
 static void shift_right(struct DynamicArray *da, int index) {
