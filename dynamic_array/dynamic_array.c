@@ -80,6 +80,23 @@ void _remove(struct DynamicArray *da, int item) {
     }
 }
 
+
+// Returns the length/size of the array
+int _size(struct DynamicArray *da) {
+    return da->length;
+}
+
+// Returns the current capacity of the array
+int _capacity(struct DynamicArray *da) {
+    return da->capacity;
+}
+
+bool _contains(struct DynamicArray *da);
+
+
+void _clear(struct DynamicArray *da);
+
+
 // Frees the memory used by the DynamicArray, including its internal array 
 void _discard(struct DynamicArray *da) {
     if (da != NULL) {

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 #ifndef DYNAMIC_ARRAY_H
 #define DYNAMIC_ARRAY_H
@@ -19,11 +20,16 @@ void _add(struct DynamicArray *da, int item, int index);
 void _append(struct DynamicArray *da, int item);
 
 int _get(struct DynamicArray *da, int index);
+int _set(struct DynamicArray *da, int item, int index);
 
 void _remove_last(struct DynamicArray *da);
 void _remove_at(struct DynamicArray *da, int index);
 void _remove(struct DynamicArray *da, int item);
 
+int _size(struct DynamicArray *da);
+int _capacity(struct DynamicArray *da);
+bool _contains(struct DynamicArray *da);
+void _clear(struct DynamicArray *da);
 void _discard(struct DynamicArray *da);
 void _print(struct DynamicArray *da);
 
