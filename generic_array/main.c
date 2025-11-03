@@ -12,12 +12,12 @@ void _print(struct GenericArray *ga);
 int main() {
 
     struct GenericArray *ga = _init(sizeof(int));
-    printf("Capacity: %d, Length: %d, Item Size: %d\n", ga->capacity, ga->length, ga->item_size);
+    printf("Capacity: %d, Length: %d, Item Size: %zu bytes\n", ga->capacity, ga->length, ga->item_size);
 
     int num = 100;
     void *ptr = &num;
     _append(ga, ptr);
-    printf("Capacity: %d, Length: %d, Item Size: %d\n", ga->capacity, ga->length, ga->item_size);
+    printf("Capacity: %d, Length: %d, Item Size: %zu bytes\n", ga->capacity, ga->length, ga->item_size);
 
     int num2 = 200;
     void *ptr2 = &num2;
@@ -27,9 +27,12 @@ int main() {
     void *ptr3 = &num3;
     _append(ga, ptr3);
 
-    printf("Capacity: %d, Length: %d, Item Size: %d\n", ga->capacity, ga->length, ga->item_size);
+    printf("Capacity: %d, Length: %d, Item Size: %zu bytes\n", ga->capacity, ga->length, ga->item_size);
 
     _print(ga);
+
+    _discard(ga);
+    ga = NULL;
     return 0;
 }
 
