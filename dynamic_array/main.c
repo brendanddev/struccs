@@ -5,7 +5,7 @@
 /// main.c
 
 // Prototypes
-void test_add_at();
+void test_add();
 void test_get();
 void test_set();
 void test_remove_at();
@@ -15,7 +15,7 @@ void test_shrink();
 
 int main() {
 
-    test_add_at();
+    test_add();
     test_get();
     test_set();
     test_remove_at();
@@ -40,22 +40,26 @@ int main() {
 }
 
 
-void test_add_at() {
-    printf("\nADD_AT TEST: \n");
+void test_add() {
+    printf("\nADD TEST: \n");
     struct DynamicArray *da = _init();
     for (int i = 0; i < 10; i++) _append(da, i);
 
-    printf("Before add_at: \n");
+    printf("Before _add: \n");
     _print(da);
 
     printf("Adding an item (999) at Index: 1\n");
-    _add(da, 999, 1);
-    _print(da);
+    if (_add(da, 999, 1)) {
+        printf("Item added successfully!\n");
+        _print(da);
+    } else {
+        printf("Failed to add the item to the array!\n");
+    }
 
     _discard(da);
     da = NULL;
+    printf("===========================================\n");
 }
-
 
 void test_get() {
     printf("\nGET TEST: \n");
@@ -68,13 +72,15 @@ void test_get() {
     int value;
     if (_get(da, 0, &value)) {
         printf("\nValue at index 0: %d\n", value);
+    } else {
+        printf("Failed to retrieve the item!\n");
     }
 
     _discard(da);
     da = NULL;
+    printf("===========================================\n");
+
 }
-
-
 
 void test_set() {
     printf("\nSET TEST: \n");
@@ -84,9 +90,17 @@ void test_set() {
     printf("BEFORE SET: \n");
     _print(da);
 
-    printf("AFTER SET: \n");
-    _set(da, 1000, 0);
-    _print(da);
+    if (_set(da, 1000, 0)) {
+        printf("SET operation successful!\n");
+        printf("AFTER SET: \n");
+        _print(da);
+    } else {
+        printf("Failed to SET the item\n");
+    }
+
+    _discard(da);
+    da = NULL;
+    printf("===========================================\n");
 }
 
 void test_remove_at() {
@@ -102,12 +116,18 @@ void test_remove_at() {
 
     if (_get(da, 0, &value)) {
         printf("SHOULD REMOVE ITEM: %d\n", value);
-        _remove_at(da, 0);
-        _print(da);
+
+        if (_remove_at(da, 0)) {
+            printf("Item %d removed successfully!\n", value);
+            _print(da);
+        } else {
+            printf("Failed to remove the item\n");
+        }
     }
 
     _discard(da);
     da = NULL;
+    printf("===========================================\n");
 }
 
 void test_contains() {
@@ -125,6 +145,8 @@ void test_contains() {
 
     _discard(da);
     da = NULL;
+    printf("===========================================\n");
+
 }
 
 void test_shrink() {
@@ -147,4 +169,5 @@ void test_shrink() {
     // Free memory previously occupied by the internal array and struct
     _discard(da);
     da = NULL;
+    printf("===========================================\n");
 }
