@@ -20,14 +20,31 @@ struct DynamicArray * _init() {
     struct DynamicArray *da = NULL;
     da = malloc(sizeof(struct DynamicArray));
 
+    // Check if allocation failed
+    if (da == NULL) {
+        fprintf(stderr, "Memory allocation failed during initialization.\n");
+        exit(EXIT_FAILURE);
+    }
+
     // Set initial capacity, current capacity, and length
     da->initial_capacity = 4;
     da->capacity = da->initial_capacity;
     da->length = 0;
     da->item_size = sizeof(int);
 
-    // Allocate memory for the items the array will store
-    da->ptrData = malloc(sizeof(int) * da->capacity);
+    // Allocate memory for the internal array that will hold the elements
+    int *tmp = malloc(sizeof(int) * da->capacity);
+
+    // Check if allocation failed
+    if (tmp == NULL) {
+        printf(stderr, "Memory allocation failed for internal array.\n");
+        // Free previously allocated struct to avoid memory leak
+        free(da);
+        exit(EXIT_FAILURE);
+    }
+
+    // Assign the successfully allocated memory to the struct's internal pointer
+    da->ptrData = tmp;
 
     // Return the pointer to the struct
     return da;
@@ -200,6 +217,12 @@ static void shrink(struct DynamicArray *da) {
     // Create a temporary pointer to realloc the new amount of memory
     int *newPtrData = NULL;
     newPtrData = realloc(da->ptrData, sizeof(int) * new_capacity);
+
+    // If reallocation fails
+    if (newPtrData == NULL) {
+        fprintf(stderr, "Memory allocation failed during shrinking\n");
+        exit(EXIT_FAILURE);
+    }
 
     // Point the struct pointer to the new resized memory
     // and set new capacity
