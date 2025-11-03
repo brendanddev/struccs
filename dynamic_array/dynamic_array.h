@@ -22,13 +22,13 @@ struct DynamicArray * _init();
 bool _add(struct DynamicArray *da, int item, int index);
 void _append(struct DynamicArray *da, int item);
 bool _get(struct DynamicArray *da, int index, int *out_value);
+bool _set(struct DynamicArray *da, int item, int index);
+bool _remove_last(struct DynamicArray *da);
 
 
 
 
 
-void _set(struct DynamicArray *da, int item, int index);
-void _remove_last(struct DynamicArray *da);
 void _remove_at(struct DynamicArray *da, int index);
 void _remove(struct DynamicArray *da, int item);
 int _size(struct DynamicArray *da);

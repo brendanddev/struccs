@@ -70,26 +70,21 @@ bool _get(struct DynamicArray *da, int index, int *out_value) {
 }
 
 // Sets an item in the array to a new specified item at the specified index
-void _set(struct DynamicArray *da, int item, int index) {
-    if (index < 0 || index >= da->length) {
-        fprintf(stderr, "Index is out of bounds for the array\n");
-        return;
-    }
+bool _set(struct DynamicArray *da, int item, int index) {
+    if (index < 0 || index >= da->length) return false;
     da->ptrData[index] = item;
+    return true;
 }
 
 // Removes the last item in the array
-void _remove_last(struct DynamicArray *da) {
-    if (da->length == 0) {
-        fprintf(stderr, "Cannot remove from an empty array\n");
-        return;
-    }
+bool _remove_last(struct DynamicArray *da) {
+    if (da->length == 0) return false;
     
     da->length--;
-
     if (_usage(da) < SHRINK_THRESHOLD) {
         shrink(da);
     }
+    return true;
 }
 
 // Removes an item at a specifed index
