@@ -27,12 +27,30 @@ arrays-from-scratch/
 
 ---
 
+static void resize(struct DynamicArray *da);
+static void shrink(struct DynamicArray *da);
+static void shift_right(struct DynamicArray *da, int index);
+static void shift_left(struct DynamicArray *da, int index);
+
+
 ## Performance Characteristics
 
 ### Dynamic Array Operations
-|Operation|Time Complexity|Notes|
-|---------|---------------|-----|
-| Working on it...|       |     |
+| Operation       | Time Complexity | Notes           |
+|-----------------|-----------------|-----------------|
+| _add            |                 |                 |
+| _append         |                 |                 |
+| _get            |                 |                 |
+| _set            |                 |                 |
+| _remove_last    |                 |                 |
+| _remove_at      |                 |                 |
+| _remove         |                 |                 |
+| _contains       |                 |                 |
+| resize          |                 |                 |
+| shrink          |                 |                 |
+| shift_right     |                 |                 |
+| shift_left      |                 |                 |
+
 
 ---
 
