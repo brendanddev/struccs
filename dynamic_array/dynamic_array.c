@@ -88,34 +88,27 @@ bool _remove_last(struct DynamicArray *da) {
 }
 
 // Removes an item at a specifed index
-void _remove_at(struct DynamicArray *da, int index) {
-    if (da->length == 0) {
-        fprintf(stderr, "Cannot remove from an empty array\n");
-        return;
-    }
+bool _remove_at(struct DynamicArray *da, int index) {
+    if (da->length == 0) return false;
+    if (index < 0 || index >= da->length) return false;
 
-    if (index < 0 || index >= da->length) {
-        fprintf(stderr, "Index is out of bounds for the array\n");
-        return;
-    }
     shift_left(da, index);
     da->length--;
+    return true;
 }
 
 // Remove the first occurence of a specified item
-void _remove(struct DynamicArray *da, int item) {
-    if (da->length == 0) {
-        fprintf(stderr, "Cannot remove from an empty array\n");
-        return;
-    }
+bool _remove(struct DynamicArray *da, int item) {
+    if (da->length == 0) return false;
 
     for (int i = 0; i < da->length; i++) {
         if (da->ptrData[i] == item) {
             shift_left(da, i);
             da->length--;
-            break;
+            return true;
         }
     }
+    return false;
 }
 
 // Returns the length/size of the array

@@ -24,13 +24,8 @@ void _append(struct DynamicArray *da, int item);
 bool _get(struct DynamicArray *da, int index, int *out_value);
 bool _set(struct DynamicArray *da, int item, int index);
 bool _remove_last(struct DynamicArray *da);
-
-
-
-
-
-void _remove_at(struct DynamicArray *da, int index);
-void _remove(struct DynamicArray *da, int item);
+bool _remove_at(struct DynamicArray *da, int index);
+bool _remove(struct DynamicArray *da, int item);
 int _size(struct DynamicArray *da);
 int _capacity(struct DynamicArray *da);
 bool _contains(struct DynamicArray *da, int item);
@@ -38,8 +33,6 @@ void _clear(struct DynamicArray *da);
 double _usage(struct DynamicArray *da);
 void _discard(struct DynamicArray *da);
 void _print(struct DynamicArray *da);
-
-
 
 
 #endif
