@@ -27,19 +27,16 @@ arrays-from-scratch/
 
 ---
 
-static void resize(struct DynamicArray *da);
-static void shrink(struct DynamicArray *da);
-static void shift_right(struct DynamicArray *da, int index);
-static void shift_left(struct DynamicArray *da, int index);
+So for _add, its O(n) since the operation requires shifting subsequent elements right which is O(n), and is amortized since sometimes a resize is triggered and is O(n)?
 
 
 ## Performance Characteristics
 
 ### Dynamic Array Operations
-| Operation       | Time Complexity | Notes           |
-|-----------------|-----------------|-----------------|
-| _add            |                 |                 |
-| _append         |                 |                 |
+| Operation       | Time Complexity | Notes                                                                  |
+|-----------------|-----------------|----------------------------------------------------------------------- |
+| _add            | O(n) amortized  | Requires shifting subsequent elements right and occasionally resizing. |
+| _append         |                 |                                                                        |                                     
 | _get            |                 |                 |
 | _set            |                 |                 |
 | _remove_last    |                 |                 |
