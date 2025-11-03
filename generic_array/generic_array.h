@@ -3,6 +3,8 @@
 #include <stdbool.h>
 
 /// generic_array.h
+/// Brendan Dileo - November 3 2025
+
 
 // Defines the GenericArray struct type
 typedef struct GenericArray {

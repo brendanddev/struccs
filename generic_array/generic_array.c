@@ -1,10 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 #include "generic_array.h"
 
 
 /// generic_array.c
+/// Brendan Dileo - November 3 2025
+
 
 struct GenericArray * _init(size_t item_size) {
 
@@ -23,7 +26,7 @@ struct GenericArray * _init(size_t item_size) {
     ga->item_size = item_size;
 
     // Allocate memory for the internal array
-    int *pTmp = malloc(sizeof(item_size) * ga->capacity);
+    int *pTmp = malloc(item_size * ga->capacity);
     if (pTmp == NULL) {
         printf(stderr, "Memory allocation failed for internal array.\n");
         free(ga);               // Free previously allocated struct to avoid memory leak
@@ -36,4 +39,8 @@ struct GenericArray * _init(size_t item_size) {
 
 
 
-bool _append(struct GenericArray *ga, void *itemPtr) { }
+bool _append(struct GenericArray *ga, void *itemPtr) { 
+    void *dest = (char *)ga->ptrData + ga->length * ga->item_size;
+    memcpy(dest, itemPtr, ga->item_size);
+    ga->length++;
+}
