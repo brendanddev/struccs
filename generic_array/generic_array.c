@@ -38,9 +38,27 @@ struct GenericArray * _init(size_t item_size) {
 }
 
 
-
 bool _append(struct GenericArray *ga, void *itemPtr) { 
+    // Computes destination based on the current position of the pointer,
+    // offset by the length and item size
+
+    // Calculate the address where the new item should be stored
+    // Starting at the base of the internal array (ga->ptrData)
+    // Move forward by (length * item_size) bytes to reach the next free slot
+    // Gets casted to (char *) so the pointer arithmetic is done in bytes
     void *dest = (char *)ga->ptrData + ga->length * ga->item_size;
+
+    // Copy the memory of the item into the calculated destination
+    // Takes the raw bytes starting at 'itemPtr' the item passed to the func,
+    // and copies them into the memory at the destination, which is the next free slot in the array
     memcpy(dest, itemPtr, ga->item_size);
     ga->length++;
+}
+
+
+void _discard(struct GenericArray *ga) {
+    if (ga != NULL) {
+        free(ga->ptrData);
+        free(ga);
+    }
 }
