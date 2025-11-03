@@ -35,11 +35,8 @@ struct DynamicArray * _init() {
 
 
 // Adds an item at the specified index
-void _add(struct DynamicArray *da, int item, int index) {
-    if (index < 0 || index > da->length) {
-        fprintf(stderr, "Index is out of bounds for the array\n");
-        return;
-    }
+bool _add(struct DynamicArray *da, int item, int index) {
+    if (index < 0 || index > da->length) return false;
 
     if (da->length == da->capacity) {
         resize(da);
@@ -48,6 +45,7 @@ void _add(struct DynamicArray *da, int item, int index) {
     shift_right(da, index);
     da->ptrData[index] = item;
     da->length++;
+    return true;
 }
 
 // Adds an item to the back of the array
@@ -62,12 +60,13 @@ void _append(struct DynamicArray *da, int item) {
 }
 
 // Retrieves an element at a specified index
-int _get(struct DynamicArray *da, int index) {
-    if (index < 0 || index >= da->length) {
-        fprintf(stderr, "Index is out of bounds for the array\n");
-        return -1;  // Chnage this
-    }
-    return da->ptrData[index];
+bool _get(struct DynamicArray *da, int index, int *out_value) {
+    if (index < 0 || index >= da->length) return false;
+
+    // Store the value from the array into the variable pointed to by *out_value
+    // and return true to indicate the operation succeeded
+    *out_value = da->ptrData[index];
+    return true;
 }
 
 // Sets an item in the array to a new specified item at the specified index
@@ -233,20 +232,4 @@ static void shift_left(struct DynamicArray *da, int index) {
     for (int i = index; i < da->length - 1; i++) {
         da->ptrData[i] = da->ptrData[i + 1];
     }
-}
-
-
-
-bool _get_v2(struct DynamicArray *da, int index, int *out_value) {
-
-    // Return false indicating failure if index is invalid
-    if (index < 0 || index > da->length) {
-        fprintf(stderr, "Index is out of bounds for the array\n");
-        return false;
-    }
-
-    // Store the value from the array into the variable pointed to by *out_value
-    // and return true to indicate the operation succeeded
-    *out_value = da->ptrData[index];
-    return true;
 }
