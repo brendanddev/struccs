@@ -27,26 +27,24 @@ arrays-from-scratch/
 
 ---
 
-So for _add, its O(n) since the operation requires shifting subsequent elements right which is O(n), and is amortized since sometimes a resize is triggered and is O(n)?
-
 
 ## Performance Characteristics
 
 ### Dynamic Array Operations
 | Operation       | Time Complexity | Notes                                                                  |
 |-----------------|-----------------|----------------------------------------------------------------------- |
-| _add            | O(n) amortized  | Requires shifting subsequent elements right and occasionally resizing. |
-| _append         |                 |                                                                        |                                     
-| _get            |                 |                 |
-| _set            |                 |                 |
-| _remove_last    |                 |                 |
-| _remove_at      |                 |                 |
-| _remove         |                 |                 |
-| _contains       |                 |                 |
-| resize          |                 |                 |
-| shrink          |                 |                 |
-| shift_right     |                 |                 |
-| shift_left      |                 |                 |
+| _add            | O(n) amortized  | Requires shifting subsequent elements right and occasionally resizing  |
+| _append         | O(1) amortized  | Adds to the end, occasionally needing resize                           |               
+| _get            | O(1)            | Accesses an element by index                                           |
+| _set            | O(1)            | Overwrites an element in memory                                        |
+| _remove_last    | O(1) amortized  | Accesses and removes last element, ocasionally shrinking               |
+| _remove_at      | O(n)            | Requires shifting subsequent elements left, best case O(1)             |
+| _remove         | O(n)            | Searches for item to remove, shifting subsequent elements left only when the item is found |
+| _contains       | O(n)            | Searches for the item                                                  |
+| resize          | O(n)            | Copies all existing elements to the new larger memory block            |
+| shrink          | O(n)            | Copies all existing elements to the new smaller memory block           |
+| shift_right     | O(n)            | Shifts all subsequent elements to the right                            |
+| shift_left      | O(n)            | Shifts all subsequent elements to the left                             |
 
 
 ---
