@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include "dynamic_array.h"
 
-
 /// main.c
 
 // Prototypes
@@ -13,17 +12,16 @@ void test_remove_at();
 void test_contains();
 void test_shrink();
 
-void test_get_v2();
 
 int main() {
 
-    // test_add_at();
-    // test_get();
-    // test_set();
-    // test_remove_at();
-    // test_contains();
-    // test_shrink();
-    test_get_v2();
+    test_add_at();
+    test_get();
+    test_set();
+    test_remove_at();
+    test_contains();
+    test_shrink();
+    
     return 0;
 
 
@@ -58,17 +56,25 @@ void test_add_at() {
     da = NULL;
 }
 
+
 void test_get() {
     printf("\nGET TEST: \n");
     struct DynamicArray *da = _init();
     for (int i = 0; i < 10; i++) _append(da, i);
 
-    int value = _get(da, 0);
-    printf("\nValue at index 0: %d\n", value);
+    // Attempts to retrieve the value at the specified index (0)
+    // Passes the memory address of the variable 'value' so the func can write the 
+    // retrieved element directly to that memory location
+    int value;
+    if (_get(da, 0, &value)) {
+        printf("\nValue at index 0: %d\n", value);
+    }
 
     _discard(da);
     da = NULL;
 }
+
+
 
 void test_set() {
     printf("\nSET TEST: \n");
@@ -92,9 +98,13 @@ void test_remove_at() {
     _print(da);
 
     printf("Removing item at index 0: \n");
-    printf("SHOULD REMOVE ITEM: %d\n", _get(da, 0));
-    _remove_at(da, 0);
-    _print(da);
+    int value;
+
+    if (_get(da, 0, &value)) {
+        printf("SHOULD REMOVE ITEM: %d\n", value);
+        _remove_at(da, 0);
+        _print(da);
+    }
 
     _discard(da);
     da = NULL;
@@ -137,18 +147,4 @@ void test_shrink() {
     // Free memory previously occupied by the internal array and struct
     _discard(da);
     da = NULL;
-}
-
-
-void test_get_v2() {
-    printf("\nGET TEST V2: \n");
-    struct DynamicArray *da = _init();
-    for (int i = 0; i < 10; i++) _append(da, i);
-
-    int value;
-    if (_get_v2(da, 1, &value)) {
-        printf("Return value: %d\n", value);
-    } else {
-        printf("Get failed...\n");
-    }
 }
