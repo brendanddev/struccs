@@ -28,5 +28,6 @@ bool _remove_at(struct GenericArray *ga, int index);
 int _size(struct GenericArray *ga);
 int _capacity(struct GenericArray *ga);
 void _discard(struct GenericArray *ga);
+void _print(struct GenericArray *ga);
 
 #endif

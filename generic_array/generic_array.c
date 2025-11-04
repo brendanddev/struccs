@@ -37,11 +37,8 @@ struct GenericArray * _init(size_t item_size) {
     return ga;
 }
 
-
+// Adds an item to the end of the array
 bool _append(struct GenericArray *ga, void *itemPtr) { 
-    // Computes destination based on the current position of the pointer,
-    // offset by the length and item size
-
     // Calculate the address where the new item should be stored
     // Starting at the base of the internal array (ga->ptrData)
     // Move forward by (length * item_size) bytes to reach the next free slot
@@ -55,10 +52,33 @@ bool _append(struct GenericArray *ga, void *itemPtr) {
     ga->length++;
 }
 
+bool _add(struct GenericArray *ga, int index, void *in_ptr) {
 
+}
+
+// Retrieves an item from a specified index in the array
+bool _get(struct GenericArray *ga, int index, void *out_ptr) {
+    if (index < 0 || index >= ga->length) return false;
+
+    // Calculate the memory address of the item at the given index by
+    // Starting from the base pointer of the array (ga->ptrData)
+    // Casting to (char *) so pointer arithmetic is in bytes
+    // Adding index * item_size to move to the correct element
+    // And using memcpy to copy the bytes of that element into the output ptr
+    void *dest = (char *)ga->ptrData + index * ga->item_size;
+    memcpy(out_ptr, dest, ga->item_size);
+    return true;
+}
+
+// Frees any memory allocated by the GenericArray internal array and struct
 void _discard(struct GenericArray *ga) {
     if (ga != NULL) {
         free(ga->ptrData);
         free(ga);
     }
+}
+
+// Prints the current state of the GenericArray
+void _print(struct GenericArray *ga) {
+    printf("Capacity: %d, Length: %d, Item Size: %zu bytes\n", ga->capacity, ga->length, ga->item_size);
 }
