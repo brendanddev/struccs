@@ -75,7 +75,7 @@ bool _add(struct GenericArray *ga, int index, void *in_ptr) {
     // Shift subsequent items to the right to make room for item being inserted
     shift_right(ga, index);
 
-    // Calculate the insertion point
+    // Calculate the memory location for the item being inserted
     void *dest_ptr = (char *) ga->ptrData + index * ga->item_size;
 
     // Copy the memory of the item into destination and increment length
@@ -95,6 +95,18 @@ bool _get(struct GenericArray *ga, int index, void *out_ptr) {
     // And using memcpy to copy the bytes of that element into the output ptr
     void *dest = (char *)ga->ptrData + index * ga->item_size;
     memcpy(out_ptr, dest, ga->item_size);
+    return true;
+}
+
+bool _set(struct GenericArray *ga, int index, void *in_ptr) {
+    if (index < 0 || index >= ga->length) return false;
+
+    // Calculate the memory address of the item at the given index
+    // Start from base pointer which is the first byte of the allocated memory block
+    // and move the offset (index * item_size) in bytes from base pointer to find
+    // the specified index
+    void *dest = (char *) ga->ptrData + index * ga->item_size;
+    memcpy(dest, in_ptr, ga->item_size);
     return true;
 }
 
