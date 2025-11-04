@@ -108,6 +108,7 @@ void test_remove_last() {
 
     for (int i = 0; i < 95; i++) {
         _remove_last(ga);
+        _print(ga);
     }
 
     printf("AFTER REMOVE LAST: \n");
