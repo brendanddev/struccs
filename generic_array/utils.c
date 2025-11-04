@@ -24,10 +24,11 @@ struct GenericArray * create_int_array() {
 struct GenericArray * create_dbl_array() {
     struct GenericArray *ga = _init(sizeof(double));
     for (int i = 0; i < 100; i++) {
-        double rd_num = rand() % 1000;
+        double rd_num = i + 1.27;
         void *ptr = &rd_num;
         _append(ga, ptr);
     }
+    return ga;
 }
 
 // Prints the contents of an integer based GenericArray
