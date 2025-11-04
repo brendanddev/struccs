@@ -120,9 +120,8 @@ bool _remove_last(struct GenericArray *ga) {
 
     // Check if memory is underutilized
     if (_usage(ga) < SHRINK_THRESHOLD) { 
-        printf("Would trigger shrink...\n");
-        printf("Current Usage: %f \n", _usage(ga));
-        printf("Shrink Threshold: %f\n", SHRINK_THRESHOLD);
+        printf("SHRINKING...\n");
+        shrink(ga);
     }
 
     ga->length--;
@@ -135,7 +134,8 @@ bool _remove_at(struct GenericArray *ga, int index) {
 
     // Check if memory is underutilized
     if (_usage(ga) < SHRINK_THRESHOLD) { 
-        // shrink(ga);
+        printf("SHRINKING...\n");
+        shrink(ga);
     }
 
     // Shift every element after the index of the item being removed
@@ -171,7 +171,7 @@ void _discard(struct GenericArray *ga) {
 
 // Prints the current state of the GenericArray
 void _print(struct GenericArray *ga) {
-    printf("Capacity: %d, Length: %d, Item Size: %zu bytes\n", ga->capacity, ga->length, ga->item_size);
+    printf("Capacity: %d, Length: %d, Item Size: %zu bytes, Usage: %f\n", ga->capacity, ga->length, ga->item_size, _usage(ga));
 }
 
 
@@ -190,7 +190,7 @@ static void resize(struct GenericArray *ga) {
 
     // Handle reallocation failure
     if (tmp_ptr == NULL) {
-        fprintf(stderr, "Memory allocation failed during shrinking\n");
+        fprintf(stderr, "Memory allocation failed during resizing!\n");
         exit(EXIT_FAILURE);
     }
 
@@ -200,17 +200,33 @@ static void resize(struct GenericArray *ga) {
 }
 
 
-// Track how full the array is (usage = length / cap)
-// If drops below threshold, arr underutilized.
-// Allocate smaller block of memory and copy existing elements
+// Shrinks the internal array when its underutilized by reallocating less memory
 static void shrink(struct GenericArray *ga) {
 
-    // Set new capacity to current size, or initial if less than to avoid shrinking too low
+    // Determine new capacity
+    // If the current size is larger than the initial capacity, that is the new capacity
+    // Otherwise, the new capacity is set to the initial to avoid reallocating too little memory
+    int new_capacity;
+    if (ga->length > ga->initial_capacity) {
+        new_capacity = ga->length;
+    } else {
+        new_capacity = ga->initial_capacity;
+    }
 
-    // if (ga->length
+    // Reallocate less memory
+    void *tmp = NULL;
+    tmp = realloc(ga->ptrData, new_capacity);
 
+    // Handle reallocation failure
+    if (tmp == NULL) {
+        fprintf(stderr, "Memory allocation failed during shrinking!\n");
+        exit(EXIT_FAILURE);
+    }
+
+    // Set new cap and reassign pointer
+    ga->capacity = new_capacity;
+    ga->ptrData = tmp;
 }
-
 
 // Shifts items to the right, starting from the end to the index to make room for the item being added
 static void shift_right(struct GenericArray *ga, int index) {
