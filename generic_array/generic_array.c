@@ -121,9 +121,11 @@ bool _remove_last(struct GenericArray *ga) {
     return true;
 }
 
+// Removes an item from the specified index in the GenericArray
 bool _remove_at(struct GenericArray *ga, int index) {
     if (index < 0 || index >= ga->length) return false;
-
+    
+    // Shift every element after the index of the item being removed
     shift_left(ga, index);
     ga->length--;
     return true;
@@ -138,6 +140,13 @@ int _size(struct GenericArray *ga) {
 // Returns the current capacity of the GenericArray
 int _capacity(struct GenericArray *ga) {
     return ga->capacity;
+}
+
+// Calculates how full the array is internally based on the current number of elements and total allocated space
+void _usage(struct GenericArray *ga) {
+    double usage = (double) ga->length / ga->capacity * 100;
+    printf("Current Usage: %f \n", usage);
+    printf("Shrink Threshold: %f\n", SHRINK_THRESHOLD);
 }
 
 // Frees any memory allocated by the GenericArray internal array and struct
@@ -179,6 +188,13 @@ static void resize(struct GenericArray *ga) {
 }
 
 
+// Track how full the array is (usage = length / cap)
+// If drops below threshold, arr underutilized.
+// Allocate smaller block of memory and copy existing elements
+static void shrink(struct GenericArray *ga) {
+}
+
+
 // Shifts items to the right, starting from the end to the index to make room for the item being added
 static void shift_right(struct GenericArray *ga, int index) {
     // Loop from end to insertion point
@@ -193,13 +209,15 @@ static void shift_right(struct GenericArray *ga, int index) {
     }
 }
 
-// Shifts items to the left, starting from the index?
-// Shift item being removed to the end to allow for decrementing length for removal
+// Shifts items to the left starting at 'index', filling the gap created by the removed item
 static void shift_left(struct GenericArray *ga, int index) {
     // Loop from index to end
     for (int i = index; i < ga->length; i++) {
+        // Calculate memory address of the source item and the destination item
         void *src = (char *) ga->ptrData + (i + 1) * ga->item_size;
         void *dest = (char *) ga->ptrData + i * ga->item_size;
+
+        // Copies the memory contents at the source location into the destination effectively moving the value into the new position
         memcpy(dest, src, ga->item_size);
     }
 }

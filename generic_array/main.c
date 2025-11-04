@@ -265,6 +265,7 @@ void test_remove_at() {
     int num3 = 300;
     void *ptr3 = &num3;
     _append(ga, ptr3);
+    print_arr_int(ga);
 
     int num4 = 999;
     void *ptr4 = &num4;

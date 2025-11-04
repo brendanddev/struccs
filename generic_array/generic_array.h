@@ -5,6 +5,8 @@
 #ifndef GENERIC_ARRAY_H
 #define GENERIC_ARRAY_H
 
+#define SHRINK_THRESHOLD 6.0
+
 /// generic_array.h
 /// Brendan Dileo - November 3 2025
 
@@ -27,6 +29,7 @@ bool _remove_last(struct GenericArray *ga);
 bool _remove_at(struct GenericArray *ga, int index);
 int _size(struct GenericArray *ga);
 int _capacity(struct GenericArray *ga);
+void _usage(struct GenericArray *ga);
 void _discard(struct GenericArray *ga);
 void _print(struct GenericArray *ga);
 
