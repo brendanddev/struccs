@@ -11,7 +11,9 @@
 #include <stdbool.h>
 
 
-struct GenericArray * create_array();
+struct GenericArray * create_int_array();
+struct GenericArray * create_dbl_array();
 void print_arr_int(struct GenericArray *ga);
+void print_arr_dbl(struct GenericArray *ga);
 
 #endif
