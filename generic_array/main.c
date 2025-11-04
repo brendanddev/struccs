@@ -54,6 +54,17 @@ void test_add() {
     int num1 = 200;
     void *ptr1 = &num1;
     _append(ga, ptr1);
+    print_arr(ga);
+
+    int num2 = 1000;
+    void *ptr2 = &num2;
+    _append(ga, ptr2);
+    print_arr(ga);
+
+    int num3 = 500;
+    void *ptr3 = &num3;
+    _append(ga, ptr3);
+    print_arr(ga);
 
     int value = 999;
     void *val_ptr = &value;
@@ -64,6 +75,52 @@ void test_add() {
     }
     print_arr(ga);
     _print(ga);
+
+    int value2 = 7777;
+    void *val2_ptr = &value2;
+    if (_add(ga, 1, val2_ptr)) {
+        printf("Second item added successfully\n");
+    } else {
+        printf("Failed to add item\n");
+    }
+
+    int value3 = 101;
+    void *val3_ptr = &value3;
+    if (_add(ga, 1, val3_ptr)) {
+        printf("Third item added successfully\n");
+    } else {
+        printf("Failed to add item\n");
+    }
+
+    int value4 = 555;
+    void *val4_ptr = &value4;
+    if (_add(ga, 1, val4_ptr)) {
+        printf("Fourth item added successfully\n");
+    } else {
+        printf("Failed to add item\n");
+    }
+
+    int value5 = 4;
+    void *val5_ptr = &value5;
+    if (_add(ga, 1, val5_ptr)) {
+        printf("Fifth item added successfully\n");
+    } else {
+        printf("Failed to add item\n");
+    }
+
+    int value6 = 41000;
+    void *val6_ptr = &value6;
+    if (_add(ga, 1, val6_ptr)) {
+        printf("Sixth item added successfully\n");
+    } else {
+        printf("Failed to add item\n");
+    }
+
+    print_arr(ga);
+    _print(ga);
+
+    _discard(ga);
+    ga = NULL;
     printf("=========================================\n");
 }
 
@@ -98,7 +155,7 @@ void test_get() {
         printf("GET operation failed.\n");
     }
 
-    free(ga);
+    _discard(ga);
     ga = NULL;
 }
 
