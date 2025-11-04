@@ -13,11 +13,12 @@ void test_add();
 void test_get();
 void test_set();
 void test_remove_last();
+void test_remove_at();
 void print_arr_int(struct GenericArray *ga);
 
 
 int main() {
-    test_remove_last();
+    test_remove_at();
     return 0;
 }
 
@@ -247,6 +248,43 @@ void test_remove_last() {
     printf("=========================================\n");
 }
 
+void test_remove_at() {
+    printf("=========================================\n");
+    printf("REMOVE AT (_remove_at) TEST: \n");
+    struct GenericArray *ga = _init(sizeof(int));
+    _print(ga);
+
+    int num = 100;
+    void *ptr = &num;
+    _append(ga, ptr);
+
+    int num2 = 200;
+    void *ptr2 = &num2;
+    _append(ga, ptr2);
+    
+    int num3 = 300;
+    void *ptr3 = &num3;
+    _append(ga, ptr3);
+
+    int num4 = 999;
+    void *ptr4 = &num4;
+    _append(ga, ptr4);
+
+    printf("BEFORE REMOVAL: \n");
+    print_arr_int(ga);
+
+    _remove_at(ga, 0);
+    printf("AFTER REMOVAL: \n");
+    print_arr_int(ga);
+
+    _remove_at(ga, 1);
+    printf("AFTER REMOVAL INDEX 1: \n");
+    print_arr_int(ga);
+
+    _discard(ga);
+    ga = NULL;
+    printf("=========================================\n");
+}
 
 
 void print_arr_int(struct GenericArray *ga) {
