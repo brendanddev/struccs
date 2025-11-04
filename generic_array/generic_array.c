@@ -16,6 +16,7 @@ static void shift_right(struct GenericArray *ga, int index);
 static void shift_left(struct GenericArray *ga, int index);
 
 
+// Initializes a new GenericArray
 struct GenericArray * _init(size_t item_size) {
 
     // Allocate memory for the struct
@@ -121,6 +122,11 @@ bool _remove_last(struct GenericArray *ga) {
 }
 
 bool _remove_at(struct GenericArray *ga, int index) {
+    if (index < 0 || index > ga->length) return false;
+
+    shift_left(ga, index);
+    ga->length--;
+    return true;
 }
 
 
@@ -172,7 +178,8 @@ static void resize(struct GenericArray *ga) {
     ga->ptrData = tmp_ptr;
 }
 
-// Some source, a destination, and memcpy to get it between
+
+// Shifts items to the right, starting from the end to the index to make room for the item being added
 static void shift_right(struct GenericArray *ga, int index) {
     // Loop from end to insertion point
     for (int i = ga->length - 1; i >= index; i--) {
@@ -183,5 +190,16 @@ static void shift_right(struct GenericArray *ga, int index) {
         // Copy the memory from src* into dest* effectively doing i + 1 = i
         memcpy(dest, src, ga->item_size);
         // memmove(dest, src, ga->item_size);
+    }
+}
+
+// Shifts items to the left, starting from the index?
+// Shift item being removed to the end to allow for decrementing length for removal
+static void shift_left(struct GenericArray *ga, int index) {
+    // Loop from index to end
+    for (int i = index; i < ga->length; i++) {
+        void *src = (char *) ga->ptrData + (i + 1) * ga->item_size;
+        void *dest = (char *) ga->ptrData + i * ga->item_size;
+        memcpy(dest, src, ga->item_size);
     }
 }
