@@ -11,11 +11,12 @@
 void test_append();
 void test_add();
 void test_get();
+void test_set();
 void print_arr(struct GenericArray *ga);
 
 
 int main() {
-    test_add();
+    test_set();
     return 0;
 }
 
@@ -157,6 +158,39 @@ void test_get() {
 
     _discard(ga);
     ga = NULL;
+}
+
+void test_set() {
+    printf("=========================================\n");
+    struct GenericArray *ga = _init(sizeof(int));
+    _print(ga);
+
+    int num = 100;
+    void *ptr = &num;
+    _append(ga, ptr);
+
+    int num2 = 200;
+    void *ptr2 = &num2;
+    _append(ga, ptr2);
+    
+    int num3 = 300;
+    void *ptr3 = &num3;
+    _append(ga, ptr3);
+
+    print_arr(ga);
+
+    int val = 1;
+    void *ptr_val = &val;
+    if (_set(ga, 0, ptr_val)) {
+        printf("SET operation successful\n");
+    }
+
+    print_arr(ga);
+
+
+    _discard(ga);
+    ga = NULL;
+
 }
 
 
