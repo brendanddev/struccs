@@ -2,21 +2,22 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#ifndef GENERIC_ARRAY_H
-#define GENERIC_ARRAY_H
-
-#define SHRINK_THRESHOLD 6.0
 
 /// generic_array.h
 /// Brendan Dileo - November 3 2025
 
 
+#ifndef GENERIC_ARRAY_H
+#define GENERIC_ARRAY_H
+#define SHRINK_THRESHOLD 6.0
+
 // Defines the GenericArray struct type
 typedef struct GenericArray {
     void *ptrData;                  // Pointer to the memory where the array elements will be stored
     size_t item_size;               // The size of items stored in the array
-    int capacity;
-    int length;
+    int capacity;                   // The current capacity of the internal array
+    int initial_capacity;           // The initial capacity
+    int length;                     // The length of the internal array
 } GenericArray;
 
 
@@ -29,7 +30,7 @@ bool _remove_last(struct GenericArray *ga);
 bool _remove_at(struct GenericArray *ga, int index);
 int _size(struct GenericArray *ga);
 int _capacity(struct GenericArray *ga);
-void _usage(struct GenericArray *ga);
+double _usage(struct GenericArray *ga);
 void _discard(struct GenericArray *ga);
 void _print(struct GenericArray *ga);
 

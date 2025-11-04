@@ -117,6 +117,14 @@ bool _set(struct GenericArray *ga, int index, void *in_ptr) {
 // Removes the last item in the GenericArray
 bool _remove_last(struct GenericArray *ga) {
     if (!ga || ga->length == 0) return false;
+
+    // Check if memory is underutilized
+    if (_usage(ga) < SHRINK_THRESHOLD) { 
+        printf("Would trigger shrink...\n");
+        printf("Current Usage: %f \n", _usage(ga));
+        printf("Shrink Threshold: %f\n", SHRINK_THRESHOLD);
+    }
+
     ga->length--;
     return true;
 }
@@ -124,7 +132,12 @@ bool _remove_last(struct GenericArray *ga) {
 // Removes an item from the specified index in the GenericArray
 bool _remove_at(struct GenericArray *ga, int index) {
     if (index < 0 || index >= ga->length) return false;
-    
+
+    // Check if memory is underutilized
+    if (_usage(ga) < SHRINK_THRESHOLD) { 
+        // shrink(ga);
+    }
+
     // Shift every element after the index of the item being removed
     shift_left(ga, index);
     ga->length--;
@@ -143,10 +156,9 @@ int _capacity(struct GenericArray *ga) {
 }
 
 // Calculates how full the array is internally based on the current number of elements and total allocated space
-void _usage(struct GenericArray *ga) {
+double _usage(struct GenericArray *ga) {
     double usage = (double) ga->length / ga->capacity * 100;
-    printf("Current Usage: %f \n", usage);
-    printf("Shrink Threshold: %f\n", SHRINK_THRESHOLD);
+    return usage;
 }
 
 // Frees any memory allocated by the GenericArray internal array and struct
@@ -192,6 +204,11 @@ static void resize(struct GenericArray *ga) {
 // If drops below threshold, arr underutilized.
 // Allocate smaller block of memory and copy existing elements
 static void shrink(struct GenericArray *ga) {
+
+    // Set new capacity to current size, or initial if less than to avoid shrinking too low
+
+    // if (ga->length
+
 }
 
 

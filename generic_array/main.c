@@ -20,9 +20,7 @@ void test_remove_at();
 
 int main() {
 
-    struct GenericArray *ga = create_array();
-    _print(ga);
-    print_arr_int(ga);
+    test_remove_last();
     // test_remove_at();
     return 0;
 }
@@ -30,7 +28,7 @@ int main() {
 
 struct GenericArray * create_array() {
     struct GenericArray *ga = _init(sizeof(int));
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 100; i++) {
         int rd_num = rand() % 1000;
         void *ptr = &rd_num;
         _append(ga, ptr);
@@ -108,24 +106,11 @@ void test_remove_last() {
     struct GenericArray *ga = create_array();
     print_arr_int(ga);
 
-    _remove_last(ga);
+    for (int i = 0; i < 95; i++) {
+        _remove_last(ga);
+    }
+
     printf("AFTER REMOVE LAST: \n");
-    print_arr_int(ga);
-
-    _remove_last(ga);
-    printf("AFTER REMOVE LAST: x2 \n");
-    print_arr_int(ga);
-
-    _remove_last(ga);
-    printf("AFTER REMOVE LAST: x3 \n");
-    print_arr_int(ga);
-
-    _remove_last(ga);
-    printf("AFTER REMOVE LAST: x4 \n");
-    print_arr_int(ga);
-
-    _remove_last(ga);
-    printf("AFTER REMOVE LAST: x5 \n");
     print_arr_int(ga);
     
     _discard(ga);
