@@ -23,9 +23,13 @@ Once this is complete, I plan to build on it by creating a **generic dynamically
 
 ```
 arrays-from-scratch/
-├── dynamic_array/
+├── dynamic_array/          # DynamicArray implementation
 │   ├── dynamic_array.h
 │   ├── dynamic_array.c
+│   └── main.c
+├── generic_array/           # GenericArray implementation
+│   ├── generic_array.h
+│   ├── generic_array.c
 │   └── main.c
 └── README.md
 ```
