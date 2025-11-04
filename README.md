@@ -13,6 +13,7 @@ Once this is complete, I plan to build on it by creating a **generic dynamically
     - Resizable array of integers (int)
     - Automatic growth and shrinkage based on usage
     - Supports adding, appending, removing, accessing, updating, and checking elements
+    - Internal memory management for efficiency
 
 2. **Generic Array**: In progress...
 
@@ -49,6 +50,11 @@ arrays-from-scratch/
 | shrink          | O(n)            | Copies all existing elements to the new smaller memory block           |
 | shift_right     | O(n)            | Shifts all subsequent elements to the right                            |
 | shift_left      | O(n)            | Shifts all subsequent elements to the left                             |
+
+
+### Generic Array Operations
+| Operation       | Time Complexity | Notes                                                                  |
+|-----------------|-----------------|----------------------------------------------------------------------- |
 
 
 ---
