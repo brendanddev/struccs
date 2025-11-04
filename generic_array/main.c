@@ -9,13 +9,13 @@
 
 // Prototypes
 void test_append();
+void test_add();
 void test_get();
 void print_arr(struct GenericArray *ga);
 
 
 int main() {
-    test_append();
-    test_get();
+    test_add();
     return 0;
 }
 
@@ -43,7 +43,28 @@ void test_append() {
     _discard(ga);
     ga = NULL;
     printf("=========================================\n");
+}
 
+void test_add() {
+    printf("=========================================\n");
+    printf("ADD TEST (_add): \n");
+    struct GenericArray *ga = _init(sizeof(int));
+    _print(ga);
+
+    int num1 = 200;
+    void *ptr1 = &num1;
+    _append(ga, ptr1);
+
+    int value = 999;
+    void *val_ptr = &value;
+    if (_add(ga, 0, val_ptr)) {
+        printf("Item added successfully\n");
+    } else {
+        printf("Failed to add item\n");
+    }
+    print_arr(ga);
+    _print(ga);
+    printf("=========================================\n");
 }
 
 void test_get() {
