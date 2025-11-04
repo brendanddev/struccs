@@ -9,27 +9,56 @@
 /// Brendan Dileo - November 3 2025
 
 // Prototypes
-void test_add();
-void test_get();
-void test_set();
-void test_remove_last();
-void test_remove_at();
+void test_insertion();
+void test_deletion();
 
 
 int main() {
 
-    test_remove_last();
-    // test_remove_at();
+    test_insertion();
     return 0;
 }
 
 
+void test_insertion() {
+
+    struct GenericArray *ga_int = create_int_array();
+    struct GenericArray *ga_dbl = create_dbl_array();
+    print_arr_int(ga);
+    print_arr_dbl(ga);
+
+    _discard(ga_int);
+    _discard(ga_dbl);
+    ga_int = NULL;
+    ga_dbl = NULL;
+}
+
+void test_deletion() {
+
+    struct GenericArray *ga = create_int_array();
+    _print(ga);
+
+    _discard(ga);
+    ga = NULL;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void test_add() {
-    printf("=========================================\n");
-    printf("ADD TEST (_add): \n");
-    struct GenericArray *ga = create_array();
-    _print(ga);
 
     int value = 999;
     void *val_ptr = &value;
@@ -50,7 +79,7 @@ void test_add() {
 void test_get() {
     printf("=========================================\n");
     printf("GET TEST (_get): \n");
-    struct GenericArray *ga = create_array();
+    struct GenericArray *ga = create_int_array();
 
     void *value_ptr;
     if (_get(ga, 1, &value_ptr)) {
@@ -74,7 +103,7 @@ void test_get() {
 void test_set() {
     printf("=========================================\n");
     printf("SET TEST (_set): \n");
-    struct GenericArray *ga = create_array();
+    struct GenericArray *ga = create_int_array();
 
     int val = 1;
     void *ptr_val = &val;
@@ -91,7 +120,7 @@ void test_set() {
 void test_remove_last() {
     printf("=========================================\n");
     printf("REMOVE LAST (_remove_last) TEST: \n");
-    struct GenericArray *ga = create_array();
+    struct GenericArray *ga = create_int_array();
     print_arr_int(ga);
 
     for (int i = 0; i < 95; i++) {
@@ -110,7 +139,7 @@ void test_remove_last() {
 void test_remove_at() {
     printf("=========================================\n");
     printf("REMOVE AT (_remove_at) TEST: \n");
-    struct GenericArray *ga = create_array();
+    struct GenericArray *ga = create_int_array();
     printf("BEFORE REMOVAL: \n");
     print_arr_int(ga);
 
