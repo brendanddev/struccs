@@ -1,7 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-
 
 /// generic_array.h
 /// Brendan Dileo - November 3 2025
@@ -10,6 +6,10 @@
 #ifndef GENERIC_ARRAY_H
 #define GENERIC_ARRAY_H
 #define SHRINK_THRESHOLD 6.0
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
 
 // Defines the GenericArray struct type
 typedef struct GenericArray {
