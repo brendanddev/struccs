@@ -35,7 +35,7 @@ struct GenericArray * _init(size_t item_size) {
     // Allocate memory for the internal array
     int *pTmp = malloc(item_size * ga->capacity);
     if (pTmp == NULL) {
-        printf(stderr, "Memory allocation failed for internal array.\n");
+        fprintf(stderr, "Memory allocation failed for internal array.\n");
         free(ga);               // Free previously allocated struct to avoid memory leak
         exit(EXIT_FAILURE);
     }
@@ -63,6 +63,7 @@ bool _append(struct GenericArray *ga, void *itemPtr) {
     // and copies them into the memory at the destination, which is the next free slot in the array
     memcpy(dest, itemPtr, ga->item_size);
     ga->length++;
+    return true;
 }
 
 // Inserts a new item at a specified index within the GenericArray
@@ -112,6 +113,15 @@ bool _set(struct GenericArray *ga, int index, void *in_ptr) {
     return true;
 }
 
+// Removes the last item in the GenericArray
+bool _remove_last(struct GenericArray *ga) {
+    if (!ga || ga->length == 0) return false;
+    ga->length--;
+    return true;
+}
+
+bool _remove_at(struct GenericArray *ga, int index) {
+}
 
 
 // Returns the length of the GenericArray
