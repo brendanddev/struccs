@@ -122,7 +122,7 @@ bool _remove_last(struct GenericArray *ga) {
 }
 
 bool _remove_at(struct GenericArray *ga, int index) {
-    if (index < 0 || index > ga->length) return false;
+    if (index < 0 || index >= ga->length) return false;
 
     shift_left(ga, index);
     ga->length--;
