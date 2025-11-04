@@ -12,17 +12,19 @@ void test_append();
 void test_add();
 void test_get();
 void test_set();
-void print_arr(struct GenericArray *ga);
+void test_remove_last();
+void print_arr_int(struct GenericArray *ga);
 
 
 int main() {
-    test_set();
+    test_remove_last();
     return 0;
 }
 
 
 void test_append() {
     printf("=========================================\n");
+    printf("APPEND TEST (_append): \n");
     struct GenericArray *ga = _init(sizeof(int));
     _print(ga);
 
@@ -40,7 +42,7 @@ void test_append() {
     _append(ga, ptr3);
     _print(ga);
 
-    print_arr(ga);
+    print_arr_int(ga);
     _discard(ga);
     ga = NULL;
     printf("=========================================\n");
@@ -55,17 +57,17 @@ void test_add() {
     int num1 = 200;
     void *ptr1 = &num1;
     _append(ga, ptr1);
-    print_arr(ga);
+    print_arr_int(ga);
 
     int num2 = 1000;
     void *ptr2 = &num2;
     _append(ga, ptr2);
-    print_arr(ga);
+    print_arr_int(ga);
 
     int num3 = 500;
     void *ptr3 = &num3;
     _append(ga, ptr3);
-    print_arr(ga);
+    print_arr_int(ga);
 
     int value = 999;
     void *val_ptr = &value;
@@ -74,7 +76,7 @@ void test_add() {
     } else {
         printf("Failed to add item\n");
     }
-    print_arr(ga);
+    print_arr_int(ga);
     _print(ga);
 
     int value2 = 7777;
@@ -117,7 +119,7 @@ void test_add() {
         printf("Failed to add item\n");
     }
 
-    print_arr(ga);
+    print_arr_int(ga);
     _print(ga);
 
     _discard(ga);
@@ -127,6 +129,7 @@ void test_add() {
 
 void test_get() {
     printf("=========================================\n");
+    printf("GET TEST (_get): \n");
     struct GenericArray *ga = _init(sizeof(int));
     _print(ga);
 
@@ -144,24 +147,26 @@ void test_get() {
 
     void *value_ptr;
     if (_get(ga, 1, &value_ptr)) {
-        printf("GET VALUE: %d\n", (int *)value_ptr);
+        printf("GET VALUE: %d\n", *(int *)value_ptr);
     } else {
         printf("GET operation failed.\n");
     }
 
     void *value_ptr2;
     if (_get(ga, 0, &value_ptr2)) {
-        printf("GET VALUE: %d\n", (int *)value_ptr2);
+        printf("GET VALUE: %d\n", *(int *)value_ptr2);
     } else {
         printf("GET operation failed.\n");
     }
 
     _discard(ga);
     ga = NULL;
+    printf("=========================================\n");
 }
 
 void test_set() {
     printf("=========================================\n");
+    printf("SET TEST (_set): \n");
     struct GenericArray *ga = _init(sizeof(int));
     _print(ga);
 
@@ -177,7 +182,7 @@ void test_set() {
     void *ptr3 = &num3;
     _append(ga, ptr3);
 
-    print_arr(ga);
+    print_arr_int(ga);
 
     int val = 1;
     void *ptr_val = &val;
@@ -185,17 +190,66 @@ void test_set() {
         printf("SET operation successful\n");
     }
 
-    print_arr(ga);
-
-
+    print_arr_int(ga);
     _discard(ga);
     ga = NULL;
+    printf("=========================================\n");
+}
 
+void test_remove_last() {
+    printf("=========================================\n");
+    printf("REMOVE LAST (_remove_last) TEST: \n");
+    struct GenericArray *ga = _init(sizeof(int));
+    _print(ga);
+
+    int num = 100;
+    void *ptr = &num;
+    _append(ga, ptr);
+
+    int num2 = 200;
+    void *ptr2 = &num2;
+    _append(ga, ptr2);
+    
+    int num3 = 300;
+    void *ptr3 = &num3;
+    _append(ga, ptr3);
+
+    int num4 = 999;
+    void *ptr4 = &num4;
+    _append(ga, ptr4);
+
+    print_arr_int(ga);
+
+    _remove_last(ga);
+
+    printf("AFTER REMOVE LAST: \n");
+    print_arr_int(ga);
+
+    _remove_last(ga);
+    printf("AFTER REMOVE LAST: x2 \n");
+    print_arr_int(ga);
+
+    _remove_last(ga);
+    printf("AFTER REMOVE LAST: x3 \n");
+    print_arr_int(ga);
+
+    _remove_last(ga);
+    printf("AFTER REMOVE LAST: x4 \n");
+    print_arr_int(ga);
+
+    _remove_last(ga);
+    printf("AFTER REMOVE LAST: x5 \n");
+    print_arr_int(ga);
+
+    
+    _discard(ga);
+    ga = NULL;
+    printf("=========================================\n");
 }
 
 
 
-void print_arr(struct GenericArray *ga) {
+void print_arr_int(struct GenericArray *ga) {
     for (int i = 0; i < ga->length; i++) {
         printf("[%d] - %d\n", i, *(int *)((char *)ga->ptrData + i * ga->item_size));
     }
