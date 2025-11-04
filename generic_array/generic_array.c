@@ -9,6 +9,10 @@
 /// Brendan Dileo - November 3 2025
 
 
+// Prototypes
+static void shift_right(struct GenericArray *ga, int index);
+
+
 struct GenericArray * _init(size_t item_size) {
 
     // Allocate memory for the struct
@@ -52,8 +56,15 @@ bool _append(struct GenericArray *ga, void *itemPtr) {
     ga->length++;
 }
 
+// Inserts a new item at a specified index within the GenericArray
 bool _add(struct GenericArray *ga, int index, void *in_ptr) {
+    if (index < 0 || index > ga->length) return false;
 
+    shift_right(ga, index);
+    void *dest_ptr = (char *) ga->ptrData + index * ga->item_size;
+    dest_ptr = in_ptr;
+    ga->length++;
+    return true;
 }
 
 // Retrieves an item from a specified index in the array
@@ -81,4 +92,19 @@ void _discard(struct GenericArray *ga) {
 // Prints the current state of the GenericArray
 void _print(struct GenericArray *ga) {
     printf("Capacity: %d, Length: %d, Item Size: %zu bytes\n", ga->capacity, ga->length, ga->item_size);
+}
+
+
+// Some source, a destination, and memcpy to get it between
+static void shift_right(struct GenericArray *ga, int index) {
+    // Loop from end to insertion point
+    for (int i = ga->length; i > index; i--) {
+        // Calculate the memory address of the source item at index i and the destination item at index i + 1
+        void *src = (char *) ga->ptrData + i * ga->item_size;
+        void *dest = (char *) ga->ptrData + (i + 1) * ga->item_size;
+
+        // Copy the memory from src* into dest* effectively doing i + 1 = i
+        memcpy(dest, src, ga->item_size);
+    }
+
 }
