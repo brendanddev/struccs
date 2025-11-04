@@ -10,8 +10,10 @@
 
 
 // Prototypes
-static void shift_right(struct GenericArray *ga, int index);
 static void resize(struct GenericArray *ga);
+static void shrink(struct GenericArray *ga);
+static void shift_right(struct GenericArray *ga, int index);
+static void shift_left(struct GenericArray *ga, int index);
 
 
 struct GenericArray * _init(size_t item_size) {
@@ -110,6 +112,18 @@ bool _set(struct GenericArray *ga, int index, void *in_ptr) {
     return true;
 }
 
+
+
+// Returns the length of the GenericArray
+int _size(struct GenericArray *ga) {
+    return ga->length;
+}
+
+// Returns the current capacity of the GenericArray
+int _capacity(struct GenericArray *ga) {
+    return ga->capacity;
+}
+
 // Frees any memory allocated by the GenericArray internal array and struct
 void _discard(struct GenericArray *ga) {
     if (ga != NULL) {
@@ -124,19 +138,9 @@ void _print(struct GenericArray *ga) {
 }
 
 
-// Some source, a destination, and memcpy to get it between
-static void shift_right(struct GenericArray *ga, int index) {
-    // Loop from end to insertion point
-    for (int i = ga->length - 1; i >= index; i--) {
-        // Calculate the memory address of the source item at index i and the destination item at index i + 1
-        void *src = (char *) ga->ptrData + i * ga->item_size;
-        void *dest = (char *) ga->ptrData + (i + 1) * ga->item_size;
 
-        // Copy the memory from src* into dest* effectively doing i + 1 = i
-        memcpy(dest, src, ga->item_size);
-        // memmove(dest, src, ga->item_size);
-    }
-}
+// Private helper functions, linkage limited to this file
+
 
 // Resizes the internal array when its limit is reached
 static void resize(struct GenericArray *ga) {
@@ -156,4 +160,18 @@ static void resize(struct GenericArray *ga) {
     // Set new capacity and reassign pointer to memory
     ga->capacity = new_capacity;
     ga->ptrData = tmp_ptr;
+}
+
+// Some source, a destination, and memcpy to get it between
+static void shift_right(struct GenericArray *ga, int index) {
+    // Loop from end to insertion point
+    for (int i = ga->length - 1; i >= index; i--) {
+        // Calculate the memory address of the source item at index i and the destination item at index i + 1
+        void *src = (char *) ga->ptrData + i * ga->item_size;
+        void *dest = (char *) ga->ptrData + (i + 1) * ga->item_size;
+
+        // Copy the memory from src* into dest* effectively doing i + 1 = i
+        memcpy(dest, src, ga->item_size);
+        // memmove(dest, src, ga->item_size);
+    }
 }
