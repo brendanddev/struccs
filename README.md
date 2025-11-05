@@ -89,4 +89,20 @@ clang dynamic_array.c main.c -o out
 ./out
 ```
 
+### Generic Array
+1. Navigate to the generic_array directory:
+```bash
+cd arrays-from-scratch/generic_array
+```
+
+2. Compile with all source files:
+```bash
+clang generic_array.c utils.c main.c -o out
+```
+
+3. Run the executable:
+```bash
+./out
+```
+
 ---
