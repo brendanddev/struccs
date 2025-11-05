@@ -29,7 +29,8 @@ struct GenericArray * _init(size_t item_size) {
         exit(EXIT_FAILURE);
     }
 
-    ga->capacity = 4;
+    ga->initial_capacity = 4;
+    ga->capacity = ga->initial_capacity;
     ga->length = 0;
     ga->item_size = item_size;
 
@@ -234,7 +235,7 @@ static void shrink(struct GenericArray *ga) {
 
     // Reallocate less memory
     void *tmp = NULL;
-    tmp = realloc(ga->ptrData, new_capacity);
+    tmp = realloc(ga->ptrData, new_capacity * ga->item_size);
 
     // Handle reallocation failure
     if (tmp == NULL) {
