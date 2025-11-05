@@ -24,8 +24,20 @@ struct GenericArray * create_int_array() {
 struct GenericArray * create_dbl_array() {
     struct GenericArray *ga = _init(sizeof(double));
     for (int i = 0; i < 100; i++) {
-        double rd_num = i + 1.27;
+        double rd_num = 0.5 + ((double)rand() / RAND_MAX) * (1000 - 0.5);
         void *ptr = &rd_num;
+        _append(ga, ptr);
+    }
+    return ga;
+}
+
+// Creates a new GenericArray and populates it with chars
+struct GenericArray * create_chr_array() {
+    struct GenericArray *ga = _init(sizeof(char));
+    for (int i = 0; i < 50; i++) {
+
+        char rd_chr = 'A' + (rand() % 26);
+        void *ptr = &rd_chr;
         _append(ga, ptr);
     }
     return ga;
@@ -43,4 +55,11 @@ void print_arr_dbl(struct GenericArray *ga) {
     for (int i = 0; i < ga->length; i++) {
         printf("[%d] - %f\n", i, *(double *)((char *)ga->ptrData + i * ga->item_size));
     }
+}
+
+void print_arr_chr(struct GenericArray *ga) {
+    for (int i = 0; i < ga->length; i++) {
+        printf("[%d] - %c\n", i, *(char *)((char *)ga->ptrData + i * ga->item_size));
+    }
+
 }
