@@ -14,30 +14,45 @@ void test_deletion();
 
 
 int main() {
-
     test_insertion();
+    test_deletion();
     return 0;
 }
 
 
 void test_insertion() {
-
     struct GenericArray *ga_int = create_int_array();
     struct GenericArray *ga_dbl = create_dbl_array();
+    struct GenericArray *ga_chr = create_chr_array();
     print_arr_int(ga_int);
     print_arr_dbl(ga_dbl);
+    print_arr_chr(ga_chr);
 
     _discard(ga_int);
     ga_int = NULL;
 
     _discard(ga_dbl);
     ga_dbl = NULL;
+
+    _discard(ga_chr);
+    ga_chr = NULL;
 }
 
 void test_deletion() {
-
     struct GenericArray *ga = create_int_array();
     _print(ga);
+
+    // Remove last elements
+    for (int i = 0; i < 50; i++) {
+        _remove_last(ga);
+        _print(ga);
+    }
+
+    // Remove items from index 1
+    for (int i = 0; i < 45; i++) {
+        _remove_at(ga, 1);
+        _print(ga);
+    }
 
     _discard(ga);
     ga = NULL;
@@ -118,41 +133,3 @@ void test_deletion() {
 //     printf("=========================================\n");
 // }
 
-// void test_remove_last() {
-//     printf("=========================================\n");
-//     printf("REMOVE LAST (_remove_last) TEST: \n");
-//     struct GenericArray *ga = create_int_array();
-//     print_arr_int(ga);
-
-//     for (int i = 0; i < 95; i++) {
-//         _remove_last(ga);
-//         _print(ga);
-//     }
-
-//     printf("AFTER REMOVE LAST: \n");
-//     print_arr_int(ga);
-    
-//     _discard(ga);
-//     ga = NULL;
-//     printf("=========================================\n");
-// }
-
-// void test_remove_at() {
-//     printf("=========================================\n");
-//     printf("REMOVE AT (_remove_at) TEST: \n");
-//     struct GenericArray *ga = create_int_array();
-//     printf("BEFORE REMOVAL: \n");
-//     print_arr_int(ga);
-
-//     _remove_at(ga, 0);
-//     printf("AFTER REMOVAL: \n");
-//     print_arr_int(ga);
-
-//     _remove_at(ga, 1);
-//     printf("AFTER REMOVAL INDEX 1: \n");
-//     print_arr_int(ga);
-
-//     _discard(ga);
-//     ga = NULL;
-//     printf("=========================================\n");
-// }

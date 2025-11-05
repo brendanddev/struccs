@@ -150,6 +150,7 @@ bool _contains(struct GenericArray *ga, bool (*funcptr)(void*, void*)) {
     // Compare user provided value with each item stored in the array
     // Call user provided function to determine if these two items are equivalent
     // If they are, return true, maybe output 
+    return true;
 }
 
 

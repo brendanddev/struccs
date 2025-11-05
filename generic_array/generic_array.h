@@ -5,7 +5,7 @@
 
 #ifndef GENERIC_ARRAY_H
 #define GENERIC_ARRAY_H
-#define SHRINK_THRESHOLD 6.0
+#define SHRINK_THRESHOLD 5.0
 
 #include <stdio.h>
 #include <stdlib.h>
