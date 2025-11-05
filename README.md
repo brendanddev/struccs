@@ -1,9 +1,7 @@
 
 # Arrays from Scratch (In C)    v1.0
 
-A dynamic, memory-efficient array implementation from scratch in C. This array automatically resizes, either growing or shrinking its internal storage while maintaining fast element access, insertion, and removal.
-
-Once this is complete, I plan to build on it by creating a **generic dynamically resizing array** that supports **`void*` types**, allowing storage of any data type while maintaining efficiency.
+A dynamic, memory-efficient array implementation from scratch in C. This project includes both a type-specific integer array and a **generic array** that supports any data type through `void*` pointers, both featuring automatic resizing and efficient memory management.
 
 ---
 
