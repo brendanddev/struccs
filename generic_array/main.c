@@ -11,11 +11,16 @@
 // Prototypes
 void test_insertion();
 void test_deletion();
+void test_access();
+void test_contains();
+
 
 
 int main() {
     test_insertion();
     test_deletion();
+    test_access();
+    test_contains();
     return 0;
 }
 
@@ -59,38 +64,29 @@ void test_deletion() {
 }
 
 
+void test_access() {
+
+}
+
+void test_contains() {
+    struct GenericArray *ga_int = create_int_array();
+    print_arr_int(ga_int);
+
+    bool (*fptr)(void *, void *);
+    fptr = &contains_int;
+
+    int value = 64;
+    void *ptr = NULL;
+    ptr = &value;
+
+    if (_contains(ga_int, fptr, ptr)) {
+        printf("Located value!\n");
+    } else {
+        printf("Value is not here.\n");
+    }
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-// void test_add() {
-
-//     int value = 999;
-//     void *val_ptr = &value;
-//     if (_add(ga, 0, val_ptr)) {
-//         printf("Item added successfully\n");
-//     } else {
-//         printf("Failed to add item\n");
-//     }
-
-//     print_arr_int(ga);
-//     _print(ga);
-
-//     _discard(ga);
-//     ga = NULL;
-//     printf("=========================================\n");
-// }
 
 // void test_get() {
 //     printf("=========================================\n");
