@@ -1,5 +1,5 @@
 
-# Arrays from Scratch (In C)    v0.2
+# Arrays from Scratch (In C)    v1.0
 
 A dynamic, memory-efficient array implementation from scratch in C. This array automatically resizes, either growing or shrinking its internal storage while maintaining fast element access, insertion, and removal.
 
@@ -15,7 +15,12 @@ Once this is complete, I plan to build on it by creating a **generic dynamically
     - Supports adding, appending, removing, accessing, updating, and checking elements
     - Internal memory management for efficiency
 
-2. **Generic Array**: In progress...
+2. **Generic Array**:
+    - Type-agnostic array supporting any data type (int, double, char, structs, etc.)
+    - Uses `void*` pointers and `memcpy` for generic data handling
+    - Automatic resizing with configurable shrink threshold (5% usage)
+    - Custom comparison functions via function pointers for `_contains`
+    - All operations from Dynamic Array plus generic type support
 
 
 ---
@@ -27,9 +32,11 @@ arrays-from-scratch/
 │   ├── dynamic_array.h
 │   ├── dynamic_array.c
 │   └── main.c
-├── generic_array/           # GenericArray implementation
+├── generic_array/          # GenericArray implementation
 │   ├── generic_array.h
 │   ├── generic_array.c
+│   ├── utils.h            # Helper functions for testing
+│   ├── utils.c
 │   └── main.c
 └── README.md
 ```
@@ -65,15 +72,16 @@ arrays-from-scratch/
 
 ## Run the Code
 
+### Dynamic Array
 1. Clone the repository:
 ```bash
 git clone https://github.com/brendanddev/arrays-from-scratch.git
-cd array-from-scratch
+cd arrays-from-scratch/dynamic_array
 ```
 
 2. Compile the code using `clang`:
 ```bash
-clang main.c -o out
+clang dynamic_array.c main.c -o out
 ```
 
 3. Run the executable:
