@@ -43,6 +43,16 @@ struct GenericArray * create_chr_array() {
     return ga;
 }
 
+
+bool contains_int(void *a, void *b) {
+    int ia = * (int *) a;
+    int ib = * (int *) b;
+    if (ia == ib) return true;
+    return false;
+}
+
+
+
 // Prints the contents of an integer based GenericArray
 void print_arr_int(struct GenericArray *ga) { 
     for (int i = 0; i < ga->length; i++) {
@@ -61,5 +71,4 @@ void print_arr_chr(struct GenericArray *ga) {
     for (int i = 0; i < ga->length; i++) {
         printf("[%d] - %c\n", i, *(char *)((char *)ga->ptrData + i * ga->item_size));
     }
-
 }
