@@ -43,8 +43,10 @@ struct GenericArray * create_chr_array() {
     return ga;
 }
 
-
+// Defines how two integers will be compared
 bool contains_int(void *a, void *b) {
+    // Dereferences the void* by first casting to an int*
+    // and then storing the int values to check for equality
     int ia = * (int *) a;
     int ib = * (int *) b;
     if (ia == ib) return true;

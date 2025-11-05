@@ -144,7 +144,9 @@ bool _remove_at(struct GenericArray *ga, int index) {
     return true;
 }
 
-// Checks if
+// Checks if the GenericArray contains another item
+// Takes a pointer to another function that defines how the two items will be compared,
+// and another pointer to the target item we are searching the array for
 bool _contains(struct GenericArray *ga, bool (*funcptr)(void*, void*), void *trgtptr) {
     for (int i = 0; i < ga->length; i++) {
         // Current address = start of memory + index * item_size

@@ -65,67 +65,52 @@ void test_deletion() {
 
 
 void test_access() {
+    struct GenericArray *ga = create_int_array();
+    _print(ga);
 
+    // Get the value at index 1
+    int value;
+    if (_get(ga, 1, &value)) {
+        printf("Get Value: %d\n", value);
+    } else {
+        printf("Failed to retrieve the value!\n");
+    }
+
+    // // Set the value at index 0
+    int val = 999;
+    void *ptr_val = &val;
+    if (_set(ga, 0, ptr_val)) {
+        printf("Set index 0 = %d\n", val);
+    } else {
+        printf("Failed to set!\n");
+    }
+
+    print_arr_int(ga);
+    _discard(ga);
+    ga = NULL;
 }
 
 void test_contains() {
     struct GenericArray *ga_int = create_int_array();
     print_arr_int(ga_int);
 
+    // Declare a func *ptr and point it to the address of the type specific comparison func
     bool (*fptr)(void *, void *);
     fptr = &contains_int;
 
+    // Initialize the value being searched for,
+    // and point the void *ptr to point to that address
     int value = 64;
     void *ptr = NULL;
     ptr = &value;
 
+
+    // For each element, calls the function pointed to by the fptr (which is contains_int),
+    // to search for the value pointed to in the ptr
     if (_contains(ga_int, fptr, ptr)) {
         printf("Located value!\n");
     } else {
         printf("Value is not here.\n");
     }
 }
-
-
-
-// void test_get() {
-//     printf("=========================================\n");
-//     printf("GET TEST (_get): \n");
-//     struct GenericArray *ga = create_int_array();
-
-//     void *value_ptr;
-//     if (_get(ga, 1, &value_ptr)) {
-//         printf("GET VALUE: %d\n", *(int *)value_ptr);
-//     } else {
-//         printf("GET operation failed.\n");
-//     }
-
-//     void *value_ptr2;
-//     if (_get(ga, 0, &value_ptr2)) {
-//         printf("GET VALUE: %d\n", *(int *)value_ptr2);
-//     } else {
-//         printf("GET operation failed.\n");
-//     }
-
-//     _discard(ga);
-//     ga = NULL;
-//     printf("=========================================\n");
-// }
-
-// void test_set() {
-//     printf("=========================================\n");
-//     printf("SET TEST (_set): \n");
-//     struct GenericArray *ga = create_int_array();
-
-//     int val = 1;
-//     void *ptr_val = &val;
-//     if (_set(ga, 0, ptr_val)) {
-//         printf("SET operation successful\n");
-//     }
-
-//     print_arr_int(ga);
-//     _discard(ga);
-//     ga = NULL;
-//     printf("=========================================\n");
-// }
 
