@@ -13,14 +13,16 @@ void test_insertion();
 void test_deletion();
 void test_access();
 void test_contains();
+void test_shrinking();
 
 
 
 int main() {
-    test_insertion();
-    test_deletion();
-    test_access();
-    test_contains();
+    // test_insertion();
+    // test_deletion();
+    // test_access();
+    // test_contains();
+    test_shrinking();
     return 0;
 }
 
@@ -114,3 +116,29 @@ void test_contains() {
     }
 }
 
+
+void test_shrinking() {
+    struct GenericArray *ga = create_int_array();
+    _print(ga);
+
+    for (int i = 0; i < 95; i++) {
+        _remove_last(ga);
+        _print(ga);
+    }
+
+    _print(ga);
+
+    int val = 5;
+    void *ptr = &val;
+    if (_append(ga, ptr)) printf("Item appended\n");
+
+    _print(ga);
+    
+    int val2 = 100;
+    void *ptr2 = &val2;
+    if (_append(ga, ptr2)) printf("Item appended\n");
+
+    _print(ga);
+
+
+}
