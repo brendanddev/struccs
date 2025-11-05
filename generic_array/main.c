@@ -134,6 +134,12 @@ void test_shrinking() {
 
     _print(ga);
     
+    // Segmentation fault occurs here
+    // Array shrinks from capacity 128 --> 6
+    // Item gets appended, increments length from 5 --> 6
+    // At this point capacity is also 6
+    // Another append attempt, should immediately trigger a resize (i want to avoid this but first deal with this bug)
+    // Instead program crashes
     int val2 = 100;
     void *ptr2 = &val2;
     if (_append(ga, ptr2)) printf("Item appended\n");
