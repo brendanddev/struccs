@@ -144,13 +144,21 @@ bool _remove_at(struct GenericArray *ga, int index) {
     return true;
 }
 
+// Checks if
+bool _contains(struct GenericArray *ga, bool (*funcptr)(void*, void*), void *trgtptr) {
+    for (int i = 0; i < ga->length; i++) {
+        // Current address = start of memory + index * item_size
+        // For the item at index i: Start at base address of the array
+        // Move forward i * item_size bytes to reach the i-th element
+        void *curr = (char *) ga->ptrData + i * ga->item_size;
 
-bool _contains(struct GenericArray *ga, bool (*funcptr)(void*, void*)) {
-
-    // Compare user provided value with each item stored in the array
-    // Call user provided function to determine if these two items are equivalent
-    // If they are, return true, maybe output 
-    return true;
+        // If the user provided function for comparison returns true,
+        // items are equal and we return true
+        if (funcptr(curr, trgtptr)) {
+            return true;
+        }
+    }
+    return false;
 }
 
 
