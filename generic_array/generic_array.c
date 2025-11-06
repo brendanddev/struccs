@@ -163,6 +163,14 @@ bool _contains(struct GenericArray *ga, bool (*funcptr)(void*, void*), void *trg
     return false;
 }
 
+// Clears the contents of the array by setting the length to 0
+// The allocated memory and existing data remain intact but are marked as unused
+// Old values will be overwritten when new items are added
+bool _clear(struct GenericArray *ga) {
+    if (!ga) return false;
+    ga->length = 0;
+    return true;
+}
 
 // Returns the length of the GenericArray
 int _size(struct GenericArray *ga) {
