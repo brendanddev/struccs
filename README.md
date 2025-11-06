@@ -106,7 +106,16 @@ clang generic_array.c utils.c main.c -o out
 ---
 
 ## Future Enhancements
-- Implement a sorting function for the GenericArray.
-    - Use a user provided comparator, requires swapping elements.
-- Implement a Copy function 
-    - Copy the array structure and all elements
+
+- **Clear Function** - Reset array to empty state
+  - Option to shrink capacity back to initial size
+- **Reverse Function** - Reverse elements in-place
+- **Sorting Function** - Implement `_sort()` with user provided comparator
+  - Start with bubble sort, optimize to quicksort later
+  - Requires element swapping and comparison logic
+- **Copy Function** - Deep/shallow copy of arrays
+  - Copy array structure and all elements
+  - Consider deep copy with custom copy function for complex types
+- **Find/Search** - `_find()` to locate elements by value
+  - Returns index or -1 if not found
+- **Binary Search** - Efficient search for sorted arrays
