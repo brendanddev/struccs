@@ -18,10 +18,10 @@ void test_shrinking();
 
 
 int main() {
-    // test_insertion();
-    // test_deletion();
-    // test_access();
-    // test_contains();
+    test_insertion();
+    test_deletion();
+    test_access();
+    test_contains();
     test_shrinking();
     return 0;
 }
@@ -52,14 +52,14 @@ void test_deletion() {
     // Remove last elements
     for (int i = 0; i < 50; i++) {
         _remove_last(ga);
-        _print(ga);
     }
+    _print(ga);
 
     // Remove items from index 1
     for (int i = 0; i < 45; i++) {
         _remove_at(ga, 1);
-        _print(ga);
     }
+    _print(ga);
 
     _discard(ga);
     ga = NULL;
@@ -121,39 +121,19 @@ void test_shrinking() {
     struct GenericArray *ga = create_int_array();
     _print(ga);
 
-    for (int i = 0; i < 96; i++) {
+    for (int i = 0; i < 94; i++) {
         _remove_last(ga);
-        _print(ga);
     }
-
     _print(ga);
+
+    // Adding an item immediately after a shrink can trigger a resize
+    // The shrink operation reduces capacity to either the current length of the array or the initial capacity
+    // If the array is already nearly full, the next append exceeds the new capacity causing an imemdiate resize
+    // Doing this frequently can be costly and inefficient
 
     int val = 5;
     void *ptr = &val;
     if (_append(ga, ptr)) printf("Item appended\n");
 
     _print(ga);
-    
-    // Segmentation fault occurs here
-    // Array shrinks from capacity 128 --> 6
-    // Item gets appended, increments length from 5 --> 6
-    // At this point capacity is also 6
-    // Another append attempt, should immediately trigger a resize (i want to avoid this but first deal with this bug)
-    // Instead program crashes
-
-    // Cause: 
-    // The shrink function called realloc with: tmp = realloc(ga->ptrData, new_capacity);
-    // Where the new_capacity was in units of elements, but realloc expects bytes
-    // This caused to small of a memory block to be allocated, so appending an element overwrote invalid memory
-
-    // Another issue was that initial_capacity was never initialized in the init() func
-    // Shrink could reduce capacity below the set minimum if the length of the internal array dropped too low
-
-    int val2 = 100;
-    void *ptr2 = &val2;
-    if (_append(ga, ptr2)) printf("Item appended\n");
-
-    _print(ga);
-
-
 }
