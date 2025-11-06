@@ -15,14 +15,29 @@ void test_access();
 void test_contains();
 void test_shrinking();
 
+// Testing for sorting and swapping logic
+void _swap(int a, int b) {
+    int temp
+}
+
+void _sort(int arr[]) {
+}
+
+
+
 
 
 int main() {
-    test_insertion();
-    test_deletion();
-    test_access();
-    test_contains();
-    test_shrinking();
+
+    int arr[10] = { 19, 8856, 95, 1, 1000, 5000, 8000, 23000, 50000, 100 };
+
+
+
+    // test_insertion();
+    // test_deletion();
+    // test_access();
+    // test_contains();
+    // test_shrinking();
     return 0;
 }
 
