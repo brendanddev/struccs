@@ -104,3 +104,9 @@ clang generic_array.c utils.c main.c -o out
 ```
 
 ---
+
+## Future Enhancements
+- Implement a sorting function for the GenericArray.
+    - Use a user provided comparator, requires swapping elements.
+- Implement a Copy function 
+    - Copy the array structure and all elements
