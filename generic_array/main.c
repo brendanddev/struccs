@@ -121,7 +121,7 @@ void test_shrinking() {
     struct GenericArray *ga = create_int_array();
     _print(ga);
 
-    for (int i = 0; i < 95; i++) {
+    for (int i = 0; i < 96; i++) {
         _remove_last(ga);
         _print(ga);
     }
@@ -140,6 +140,15 @@ void test_shrinking() {
     // At this point capacity is also 6
     // Another append attempt, should immediately trigger a resize (i want to avoid this but first deal with this bug)
     // Instead program crashes
+
+    // Cause: 
+    // The shrink function called realloc with: tmp = realloc(ga->ptrData, new_capacity);
+    // Where the new_capacity was in units of elements, but realloc expects bytes
+    // This caused to small of a memory block to be allocated, so appending an element overwrote invalid memory
+
+    // Another issue was that initial_capacity was never initialized in the init() func
+    // Shrink could reduce capacity below the set minimum if the length of the internal array dropped too low
+
     int val2 = 100;
     void *ptr2 = &val2;
     if (_append(ga, ptr2)) printf("Item appended\n");
