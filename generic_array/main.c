@@ -19,15 +19,13 @@ void test_shrinking();
 
 // Swaps two elements in an array
 void _swap(int *num1, int *num2) {
-
-    int temp = *num1;       // Store the value 
-    num1 = *num2;
-    num2 = temp;
-
+    int temp = *num1;       // Store the value pointed to by the `num1` pointer into `temp`
+    *num1 = *num2;          // Store the value pointed to by the `num2` pointer at the memory location pointed to by `num1`
+    *num2 = temp;           // Store the temp variable back into the memory location pointed to by `num2`
 }
 
 void _sort(int arr[]) {
-    
+
 }
 
 
@@ -38,8 +36,11 @@ int main() {
 
     int arr[10] = { 19, 8856, 95, 1, 1000, 5000, 8000, 23000, 50000, 100 };
     for (int i = 0; i < 10; i++) printf("%d ", arr[i]);
+    printf("\n");
 
-
+    _swap(&arr[0], &arr[1]);
+    for (int i = 0; i < 10; i++) printf("%d ", arr[i]);
+    printf("\n");
 
     // test_insertion();
     // test_deletion();
