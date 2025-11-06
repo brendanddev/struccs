@@ -35,7 +35,7 @@ struct GenericArray * _init(size_t item_size) {
     ga->item_size = item_size;
 
     // Allocate memory for the internal array
-    int *pTmp = malloc(item_size * ga->capacity);
+    void *pTmp = malloc(item_size * ga->capacity);
     if (pTmp == NULL) {
         fprintf(stderr, "Memory allocation failed for internal array.\n");
         free(ga);               // Free previously allocated struct to avoid memory leak
@@ -118,20 +118,20 @@ bool _set(struct GenericArray *ga, int index, void *in_ptr) {
 // Removes the last item in the GenericArray
 bool _remove_last(struct GenericArray *ga) {
     if (!ga || ga->length == 0) return false;
+    ga->length--;
 
     // Check if memory is underutilized
     if (_usage(ga) < SHRINK_THRESHOLD) { 
         printf("SHRINKING...\n");
         shrink(ga);
     }
-
-    ga->length--;
     return true;
 }
 
 // Removes an item from the specified index in the GenericArray
 bool _remove_at(struct GenericArray *ga, int index) {
     if (index < 0 || index >= ga->length) return false;
+    ga->length--;
 
     // Check if memory is underutilized
     if (_usage(ga) < SHRINK_THRESHOLD) { 
@@ -141,7 +141,6 @@ bool _remove_at(struct GenericArray *ga, int index) {
 
     // Shift every element after the index of the item being removed
     shift_left(ga, index);
-    ga->length--;
     return true;
 }
 
@@ -265,7 +264,7 @@ static void shift_right(struct GenericArray *ga, int index) {
 // Shifts items to the left starting at 'index', filling the gap created by the removed item
 static void shift_left(struct GenericArray *ga, int index) {
     // Loop from index to end
-    for (int i = index; i < ga->length; i++) {
+    for (int i = index; i < ga->length - 1; i++) {
         // Calculate memory address of the source item and the destination item
         void *src = (char *) ga->ptrData + (i + 1) * ga->item_size;
         void *dest = (char *) ga->ptrData + i * ga->item_size;
