@@ -16,11 +16,18 @@ void test_contains();
 void test_shrinking();
 
 // Testing for sorting and swapping logic
-void _swap(int a, int b) {
-    int temp
+
+// Swaps two elements in an array
+void _swap(int *num1, int *num2) {
+
+    int temp = *num1;       // Store the value 
+    num1 = *num2;
+    num2 = temp;
+
 }
 
 void _sort(int arr[]) {
+    
 }
 
 
@@ -30,6 +37,7 @@ void _sort(int arr[]) {
 int main() {
 
     int arr[10] = { 19, 8856, 95, 1, 1000, 5000, 8000, 23000, 50000, 100 };
+    for (int i = 0; i < 10; i++) printf("%d ", arr[i]);
 
 
 
