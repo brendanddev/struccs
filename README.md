@@ -1,39 +1,33 @@
 
-# Arrays from Scratch (In C)    v1.2
+# Arrays from Scratch (In C)    v1.3
 
-A dynamic, memory-efficient array implementation from scratch in C. This project includes both a type-specific integer array and a **generic array** that supports any data type through `void*` pointers, both featuring automatic resizing and efficient memory management.
+A dynamic, memory-efficient array implementation from scratch in C. The project initially started with a type-specific integer array but has since evolved into an improved **generic array** that supports any data type via `void*` pointers. Both versions feature automatic resizing and efficient memory management, but the main focus now is on the generic array.
+
+---
+
+## Implementation
+
+- **Generic Array**:
+  - Type-agnostic array supporting any data type (int, double, char, structs, etc.)
+  - Uses `void*` pointers and `memcpy` for generic data handling
+  - **Automatic resizing** with configurable shrink threshold (5% usage)
+  - Custom comparison functions via function pointers for _contains and other operations
+  - Supports adding, appending, removing, accessing, updating, and swapping elements
+  - Fully memory-managed, efficient, and reusable for any type
+
+  *(The older Dynamic Array is preserved in `archive/` for reference and comparison.)*
 
 ---
 
-## Implementations
-
-1. **Dynamic Array**: 
-    - Resizable array of integers (int)
-    - Automatic growth and shrinkage based on usage
-    - Supports adding, appending, removing, accessing, updating, and checking elements
-    - Internal memory management for efficiency
-
-2. **Generic Array**:
-    - Type-agnostic array supporting any data type (int, double, char, structs, etc.)
-    - Uses `void*` pointers and `memcpy` for generic data handling
-    - Automatic resizing with configurable shrink threshold (5% usage)
-    - Custom comparison functions via function pointers for `_contains`
-    - All operations from Dynamic Array plus generic type support
-
-
----
 ## Project Structure
 
 ```
 arrays-from-scratch/
-├── dynamic_array/          # DynamicArray implementation
-│   ├── dynamic_array.h
-│   ├── dynamic_array.c
-│   └── main.c
+├── archive/                # Older DynamicArray implementation
 ├── generic_array/          # GenericArray implementation
 │   ├── generic_array.h
 │   ├── generic_array.c
-│   ├── utils.h            # Helper functions for testing
+│   ├── utils.h
 │   ├── utils.c
 │   └── main.c
 └── README.md
@@ -69,23 +63,6 @@ arrays-from-scratch/
 ---
 
 ## Run the Code
-
-### Dynamic Array
-1. Clone the repository:
-```bash
-git clone https://github.com/brendanddev/arrays-from-scratch.git
-cd arrays-from-scratch/dynamic_array
-```
-
-2. Compile the code using `clang`:
-```bash
-clang dynamic_array.c main.c -o out
-```
-
-3. Run the executable:
-```bash
-./out
-```
 
 ### Generic Array
 1. Navigate to the generic_array directory:
