@@ -119,3 +119,4 @@ clang generic_array.c utils.c main.c -o out
 - **Find/Search** - `_find()` to locate elements by value
   - Returns index or -1 if not found
 - **Binary Search** - Efficient search for sorted arrays
+- **Fix Shrinking Thrashing** - Prevent resize-shrink-resize cycles

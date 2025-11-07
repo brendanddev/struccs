@@ -24,9 +24,7 @@ void _swap(int *num1, int *num2) {
     *num2 = temp;           // Store the temp variable back into the memory location pointed to by `num2`
 }
 
-void _sort(int arr[]) {
-
-}
+void _sort(int arr[]) { }
 
 
 
@@ -34,19 +32,19 @@ void _sort(int arr[]) {
 
 int main() {
 
-    int arr[10] = { 19, 8856, 95, 1, 1000, 5000, 8000, 23000, 50000, 100 };
-    for (int i = 0; i < 10; i++) printf("%d ", arr[i]);
-    printf("\n");
+    // int arr[10] = { 19, 8856, 95, 1, 1000, 5000, 8000, 23000, 50000, 100 };
+    // for (int i = 0; i < 10; i++) printf("%d ", arr[i]);
+    // printf("\n");
 
-    _swap(&arr[0], &arr[1]);
-    for (int i = 0; i < 10; i++) printf("%d ", arr[i]);
-    printf("\n");
+    // _swap(&arr[0], &arr[1]);
+    // for (int i = 0; i < 10; i++) printf("%d ", arr[i]);
+    // printf("\n");
 
     // test_insertion();
     // test_deletion();
     // test_access();
     // test_contains();
-    // test_shrinking();
+    test_shrinking();
     return 0;
 }
 
@@ -147,8 +145,8 @@ void test_shrinking() {
 
     for (int i = 0; i < 94; i++) {
         _remove_last(ga);
+        _print(ga);
     }
-    _print(ga);
 
     // Adding an item immediately after a shrink can trigger a resize
     // The shrink operation reduces capacity to either the current length of the array or the initial capacity
