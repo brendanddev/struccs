@@ -14,6 +14,7 @@ void test_deletion();
 void test_access();
 void test_contains();
 void test_shrinking();
+void test_sorting();
 
 
 
@@ -25,6 +26,7 @@ int main() {
     // test_access();
     // test_contains();
     // test_shrinking();
+    test_sorting();
     return 0;
 }
 
@@ -138,4 +140,22 @@ void test_shrinking() {
     if (_append(ga, ptr)) printf("Item appended\n");
 
     _print(ga);
+}
+
+
+bool greatest_first(void *a, void *b) {
+    int ia = * (int *)a;
+    int ib = * (int *)b;
+    if (a > b) return true;
+    return false;
+}
+
+void test_sorting() {
+    struct GenericArray *ga = create_int_array();
+    _print(ga);
+    print_arr_int(ga);
+    printf("\n");
+
+    _sort(ga, greatest_first);
+    print_arr_int(ga);
 }
