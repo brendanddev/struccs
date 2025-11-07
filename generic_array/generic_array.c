@@ -312,7 +312,7 @@ void _swap(struct GenericArray *ga, void *val1, void *val2) {
 
 
     // Copy the raw memory pointed to by `val1` into the memory location pointed to by the `temp` pointer
-    memcpy(temp, &val1, ga->item_size);
+    memcpy(temp, val1, ga->item_size);
     printf("SWAPPING - TEMP: %p, VAL1: %p\n", temp, val1);
     memcpy(val1, val2, ga->item_size);
     printf("SWAPPING - VAL1: %p, VAL2: %p\n", val1, val2);
@@ -328,7 +328,7 @@ void _swap(struct GenericArray *ga, void *val1, void *val2) {
 // caller defined comparator function to determine how to order elements
 void _sort(struct GenericArray *ga, bool (* comparator)(void*, void*)) { 
     bool is_swapped;
-    for (int i = 0; i < ga->length; i++) {
+    for (int i = 0; i < ga->length - 1; i++) {
         is_swapped = false;
         for (int j = 0; j < ga->length - i - 1; j++) {
             void *curr = (char *) ga->ptrData + j * ga->item_size;
@@ -339,7 +339,7 @@ void _sort(struct GenericArray *ga, bool (* comparator)(void*, void*)) {
 
             if (comparator(curr, next)) {
                 printf("Swapping!\n");
-                _swap(ga, &curr, &next);
+                _swap(ga, curr, next);
                 is_swapped = true;
             } else {
 

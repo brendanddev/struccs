@@ -146,14 +146,15 @@ void test_shrinking() {
 bool greatest_first(void *a, void *b) {
     int ia = * (int *)a;
     int ib = * (int *)b;
-    if (a > b) return true;
+    // printf("Checking if %d > %d\n", ia
+    if (ia > ib) return true;
     return false;
 }
 
 bool smallest_first(void *a, void *b) {
     int ia = * (int *)a;
     int ib = * (int *)b;
-    if (a < b) return true;
+    if (ia < ib) return true;
     return false;
 }
 
@@ -170,11 +171,16 @@ void test_sorting() {
     print_arr_int(ga);
     printf("\n");
 
-    printf("SORT OPERATION: \n");
+    printf("GREATEST FIRST SORT OPERATION: \n");
     bool (*fptr)(void*, void*);
-    fptr = &smallest_first;
+    fptr = greatest_first;
     _sort(ga, fptr);
-    for (int i = 0; i < ga->length; i++) {
-        printf("[%d] ", *(int *)((char *)ga->ptrData + i * ga->item_size));
-    }
+    print_arr_int(ga);
+    printf("\n");
+
+    printf("SMALLEST FIRST SORT OPERATION: \n");
+    _sort(ga, smallest_first);
+    print_arr_int(ga);
+
+
 }
