@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 
 /// sort.c
 /// Designated development and testing file
@@ -8,7 +9,8 @@
 
 
 
-// // Swaps two elements in an array
+
+// Swaps two elements in an array
 void _swap(int *num1, int *num2) {
     int temp = *num1;       // Store the value pointed to by the `num1` pointer into `temp`
     *num1 = *num2;          // Store the value pointed to by the `num2` pointer at the memory location pointed to by `num1`
@@ -80,6 +82,54 @@ int main() {
     printf("\n");
 
 
+    void *ptr = NULL;
+    ptr = malloc(sizeof(int) * 5);
+    printf("%p\n", ptr);
+
+    void *first = (char *) ptr + 0 * sizeof(int);
+    printf("%p\n", first);
+
+    void *scnd = (char *) ptr + 1 * sizeof(int);
+    printf("%p\n", scnd);
+
+    void *thrd = (char *) ptr + 2 * sizeof(int);
+    printf("%p\n", thrd);
+
+    void *frth = (char *) ptr + 3 * sizeof(int);
+    printf("%p\n", frth);
+
+    void *ffth = (char *) ptr + 4 * sizeof(int);
+    printf("%p\n", ffth);
+
+    void *sth = (char *) ptr + 5 * sizeof(int);
+    printf("%p\n", sth);
+
+    void *svnth = (char *) ptr + 6 * sizeof(int);
+    printf("%p\n", svnth);
+
+
+
+    int num = 100;
+    void *item = &num;                  // Point the void pointer to the address of `num`
+    memcpy(first, item, sizeof(int));   // Copy the contents of the value in memory pointed to by `item` into `first`
+
+    printf("%d ", * (int *) first);
+    printf("%d ", * (int *) scnd);
+
     return 0;
 
 }
+
+
+
+void _vswap(void *val1, void *val2) { 
+    void *temp;
+}
+
+
+// Swaps two elements in an array
+// void _swap(int *num1, int *num2) {
+//     int temp = *num1;       // Store the value pointed to by the `num1` pointer into `temp`
+//     *num1 = *num2;          // Store the value pointed to by the `num2` pointer at the memory location pointed to by `num1`
+//     *num2 = temp;           // Store the temp variable back into the memory location pointed to by `num2`
+// }

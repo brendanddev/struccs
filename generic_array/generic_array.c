@@ -289,49 +289,14 @@ static void shift_left(struct GenericArray *ga, int index) {
 
 
 
-// Requirements:
-// - An array to sort
-// - A sorting algorithm
-// - A sort function
-// - A swap mechanism
-// - A comparator function
-
 
 // Swap two void items in the array
 // Cannot dereference a void pointer directly
+// Instead we can copy the raw memory between positions with memcpy?
 
-void _swap(void *val1, void *val2) {
-    void *temp = val1;
-    val1 = val2;
-    val2 = temp;
-}
+void _swap(struct GenericArray *ga, void *val1, void *val2) { }
 
-
-
-void _sort(struct GenericArray *ga, bool (* comparator)(void*, void*)) {
-    bool is_swapped;
-    for (int i = 0; i < ga->length; i++) {
-        is_swapped = false;
-
-        for (int j = 0; j < ga->length - i - 1; j++) {
-
-            // Compare here with custom comparator - j, j + 1
-            // then call swap
-
-            void *curr = (char *) ga->ptrData + j * ga->item_size;
-            void *next = (char *) ga->ptrData + (j + 1) * ga->item_size;
-
-            if (comparator(curr, next)) {
-                _swap(curr, next);
-                is_swapped = true;
-            }
-        }
-
-        if (is_swapped == false) {
-            break;
-        }
-    }
-}
+void _sort(struct GenericArray *ga, bool (* comparator)(void*, void*)) { }
 
 
 
