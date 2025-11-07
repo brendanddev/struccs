@@ -84,11 +84,8 @@ clang generic_array.c utils.c main.c -o out
 
 ## Future Enhancements
 
-- **Reverse Function** - Reverse elements in-place
 - **Copy Function** - Deep/shallow copy of arrays
   - Copy array structure and all elements
   - Consider deep copy with custom copy function for complex types
-- **Find/Search** - `_find()` to locate elements by value
-  - Returns index or -1 if not found
 - **Binary Search** - Efficient search for sorted arrays
 - **Fix Shrinking Thrashing** - Prevent resize-shrink-resize cycles

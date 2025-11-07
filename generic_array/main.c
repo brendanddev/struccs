@@ -122,6 +122,9 @@ void test_contains() {
     } else {
         printf("Value is not here.\n");
     }
+
+    _discard(ga_int);
+    ga_int = NULL;
 }
 
 
@@ -144,6 +147,8 @@ void test_shrinking() {
     if (_append(ga, ptr)) printf("Item appended\n");
 
     _print(ga);
+    _discard(ga);
+    ga = NULL;
 }
 
 void test_clear() {
@@ -152,6 +157,9 @@ void test_clear() {
 
     _clear(ga);
     _print(ga);
+
+    _discard(ga);
+    ga = NULL;
 }
 
 
@@ -185,6 +193,9 @@ void test_sorting() {
     printf("SMALLEST FIRST SORT OPERATION: \n");
     _sort(ga, smallest_first);
     print_arr_int(ga);
+
+    _discard(ga);
+    ga = NULL;
 }
 
 bool equals(void *a, void *b) {
@@ -205,4 +216,7 @@ void test_find() {
 
     int index = _find(ga, ptr, equals);
     printf("Index of value: %d is %d\n", num, index);
+
+    _discard(ga);
+    ga = NULL;
 }
