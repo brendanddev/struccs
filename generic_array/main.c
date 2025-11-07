@@ -146,15 +146,14 @@ void test_shrinking() {
 bool greatest_first(void *a, void *b) {
     int ia = * (int *)a;
     int ib = * (int *)b;
-    // printf("Checking if %d > %d\n", ia
-    if (ia > ib) return true;
+    if (ia < ib) return true;
     return false;
 }
 
 bool smallest_first(void *a, void *b) {
     int ia = * (int *)a;
     int ib = * (int *)b;
-    if (ia < ib) return true;
+    if (ia > ib) return true;
     return false;
 }
 
