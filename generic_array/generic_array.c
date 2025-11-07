@@ -117,14 +117,18 @@ bool _set(struct GenericArray *ga, int index, void *in_ptr) {
 }
 
 // Find the index of a specified item in the array
-int _find(struct GenericArray *ga, void *item_ptr) {
-    if (index < 0 || index >= ga->length) return -1;
+int _find(struct GenericArray *ga, void *item_ptr, bool (*comparator)(void*, void*)) {
 
     for (int i = 0; i < ga->length; i++) {
         void *curr = (char *) ga->ptrData + i * ga->item_size;
 
+        // Compare the item being searched for to the current item
+        // based on the caller provided definition
+        if (comparator(item_ptr, curr)) {
+            return i;
+        }
     }
-
+    return -1;
 }
 
 // Removes the last item in the GenericArray
