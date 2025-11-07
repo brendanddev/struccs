@@ -24,7 +24,27 @@ void _swap(int *num1, int *num2) {
     *num2 = temp;           // Store the temp variable back into the memory location pointed to by `num2`
 }
 
-void _sort(int arr[]) { }
+// A basic sort function that implements Bubble Sort to sort an array of integers
+void _sort(int arr[], int n) { 
+
+    bool is_swapped;
+    for (int i = 0; i < n - 1; i++) {
+        
+        is_swapped = false;
+        for (int j = 0; j < n - i - 1; j++) {
+
+            if (arr[j] > arr[j + 1]) {
+                _swap(&arr[j], &arr[j + 1]);
+                is_swapped = true;
+            }
+        }
+
+        // No two elements swapped, break
+        if (is_swapped == false) {
+            break;
+        }
+    }
+}
 
 
 
@@ -32,19 +52,25 @@ void _sort(int arr[]) { }
 
 int main() {
 
-    // int arr[10] = { 19, 8856, 95, 1, 1000, 5000, 8000, 23000, 50000, 100 };
-    // for (int i = 0; i < 10; i++) printf("%d ", arr[i]);
-    // printf("\n");
+    int n = 10;
+    int arr[10] = { 19, 8856, 95, 1, 1000, 5000, 8000, 23000, 50000, 100 };
+    for (int i = 0; i < 10; i++) printf("%d ", arr[i]);
+    printf("\n");
 
-    // _swap(&arr[0], &arr[1]);
-    // for (int i = 0; i < 10; i++) printf("%d ", arr[i]);
-    // printf("\n");
+    _swap(&arr[0], &arr[1]);
+    for (int i = 0; i < 10; i++) printf("%d ", arr[i]);
+    printf("\n");
+
+    _sort(arr, n);
+    for (int i = 0; i < 10; i++) printf("%d ", arr[i]);
+
+    
 
     // test_insertion();
     // test_deletion();
     // test_access();
     // test_contains();
-    test_shrinking();
+    // test_shrinking();
     return 0;
 }
 
@@ -145,8 +171,8 @@ void test_shrinking() {
 
     for (int i = 0; i < 94; i++) {
         _remove_last(ga);
-        _print(ga);
     }
+    _print(ga);
 
     // Adding an item immediately after a shrink can trigger a resize
     // The shrink operation reduces capacity to either the current length of the array or the initial capacity

@@ -12,7 +12,7 @@
 // Creates a new GenericArray and populates it with integers
 struct GenericArray * create_int_array() {
     struct GenericArray *ga = _init(sizeof(int));
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < 10; i++) {
         int rd_num = rand() % 1000;
         void *ptr = &rd_num;
         _append(ga, ptr);
