@@ -294,7 +294,21 @@ static void shift_left(struct GenericArray *ga, int index) {
 // Cannot dereference a void pointer directly
 // Instead we can copy the raw memory between positions with memcpy?
 
-void _swap(struct GenericArray *ga, void *val1, void *val2) { }
+void _swap(struct GenericArray *ga, void *val1, void *val2) { 
+
+    // Declare and initialize a pointer to memory allocated for the temporary var
+    void *temp = NULL;
+    temp = malloc(ga->item_size);
+
+    // Copy the raw memory pointed to by `val1` into the memory location pointed to by the `temp` pointer
+    memcpy(temp, val1, ga->item_size);
+    memcpy(val1, val2, ga->item_size);
+    memcpy(val2, temp, ga->item_size);
+
+    // Free the memory allocated for the temporary pointer
+    free(temp);
+}
+
 
 void _sort(struct GenericArray *ga, bool (* comparator)(void*, void*)) { }
 

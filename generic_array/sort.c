@@ -119,17 +119,3 @@ int main() {
     return 0;
 
 }
-
-
-
-void _vswap(void *val1, void *val2) { 
-    void *temp;
-}
-
-
-// Swaps two elements in an array
-// void _swap(int *num1, int *num2) {
-//     int temp = *num1;       // Store the value pointed to by the `num1` pointer into `temp`
-//     *num1 = *num2;          // Store the value pointed to by the `num2` pointer at the memory location pointed to by `num1`
-//     *num2 = temp;           // Store the temp variable back into the memory location pointed to by `num2`
-// }
