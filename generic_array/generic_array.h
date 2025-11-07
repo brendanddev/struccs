@@ -36,4 +36,9 @@ double _usage(struct GenericArray *ga);
 void _discard(struct GenericArray *ga);
 void _print(struct GenericArray *ga);
 
+
+void _swap(void *val1, void *val2);
+void _sort(struct GenericArray *ga, int size);
+
+
 #endif

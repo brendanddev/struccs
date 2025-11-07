@@ -281,3 +281,76 @@ static void shift_left(struct GenericArray *ga, int index) {
         memcpy(dest, src, ga->item_size);
     }
 }
+
+
+
+
+
+
+
+
+// Requirements:
+// - An array to sort
+// - A sorting algorithm
+// - A sort function
+// - A swap mechanism
+// - A comparator function
+
+
+// Swap two void items in the array
+// Cannot dereference a void pointer directly
+void _swap(void *val1, void *val2) {
+
+}
+
+
+void _sort(struct GenericArray *ga, int size) {
+    bool is_swapped;
+    for (int i = 0; i < ga->length; i++) {
+        is_swapped = false;
+
+        for (int j = 0; j < ga->length - i - 1; j++) {
+
+            // Compare here with custom comparator
+            // then call swap
+        }
+
+        if (is_swapped == false) {
+            break;
+        }
+    }
+}
+
+
+
+
+
+// // Swaps two elements in an array
+// void _swap(int *num1, int *num2) {
+//     int temp = *num1;       // Store the value pointed to by the `num1` pointer into `temp`
+//     *num1 = *num2;          // Store the value pointed to by the `num2` pointer at the memory location pointed to by `num1`
+//     *num2 = temp;           // Store the temp variable back into the memory location pointed to by `num2`
+// }
+
+
+
+// // A basic sort function that implements Bubble Sort to sort an array of integers
+// // and uses a comparator function to determine how to order items in the array
+// void _sort_cmp(int arr[], int n, bool (* comparator)(int, int)) { 
+//     bool is_swapped;
+//     for (int i = 0; i < n - 1; i++) {
+        
+//         is_swapped = false;
+//         for (int j = 0; j < n - i - 1; j++) {
+//             if (comparator(arr[j], arr[j + 1])) {       // Call comparator to determine how to order
+//                 _swap(&arr[j], &arr[j + 1]);
+//                 is_swapped = true;
+//             }
+//         }
+
+//         // No two elements swapped, break
+//         if (is_swapped == false) {
+//             break;
+//         }
+//     }
+// }
