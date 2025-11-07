@@ -282,55 +282,74 @@ static void shift_left(struct GenericArray *ga, int index) {
     }
 }
 
-
-
-
-
-
-
-
-
-// Swap two void items in the array
-// Cannot dereference a void pointer directly
-// Instead we can copy the raw memory between positions with memcpy?
-
+// Swaps two items in the array
 void _swap(struct GenericArray *ga, void *val1, void *val2) { 
 
     // Declare and initialize a pointer to memory allocated for the temporary var
     void *temp = NULL;
     temp = malloc(ga->item_size);
 
+    // Addresses stay the same in each swap...
+    // Output:
+    // Current: 249
+    // Next: 73
+    // Swapping!
+    // SWAPPING - TEMP: 0x11fe05ff0, VAL1: 0x16b303168
+    // SWAPPING - VAL1: 0x16b303160, VAL2: 0x16b303160
+    // SWAPPING - VAL2: 0x11fe05ff0, TEMP: 0x11fe05ff0
+    // Current: 73
+    // Next: 658
+    // Swapping!
+    // SWAPPING - TEMP: 0x11fe05ff0, VAL1: 0x16b303168
+    // SWAPPING - VAL1: 0x16b303160, VAL2: 0x16b303160
+    // SWAPPING - VAL2: 0x11fe05ff0, TEMP: 0x11fe05ff0
+    // Current: 658
+    // Next: 930
+    // Swapping!
+    // SWAPPING - TEMP: 0x11fe05ff0, VAL1: 0x16b303168
+    // SWAPPING - VAL1: 0x16b303160, VAL2: 0x16b303160
+    // SWAPPING - VAL2: 0x11fe05ff0, TEMP: 0x11fe05ff0
+
+
     // Copy the raw memory pointed to by `val1` into the memory location pointed to by the `temp` pointer
-    memcpy(temp, val1, ga->item_size);
+    memcpy(temp, &val1, ga->item_size);
+    printf("SWAPPING - TEMP: %p, VAL1: %p\n", temp, val1);
     memcpy(val1, val2, ga->item_size);
+    printf("SWAPPING - VAL1: %p, VAL2: %p\n", val1, val2);
     memcpy(val2, temp, ga->item_size);
+    printf("SWAPPING - VAL2: %p, TEMP: %p\n", val2, temp);
 
     // Free the memory allocated for the temporary pointer
     free(temp);
 }
 
 
-void _sort(struct GenericArray *ga, bool (* comparator)(void*, void*)) { }
-
-
-
-
-
 // Bubble Sort implementation for an array of integers with a 
 // caller defined comparator function to determine how to order elements
-// void _sort_cmp(int arr[], int n, bool (* comparator)(int, int)) {
+void _sort(struct GenericArray *ga, bool (* comparator)(void*, void*)) { 
+    bool is_swapped;
+    for (int i = 0; i < ga->length; i++) {
+        is_swapped = false;
+        for (int j = 0; j < ga->length - i - 1; j++) {
+            void *curr = (char *) ga->ptrData + j * ga->item_size;
+            void *next = (char *) ga->ptrData + (j + 1) * ga->item_size;
 
-//     bool is_swapped;
-//     for (int i = 0; i < n; i++) {
-//         is_swapped = false;
-//         for (int j = 0; j < n - i - 1; j++) {
-//             if (comparator(arr[j], arr[j + 1])) {
-//                 _swap(&arr[j], &arr[j + 1]);
-//                 is_swapped = true;
-//             }
-//         }
-//         if (is_swapped == false) {
-//             break;
-//         }
-//     }
-// }
+            printf("Current: %d\n", * (int *) curr);
+            printf("Next: %d\n", * (int *) next);
+
+            if (comparator(curr, next)) {
+                printf("Swapping!\n");
+                _swap(ga, &curr, &next);
+                is_swapped = true;
+            } else {
+
+                printf("not swapping yet.... :) \n");
+            }
+        }
+
+        if (is_swapped == false) {
+            break;
+        }
+
+    }
+}

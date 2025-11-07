@@ -150,16 +150,31 @@ bool greatest_first(void *a, void *b) {
     return false;
 }
 
+bool smallest_first(void *a, void *b) {
+    int ia = * (int *)a;
+    int ib = * (int *)b;
+    if (a < b) return true;
+    return false;
+}
+
 void test_sorting() {
     struct GenericArray *ga = create_int_array();
     _print(ga);
     print_arr_int(ga);
     printf("\n");
 
-    // Test swap logic
-    void *idxone = (char *) ga->ptrData + 0 * ga->item_size;
-    void *idxtwo = (char *) ga->ptrData + 9 * ga->item_size;
-
+    printf("SWAP OPERATION: \n");
+    void *idxone = (char *) ga->ptrData + 1 * ga->item_size;
+    void *idxtwo = (char *) ga->ptrData + 2 * ga->item_size;
     _swap(ga, idxone, idxtwo);
     print_arr_int(ga);
+    printf("\n");
+
+    printf("SORT OPERATION: \n");
+    bool (*fptr)(void*, void*);
+    fptr = &smallest_first;
+    _sort(ga, fptr);
+    for (int i = 0; i < ga->length; i++) {
+        printf("[%d] ", *(int *)((char *)ga->ptrData + i * ga->item_size));
+    }
 }
