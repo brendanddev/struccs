@@ -38,6 +38,5 @@ void _print(struct GenericArray *ga);
 
 
 void _sort(struct GenericArray *ga, bool (* comparator)(void*, void*));
-void _swap(struct GenericArray *ga, void *val1, void *val2);
 
 #endif

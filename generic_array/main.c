@@ -163,13 +163,6 @@ void test_sorting() {
     print_arr_int(ga);
     printf("\n");
 
-    printf("SWAP OPERATION: \n");
-    void *idxone = (char *) ga->ptrData + 1 * ga->item_size;
-    void *idxtwo = (char *) ga->ptrData + 2 * ga->item_size;
-    _swap(ga, idxone, idxtwo);
-    print_arr_int(ga);
-    printf("\n");
-
     printf("GREATEST FIRST SORT OPERATION: \n");
     bool (*fptr)(void*, void*);
     fptr = greatest_first;

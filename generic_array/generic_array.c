@@ -283,7 +283,7 @@ static void shift_left(struct GenericArray *ga, int index) {
 }
 
 // Swaps two items in the array
-void _swap(struct GenericArray *ga, void *val1, void *val2) { 
+static void _swap(struct GenericArray *ga, void *val1, void *val2) { 
 
     // Declare and initialize a pointer to memory allocated for the temporary var
     void *temp = NULL;
