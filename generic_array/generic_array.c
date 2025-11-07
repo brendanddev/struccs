@@ -314,3 +314,23 @@ void _sort(struct GenericArray *ga, bool (* comparator)(void*, void*)) { }
 
 
 
+
+
+// Bubble Sort implementation for an array of integers with a 
+// caller defined comparator function to determine how to order elements
+// void _sort_cmp(int arr[], int n, bool (* comparator)(int, int)) {
+
+//     bool is_swapped;
+//     for (int i = 0; i < n; i++) {
+//         is_swapped = false;
+//         for (int j = 0; j < n - i - 1; j++) {
+//             if (comparator(arr[j], arr[j + 1])) {
+//                 _swap(&arr[j], &arr[j + 1]);
+//                 is_swapped = true;
+//             }
+//         }
+//         if (is_swapped == false) {
+//             break;
+//         }
+//     }
+// }
