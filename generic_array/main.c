@@ -16,6 +16,7 @@ void test_contains();
 void test_shrinking();
 void test_sorting();
 void test_clear();
+void test_find();
 
 
 
@@ -28,7 +29,8 @@ int main() {
     // test_contains();
     // test_shrinking();
     // test_sorting();
-    test_clear();
+    // test_clear();
+    test_find();
     return 0;
 }
 
@@ -183,6 +185,24 @@ void test_sorting() {
     printf("SMALLEST FIRST SORT OPERATION: \n");
     _sort(ga, smallest_first);
     print_arr_int(ga);
+}
 
+bool equals(void *a, void *b) {
+    int ia = * (int *)a;
+    int ib = * (int *)b;
+    if (ia == ib) return true;
+    return false;
+}
 
+void test_find() {
+    struct GenericArray *ga = create_int_array();
+    _print(ga);
+    print_arr_int(ga);
+    printf("\n");
+
+    int num = 709;
+    void *ptr = &num;
+
+    int index = _find(ga, ptr, equals);
+    printf("Index of value: %d is %d\n", num, index);
 }
