@@ -156,6 +156,10 @@ void test_sorting() {
     print_arr_int(ga);
     printf("\n");
 
-    _sort(ga, greatest_first);
+    // Test swap logic
+    void *idxone = (char *) ga->ptrData + 0 * ga->item_size;
+    void *idxtwo = (char *) ga->ptrData + 9 * ga->item_size;
+
+    _swap(ga, idxone, idxtwo);
     print_arr_int(ga);
 }
