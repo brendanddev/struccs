@@ -116,6 +116,17 @@ bool _set(struct GenericArray *ga, int index, void *in_ptr) {
     return true;
 }
 
+// Find the index of a specified item in the array
+int _find(struct GenericArray *ga, void *item_ptr) {
+    if (index < 0 || index >= ga->length) return -1;
+
+    for (int i = 0; i < ga->length; i++) {
+        void *curr = (char *) ga->ptrData + i * ga->item_size;
+
+    }
+
+}
+
 // Removes the last item in the GenericArray
 bool _remove_last(struct GenericArray *ga) {
     if (!ga || ga->length == 0) return false;
@@ -201,7 +212,6 @@ void _discard(struct GenericArray *ga) {
 void _print(struct GenericArray *ga) {
     printf("Capacity: %d, Length: %d, Item Size: %zu bytes, Usage: %f\n", ga->capacity, ga->length, ga->item_size, _usage(ga));
 }
-
 
 // Bubble Sort implementation for an array of integers with a caller defined 
 // comparator function to determine how to order elements

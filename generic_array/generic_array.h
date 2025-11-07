@@ -26,6 +26,7 @@ bool _append(struct GenericArray *ga, void *item_ptr);
 bool _add(struct GenericArray *ga, int index, void *in_ptr);
 bool _get(struct GenericArray *ga, int index, void *out_ptr);
 bool _set(struct GenericArray *ga, int index, void *in_ptr);
+int _find(struct GenericArray *ga, void *item_ptr);
 bool _remove_last(struct GenericArray *ga);
 bool _remove_at(struct GenericArray *ga, int index);
 bool _contains(struct GenericArray *ga, bool (*funcptr)(void*, void*), void *trgtptr);
@@ -35,8 +36,7 @@ int _capacity(struct GenericArray *ga);
 double _usage(struct GenericArray *ga);
 void _discard(struct GenericArray *ga);
 void _print(struct GenericArray *ga);
-
-
 void _sort(struct GenericArray *ga, bool (* comparator)(void*, void*));
+
 
 #endif
