@@ -15,7 +15,17 @@ void test_access();
 void test_contains();
 void test_shrinking();
 
+
 // Testing for sorting and swapping logic
+
+
+// Requirements:
+// - An array to sort
+// - A sorting algorithm
+// - A sort function
+// - A swap mechanism
+// - A comparator function
+
 
 // Swaps two elements in an array
 void _swap(int *num1, int *num2) {
@@ -47,6 +57,38 @@ void _sort(int arr[], int n) {
 }
 
 
+// A basic sort function that implements Bubble Sort to sort an array of integers
+// and uses a comparator function to determine how to order items in the array
+void _sort_cmp(int arr[], int n, bool (* comparator)(int, int)) { 
+    bool is_swapped;
+    for (int i = 0; i < n - 1; i++) {
+        
+        is_swapped = false;
+        for (int j = 0; j < n - i - 1; j++) {
+            if (comparator(arr[j], arr[j + 1])) {       // Call comparator to determine how to order
+                _swap(&arr[j], &arr[j + 1]);
+                is_swapped = true;
+            }
+        }
+
+        // No two elements swapped, break
+        if (is_swapped == false) {
+            break;
+        }
+    }
+}
+
+bool greatest_first(int a, int b) {
+    if (a < b) return true;
+    return false;
+}
+
+bool lowest_first(int a, int b) {
+    if (a > b) return true;
+    return false;
+}
+
+
 
 
 
@@ -63,6 +105,23 @@ int main() {
 
     _sort(arr, n);
     for (int i = 0; i < 10; i++) printf("%d ", arr[i]);
+    printf("\n");
+
+    printf("Greatest First Comparator: \n");
+    _sort_cmp(arr, n, greatest_first);
+    for (int i = 0; i < 10; i++) printf("%d ", arr[i]);
+    printf("\n");
+
+
+    printf("Lowest First Comparator: \n");
+    _sort_cmp(arr, n, lowest_first);
+    for (int i = 0; i < 10; i++) printf("%d ", arr[i]);
+    printf("\n");
+
+
+
+
+
 
     
 
