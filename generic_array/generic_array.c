@@ -14,6 +14,7 @@ static void resize(struct GenericArray *ga);
 static void shrink(struct GenericArray *ga);
 static void shift_right(struct GenericArray *ga, int index);
 static void shift_left(struct GenericArray *ga, int index);
+static void swap(struct GenericArray *ga, void *val1, void *val2);
 
 
 // Initializes a new GenericArray
@@ -202,6 +203,34 @@ void _print(struct GenericArray *ga) {
 }
 
 
+// Bubble Sort implementation for an array of integers with a caller defined 
+// comparator function to determine how to order elements
+void _sort(struct GenericArray *ga, bool (* comparator)(void*, void*)) { 
+    bool is_swapped;
+    for (int i = 0; i < ga->length - 1; i++) {
+        
+        is_swapped = false;
+        for (int j = 0; j < ga->length - i - 1; j++) {
+            
+            // Starting from the first address in the allocated memory pointed to by the base pointer (ga->ptrData)
+            // Calculate the address of the current item and the next item in the array based on the index bytes offset
+            void *curr = (char *) ga->ptrData + j * ga->item_size;
+            void *next = (char *) ga->ptrData + (j + 1) * ga->item_size;
+
+            // Call the user defined comparator function through the function pointer
+            if (comparator(curr, next)) {
+                swap(ga, curr, next);
+                is_swapped = true;
+            }
+        }
+
+        if (is_swapped == false) {
+            break;
+        }
+    }
+}
+
+
 
 // Private helper functions, linkage limited to this file
 
@@ -283,7 +312,7 @@ static void shift_left(struct GenericArray *ga, int index) {
 }
 
 // Swaps two items in the array
-static void _swap(struct GenericArray *ga, void *val1, void *val2) { 
+static void swap(struct GenericArray *ga, void *val1, void *val2) { 
 
     // Declare and initialize a pointer to memory allocated for the temporary var
     void *temp = NULL;
@@ -296,29 +325,6 @@ static void _swap(struct GenericArray *ga, void *val1, void *val2) {
 
     // Free the memory allocated for the temporary pointer
     free(temp);
-}
-
-
-// Bubble Sort implementation for an array of integers with a 
-// caller defined comparator function to determine how to order elements
-void _sort(struct GenericArray *ga, bool (* comparator)(void*, void*)) { 
-    bool is_swapped;
-    for (int i = 0; i < ga->length - 1; i++) {
-        is_swapped = false;
-        for (int j = 0; j < ga->length - i - 1; j++) {
-            void *curr = (char *) ga->ptrData + j * ga->item_size;
-            void *next = (char *) ga->ptrData + (j + 1) * ga->item_size;
-
-            if (comparator(curr, next)) {
-                _swap(ga, curr, next);
-                is_swapped = true;
-            }
-        }
-
-        if (is_swapped == false) {
-            break;
-        }
-    }
 }
 
 

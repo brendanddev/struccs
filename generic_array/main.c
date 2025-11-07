@@ -15,6 +15,7 @@ void test_access();
 void test_contains();
 void test_shrinking();
 void test_sorting();
+void test_clear();
 
 
 
@@ -26,7 +27,8 @@ int main() {
     // test_access();
     // test_contains();
     // test_shrinking();
-    test_sorting();
+    // test_sorting();
+    test_clear();
     return 0;
 }
 
@@ -139,6 +141,14 @@ void test_shrinking() {
     void *ptr = &val;
     if (_append(ga, ptr)) printf("Item appended\n");
 
+    _print(ga);
+}
+
+void test_clear() {
+    struct GenericArray *ga = create_int_array();
+    _print(ga);
+
+    _clear(ga);
     _print(ga);
 }
 

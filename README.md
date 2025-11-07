@@ -110,9 +110,6 @@ clang generic_array.c utils.c main.c -o out
 - **Clear Function** - Reset array to empty state
   - Option to shrink capacity back to initial size
 - **Reverse Function** - Reverse elements in-place
-- **Sorting Function** - Implement `_sort()` with user provided comparator
-  - Start with bubble sort, optimize to quicksort later
-  - Requires element swapping and comparison logic
 - **Copy Function** - Deep/shallow copy of arrays
   - Copy array structure and all elements
   - Consider deep copy with custom copy function for complex types
