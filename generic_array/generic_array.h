@@ -37,6 +37,7 @@ double _usage(struct GenericArray *ga);
 void _discard(struct GenericArray *ga);
 void _print(struct GenericArray *ga);
 void _sort(struct GenericArray *ga, bool (* comparator)(void*, void*));
+void _reverse(struct GenericArray *ga);
 
 
 #endif

@@ -245,6 +245,11 @@ void _sort(struct GenericArray *ga, bool (* comparator)(void*, void*)) {
 }
 
 
+void _reverse(struct GenericArray *ga) {
+
+}
+
+
 
 // Private helper functions, linkage limited to this file
 
