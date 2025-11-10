@@ -91,7 +91,3 @@ clang generic_array.c utils.c main.c -o out
 ```
 
 ---
-
-## Future Enhancements
-
-- **Binary Search** - Efficient search for sorted arrays

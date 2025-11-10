@@ -39,6 +39,6 @@ void _print(struct GenericArray *ga);
 void _sort(struct GenericArray *ga, bool (* comparator)(void*, void*));
 void _reverse(struct GenericArray *ga);
 struct GenericArray * _copy(struct GenericArray *ga);
-
+int _binary_find(struct GenericArray *ga, void *item_ptr, bool (* comparator)(void*, void*));
 
 #endif

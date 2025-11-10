@@ -286,6 +286,10 @@ struct GenericArray * _copy(struct GenericArray *ga) {
     return ga_copy;
 }
 
+// Searches for an item within the array using Binary Search and taking a caller defined
+int _binary_find(struct GenericArray *ga, void *item_ptr, bool (* comparator)(void*, void*)) {
+}
+
 
 
 // Private helper functions, linkage limited to this file
