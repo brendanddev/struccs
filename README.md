@@ -1,5 +1,5 @@
 
-# Arrays from Scratch (In C)    v1.4
+# Arrays from Scratch (In C)    v1.5
 
 A dynamic, memory-efficient array implementation from scratch in C. The project initially started with a type-specific integer array but has since evolved into an improved **generic array** that supports any data type via `void*` pointers. Both versions feature automatic resizing and efficient memory management, but the main focus now is on the generic array.
 
@@ -91,4 +91,3 @@ clang generic_array.c utils.c main.c -o out
 ## Future Enhancements
 
 - **Binary Search** - Efficient search for sorted arrays
-- **Fix Shrinking Thrashing** - Prevent resize-shrink-resize cycles
