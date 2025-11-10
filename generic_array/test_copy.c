@@ -55,32 +55,27 @@ int main() {
     printf("\nCopied Memory Addresses: \n");
     printf("GenericArray (struct): %p\nInternal Array: %p\n", new_ga, new_ga->ptrData);
 
+    // Free the original GenericArray that has been copied
+    _discard(ga);
+    ga = NULL;
+
+    // Should still be able to access/operate on the copy
+    printf("\nREVERSING COPY: \n");
+    _reverse(new_ga);
+    for (int i = 0; i < new_ga->length; i++) printf("[%d] ", *(int *)((char *) new_ga->ptrData + i * new_ga->item_size));
+    printf("\n");
+
+    printf("Removing Last Element: \n");
+    _remove_last(new_ga);
+    for (int i = 0; i < new_ga->length; i++) printf("[%d] ", *(int *)((char *) new_ga->ptrData + i * new_ga->item_size));
+    printf("\n");
+
+
 
 
     // Free allocated memory
-    _discard(ga);
-    ga = NULL;
     free(new_ga);
     new_ga = NULL;
-
-
-    // // Initial array to be copied
-    // int n = 4;
-    // int arr[4] = { 100, 999, 56, 22 };      // allocated on stack
-
-    // printf("Initial Array: \n");
-    // for (int i = 0; i < n; i++) printf("%d ", arr[i]);
-    // printf("\n");
-
-    // // Allocate new memory for the new array
-    // int *new_arr = NULL;
-    // new_arr = malloc(sizeof(int) * n);      // dynamically allocated on heap
-
-    // // Copy raw memory from the initial array to the copy of the array
-    // memcpy(new_arr, arr, sizeof(int) * n);
-
-    // printf("Copied Array Contents: \n");
-    // for (int i = 0; i < n; i++) printf("%d ", new_arr[i]);
 
 
 
