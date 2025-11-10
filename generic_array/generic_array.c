@@ -311,7 +311,6 @@ static void resize(struct GenericArray *ga) {
     ga->ptrData = tmp_ptr;
 }
 
-
 // Shrinks the internal array when its underutilized by reallocating less memory
 static void shrink(struct GenericArray *ga) {
 
