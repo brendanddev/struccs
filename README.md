@@ -24,7 +24,7 @@ This project began as a simple **integer array** and has evolved into a comprehe
 
 ---
 
-## Implementation
+## Implementations
 
 - **Generic Array**:
   - Type-agnostic array supporting any data type (int, double, char, structs, etc.)
@@ -47,7 +47,7 @@ This project began as a simple **integer array** and has evolved into a comprehe
 ## Project Structure
 
 ```
-arrays-from-scratch/
+structures-from-scratch/
 ├── archive/                    # Older DynamicArray implementation
 ├── generic_array/              # GenericArray library
 │ ├── generic_array.h
