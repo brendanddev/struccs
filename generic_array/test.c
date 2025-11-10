@@ -12,25 +12,31 @@ int main() {
 
     // Reverse Function - Reverse elements in-place
 
-    int n = 4;
-    int arr[4] = { 100, 63, 11, 99 };
+    int n = 5;
+    int arr[5] = { 100, 63, 11, 99, 777 };
 
     // In order
+    printf("Regular Order: \n");
     for (int i = 0; i < n; i++) printf("%d ", arr[i]);
     printf("\n");
 
     // Reverse order
+    printf("Reverse Order: \n");
     for (int i = n - 1; i >= 0; i--) printf("%d ", arr[i]);
+    printf("\n");
 
-    int n_rev = 4;
-    int arr_rev[4];
-    int idx = 0;
-    for (int i = n_rev - 1; i >= 0; i--) {
-        arr_rev[i] = arr[idx++];
-    }
+    // int n_rev = 4;
+    // int arr_rev[4];
+    // int idx = 0;
+    // for (int i = n_rev - 1; i >= 0; i--) {
+    //     arr_rev[i] = arr[idx++];
+    // }
 
-    printf("\nREVERSE ARRAY: \n");
-    for (int i = 0; i < n_rev; i++) printf("%d ", arr_rev[i]);
+    // printf("\nREVERSE ARRAY: \n");
+    // for (int i = 0; i < n_rev; i++) printf("%d ", arr_rev[i]);
+
+
+
 
 
 
