@@ -326,13 +326,12 @@ static void shrink(struct GenericArray *ga) {
     // }
 
     int new_capacity;
-
-    // Length is larger than initial capacity (default = > 4)
-    if (ga->length > ga->initial_capacity) {
-        new_capacity = ga->length * 2;
-    // Lenght is less than initial
-    } else {
-        new_capacity = ga->initial_capacity;
+    // Length is larger than initial capacity (default = > 4) 
+    if (ga->length > ga->initial_capacity) { 
+        new_capacity = ga->length * 2.5;
+    // Lenght is less than initial 
+    } else { 
+        new_capacity = (int) ga->initial_capacity * 1.5; 
     }
 
     // Reallocate less memory
