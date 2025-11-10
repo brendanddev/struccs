@@ -20,6 +20,7 @@ void test_find();
 void test_reverse();
 void test_copy();
 void test_shrink_thrashing();
+void test_b_search();
 
 
 
@@ -36,7 +37,9 @@ int main() {
     // test_find();
     // test_reverse();
     // test_copy();
-    test_shrink_thrashing();
+    // test_shrink_thrashing();
+    test_b_search();
+
     return 0;
 }
 
@@ -288,6 +291,25 @@ void test_shrink_thrashing() {
 
     for (int i = 0; i < 5; i++) _add(ga, 1, &i);
     _print(ga);
+
+
+}
+
+void test_b_search() {
+    struct GenericArray *ga = create_int_array_from_size(10);
+    bool (*fptr)(void*, void*);
+    fptr = greatest_first;
+    _sort(ga, fptr);
+    print_arr_int(ga);
+    printf("\n");
+
+    int num = 78;
+    if (_binary_find(ga, &num, is_less_than)) {
+        printf("item found\n");
+    } else {
+        printf("Item not found\n");
+    }
+
 
 
 }

@@ -62,6 +62,25 @@ bool contains_int(void *a, void *b) {
     return false;
 }
 
+bool equals_int(void *a, void *b) {
+    int ia = * (int *) a;
+    int ib = * (int *) b;
+    if (ia == ib) return true;
+    return false;
+}
+
+int is_less_than(void *a, void *b) {
+    int ia = * (int *) a;
+    int ib = * (int *) b;
+    if (ia < ib) {
+        return 0;
+    } else if (ia > ib) {
+        return 1;
+    } else {
+        return -1;
+    }
+}
+
 // Defines how two doubles will be compared
 bool contains_dbl(void *a, void *b) {
     double da = * (int *) a;
