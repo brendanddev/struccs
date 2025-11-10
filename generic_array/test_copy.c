@@ -43,29 +43,17 @@ int main() {
     // Copy raw memory from the original array pointed to, to the copy
     memcpy(new_ga_ptrData, ga->ptrData, ga->item_size * ga->length);
 
+    new_ga->ptrData = new_ga_ptrData;
+    // ga->ptrData = new_ga_ptrData;
+
     printf("Copied Array: \n");
     for (int i = 0; i < n; i++) printf("[%d] ", *(int *)((char *) new_ga->ptrData + i * ga->item_size));
     _reverse(new_ga);
     printf("\n");
     for (int i = 0; i < n; i++) printf("[%d] ", *(int *)((char *) new_ga->ptrData + i * ga->item_size));
 
-    printf("Copied Memory Addresses: \n");
+    printf("\nCopied Memory Addresses: \n");
     printf("GenericArray (struct): %p\nInternal Array: %p\n", new_ga, new_ga->ptrData);
-
-
-    // Output:
-
-    // Initial Array: 
-    // Initial Memory Addresses: 
-    // GenericArray (struct): 0x144605f60
-    // Internal Array: 0x144605ee0
-
-    // Copied Array: 
-    // Copied Memory Addresses: 
-    // GenericArray (struct): 0x144606060
-    // Internal Array: 0x144605ee0
-
-    // Issue: Internal array still points to the same address in memory
 
 
 
