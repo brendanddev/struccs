@@ -44,27 +44,30 @@ arrays-from-scratch/
 
 ## Performance Characteristics
 
-### Dynamic Array Operations
-| Operation       | Time Complexity | Notes                                                                  |
-|-----------------|-----------------|----------------------------------------------------------------------- |
-| _add            | O(n) amortized  | Requires shifting subsequent elements right and occasionally resizing  |
-| _append         | O(1) amortized  | Adds to the end, occasionally needing resize                           |               
-| _get            | O(1)            | Accesses an element by index                                           |
-| _set            | O(1)            | Overwrites an element in memory                                        |
-| _remove_last    | O(1) amortized  | Accesses and removes last element, ocasionally shrinking               |
-| _remove_at      | O(n)            | Requires shifting subsequent elements left, best case O(1)             |
-| _remove         | O(n)            | Searches for item to remove, shifting subsequent elements left only when the item is found |
-| _contains       | O(n)            | Searches for the item                                                  |
-| resize          | O(n)            | Copies all existing elements to the new larger memory block            |
-| shrink          | O(n)            | Copies all existing elements to the new smaller memory block           |
-| shift_right     | O(n)            | Shifts all subsequent elements to the right                            |
-| shift_left      | O(n)            | Shifts all subsequent elements to the left                             |
-
-
 ### Generic Array Operations
-| Operation       | Time Complexity | Notes                                                                  |
-|-----------------|-----------------|----------------------------------------------------------------------- |
-
+| Operation       | Time Complexity | Notes                                                                      |
+|-----------------|---------------------|----------------------------------------------------------------------- |
+| `_append`       | **O(1) amortized**  | Adds to the end, occasionally needing resize                           |               
+| `_add`          | **O(n)**            | Inserts at an index, requires shifting subsequent elements right.      |
+| `_get`          | **O(1)**            | Directly accesses element by index.                                    |
+| `_set`          | **O(1)**            | Overwrites an element at a given index.                                |
+| `_find`         | **O(n)**            | Does a Linear Search; depends on user-supplied comparator.             |
+| `_contains`     | **O(n)**            | Checks all elements using provided comparator.                         |
+| `_remove_last`  | **O(1) amortized**  | Removes last element; may trigger shrink when underutilized.           |
+| `_remove_at`    | **O(n)**            | Removes element at index and shifts remaining items left.              |
+| `_clear`        | **O(1)**            | Sets `length` to 0 without freeing memory.                             |
+| `_size`         | **O(1)**            | Returns current number of elements.                                    |
+| `_capacity`     | **O(1)**            | Returns total allocated slots.                                         |
+| `_usage`        | **O(1)**            | Computes fill ratio as percentage.                                     |
+| `_discard`      | **O(1)**            | Frees allocated memory for array and struct.                           |
+| `_sort`         | **O(n²)**           | Bubble sort implementation; comparator determines ordering.            |
+| `_reverse`      | **O(n)**            | Swaps front/back elements in place.                                    |
+| `_copy`         | **O(n)**            | Performs a deep copy of struct and all elements.                       |
+| `resize`        | **O(n)**            | Allocates larger memory block and copies existing items.               |
+| `shrink`        | **O(n)**            | Allocates smaller memory block and copies existing items.              |
+| `shift_right`   | **O(n)**            | Moves all elements after insertion index one slot right.               |
+| `shift_left`    | **O(n)**            | Moves all elements after deletion index one slot left.                 |
+| `swap`          | **O(1)**            | Exchanges two items using temporary memory.                            |
 
 ---
 
