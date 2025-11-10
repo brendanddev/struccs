@@ -18,6 +18,7 @@ void test_sorting();
 void test_clear();
 void test_find();
 void test_reverse();
+void test_copy();
 
 
 
@@ -32,7 +33,8 @@ int main() {
     // test_sorting();
     // test_clear();
     // test_find();
-    test_reverse();
+    // test_reverse();
+    test_copy();
     return 0;
 }
 
@@ -231,5 +233,36 @@ void test_reverse() {
     printf("Reversing...\n");
     _reverse(ga);
     print_arr_int(ga);
+}
 
+void test_copy() {
+    printf("Original GenericArray: \n");
+    struct GenericArray *ga = create_int_array_from_size(5);
+    _print(ga);
+    print_arr_int(ga);
+    printf("\n");
+
+    printf("Copied GenericArray: \n");
+    struct GenericArray *ga_copy = NULL;
+    ga_copy = _copy(ga);
+    _print(ga_copy);
+    print_arr_int(ga_copy);
+    
+    // Free initial
+    _discard(ga);
+    ga = NULL;
+
+    printf("Reversing GenericArray after freeing initial copy: \n");
+    _reverse(ga_copy);
+    _print(ga_copy);
+    print_arr_int(ga_copy);
+
+    printf("Removing items from the GenericArray after freeing initial copy: \n");
+    for (int i = 0; i < 3; i++) _remove_last(ga_copy);
+    _print(ga_copy);
+    print_arr_int(ga_copy);
+
+    // Free copy
+    _discard(ga_copy);
+    ga_copy = NULL;
 }
