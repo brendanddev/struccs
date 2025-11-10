@@ -19,6 +19,7 @@ void test_clear();
 void test_find();
 void test_reverse();
 void test_copy();
+void test_shrink_thrashing();
 
 
 
@@ -34,7 +35,8 @@ int main() {
     // test_clear();
     // test_find();
     // test_reverse();
-    test_copy();
+    // test_copy();
+    test_shrink_thrashing();
     return 0;
 }
 
@@ -266,3 +268,44 @@ void test_copy() {
     _discard(ga_copy);
     ga_copy = NULL;
 }
+
+void test_shrink_thrashing() {
+    struct GenericArray *ga = create_int_array_from_size(100);
+    
+    // Remove 94 / 100 items to bring usage = 5%, to trigger a shrink
+    // After the shrink and all items have been removed, usage will be 100%
+    // The capacity will be set to the current length if current capacity > initial capacity
+    for (int i = 0; i < 94; i++) {
+        _remove_last(ga);
+        _print(ga);
+    }
+
+    // Now when we add, a resize will be immediately triggered due to the 100% usage
+    // As of right now, the resize will double the current capacity
+    int num = 10;
+    _add(ga, 1, &num);
+    _print(ga);
+
+}
+
+
+//  struct GenericArray *ga = create_int_array();
+//     _print(ga);
+
+//     for (int i = 0; i < 94; i++) {
+//         _remove_last(ga);
+//     }
+//     _print(ga);
+
+//     // Adding an item immediately after a shrink can trigger a resize
+//     // The shrink operation reduces capacity to either the current length of the array or the initial capacity
+//     // If the array is already nearly full, the next append exceeds the new capacity causing an imemdiate resize
+//     // Doing this frequently can be costly and inefficient
+
+//     int val = 5;
+//     void *ptr = &val;
+//     if (_append(ga, ptr)) printf("Item appended\n");
+
+//     _print(ga);
+//     _discard(ga);
+//     ga = NULL;
