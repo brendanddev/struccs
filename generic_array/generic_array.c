@@ -316,22 +316,14 @@ static void resize(struct GenericArray *ga) {
 static void shrink(struct GenericArray *ga) {
 
     // Determine new capacity
-    // If the current size is larger than the initial capacity, that is the new capacity
-    // Otherwise, the new capacity is set to the initial to avoid reallocating too little memory
-    // int new_capacity;
-    // if (ga->length > ga->initial_capacity) {
-    //     new_capacity = ga->length;
-    // } else {
-    //     new_capacity = ga->initial_capacity;
-    // }
-
+    // If the current size is larger than the initial capacity, grow to 2.5x the current length
+    // Otherwise, grow to 1.5x the initial capacity to avoid reallocating too little memory
     int new_capacity;
     // Length is larger than initial capacity (default = > 4) 
     if (ga->length > ga->initial_capacity) { 
-        new_capacity = ga->length * 2.5;
-    // Lenght is less than initial 
+        new_capacity = (int)(ga->length * 2.5); 
     } else { 
-        new_capacity = (int) ga->initial_capacity * 1.5; 
+        new_capacity = (int) (ga->initial_capacity * 1.5); 
     }
 
     // Reallocate less memory
@@ -344,7 +336,7 @@ static void shrink(struct GenericArray *ga) {
         exit(EXIT_FAILURE);
     }
 
-    // Set new cap and reassign pointer
+    // Set new capacity and reassign pointer
     ga->capacity = new_capacity;
     ga->ptrData = tmp;
 }
