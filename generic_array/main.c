@@ -17,6 +17,7 @@ void test_shrinking();
 void test_sorting();
 void test_clear();
 void test_find();
+void test_reverse();
 
 
 
@@ -30,7 +31,8 @@ int main() {
     // test_shrinking();
     // test_sorting();
     // test_clear();
-    test_find();
+    // test_find();
+    test_reverse();
     return 0;
 }
 
@@ -219,4 +221,15 @@ void test_find() {
 
     _discard(ga);
     ga = NULL;
+}
+
+void test_reverse() {
+    struct GenericArray *ga = create_int_array_from_size(5);
+    _print(ga);
+    print_arr_int(ga);
+
+    printf("Reversing...\n");
+    _reverse(ga);
+    print_arr_int(ga);
+
 }
