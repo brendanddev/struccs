@@ -1,5 +1,5 @@
 
-# Arrays from Scratch (In C)    v1.3
+# Arrays from Scratch (In C)    v1.4
 
 A dynamic, memory-efficient array implementation from scratch in C. The project initially started with a type-specific integer array but has since evolved into an improved **generic array** that supports any data type via `void*` pointers. Both versions feature automatic resizing and efficient memory management, but the main focus now is on the generic array.
 
@@ -16,6 +16,12 @@ A dynamic, memory-efficient array implementation from scratch in C. The project 
   - Fully memory-managed, efficient, and reusable for any type
 
   *(The older Dynamic Array is preserved in `archive/` for reference and comparison.)*
+
+  - Swap elements at two indices via `_swap` function
+  - Sort elements using Bubble Sort via `_sort` function
+    - Accepts a comparison function pointer for custom sorting logic
+  - In order reversal via `_reverse` function
+  - Discard the structure and free all associated memory via `_destroy` function
 
 ---
 
