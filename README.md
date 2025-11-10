@@ -90,8 +90,5 @@ clang generic_array.c utils.c main.c -o out
 
 ## Future Enhancements
 
-- **Copy Function** - Deep/shallow copy of arrays
-  - Copy array structure and all elements
-  - Consider deep copy with custom copy function for complex types
 - **Binary Search** - Efficient search for sorted arrays
 - **Fix Shrinking Thrashing** - Prevent resize-shrink-resize cycles
