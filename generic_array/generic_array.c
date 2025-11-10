@@ -259,7 +259,7 @@ void _reverse(struct GenericArray *ga) {
     }
 }
 
-bool _copy(struct GenericArray *ga) {
+struct GenericArray * _copy(struct GenericArray *ga) {
 
     // Allocate memory for the copy of the struct itself
     struct GenericArray *new_ga = NULL;
@@ -279,6 +279,8 @@ bool _copy(struct GenericArray *ga) {
     // Point the pointer to the memory allocated for the copy of the internal array
     // instead of the pointer to the old data in memory
     new_ga->ptrData = new_ga_ptrData;
+
+    return new_ga;
 }
 
 
