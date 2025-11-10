@@ -286,26 +286,8 @@ void test_shrink_thrashing() {
     _add(ga, 1, &num);
     _print(ga);
 
+    for (int i = 0; i < 5; i++) _add(ga, 1, &i);
+    _print(ga);
+
+
 }
-
-
-//  struct GenericArray *ga = create_int_array();
-//     _print(ga);
-
-//     for (int i = 0; i < 94; i++) {
-//         _remove_last(ga);
-//     }
-//     _print(ga);
-
-//     // Adding an item immediately after a shrink can trigger a resize
-//     // The shrink operation reduces capacity to either the current length of the array or the initial capacity
-//     // If the array is already nearly full, the next append exceeds the new capacity causing an imemdiate resize
-//     // Doing this frequently can be costly and inefficient
-
-//     int val = 5;
-//     void *ptr = &val;
-//     if (_append(ga, ptr)) printf("Item appended\n");
-
-//     _print(ga);
-//     _discard(ga);
-//     ga = NULL;
