@@ -287,7 +287,33 @@ struct GenericArray * _copy(struct GenericArray *ga) {
 }
 
 // Searches for an item within the array using Binary Search and taking a caller defined
+// ga: the struct, item_ptr: the item being searched for, comparator: The caller defined comparator to determine if two items are equal
 int _binary_find(struct GenericArray *ga, void *item_ptr, bool (* comparator)(void*, void*)) {
+    
+    
+    void *low = (char *) ga->ptrData + 0 * ga->item_size;
+    void *high = (char *) ga->ptrData + 1 * ga->item_size;
+
+    while (low <= high) {
+
+        void *mid = (char *) (ga->ptrData + low + (high - low) / 2 * ga->item_size); 
+
+        // Check mid == item_ptr
+        if (comparator(mid, item_ptr)) {
+            return mid;
+        // Check mid < item_ptr
+        // Less than
+        } else if (comparator(mid, item_ptr)) {
+            low = mid + 1;
+        // Greater than
+        } else {
+            high = mid - 1;
+        }
+    }
+    // Not found
+    return -1;
+
+
 }
 
 
