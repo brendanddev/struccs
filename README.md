@@ -1,5 +1,5 @@
 
-# Arrays from Scratch (In C)    v1.6
+# Arrays from Scratch (In C)    v1.7
 
 A dynamic, memory-efficient array implementation from scratch in C. The project initially started with a type-specific integer array but has since evolved into an improved **generic array** that supports any data type via `void*` pointers. Both versions feature automatic resizing and efficient memory management, but the main focus now is on the generic array.
 
@@ -29,13 +29,14 @@ A dynamic, memory-efficient array implementation from scratch in C. The project 
 
 ```
 arrays-from-scratch/
-├── archive/                # Older DynamicArray implementation
-├── generic_array/          # GenericArray implementation
-│   ├── generic_array.h
-│   ├── generic_array.c
-│   ├── utils.h
-│   ├── utils.c
-│   └── main.c
+├── archive/                    # Older DynamicArray implementation
+├── generic_array/              # GenericArray library
+│ ├── generic_array.h
+│ └── generic_array.c
+├── tests/                      # Tests and helper functions for GenericArray
+│ ├── test_helpers.h
+│ ├── test_helpers.c
+│ └── main.c
 └── README.md
 ```
 
