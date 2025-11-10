@@ -245,8 +245,38 @@ void _sort(struct GenericArray *ga, bool (* comparator)(void*, void*)) {
 }
 
 
+
+// In place reverse
+
+    // printf("In place Reversal: \n");
+    // for (int i = 0; i < n / 2; i++) {
+    //     int temp = arr[i];
+    //     arr[i] = arr[n - i - 1];
+    //     arr[n - i - 1] = temp;
+    // }
+    // for (int i = 0; i < n; i++) printf("%d ", arr[i]);
+    // printf("\n");
+
+
+// Reversal Steps:
+// 1. Determine length of the array
+// 2. Declare a for loop that loops from 0 up to the length of the array divided by 2
+// 3. Inside the loop, swap the item at index `i` with the item at index `n - i - 1`
+// 4. Swap the item at index `n - i - 1` with the item at index `i`
+// 5. The resulting array will be reversed
+
+// Each iteration swaps a pair of elements
+// Stop when there are no more unmatched pairs left.
+// For odd lengths, the middle element dosent need to be moved.
+
 void _reverse(struct GenericArray *ga) {
 
+    for (int i = 0; i < ga->length / 2; i++) {
+
+        void *curr;
+        void *end;
+        _swap(curr, end);
+    }
 }
 
 

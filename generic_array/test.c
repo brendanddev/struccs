@@ -45,6 +45,7 @@ int main() {
         arr[n - i - 1] = temp;
     }
     for (int i = 0; i < n; i++) printf("%d ", arr[i]);
+    printf("\n");
 
 
 
