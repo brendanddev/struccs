@@ -1,7 +1,26 @@
 
-# Arrays from Scratch (In C)    v1.7
+# Structures From Scratch (In C)    v1.7
 
-A dynamic, memory-efficient array implementation from scratch in C. The project initially started with a type-specific integer array but has since evolved into an improved **generic array** that supports any data type via `void*` pointers. Both versions feature automatic resizing and efficient memory management, but the main focus now is on the generic array.
+A collection of fundamental data structures implemented from scratch in C for learning and practice. This project demonstrates low-level understanding of memory management, pointer arithmetic, and algorithmic thinking without relying on standard library implementations.
+
+---
+
+## Overview
+
+This project began as a simple **integer array** and has evolved into a comprehensive exploration of data structures in C. The focus is on building real, working implementations with proper memory management, performance considerations, and generic design patterns.
+
+### Currently Implemented
+
+- **GenericArray**: A type-agnostic, dynamically resizing array that can store any data type using `void*` pointers and function pointers for custom operations.
+
+### Planned Implementations
+
+- **Linked List**
+- **Stack & Queue**
+- **Hash Table**
+- **Binary Search Tree**
+- **Heap / Priority Queue**
+- More advanced structures as the project evolves
 
 ---
 
