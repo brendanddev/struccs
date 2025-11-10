@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "generic_array.h"
-#include "utils.h"
+#include "../tests/test_helpers.h"
 
 
 /// main.c
