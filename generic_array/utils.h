@@ -12,6 +12,7 @@
 
 
 struct GenericArray * create_int_array();
+struct GenericArray * create_int_array_from_size(int size);
 struct GenericArray * create_dbl_array();
 struct GenericArray * create_chr_array();
 bool contains_int(void *a, void *b);

@@ -20,6 +20,17 @@ struct GenericArray * create_int_array() {
     return ga;
 }
 
+// Creates a new GenericArray with a specified size and populates it with integers 
+struct GenericArray * create_int_array_from_size(int size) {
+    struct GenericArray *ga = _init(sizeof(int));
+    for (int i = 0; i < size; i++) {
+        int rd_num = rand() % 100;
+        void *ptr = &rd_num;
+        _append(ga, ptr);
+    }
+    return ga;
+}
+
 // Creates a new GenericArray and populates it with doubles
 struct GenericArray * create_dbl_array() {
     struct GenericArray *ga = _init(sizeof(double));
