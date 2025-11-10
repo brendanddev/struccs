@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "generic_array.h"
-#include "../tests/test_helpers.h"
+#include "../generic_array/generic_array.h"
+#include "test_helpers.h"
 
 
 /// main.c
