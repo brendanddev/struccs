@@ -26,6 +26,9 @@ int main() {
     for (int i = 0; i < n; i++) printf("[%d] ", *(int *)((char *)ga->ptrData + i * ga->item_size));
     printf("\n");
 
+    printf("Initial Memory Addresses: \n");
+    printf("GenericArray (struct): %p\nInternal Array: %p\n", ga, ga->ptrData);
+
     // Allocate new memory for the copy of the array
     void *new_ga_ptrData = NULL;
     new_ga_ptrData = malloc(ga->item_size * ga->capacity);
@@ -46,8 +49,23 @@ int main() {
     printf("\n");
     for (int i = 0; i < n; i++) printf("[%d] ", *(int *)((char *) new_ga->ptrData + i * ga->item_size));
 
+    printf("Copied Memory Addresses: \n");
+    printf("GenericArray (struct): %p\nInternal Array: %p\n", new_ga, new_ga->ptrData);
 
 
+    // Output:
+
+    // Initial Array: 
+    // Initial Memory Addresses: 
+    // GenericArray (struct): 0x144605f60
+    // Internal Array: 0x144605ee0
+
+    // Copied Array: 
+    // Copied Memory Addresses: 
+    // GenericArray (struct): 0x144606060
+    // Internal Array: 0x144605ee0
+
+    // Issue: Internal array still points to the same address in memory
 
 
 
