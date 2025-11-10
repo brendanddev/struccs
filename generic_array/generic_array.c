@@ -259,6 +259,29 @@ void _reverse(struct GenericArray *ga) {
     }
 }
 
+bool _copy(struct GenericArray *ga) {
+
+    // Allocate memory for the copy of the struct itself
+    struct GenericArray *new_ga = NULL;
+    new_ga = malloc(sizeof(struct GenericArray));
+
+    // Allocate memory for the copy of the internal array
+    void *new_ga_ptrData = NULL;
+    new_ga_ptrData = malloc(ga->item_size * ga->capacity);
+
+    // Copy raw memory from the original structs memory location to the new location
+    memcpy(new_ga, ga, sizeof(struct GenericArray));
+
+    // Copy raw memory from the original internal array to the new memory allocated for the copy of the internal array
+    // Where the size in bytes is based on the size of the original array
+    memcpy(new_ga_ptrData, ga->ptrData, ga->item_size * ga->length);
+
+    // Point the pointer to the memory allocated for the copy of the internal array
+    // instead of the pointer to the old data in memory
+    new_ga->ptrData = new_ga_ptrData;
+}
+
+
 
 // Private helper functions, linkage limited to this file
 
