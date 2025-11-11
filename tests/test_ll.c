@@ -17,6 +17,8 @@ int main() {
     struct Node *node = _node_init(10);
     struct Node *node2 = _node_init(100);
     struct Node *node3 = _node_init(999);
+    struct Node *node4 = _node_init(1003);
+    struct Node *node5 = _node_init(55);
     struct LinkedList *linked_list = _init();
 
     printf("Node Value: %d, Next Pointer: %p\n", node->value, node->next);
@@ -30,11 +32,28 @@ int main() {
     printf("Tail Insertion...\n");
     _insert_tail(node3, linked_list);
     _print(linked_list);
+    _insert_tail(node4, linked_list);
+    _print(linked_list);
 
+    printf("Head Insertion... (again)\n");
+    _insert(node5, linked_list);
+    _print(linked_list);
 
+    // Nodes are not freed yet!!!!
+    _discard(linked_list);
+    linked_list = NULL;
+    _node_discard(node);
+    node = NULL;
+    _node_discard(node2);
+    node2 = NULL;
+    _node_discard(node3);
+    node3 = NULL;
+    _node_discard(node4);
+    node4 = NULL;
+    _node_discard(node5);
+    node5 = NULL;
 
 
 
     return 0;
-
 }
