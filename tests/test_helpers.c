@@ -62,6 +62,22 @@ bool contains_int(void *a, void *b) {
     return false;
 }
 
+// Returns 0 if equal, 1 if a > b, other wise -1 (a < b)
+int compare_int(void *a, void *b) {
+    int ia = * (int *) a;
+    int ib = * (int *) b;
+    if (ia == ib) {
+        printf("Values are equal\n");
+        return 0;
+    } else if (ia > ib) {
+        printf("%d > %d\n", ia, ib);
+        return 1;
+    } else {
+        printf("%d < %d\n", ia, ib);
+        return -1;
+    }
+}
+
 bool equals_int(void *a, void *b) {
     int ia = * (int *) a;
     int ib = * (int *) b;
