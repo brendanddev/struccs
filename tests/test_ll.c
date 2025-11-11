@@ -49,23 +49,32 @@ int main() {
     _insert_at(node7, linked_list, 0);
     _print(linked_list);
 
-    printf("Removing head of LinkedList...\n");
-    _remove(linked_list);
+    printf("Removing tail of LinkedList...\n");
+    _remove_tail(linked_list);
     _print(linked_list);
-    _remove(linked_list);
+    _remove_tail(linked_list);
     _print(linked_list);
-    _remove(linked_list);
+    _remove_tail(linked_list);
     _print(linked_list);
-    _remove(linked_list);
-    _print(linked_list);
-    _remove(linked_list);
-    _print(linked_list);
-    _remove(linked_list);
-    _print(linked_list);
-    _remove(linked_list);
-    _print(linked_list);
-    _remove(linked_list);
-    _print(linked_list);
+
+
+    // printf("Removing head of LinkedList...\n");
+    // _remove(linked_list);
+    // _print(linked_list);
+    // _remove(linked_list);
+    // _print(linked_list);
+    // _remove(linked_list);
+    // _print(linked_list);
+    // _remove(linked_list);
+    // _print(linked_list);
+    // _remove(linked_list);
+    // _print(linked_list);
+    // _remove(linked_list);
+    // _print(linked_list);
+    // _remove(linked_list);
+    // _print(linked_list);
+    // _remove(linked_list);
+    // _print(linked_list);
 
 
 
