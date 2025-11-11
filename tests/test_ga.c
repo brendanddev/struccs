@@ -5,7 +5,7 @@
 #include "test_helpers.h"
 
 
-/// main.c
+/// test_ga.c
 /// Brendan Dileo - November 3 2025
 
 // Prototypes

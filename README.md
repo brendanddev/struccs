@@ -13,9 +13,10 @@ This project began as a simple **integer array** and has evolved into a comprehe
 
 - **GenericArray**: A type-agnostic, dynamically resizing array that can store any data type using `void*` pointers and function pointers for custom operations.
 
+- **LinkedList**: In progres...
+
 ### Planned Implementations
 
-- **Linked List**
 - **Stack & Queue**
 - **Hash Table**
 - **Binary Search Tree**
