@@ -1,5 +1,5 @@
 
-# Structures From Scratch (In C)    v1.7
+# Structures From Scratch (In C)    v1.8
 
 A collection of fundamental data structures implemented from scratch in C for learning and practice. This project demonstrates low-level understanding of memory management, pointer arithmetic, and algorithmic thinking without relying on standard library implementations.
 
@@ -41,6 +41,9 @@ This project began as a simple **integer array** and has evolved into a comprehe
     - Accepts a comparison function pointer for custom sorting logic
   - In order reversal via `_reverse` function
   - Discard the structure and free all associated memory via `_destroy` function
+  - Deep copy of the entire structure and its elements via `_copy` function
+  - Binary Search implementation for sorted arrays via `_binary_search` function
+    - Requires a sorted array and a comparison function pointer
 
 ---
 
