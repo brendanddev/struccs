@@ -1,5 +1,5 @@
 
-# Structures From Scratch (In C)    v1.8
+# Structures From Scratch (In C)    v1.9
 
 A collection of fundamental data structures implemented from scratch in C for learning and practice. This project demonstrates low-level understanding of memory management, pointer arithmetic, and algorithmic thinking without relying on standard library implementations.
 
@@ -13,7 +13,7 @@ This project began as a simple **integer array** and has evolved into a comprehe
 
 - **GenericArray**: A type-agnostic, dynamically resizing array that can store any data type using `void*` pointers and function pointers for custom operations.
 
-- **LinkedList**: In progres...
+- **LinkedList**: In progress...
 
 ### Planned Implementations
 
@@ -55,10 +55,14 @@ structures-from-scratch/
 ├── generic_array/              # GenericArray library
 │ ├── generic_array.h
 │ └── generic_array.c
+├── linked_list/                # LinkedList library
+│ ├── linked_list.h
+│ └── linked_list.c
 ├── tests/                      # Tests and helper functions for GenericArray
 │ ├── test_helpers.h
 │ ├── test_helpers.c
-│ └── main.c
+│ ├── test_ll.c
+│ └── test_ga.c
 └── README.md
 ```
 
