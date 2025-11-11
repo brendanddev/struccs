@@ -50,7 +50,7 @@ void _insert(struct Node *node, struct LinkedList *list) {
     list->length++;
 }
 
-// Inserts a new Node into the LinkedList at the tail
+// Inserts a new Node into the LinkedList at the tail of the list
 void _insert_tail(struct Node *node, struct LinkedList *list) {
 
     // Check if head of the list is NULL
@@ -65,12 +65,11 @@ void _insert_tail(struct Node *node, struct LinkedList *list) {
         // Start from head node, traverse the list until we reach a node where next == NULL, this is the tail node
         for (struct Node *current = list->head; current != NULL; current = current->next) {
             // Reached tail node
-            if (current == NULL) {
+            if (current->next == NULL) {
                 // Set current tails `next` ptr to point to the new node
                 current->next = node;
                 list->length++;
-
-
+                return;
             }
         }
     }
