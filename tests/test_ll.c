@@ -39,7 +39,6 @@ int main() {
     _insert(node5, linked_list);
     _print(linked_list);
 
-    // Throws seg fault
     printf("Inserting At [Index = %d]...\n", linked_list->length);
     struct Node *node6 = _node_init(1234);
     _insert_at(node6, linked_list, linked_list->length);

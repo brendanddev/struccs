@@ -19,7 +19,7 @@ typedef struct Node {
 
 // Defines the LinkedList struct type
 typedef struct LinkedList {
-    int length;
+    int length;                     // The length of the LinkedList
     struct Node *head;              // A pointer to the head Node (first element)
 
 } LinkedList;
@@ -30,6 +30,8 @@ struct LinkedList * _init();
 void _insert(struct Node *node, struct LinkedList *list);
 void _insert_tail(struct Node *node, struct LinkedList *list);
 void _insert_at(struct Node *node, struct LinkedList *list, int index);
+void _remove(struct LinkedList *list, int value);
+void _remove_at(struct LinkedList *list, int index);
 
 void _print(struct LinkedList *list);
 void _node_discard(struct Node *node);

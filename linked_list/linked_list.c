@@ -117,6 +117,12 @@ void _insert_at(struct Node *node, struct LinkedList *list, int index) {
 }
 
 
+// Removes a Node with the specified value from the LinkedList
+// Unlinks them
+void _remove(struct LinkedList *list, int value) {
+
+}
+
 
 
 
