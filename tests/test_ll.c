@@ -39,19 +39,25 @@ int main() {
     _insert(node5, linked_list);
     _print(linked_list);
 
+    printf("Inserting At...\n");
+    struct Node *node6 = _node_init(1234);
+    _insert_at(node6, linked_list, 1);
+    _print(linked_list);
+
+
     // Nodes are not freed yet!!!!
-    _discard(linked_list);
-    linked_list = NULL;
-    _node_discard(node);
-    node = NULL;
-    _node_discard(node2);
-    node2 = NULL;
-    _node_discard(node3);
-    node3 = NULL;
-    _node_discard(node4);
-    node4 = NULL;
-    _node_discard(node5);
-    node5 = NULL;
+    // _discard(linked_list);
+    // linked_list = NULL;
+    // _node_discard(node);
+    // node = NULL;
+    // _node_discard(node2);
+    // node2 = NULL;
+    // _node_discard(node3);
+    // node3 = NULL;
+    // _node_discard(node4);
+    // node4 = NULL;
+    // _node_discard(node5);
+    // node5 = NULL;
 
 
 
