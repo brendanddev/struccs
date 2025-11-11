@@ -82,27 +82,37 @@ void _insert_tail(struct Node *node, struct LinkedList *list) {
 // Inserts a new Node into the LinkedList at a specified index
 void _insert_at(struct Node *node, struct LinkedList *list, int index) {
 
-    // List is empty? --> Either indicate error or just insert at closest index?
-    // The `next` ptrs at the position i - 1 and i + 1 neeed to be adjusted to account for the node being inserted at index
-    // Shift all subsequent elements right?s
-
     if (index < 0 || index > list->length) return;
 
-    printf("Inserting At: %d\n", index);
+    // List is empty, node being inserted becomes new head of the linked list
+    if (index == 0) {
+        node->next = list->head;
+        list->head = node;
+        list->length++;
+        return;
+    }
 
     // Traverse the list starting from the head
     int i = 0;
     for (struct Node *current = list->head; current != NULL; current = current->next) {
-        i++;
 
-        // Found the position where the node will be inserted
-        if (i == index) {
-            struct Node *next = current->next;          // Store the the `next` pointer that initially points to the next item before insertion
-            current->next = node;                       // Set the `next` ptr of the current node to the node being added
-            node->next = next->next;                    // Set the `next` ptr of the node being inserted to point to the node after the node being inserted
+        // Found the position before where the node will be inserted
+        if (i == (index - 1)) {
+
+            // Store the 'prev' node which is the current node, one element behind the insertion point
+            // Store the 'curr' node which is the node at the insertion point
+            struct Node *prev = current;                    
+            struct Node *curr = current->next;
+            
+            // Set the next pointer of the `prev` node to point to the node being inserted
+            // Set the next pointer of the node being added to point to the node at the insertion point
+            // This inserts the new node between the `prev` and `curr` pointers and relinks
+            prev->next = node;
+            node->next = curr;
             list->length++;
             return;
         }
+        i++;
     }
 }
 
