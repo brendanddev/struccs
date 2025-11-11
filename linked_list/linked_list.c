@@ -148,13 +148,11 @@ void _remove_tail(struct LinkedList *list) {
 
     // Traverse the nodes of the linked list starting from the head to find the tail node
     for (struct Node *current = list->head; current != NULL; current = current->next) {
-        printf("Current Node value: %d\n", current->value);
 
         // Check if the current nodes `next` pointer points to NULL,
         // meaning we have found the tail node
-        if (current->next == NULL) {
-            printf("The current Node is the tail of the list.\n");
-
+        if (current->next->next == NULL) {
+            
             // Free the memory allocated by the tail node
             free(current->next);
             current->next = NULL;
