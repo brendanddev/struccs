@@ -125,8 +125,8 @@ void _remove(struct LinkedList *list) {
         return;
     }
 
-
     // Temporary pointer to hold the node that will be the new head
+    // Store it here to avoid losing the pointer when freeing the head node of the list
     struct Node *temp = list->head->next;
 
     // Free the memory previously allocated for the head node
@@ -134,7 +134,36 @@ void _remove(struct LinkedList *list) {
 
     // Reassign the head pointer of the list to the temp
     list->head = temp;
+    list->length--;
 }
+
+// Removes the tail node of the Linked List
+void _remove_tail(struct LinkedList *list) {
+    
+    // List is empty (head pointer points to NULL)
+    if (list->head == NULL) {
+        printf("List is empty\n");
+        return;
+    }
+
+    // Traverse the nodes of the linked list starting from the head to find the tail node
+    for (struct Node *current = list->head; current != NULL; current = current->next) {
+        printf("Current Node value: %d\n", current->value);
+
+        // Check if the current nodes `next` pointer points to NULL,
+        // meaning we have found the tail node
+        if (current->next == NULL) {
+            printf("The current Node is the tail of the list.\n");
+
+            // Free the memory allocated by the tail node
+            free(current->next);
+            current->next = NULL;
+            list->length--;
+        }
+
+    }
+}
+
 
 
 
@@ -144,7 +173,7 @@ void _remove(struct LinkedList *list) {
 
 // Prints the contents of the LinkedList by traversing Node through Node
 void _print(struct LinkedList *list) {
-    printf("Printing Contents...\n");
+    printf("Size of LinkedList: %d, Contents: \n", list->length);
     int index = 0;
     for (struct Node *current = list->head; current != NULL; current = current->next) {
         printf("Value: %d, Index: %d\n", current->value, index);
