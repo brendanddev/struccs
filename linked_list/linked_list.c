@@ -116,11 +116,24 @@ void _insert_at(struct Node *node, struct LinkedList *list, int index) {
     }
 }
 
+// Removes the head Node of the LinkedList
+// Unlinks nodes, frees old node
+void _remove(struct LinkedList *list) {
 
-// Removes a Node with the specified value from the LinkedList
-// Unlinks them
-void _remove(struct LinkedList *list, int value) {
+    // Check if the list is empty (head ptr points to NULL)
+    if (list->head == NULL) {
+        return;
+    }
 
+
+    // Temporary pointer to hold the node that will be the new head
+    struct Node *temp = list->head->next;
+
+    // Free the memory previously allocated for the head node
+    free(list->head);
+
+    // Reassign the head pointer of the list to the temp
+    list->head = temp;
 }
 
 

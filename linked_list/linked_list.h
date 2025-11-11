@@ -30,7 +30,7 @@ struct LinkedList * _init();
 void _insert(struct Node *node, struct LinkedList *list);
 void _insert_tail(struct Node *node, struct LinkedList *list);
 void _insert_at(struct Node *node, struct LinkedList *list, int index);
-void _remove(struct LinkedList *list, int value);
+void _remove(struct LinkedList *list);
 void _remove_at(struct LinkedList *list, int index);
 
 void _print(struct LinkedList *list);
