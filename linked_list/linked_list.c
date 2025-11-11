@@ -37,6 +37,7 @@ struct LinkedList * _init() {
     return linked_list;
 }
 
+// Inserts a new Node into the LinkedList at the head
 void _insert(struct Node *node, struct LinkedList *list) {
 
     // Point the new Nodes `next` to the `head` of the LinkedList
@@ -49,6 +50,40 @@ void _insert(struct Node *node, struct LinkedList *list) {
     list->length++;
 }
 
+// Inserts a new Node into the LinkedList at the tail
+void _insert_tail(struct Node *node, struct LinkedList *list) {
+
+    // Check if head of the list is NULL
+    if (list->head == NULL) {
+        // If it is, the new Node being inserted becomes the `head` of the list
+        list->head = node;
+        list->length++;
+
+    // List is not empty, need to traverse from the head node until a node is reached where next == NULL  
+    } else {
+
+        // Start from head node, traverse the list until we reach a node where next == NULL, this is the tail node
+        for (struct Node *current = list->head; current != NULL; current = current->next) {
+            // Reached tail node
+            if (current == NULL) {
+                // Set current tails `next` ptr to point to the new node
+                current->next = node;
+                list->length++;
+
+
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+// Prints the contents of the LinkedList by traversing Node through Node
 void _print(struct LinkedList *list) {
     printf("Printing Contents...\n");
     int index = 0;
@@ -73,3 +108,8 @@ void _discard(struct LinkedList *linked_list) {
         free(linked_list);
     }
 }
+
+
+
+
+
