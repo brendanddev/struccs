@@ -37,6 +37,26 @@ struct LinkedList * _init() {
     return linked_list;
 }
 
+void _insert(struct Node *node, struct LinkedList *list) {
+
+    // Point the new Nodes `next` to the `head` of the LinkedList
+    node->next = list->head;
+
+    // Point the lists `head` to the new node
+    list->head = node;
+
+    // Increment length
+    list->length++;
+}
+
+void _print(struct LinkedList *list) {
+    printf("Printing Contents...\n");
+    int index = 0;
+    for (struct Node *current = list->head; current != NULL; current = current->next) {
+        printf("Value: %d, Index: %d\n", current->value, index);
+        index++;
+    }
+}
 
 // Frees any memory allocated by the Node
 void _node_discard(struct Node *node) {
