@@ -38,9 +38,18 @@ struct LinkedList * _init() {
 }
 
 
-
-
+// Frees any memory allocated by the Node
 void _node_discard(struct Node *node) {
+    if (node != NULL) {
+        free(node->next);
+        free(node);
+    }
 }
+
+// Frees any memory allocated by the LinkedList
 void _discard(struct LinkedList *linked_list) {
+    if (linked_list != NULL) {
+        free(linked_list->head);
+        free(linked_list);
+    }
 }
