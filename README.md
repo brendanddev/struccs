@@ -45,6 +45,8 @@ This project began as a simple **integer array** and has evolved into a comprehe
 
   *(The older Dynamic Array is preserved in `archive/` for reference and comparison.)*
 
+- **Linked List**:
+
 ---
 
 ## Project Structure
@@ -95,6 +97,10 @@ structures-from-scratch/
 | `shift_right`   | **O(n)**            | Moves all elements after insertion index one slot right.               |
 | `shift_left`    | **O(n)**            | Moves all elements after deletion index one slot left.                 |
 | `swap`          | **O(1)**            | Exchanges two items using temporary memory.                            |
+
+### Linked List Operations
+| Operation       | Time Complexity | Notes                                                       |
+|-----------------|-----------------|-------------------------------------------------------------|
 
 ---
 
