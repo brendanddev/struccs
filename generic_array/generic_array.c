@@ -286,31 +286,34 @@ struct GenericArray * _copy(struct GenericArray *ga) {
     return ga_copy;
 }
 
-// Searches for an item within the array using Binary Search and taking a caller defined
-// ga: the struct, item_ptr: the item being searched for, comparator: The caller defined comparator to determine if two items are equal
+// Searches for an item within a sorted array using a Binary Search implementation and a caller defined comparator function
+// to determine how items in the array should be compared
 bool _binary_find(struct GenericArray *ga, void *item_ptr, int (* comparator)(void*, void*)) {
     
     // Calculate the memory addresses of the lowest and highest items in the array
     // which are the items at index=0 and index=length-1
-    void *low = (char *) ga->ptrData + 1 * ga->item_size;
+    void *low = (char *) ga->ptrData + 0 * ga->item_size;
     void *high = (char *) ga->ptrData + (ga->length - 1) * ga->item_size;
 
     while (low <= high) {
         
         // Calculate memory address of the middle index
-        void *mid = (char *) low + ((char *)high - (char *)low) / 2;
+        void *mid = (char *) low + ((char *)high - (char *)low) / (2 * ga->item_size);
+
+        int cmp = comparator(mid, item_ptr);
+        printf("Comparator result: %d\n", cmp);
 
         // Check mid == item_ptr
-        if (comparator(mid, item_ptr) == -1) {
+        if (cmp == 0) {
             // return mid;
             return true;
         // Check mid < item_ptr
         // Less than
-        } else if (comparator(mid, item_ptr) == 0) {
-            low = mid + 1;
+        } else if (cmp == -1) {
+            low = (char *)mid + 1 * ga->item_size;
         // Greater than
         } else {
-            high = mid - 1;
+            high = (char *)mid - 1 * ga->item_size;
         }
     }
     // Not found
