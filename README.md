@@ -33,17 +33,16 @@ This project began as a simple **integer array** and has evolved into a comprehe
   - Custom comparison functions via function pointers for _contains and other operations
   - Supports adding, appending, removing, accessing, updating, and swapping elements
   - Fully memory-managed, efficient, and reusable for any type
-
-  *(The older Dynamic Array is preserved in `archive/` for reference and comparison.)*
-
-  - Swap elements at two indices via `_swap` function
+  - Deep copy of the entire structure and its elements via `_copy` function
   - Sort elements using Bubble Sort via `_sort` function
     - Accepts a comparison function pointer for custom sorting logic
-  - In order reversal via `_reverse` function
-  - Discard the structure and free all associated memory via `_destroy` function
-  - Deep copy of the entire structure and its elements via `_copy` function
-  - Binary Search implementation for sorted arrays via `_binary_search` function
+  - In-order reversal via `_reverse` function
+  - Binary Search implementation for sorted arrays via `_binary_find` function
     - Requires a sorted array and a comparison function pointer
+  - Swap elements at two indices via `_swap` function
+  - Discard the structure and free all associated memory via `_discard` function
+
+  *(The older Dynamic Array is preserved in `archive/` for reference and comparison.)*
 
 ---
 
@@ -110,6 +109,37 @@ clang generic_array.c utils.c main.c -o out
 3. Run the executable:
 ```bash
 ./out
+```
+
+---
+
+## Usage Example
+
+```c
+#include "generic_array.h"
+
+// Create an array for integers
+struct GenericArray *ga = _init(sizeof(int));
+
+// Add some elements
+int values[] = {42, 17, 89, 3};
+for (int i = 0; i < 4; i++) {
+    _append(ga, &values[i]);
+}
+
+// Define a custom comparison function
+bool compare_int(void *a, void *b) {
+    return (*(int*)a == *(int*)b);
+}
+
+// Search for a value
+int target = 17;
+if (_contains(ga, compare_int, &target)) {
+    printf("Found %d in the array!\n", target);
+}
+
+// Clean up
+_discard(ga);
 ```
 
 ---

@@ -311,35 +311,6 @@ bool _binary_find(struct GenericArray *ga, void *item_ptr, int (* comparator)(vo
         }
     }
     return false;
-
-    // Calculate the memory addresses of the lowest and highest items in the array
-    // which are the items at index=0 and index=length-1
-    // void *low = (char *) ga->ptrData + 0 * ga->item_size;
-    // void *high = (char *) ga->ptrData + (ga->length - 1) * ga->item_size;
-
-    // while (low <= high) {
-        
-    //     // Calculate memory address of the middle index
-    //     void *mid = (char *) low + ((char *)high - (char *)low) / (2 * ga->item_size);
-
-    //     int cmp = comparator(mid, item_ptr);
-    //     printf("Comparator result: %d\n", cmp);
-
-    //     // Check mid == item_ptr
-    //     if (cmp == 0) {
-    //         // return mid;
-    //         return true;
-    //     // Check mid < item_ptr
-    //     // Less than
-    //     } else if (cmp == -1) {
-    //         low = (char *)mid + 1 * ga->item_size;
-    //     // Greater than
-    //     } else {
-    //         high = (char *)mid - 1 * ga->item_size;
-    //     }
-    // }
-    // // Not found
-    // return false;
 }
 
 
