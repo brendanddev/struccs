@@ -29,6 +29,7 @@ struct Node * _node_init(int value);
 struct LinkedList * _init();
 void _insert(struct Node *node, struct LinkedList *list);
 void _insert_tail(struct Node *node, struct LinkedList *list);
+void _insert_at(struct Node *node, struct LinkedList *list, int index);
 
 void _print(struct LinkedList *list);
 void _node_discard(struct Node *node);

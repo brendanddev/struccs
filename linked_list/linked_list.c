@@ -79,6 +79,34 @@ void _insert_tail(struct Node *node, struct LinkedList *list) {
 }
 
 
+// Inserts a new Node into the LinkedList at a specified index
+void _insert_at(struct Node *node, struct LinkedList *list, int index) {
+
+    // List is empty? --> Either indicate error or just insert at closest index?
+    // The `next` ptrs at the position i - 1 and i + 1 neeed to be adjusted to account for the node being inserted at index
+    // Shift all subsequent elements right?s
+
+    if (index < 0 || index > list->length) return;
+
+    printf("Inserting At: %d\n", index);
+
+    // Traverse the list starting from the head
+    int i = 0;
+    for (struct Node *current = list->head; current != NULL; current = current->next) {
+        i++;
+
+        // Found the position where the node will be inserted
+        if (i == index) {
+            struct Node *next = current->next;          // Store the the `next` pointer that initially points to the next item before insertion
+            current->next = node;                       // Set the `next` ptr of the current node to the node being added
+            node->next = next->next;                    // Set the `next` ptr of the node being inserted to point to the node after the node being inserted
+            list->length++;
+            return;
+        }
+    }
+}
+
+
 
 
 
