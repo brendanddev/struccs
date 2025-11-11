@@ -289,37 +289,57 @@ struct GenericArray * _copy(struct GenericArray *ga) {
 // Searches for an item within a sorted array using a Binary Search implementation and a caller defined comparator function
 // to determine how items in the array should be compared
 bool _binary_find(struct GenericArray *ga, void *item_ptr, int (* comparator)(void*, void*)) {
-    
-    // Calculate the memory addresses of the lowest and highest items in the array
-    // which are the items at index=0 and index=length-1
-    void *low = (char *) ga->ptrData + 0 * ga->item_size;
-    void *high = (char *) ga->ptrData + (ga->length - 1) * ga->item_size;
+    // Initialize low and high indexes
+    int low = 0;
+    int high = ga->length - 1;
 
     while (low <= high) {
-        
-        // Calculate memory address of the middle index
-        void *mid = (char *) low + ((char *)high - (char *)low) / (2 * ga->item_size);
+        // Calculate the middle items address based on the middle index
+        int mid_idx = low + (high - low) / 2;
+        void *mid = (char *) ga->ptrData + mid_idx * ga->item_size;
 
         int cmp = comparator(mid, item_ptr);
-        printf("Comparator result: %d\n", cmp);
 
-        // Check mid == item_ptr
         if (cmp == 0) {
-            // return mid;
             return true;
-        // Check mid < item_ptr
-        // Less than
+        // Check if `mid < item_ptr`
         } else if (cmp == -1) {
-            low = (char *)mid + 1 * ga->item_size;
-        // Greater than
+            low = mid_idx + 1;
+        // `mid > item_ptr`
         } else {
-            high = (char *)mid - 1 * ga->item_size;
+            high = mid_idx - 1;
         }
     }
-    // Not found
     return false;
 
+    // Calculate the memory addresses of the lowest and highest items in the array
+    // which are the items at index=0 and index=length-1
+    // void *low = (char *) ga->ptrData + 0 * ga->item_size;
+    // void *high = (char *) ga->ptrData + (ga->length - 1) * ga->item_size;
 
+    // while (low <= high) {
+        
+    //     // Calculate memory address of the middle index
+    //     void *mid = (char *) low + ((char *)high - (char *)low) / (2 * ga->item_size);
+
+    //     int cmp = comparator(mid, item_ptr);
+    //     printf("Comparator result: %d\n", cmp);
+
+    //     // Check mid == item_ptr
+    //     if (cmp == 0) {
+    //         // return mid;
+    //         return true;
+    //     // Check mid < item_ptr
+    //     // Less than
+    //     } else if (cmp == -1) {
+    //         low = (char *)mid + 1 * ga->item_size;
+    //     // Greater than
+    //     } else {
+    //         high = (char *)mid - 1 * ga->item_size;
+    //     }
+    // }
+    // // Not found
+    // return false;
 }
 
 

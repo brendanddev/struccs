@@ -301,7 +301,7 @@ void test_b_search() {
     print_arr_int(ga);
     printf("\n");
 
-    int num = 30;
+    int num = 11;
     if (_binary_find(ga, &num, compare_int)) {
         printf("Item found: %d\n", num);
     } else {
