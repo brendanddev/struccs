@@ -49,13 +49,27 @@ int main() {
     _insert_at(node7, linked_list, 0);
     _print(linked_list);
 
-    printf("Removing tail of LinkedList...\n");
-    _remove_tail(linked_list);
+    // printf("Removing tail of LinkedList...\n");
+    // _remove_tail(linked_list);
+    // _print(linked_list);
+    // _remove_tail(linked_list);
+    // _print(linked_list);
+    // _remove_tail(linked_list);
+    // _print(linked_list);
+
+    int removeidx = 3;
+    printf("Removing at index = %d\n", removeidx);
+    _remove_at(linked_list, removeidx);
     _print(linked_list);
-    _remove_tail(linked_list);
+    printf("Removing at index = 0...\n");
+    _remove_at(linked_list, 0);
     _print(linked_list);
-    _remove_tail(linked_list);
+    printf("Removing at index = %d...\n", linked_list->length - 1);
+    _remove_at(linked_list, linked_list->length - 1);
     _print(linked_list);
+
+
+
 
 
     // printf("Removing head of LinkedList...\n");
