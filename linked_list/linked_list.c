@@ -116,8 +116,7 @@ void _insert_at(struct Node *node, struct LinkedList *list, int index) {
     }
 }
 
-// Removes the head Node of the LinkedList
-// Unlinks nodes, frees old node
+// Removes the head Node of the LinkedList (first item)
 void _remove(struct LinkedList *list) {
 
     // Check if the list is empty (head ptr points to NULL)
@@ -137,7 +136,7 @@ void _remove(struct LinkedList *list) {
     list->length--;
 }
 
-// Removes the tail node of the Linked List
+// Removes the tail node of the Linked List (last item)
 void _remove_tail(struct LinkedList *list) {
     
     // List is empty (head pointer points to NULL)
@@ -152,16 +151,53 @@ void _remove_tail(struct LinkedList *list) {
         // Check if the current nodes `next` pointer points to NULL,
         // meaning we have found the tail node
         if (current->next->next == NULL) {
-            
+
             // Free the memory allocated by the tail node
             free(current->next);
             current->next = NULL;
             list->length--;
         }
-
     }
 }
 
+// Removes a node at a specified index in the Linked List
+void _remove_at(struct LinkedList *list, int index) {
+    if (index < 0 || index > list->length) return;
+
+    // Check if head is being removed
+    if (index == 0) {
+        _remove(list);
+
+    // Check if tail is being removed
+    } else if (index == list->length - 1) {
+        _remove_tail(list);
+
+    // Otherwise node to remove is somewhere else inside the list
+    } else {
+
+        // Traverse the list starting from the head node
+        int i = 0;
+        for (struct Node *current = list->head; current != NULL; current = current->next) {
+            
+            // Found the position before the node to remove
+            // Which is the position of the node before the node at position=index
+            if (i == (index - 1)) {
+
+                struct Node *prev = current;
+
+                struct Node *temp = current->next;
+                free(current->next);
+                current->next = NULL;
+
+                current->next = temp;
+
+            }
+            i++;
+
+        }
+    }
+
+}
 
 
 
