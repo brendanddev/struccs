@@ -74,6 +74,8 @@ int main() {
     empty = _is_empty(linked_list);
     printf("The linked list is empty: %d\n", empty);
 
+    printf("Current size of the Linked List: %d\n", _size(linked_list));
+
 
 
 
