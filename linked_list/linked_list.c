@@ -206,6 +206,16 @@ void _remove_at(struct LinkedList *list, int index) {
 
 
 
+// Checks if the Linked List is empty
+bool _is_empty(struct LinkedList *list) {
+    if (list->head == NULL) return true;
+    return false;
+}
+
+
+int _size(struct LinkedList *list);
+
+
 // Prints the contents of the LinkedList by traversing Node through Node
 void _print(struct LinkedList *list) {
     printf("Size of LinkedList: %d, Contents: \n", list->length);
