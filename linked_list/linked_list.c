@@ -183,22 +183,23 @@ void _remove_at(struct LinkedList *list, int index) {
             // Which is the position of the node before the node at position=index
             if (i == (index - 1)) {
 
-                struct Node *prev = current;
+                struct Node *prev = current;                // the node before the node being removed
+                struct Node *curr = current->next;          // the node being removed
+                struct Node *temp = curr->next;             // a temporary pointer to the node after the node being removed
 
-                struct Node *temp = current->next;
+                // Free the memory allocated by the node being removed
                 free(current->next);
                 current->next = NULL;
 
+                // Point the current nodes `next` ptr to the node after the one removed
+                // stored in the temp pointer
                 current->next = temp;
-
+                list->length--;
             }
             i++;
-
         }
     }
-
 }
-
 
 
 
