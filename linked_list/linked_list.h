@@ -40,4 +40,11 @@ void _print(struct LinkedList *list);
 void _node_discard(struct Node *node);
 void _discard(struct LinkedList *linked_list);
 
+// todo: 
+int _get(struct LinkedList *list, int index);
+bool _set(struct LinkedList *list, int index);
+int _find(struct LinkedList *list, int value);
+bool _contains(struct LinkedList *list, int value);
+void _clear(struct LinkedList *list);
+
 #endif
