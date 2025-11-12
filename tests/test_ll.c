@@ -21,6 +21,9 @@ int main() {
     struct Node *node5 = _node_init(55);
     struct LinkedList *linked_list = _init();
 
+    bool empty = _is_empty(linked_list);
+    printf("The linked list is empty: %d\n", empty);
+
     printf("Node Value: %d, Next Pointer: %p\n", node->value, node->next);
     printf("LinkedList Length: %d, Head Pointer: %p\n", linked_list->length, linked_list->head);
 
@@ -67,6 +70,9 @@ int main() {
     printf("Removing at index = %d...\n", linked_list->length - 1);
     _remove_at(linked_list, linked_list->length - 1);
     _print(linked_list);
+
+    empty = _is_empty(linked_list);
+    printf("The linked list is empty: %d\n", empty);
 
 
 
