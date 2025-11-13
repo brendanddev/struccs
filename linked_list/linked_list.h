@@ -30,5 +30,8 @@ typedef struct LinkedList {
 struct Node * _node_init(void *val, size_t size);
 struct LinkedList * _init();
 
+void _node_discard(struct Node *node);
+void _discard(struct LinkedList *linked_list);
+
 
 #endif
