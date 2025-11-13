@@ -16,9 +16,8 @@ int main() {
     // Create a new Node and LinkedList
     int val = 100;
     void *ptr = &val;
-    struct Node *node = _node_init(&ptr, sizeof(int));
-    int value = * (int *) node->value;
-    printf("Value: %d, Value: %d, Item Size: %zu, \n", value, node->value, node->item_size);
+    struct Node *node = _node_init(ptr, sizeof(int));
+    printf("Value: %d, Value: %d, Item Size: %zu, \n", * (int *) node->value, node->value, node->item_size);
 
     return 0;
 }
