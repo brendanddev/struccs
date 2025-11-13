@@ -249,6 +249,17 @@ int _find(struct LinkedList *list, int value) {
     return -1;
 }
 
+// Checks if the Linked List contains a specified value
+bool _contains(struct LinkedList *list, int value) {
+    if (list->head == NULL) return false;
+
+    for (struct Node *current = list->head; current != NULL; current = current->next) {
+        if (current->value == value) {
+            return true;
+        }
+    }
+    return false;
+}
 
 
 
