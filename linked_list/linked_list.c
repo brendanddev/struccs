@@ -201,6 +201,19 @@ void _remove_at(struct LinkedList *list, int index) {
     }
 }
 
+// Retrieves and returns the value stored in the node at the index specified in the Linked List
+int _get(struct LinkedList *list, int index) {
+    if (index < 0 || index > list->length) return -1;
+
+    int idx = 0;
+    for (struct Node *current = list->head; current != NULL; current = current->next) {
+        if (idx == index) {
+            return current->value;
+        }
+        idx++;
+    }
+    return -1;
+}
 
 
 
