@@ -261,7 +261,14 @@ bool _contains(struct LinkedList *list, int value) {
     return false;
 }
 
+// Free every node, set head to null, set length to 0
+void _clear(struct LinkedList *list) {
+    if (list->head == NULL) return;
 
+    
+
+
+}
 
 // Checks if the Linked List is empty
 bool _is_empty(struct LinkedList *list) {
