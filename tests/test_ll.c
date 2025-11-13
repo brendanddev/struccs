@@ -76,6 +76,11 @@ int main() {
 
     printf("Current size of the Linked List: %d\n", _size(linked_list));
 
+    printf("Get (index = 0): %d\n", _get(linked_list, 0));
+    printf("Get (index = 2): %d\n", _get(linked_list, 2));
+    printf("Get (index = 100): %d\n", _get(linked_list, 100));
+
+
 
 
 
