@@ -92,6 +92,13 @@ int main() {
     _set(linked_list, 3, 5000);
     _print(linked_list);
 
+    // test _find
+    printf("The index of the value 700 (or -1 if not present): %d\n", _find(linked_list, 700));
+    printf("The index of the value 999 (or -1 if not present): %d\n", _find(linked_list, 999));
+
+    // test _contains
+    printf("The Linked List contains 999: %d\n", _contains(linked_list, 999));
+    printf("The Linked List contains 777: %d\n", _contains(linked_list, 777));
 
 
 
