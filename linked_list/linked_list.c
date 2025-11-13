@@ -231,6 +231,25 @@ bool _set(struct LinkedList *list, int index, int value) {
     return false;
 }
 
+// Finds the node with the specified value and returns the index of the node 
+// or -1 if the value is not found in the Linked List
+int _find(struct LinkedList *list, int value) {
+
+    // If list is empty immediately return
+    if (list->head == NULL) return -1;
+
+    // Traverse the linked list starting from the head until the value is found or the tail is reached
+    int idx = 0;
+    for (struct Node *current = list->head; current != NULL; current = current->next) {
+        if (current->value == value) {
+            return idx;
+        }
+        idx++;
+    }
+    return -1;
+}
+
+
 
 
 // Checks if the Linked List is empty
