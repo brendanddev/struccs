@@ -12,7 +12,7 @@
 
 
 // Initializes a new Node
-struct Node * _node_init(void *val, size_t size) {
+struct Node * _init_node(void *val, size_t size) {
     
     // Define a pointer to the Node and allocate memory for the struct itself
     struct Node *node = NULL;
@@ -44,9 +44,11 @@ struct Node * _node_init(void *val, size_t size) {
 // Initializes a new LinkedList
 struct LinkedList * _init() {
 
+    // Allocate memory for the linked list itself
     struct LinkedList *list = NULL;
     list = malloc(sizeof(struct LinkedList));
 
+    // Handle allocation failure
     if (list == NULL) { }
 
     list->length = 0;
@@ -57,7 +59,7 @@ struct LinkedList * _init() {
 
 
 // Free the memory allocated by the Node
-void _node_discard(struct Node *node) { 
+void _discard_node(struct Node *node) { 
     if (node != NULL) {
         free(node->next);
         free(node->prev);
@@ -71,4 +73,15 @@ void _discard(struct LinkedList *linked_list) {
     if (linked_list != NULL) {
         free(linked_list);
     }
+}
+
+// Returns whether the linked list is empty or not
+bool _is_empty(struct LinkedList *list) {
+    if (list->head == NULL) return true;
+    return false;
+}
+
+// Returns the current size (length) of the linked list
+int _size(struct LinkedList *list) {
+    return list->length;
 }

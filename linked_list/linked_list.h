@@ -27,11 +27,12 @@ typedef struct LinkedList {
 } LinkedList;
 
 
-struct Node * _node_init(void *val, size_t size);
+struct Node * _init_node(void *val, size_t size);
 struct LinkedList * _init();
 
-void _node_discard(struct Node *node);
+void _discard_node(struct Node *node);
 void _discard(struct LinkedList *linked_list);
-
+bool _is_empty(struct LinkedList *list);
+int _size(struct LinkedList *list);
 
 #endif
