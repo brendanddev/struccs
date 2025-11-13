@@ -14,10 +14,12 @@
 // Defines the Node struct type
 typedef struct Node {
     void *value;                        // Pointer to the value stored in the Node
+    size_t item_size;                   // The size of the item stored in this Node
     struct Node *next;                  // Pointer to the next Node in the Linked List
     struct Node *prev;                  // Pointer to the previous Node in the Linked List
 } Node;
 
+// Defines the LinkedList struct type
 typedef struct LinkedList {
     int length;                         // Length of the Linked List
     struct Node *head;                  // Pointer to the head Node (first item)
@@ -25,9 +27,8 @@ typedef struct LinkedList {
 } LinkedList;
 
 
-
-
-
+struct Node * _node_init(void *val, size_t size);
+struct LinkedList * _init();
 
 
 #endif
