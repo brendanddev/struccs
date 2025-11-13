@@ -216,6 +216,22 @@ int _get(struct LinkedList *list, int index) {
 }
 
 
+// Sets the value of the node at the specified index to the value provided in the Linked List
+bool _set(struct LinkedList *list, int index, int value) {
+    if (index < 0 || index > list->length) return false;
+
+    int idx = 0;
+    for (struct Node *current = list->head; current != NULL; current = current->next) {
+        if (idx == index) {
+            current->value = value;
+            return true;
+        }
+        idx++;
+    }
+    return false;
+}
+
+
 
 // Checks if the Linked List is empty
 bool _is_empty(struct LinkedList *list) {
