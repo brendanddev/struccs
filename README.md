@@ -1,5 +1,5 @@
 
-# Structures From Scratch (In C)    v2.0
+# Structures From Scratch (In C)    v2.1
 
 A collection of fundamental data structures implemented from scratch in C for learning and practice. This project demonstrates low-level understanding of memory management, pointer arithmetic, and algorithmic thinking without relying on standard library implementations.
 
