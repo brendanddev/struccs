@@ -137,6 +137,13 @@ int main() {
     // _remove_at(linked_list, 0);
     // print_int_linked_list(linked_list);
 
+    // Reverse the linked list
+    printf("LIST BEFORE REVERSAL: \n");
+    _print(linked_list, print_int);
+    printf("AFTER REVERSAL: \n");
+    _reverse(linked_list);
+    _print(linked_list, print_int);
+
 
     // Get an item at a index
     int get_val;
@@ -234,9 +241,9 @@ int main() {
     }
 
 
-
-    
-
+    // Reverse the linked list
+    _reverse(linked_list);
+    _print(linked_list, print_int);
 
 
 
