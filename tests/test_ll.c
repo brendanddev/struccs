@@ -165,6 +165,39 @@ int main() {
         printf("Could not get item\n");
     }
 
+
+    // Set a item at index
+    int set_val = 82;
+    if (_set(linked_list, 1, &set_val)) {
+        printf("Item set at index 1: %d\n", set_val);
+    } else {
+        printf("Could not set item\n");
+    }
+    print_int_linked_list(linked_list);
+
+    int set_val2 = 1000;
+    if (_set(linked_list, 2, &set_val2)) {
+        printf("Item set at index 2: %d\n", set_val2);
+    } else {
+        printf("Could not set item\n");
+    }
+    print_int_linked_list(linked_list);
+
+    if (_set(linked_list, -1, &set_val2)) {
+        printf("Item set at index 2: %d\n", set_val2);
+    } else {
+        printf("Could not set item\n");
+    }
+
+    if (_set(linked_list, 100, &set_val2)) {
+        printf("Item set at index 2: %d\n", set_val2);
+    } else {
+        printf("Could not set item\n");
+    }
+
+
+
+
     
 
 
