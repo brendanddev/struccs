@@ -276,6 +276,24 @@ bool _set(struct LinkedList *list, int index, void *in) {
     return false;
 }
 
+// Finds the node with the specified value and returns the location (index) of the node, or -1 if not found
+// Relies on a caller defined comparator function to determine how to compare two items of the type stored
+int _find(struct LinkedList *list, void *item, bool (* comparator)(void*, void*)) {
+    if (list->head == NULL) return -1;
+
+    // Traverse from head to tail to search for the item
+    int idx = 0;
+    for (struct Node *current = list->head; current != NULL; current = current->next) {
+        
+        // Check if the value stored in the current node and the item being searched for
+        // are equal based on the user defined comparator, if they are return current location (index)
+        if (comparator(current->value, item)) {
+            return idx;
+        }
+        idx++;
+    }
+    return -1;
+}
 
 // Returns whether the linked list is empty or not
 bool _is_empty(struct LinkedList *list) {
