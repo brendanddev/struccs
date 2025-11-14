@@ -193,6 +193,40 @@ void _remove_tail(struct LinkedList *list) {
 
 // Removes a node at a specified location in the linked list
 void _remove_at(struct LinkedList *list, int index) {
+
+    if (index < 0 || index > list->length - 1) return;
+
+    // Check if head is being removed
+    if (index == 0) {
+        _remove(list);
+        return;
+    
+    // Check if tail is being removed
+    } else if (index == list->length - 1) {
+        _remove_tail(list);
+        return;
+
+    // Otherwise need to traverse to the location of the node being removed
+    } else {
+
+        // Traverse the list starting from the head node to find the location of the node being removed
+        int idx = 0;
+        for (struct Node *current = list->head; current != NULL; current = current->next) {
+
+            // Check if we are at the node before the location of the node being removed
+            if (idx == (index - 1)) {
+
+                // Store the pointer to the node after the node being removed
+                struct Node *temp = current->next->next;
+                free(current->next->value);
+                free(current->next);
+                current->next = temp;
+                list->length--;
+                break;
+            }
+            idx++;
+        }
+    }
 }
 
 
