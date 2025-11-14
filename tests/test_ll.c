@@ -109,18 +109,31 @@ int main() {
 
 
     // Remove tail node
-    _remove_tail(linked_list);
+    // _remove_tail(linked_list);
+    // print_int_linked_list(linked_list);
+    // _remove_tail(linked_list);
+    // print_int_linked_list(linked_list);
+    // _remove_tail(linked_list);
+    // print_int_linked_list(linked_list);
+    // _remove_tail(linked_list);
+    // print_int_linked_list(linked_list);
+    // _remove_tail(linked_list);
+    // print_int_linked_list(linked_list);
+    // _remove_tail(linked_list);
+    // print_int_linked_list(linked_list);         // should be empty at this point
+
+
+    // Remove at index
+    _remove_at(linked_list, 4);
     print_int_linked_list(linked_list);
-    _remove_tail(linked_list);
+    _remove_at(linked_list, 3);
     print_int_linked_list(linked_list);
-    _remove_tail(linked_list);
+    _remove_at(linked_list, 2);
     print_int_linked_list(linked_list);
-    _remove_tail(linked_list);
+    _remove_at(linked_list, 1);
     print_int_linked_list(linked_list);
-    _remove_tail(linked_list);
+    _remove_at(linked_list, 0);
     print_int_linked_list(linked_list);
-    _remove_tail(linked_list);
-    print_int_linked_list(linked_list);         // should be empty at this point
 
     
 
