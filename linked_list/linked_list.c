@@ -142,14 +142,10 @@ void _remove(struct LinkedList *list) {
     // Store a pointer to the old head before removal to track the link to the next node and
     // free the memory allocated by the old head to remove it
     struct Node *temp = list->head->next;
+    free(list->head->value);
     free(list->head);
     list->head = temp;
     list->length--;
-
-    // // Set the new head of the list to the node following the old head
-    // list->head = old_head->next;
-    // free(old_head);
-    // list->length--;
 }
 
 
