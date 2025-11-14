@@ -77,7 +77,6 @@ void _insert(struct Node *node, struct LinkedList *list) {
 // Frees the memory allocated by the node
 void _discard_node(struct Node *node) {
     if (node != NULL) {
-        free(node->next);
         free(node->value);
         free(node);
     }
