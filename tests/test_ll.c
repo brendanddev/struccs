@@ -110,34 +110,19 @@ int main() {
 
 
 
-    // Free all nodes 
-    _discard_node(node);
-    node = NULL;
-    _discard_node(node2);
-    node2 = NULL;
-    _discard_node(node3);
-    node3 = NULL;
-    _discard_node(node4);
-    node4 = NULL;
-    _discard_node(node5);
-    node5 = NULL;
-    _discard_node(node6);
-    node6 = NULL;
-    _discard_node(node7);
-    node7 = NULL;
-    _discard_node(node8);
-    node8 = NULL;
-    _discard_node(node9);
-    node9 = NULL;
 
 
+
+
+
+
+    
+    // Free all nodes
+    _discard_all_nodes(linked_list);
+
+    // Free linked list
     _discard(linked_list);
     linked_list = NULL;
-
-
-
-
-
     return 0;
 }
 
