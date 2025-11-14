@@ -81,6 +81,22 @@ int main() {
     print_int_linked_list(linked_list);
 
 
+    // Insert at index
+    int val8 = 888;
+    void *ptr8 = &val8;
+    struct Node *node8 = _init_node(ptr8, sizeof(int));
+    _insert_at(node8, linked_list, 1);
+    print_int_linked_list(linked_list);
+
+
+    // Insert at index
+    int val9 = 23429;
+    void *ptr9 = &val9;
+    struct Node *node9 = _init_node(ptr9, sizeof(int));
+    _insert_at(node9, linked_list, 5);
+    print_int_linked_list(linked_list);
+
+
     _discard_node(node);
     node = NULL;
     _discard_node(node2);
