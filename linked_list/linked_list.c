@@ -377,3 +377,23 @@ void _print(struct LinkedList *list, void (* print_fn)(void*)) {
     }
     printf("\n");
 }
+
+// Reverses the contents of the linked list in place
+void _reverse(struct LinkedList *list) {
+
+    if (list->head == NULL) return;
+
+    for (struct Node *current = list->head; current != NULL; current = current->next) {
+
+    }
+}
+
+// Takes pointer to original list, and creates a new empty linked list.
+// Traverse the original list from head to tail, and for each node
+// allocate a new node, allocate memoruf for val and copy it,
+// append to new list
+struct LinkedList * _copy(struct LinkedList *orig) {
+    struct LinkedList *copy = _init();
+
+    return copy;
+}

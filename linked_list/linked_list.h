@@ -45,6 +45,8 @@ void _discard_node(struct Node *node);
 void _discard_all_nodes(struct LinkedList *list);
 void _discard(struct LinkedList *linked_list);
 void _print(struct LinkedList *list, void (* print_fn)(void*));
+void _reverse(struct LinkedList *list);
+struct LinkedList * _copy(struct LinkedList *orig);
 
 
 #endif
