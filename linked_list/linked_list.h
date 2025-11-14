@@ -31,6 +31,9 @@ struct LinkedList * _init();
 void _insert(struct Node *node, struct LinkedList *list);
 void _insert_tail(struct Node *node, struct LinkedList *list);
 void _insert_at(struct Node *node, struct LinkedList *list, int index);
+void _remove(struct LinkedList *list);
+void _remove_tail(struct LinkedList *list);
+void _remove_at(struct LinkedList *list, int index);
 
 bool _is_empty(struct LinkedList *list);
 int _size(struct LinkedList *list);
