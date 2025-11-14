@@ -11,8 +11,8 @@
 // Address: 0x0 == NULL
 
 
-void print_int_linked_list(struct LinkedList *list);
 bool compare_int(void *a, void *b);
+void print_int(void *value);
 
 int main() {
 
@@ -35,7 +35,7 @@ int main() {
     
     // Insert at head
     _insert(node, linked_list);
-    print_int_linked_list(linked_list);
+    _print(linked_list, print_int);
 
 
     // Insert at head
@@ -43,14 +43,15 @@ int main() {
     void *ptr2 = &val2;
     struct Node *node2 = _init_node(ptr2, sizeof(int));
     _insert(node2, linked_list);
-    print_int_linked_list(linked_list);
+    _print(linked_list, print_int);
+
 
     // Insert at head
     int val3 = 9734;
     void *ptr3 = &val3;
     struct Node *node3 = _init_node(ptr3, sizeof(int));
     _insert(node3, linked_list);
-    print_int_linked_list(linked_list);
+    _print(linked_list, print_int);
 
 
     // Insert at tail
@@ -58,28 +59,28 @@ int main() {
     void *ptr4 = &val4;
     struct Node *node4 = _init_node(ptr4, sizeof(int));
     _insert_tail(node4, linked_list);
-    print_int_linked_list(linked_list);
+    _print(linked_list, print_int);
 
     // Insert at tail
     int val5 = 832;
     void *ptr5 = &val5;
     struct Node *node5 = _init_node(ptr5, sizeof(int));
     _insert_tail(node5, linked_list);
-    print_int_linked_list(linked_list);
+    _print(linked_list, print_int);
 
     // Insert at tail
     int val6 = 1;
     void *ptr6 = &val6;
     struct Node *node6 = _init_node(ptr6, sizeof(int));
     _insert_tail(node6, linked_list);
-    print_int_linked_list(linked_list);
+    _print(linked_list, print_int);
 
     // Insert at head
     int val7 = 4006;
     void *ptr7 = &val7;
     struct Node *node7 = _init_node(ptr7, sizeof(int));
     _insert(node7, linked_list);
-    print_int_linked_list(linked_list);
+    _print(linked_list, print_int);
 
 
     // Insert at index
@@ -87,7 +88,7 @@ int main() {
     void *ptr8 = &val8;
     struct Node *node8 = _init_node(ptr8, sizeof(int));
     _insert_at(node8, linked_list, 1);
-    print_int_linked_list(linked_list);
+    _print(linked_list, print_int);
 
 
     // Insert at index
@@ -95,18 +96,18 @@ int main() {
     void *ptr9 = &val9;
     struct Node *node9 = _init_node(ptr9, sizeof(int));
     _insert_at(node9, linked_list, 5);
-    print_int_linked_list(linked_list);
+    _print(linked_list, print_int);
 
 
     // Remove head node
     _remove(linked_list);
-    print_int_linked_list(linked_list);
+    _print(linked_list, print_int);
 
     _remove(linked_list);
-    print_int_linked_list(linked_list);
+    _print(linked_list, print_int);
 
     _remove(linked_list);
-    print_int_linked_list(linked_list);
+    _print(linked_list, print_int);
 
 
     // Remove tail node
@@ -126,7 +127,7 @@ int main() {
 
     // Remove at index
     _remove_at(linked_list, 4);
-    print_int_linked_list(linked_list);
+    _print(linked_list, print_int);
     // _remove_at(linked_list, 3);
     // print_int_linked_list(linked_list);
     // _remove_at(linked_list, 2);
@@ -174,7 +175,7 @@ int main() {
     } else {
         printf("Could not set item\n");
     }
-    print_int_linked_list(linked_list);
+    _print(linked_list, print_int);
 
     int set_val2 = 1000;
     if (_set(linked_list, 2, &set_val2)) {
@@ -182,7 +183,7 @@ int main() {
     } else {
         printf("Could not set item\n");
     }
-    print_int_linked_list(linked_list);
+    _print(linked_list, print_int);
 
     if (_set(linked_list, -1, &set_val2)) {
         printf("Item set at index 2: %d\n", set_val2);
@@ -223,13 +224,13 @@ int main() {
 
 
     // Clear the linked list
-    _clear(linked_list);        // seg faults
-    print_int_linked_list(linked_list);
+    _clear(linked_list);
+    _print(linked_list, print_int);
 
     if (_is_empty(linked_list)) {
         printf("The list is empty!\n");
     } else {
-        print_int_linked_list(linked_list);
+        _print(linked_list, print_int);
     }
 
 
@@ -249,14 +250,11 @@ int main() {
 }
 
 
-void print_int_linked_list(struct LinkedList *list) {
-    for (struct Node *current = list->head; current != NULL; current = current->next) {
-        printf("[%d] ", * (int *) current->value);
-    }
-    printf("\n");
-}
-
 bool compare_int(void *a, void *b) {
     if ((* (int *) a) == (* (int *) b)) return true;
     return false;
+}
+
+void print_int(void *value) {
+    printf("[%d] ", * (int *) value);
 }
