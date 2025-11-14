@@ -60,47 +60,28 @@ struct LinkedList * _init() {
 // Inserts a new node at the head of the linked list
 bool _insert(struct Node *node, struct LinkedList *list) {
 
-    node->next = list->head;
-    list->head = node;
-    list->tail = node;
-    list->length++;
-    return true;
+    // Check if the list is empty
+    // if (list->head == NULL) {
+    //     node->next = list->head;                // Point the node being inserted `next` to the head of the list
+    //     list->head = node;                      // Point the head of the list at the node inserted
+    //     list->tail = node;                      // Point the tail of the list to the node inserted since its the only node
+    //     list->length++;
+    //     return true;
+    // } else {
+    //     node->next = list->head;
+    //     list->head = node;
+    //     list->tail = list->head->next;
+    //     list->length++;
+    //     return true;
+
+    // }
 }
 
 // Inserts a new node at the tail of the linked list
 bool _insert_tail(struct Node *node, struct LinkedList *list) {
 
-    // Check if list is empty, insert node at the head if it is
-    if (list->head == NULL) {
-        node->next = list->head;
-        list->head = node;
-        list->tail = node;
-        list->length++;
-        return true;
-    // List not empty, insert node at tail
-    } else {
-        node->prev = list->tail->next;
-        list->tail->next = node;
-        list->length++;
-        return true;
 
-    }
 }
-
-//     // Check if list is empty and insert node at the head if it is
-//     if (list->head == NULL) {
-//         node->next = list->head;
-//         list->head = node;
-//         list->tail = node;
-//         list->length++;
-//         return true;
-//     } else {
-//         list->tail->next = node;
-//         list->length++;
-//         return true;
-//     }
-//     return false;
-// }
 
 
 
