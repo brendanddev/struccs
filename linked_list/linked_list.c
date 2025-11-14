@@ -148,6 +148,29 @@ void _remove(struct LinkedList *list) {
     list->length--;
 }
 
+void _remove_tail(struct LinkedList *list) {
+
+    // Return if list is empty
+    if (list->head == NULL) {
+        return;
+    }
+
+    // If list is not empty, need to traverse from the head to the node before the tail
+    for (struct Node *current = list->head; current != NULL; current = current->next) {
+
+        // Check if the current node points to a node that points to NULL
+        // If it does, the node pointed to by the current nodes `next` pointer is the tail
+        if (current->next->next == NULL) {
+            // Free memory allocated by the tail node to remove it
+            free(current->next->value);
+            free(current->next);
+            current->next = NULL;
+            list->length--;
+        }
+
+    }
+}
+
 
 
 // Returns whether the linked list is empty or not
