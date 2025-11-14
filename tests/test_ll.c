@@ -35,21 +35,49 @@ int main() {
     // Insert at head
     _insert(node, linked_list);
     print_int_linked_list(linked_list);
-    printf("The list is empty: %d\n", _is_empty(linked_list));      // should be false now (0)
-    printf("LinkedList Length: %d\n", _size(linked_list));          // should be 1 now
 
-    
 
+    // Insert at head
     int val2 = 450;
     void *ptr2 = &val2;
     struct Node *node2 = _init_node(ptr2, sizeof(int));
     _insert(node2, linked_list);
     print_int_linked_list(linked_list);
 
+    // Insert at head
     int val3 = 9734;
     void *ptr3 = &val3;
     struct Node *node3 = _init_node(ptr3, sizeof(int));
     _insert(node3, linked_list);
+    print_int_linked_list(linked_list);
+
+
+    // Insert at tail
+    int val4 = 83272;
+    void *ptr4 = &val4;
+    struct Node *node4 = _init_node(ptr4, sizeof(int));
+    _insert_tail(node4, linked_list);
+    print_int_linked_list(linked_list);
+
+    // Insert at tail
+    int val5 = 832;
+    void *ptr5 = &val5;
+    struct Node *node5 = _init_node(ptr5, sizeof(int));
+    _insert_tail(node5, linked_list);
+    print_int_linked_list(linked_list);
+
+    // Insert at tail
+    int val6 = 1;
+    void *ptr6 = &val6;
+    struct Node *node6 = _init_node(ptr6, sizeof(int));
+    _insert_tail(node6, linked_list);
+    print_int_linked_list(linked_list);
+
+    // Insert at head
+    int val7 = 4006;
+    void *ptr7 = &val7;
+    struct Node *node7 = _init_node(ptr7, sizeof(int));
+    _insert(node7, linked_list);
     print_int_linked_list(linked_list);
 
 
