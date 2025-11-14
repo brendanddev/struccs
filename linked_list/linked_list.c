@@ -295,6 +295,25 @@ int _find(struct LinkedList *list, void *item, bool (* comparator)(void*, void*)
     return -1;
 }
 
+// Clears each node in the linked list
+void _clear(struct LinkedList *list) {
+    if (list->head == NULL) return;
+
+    // Traverse from the head to the tail to clear (free) each node
+    struct Node *current = list->head;
+    while (current != NULL) {
+
+        struct Node *next = current->next;
+        free(current->value);
+        free(current);
+        current->next = next;
+    }
+
+    list->head = NULL;
+    list->tail = NULL;
+    list->length = 0;
+}
+
 // Returns a boolean value indicating whether the linked list contains a specific value
 bool _contains(struct LinkedList *list, void *item, bool (* comparator)(void*, void*)) {
     if (list->head == NULL) return false;
