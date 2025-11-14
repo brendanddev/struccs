@@ -73,6 +73,25 @@ void _insert(struct Node *node, struct LinkedList *list) {
     list->length++;
 }
 
+// Inserts a new node at the tail of the linked list
+void _insert_tail(struct Node *node, struct LinkedList *list) {
+
+    // If the list is empty, insert at the head as this is the only node and will be the tail too
+    if (list->head == NULL) {
+        node->next = list->head;
+        list->head = node;
+        list->tail = node;
+        list->length++;
+    
+    // List is not empty, use tail pointer to insert at tail
+    } else {
+        list->tail->next = node;            // Point the tails `next` pointer to the node being inserted
+        node->next = NULL;                  // Point the node being inserted `next` to NULL since its the new tail
+        list->tail = node;                  // Set the tail of the list to the newly inserted node
+        list->length++;
+    }
+}
+
 
 
 
