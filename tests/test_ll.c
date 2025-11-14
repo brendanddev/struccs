@@ -211,13 +211,20 @@ int main() {
     printf("The index of the item: %d\n", is_found3);
 
 
+    // Check if the linked list contains an item
+    int item = 1000;
+    bool contains_item = _contains(linked_list, &item, compare_int);
+    printf("The list contains %d: %d\n", item, contains_item);
+
+    int item2 = 5;
+    bool contains_item2 = _contains(linked_list, &item2, compare_int);
+    printf("The list contains %d: %d\n", item2, contains_item2);
+
+
 
 
 
     
-
-
-
 
 
 
