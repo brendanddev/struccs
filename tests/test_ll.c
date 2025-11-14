@@ -126,14 +126,30 @@ int main() {
     // Remove at index
     _remove_at(linked_list, 4);
     print_int_linked_list(linked_list);
-    _remove_at(linked_list, 3);
-    print_int_linked_list(linked_list);
-    _remove_at(linked_list, 2);
-    print_int_linked_list(linked_list);
-    _remove_at(linked_list, 1);
-    print_int_linked_list(linked_list);
-    _remove_at(linked_list, 0);
-    print_int_linked_list(linked_list);
+    // _remove_at(linked_list, 3);
+    // print_int_linked_list(linked_list);
+    // _remove_at(linked_list, 2);
+    // print_int_linked_list(linked_list);
+    // _remove_at(linked_list, 1);
+    // print_int_linked_list(linked_list);
+    // _remove_at(linked_list, 0);
+    // print_int_linked_list(linked_list);
+
+
+    // Get an item at a index
+    int get_val;
+    if (_get(linked_list, 0, &get_val)) {
+        printf("Item at index 0: %d\n", get_val);
+    } else {
+        printf("Could not get item\n");
+    }
+
+    int get_val1;
+    if (_get(linked_list, 1, &get_val1)) {
+        printf("Item at index 1: %d\n", get_val1);
+    } else {
+        printf("Could not get item\n");
+    }
 
     
 
