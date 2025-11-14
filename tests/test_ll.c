@@ -12,6 +12,7 @@
 
 
 void print_int_linked_list(struct LinkedList *list);
+bool compare_int(void *a, void *b);
 
 int main() {
 
@@ -196,6 +197,21 @@ int main() {
     }
 
 
+    // Find an item
+    int it = 82;
+    int is_found = _find(linked_list, &it, compare_int);
+    printf("The index of the item: %d\n", is_found);
+
+    int it2 = 1;
+    int is_found2 = _find(linked_list, &it2, compare_int);
+    printf("The index of the item: %d\n", is_found2);
+
+    int it3 = 150;
+    int is_found3 = _find(linked_list, &it3, compare_int);
+    printf("The index of the item: %d\n", is_found3);
+
+
+
 
 
     
@@ -221,4 +237,9 @@ void print_int_linked_list(struct LinkedList *list) {
         printf("[%d] ", * (int *) current->value);
     }
     printf("\n");
+}
+
+bool compare_int(void *a, void *b) {
+    if ((* (int *) a) == (* (int *) b)) return true;
+    return false;
 }
