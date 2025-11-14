@@ -242,8 +242,6 @@ int _size(struct LinkedList *list) {
     return list->length;
 }
 
-
-
 // Frees the memory allocated by the node
 void _discard_node(struct Node *node) {
     if (node != NULL) {
