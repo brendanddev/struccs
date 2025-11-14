@@ -30,7 +30,7 @@ typedef struct LinkedList {
 struct Node * _init_node(void *val, size_t size);
 struct LinkedList * _init();
 bool _insert(struct Node *node, struct LinkedList *list);
-void _insert_tail(struct Node *node, struct LinkedList *list);
+bool _insert_tail(struct Node *node, struct LinkedList *list);
 void _insert_at(struct Node *node, struct LinkedList *list, int index);
 
 bool _is_empty(struct LinkedList *list);
