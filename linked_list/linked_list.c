@@ -61,6 +61,46 @@ struct LinkedList * _init() {
 bool _insert(struct Node *node, struct LinkedList *list) {
 
     // Check if the list is empty
+    if (list->head == NULL) {
+        // Assign the node being inserted as the new head
+        // Assign the tail to the node being inserted as this is the only node in the list
+        // Since its the only node in the list, it will act as the tail and the head, and
+        // both next and prev pointers from the node will be NULL
+        node->next = list->head;
+        list->head = node;
+        list->tail = node;
+        list->length++;
+        return true;
+
+    } else {
+        // If there is already a head node
+        // Create a temp pointer to hold the original head
+        // Set the node as the new head, and point its `next` pointer to the old head
+        // Which should relink the lists nodes
+        struct Node *old_head = list->head;
+        node->next = old_head;
+        old_head->prev = node;
+        list->head = node;
+        list->length++;
+        return true;
+
+
+
+        // node->next = list->head;
+        // list->head = node;
+        // list->head->next = temp;
+        // list->length++;
+        // return true;
+
+
+
+
+    }
+
+
+
+
+    // Check if the list is empty
     // if (list->head == NULL) {
     //     node->next = list->head;                // Point the node being inserted `next` to the head of the list
     //     list->head = node;                      // Point the head of the list at the node inserted
