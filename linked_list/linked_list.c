@@ -295,6 +295,21 @@ int _find(struct LinkedList *list, void *item, bool (* comparator)(void*, void*)
     return -1;
 }
 
+// Returns a boolean value indicating whether the linked list contains a specific value
+bool _contains(struct LinkedList *list, void *item, bool (* comparator)(void*, void*)) {
+    if (list->head == NULL) return false;
+
+    // Traverse from head to tail to search for the item
+    int idx = 0;
+    for (struct Node *current = list->head; current != NULL; current = current->next) {
+
+        if (comparator(current->value, item)) {
+            return true;
+        }
+    }
+    return false;
+}
+
 // Returns whether the linked list is empty or not
 bool _is_empty(struct LinkedList *list) {
     if (list->head == NULL) return true;

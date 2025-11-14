@@ -36,9 +36,9 @@ void _remove_tail(struct LinkedList *list);
 void _remove_at(struct LinkedList *list, int index);
 bool _get(struct LinkedList *list, int index, void *out);
 bool _set(struct LinkedList *list, int index, void *in);
-
 int _find(struct LinkedList *list, void *item, bool (* comparator)(void*, void*));
 bool _contains(struct LinkedList *list, void *item, bool (* comparator)(void*, void*));
+
 void _clear(struct LinkedList *list);
 
 bool _is_empty(struct LinkedList *list);
