@@ -173,16 +173,26 @@ void _remove_tail(struct LinkedList *list) {
 
             // Check if the current node points to a node that points to NULL
             // If it does, the node pointed to by the current nodes `next` pointer is the tail
+            // That means `current->next` is the tail
             if (current->next->next == NULL) {
-                // Free memory allocated by the tail node to remove it
+                // Free memory allocated by the value stored in the node and the node itself to remove it
                 free(current->next->value);
                 free(current->next);
-                current->next = NULL;
-                list->length--;
-            }
 
+                // `current` now references the tail of the list, so
+                // we set its `next` pointer to NULL since it no longer points to anything
+                // Then we set the new tail of the list to the current node since this is the new tail
+                current->next = NULL;
+                list->tail = current;
+                list->length--;
+                break;
+            }
         }
     }
+}
+
+// Removes a node at a specified location in the linked list
+void _remove_at(struct LinkedList *list, int index) {
 }
 
 
