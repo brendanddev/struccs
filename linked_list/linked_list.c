@@ -382,6 +382,10 @@ void _print(struct LinkedList *list, void (* print_fn)(void*)) {
 void _reverse(struct LinkedList *list) {
     if (list->head == NULL) return;
 
+    // You need to save the next node BEFORE you reverse the current arrow, or you'll lose the rest of the list forever.
+    // You're flipping arrows one at a time, and you need to track: where you came from (prev), where you are (current), and where you're going (next).
+    // The first node needs to point to NULL because it's going to become the tail, so start prev = NULL.
+
     // `prev` = the node that should come AFTER the current in the reversed list
     // `current` = the node were currently flipping around
     // `next` = temporary backup so we dont lose the rest of the list
@@ -389,17 +393,13 @@ void _reverse(struct LinkedList *list) {
     struct Node *current = list->head;
     struct Node *next = NULL;
 
+    // Traverse from the head node to the tail of the list
     while (current != NULL) {
-        next = current->next;           // BACKUP: Save where to go next BEFORE we break the link
-        current->next = prev;           // FLIP: Make `current` point BACKWARDS instead of forwards
+        
 
-        // SHIFT: Move the three-pointer window one step forward
-        prev = current;                 // The node we just flipped is now 'behind'
-        current = next;                 // Move to the next node to flip
     }
 
-    list->tail = list->head;            // Old head is now the tail (points to NULL)
-    list->head = prev;                  // `prev` ended up at the old tail, which is the new head
+
 }
 
 // Creates and returns a deep copy of a linked list
