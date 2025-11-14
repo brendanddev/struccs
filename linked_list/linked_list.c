@@ -380,12 +380,22 @@ void _print(struct LinkedList *list, void (* print_fn)(void*)) {
 
 // Reverses the contents of the linked list in place
 void _reverse(struct LinkedList *list) {
-
     if (list->head == NULL) return;
+
+    struct Node *prev = NULL;
+    struct Node *curr = list->head;
+    struct Node *next = NULL;
 
     for (struct Node *current = list->head; current != NULL; current = current->next) {
 
+        next = current->next;
+        current->next = prev;
+        prev = current;
+        current = next;
+
     }
+    list->tail = list->head;            // old head becomes new tail
+    list->head = prev;
 }
 
 // Takes pointer to original list, and creates a new empty linked list.
