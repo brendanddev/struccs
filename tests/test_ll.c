@@ -115,10 +115,12 @@ int main() {
     print_int_linked_list(linked_list);
     _remove_tail(linked_list);
     print_int_linked_list(linked_list);
-     _remove_tail(linked_list);
+    _remove_tail(linked_list);
     print_int_linked_list(linked_list);
-     _remove_tail(linked_list);
+    _remove_tail(linked_list);
     print_int_linked_list(linked_list);
+    _remove_tail(linked_list);
+    print_int_linked_list(linked_list);         // throws seg fault :(
 
     
 
@@ -131,7 +133,7 @@ int main() {
 
 
     // Free all nodes
-    _discard_all_nodes(linked_list);
+    // _discard_all_nodes(linked_list);
 
     // Free linked list
     _discard(linked_list);
