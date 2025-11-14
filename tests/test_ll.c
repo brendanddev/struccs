@@ -151,6 +151,20 @@ int main() {
         printf("Could not get item\n");
     }
 
+    int get_val2;
+    if (_get(linked_list, -1, &get_val2)) {
+        printf("Item at index -1: %d\n", get_val2);
+    } else {
+        printf("Could not get item\n");
+    }
+
+    int get_val3;
+    if (_get(linked_list, 10, &get_val3)) {
+        printf("Item at index 10: %d\n", get_val3);
+    } else {
+        printf("Could not get item\n");
+    }
+
     
 
 
