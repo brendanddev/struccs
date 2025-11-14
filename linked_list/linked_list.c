@@ -9,75 +9,88 @@
 /// A generic Singly Linked List implementation
 /// Brendan Dileo - November 12 2025
 
+// Initializes a new node
+struct Node * _init_node(void *val, size_t size) {
 
+    // Define a pointer to the Node and allocate memory for the struct node itself
+    struct Node *node = NULL;
+    node = malloc(sizeof(struct Node));
 
-// // Initializes a new Node
-// struct Node * _init_node(void *val, size_t size) {
+    // Handle allocation failure
+    if (node == NULL) { 
+        return NULL;
+    }
+
+    // Set size of item stored in the node and initialize its next pointer
+    node->item_size = size;
+    node->next = NULL;
+
+    // Allocate memory for the type of data this node will store
+    node->value = malloc(size);
     
-//     // Define a pointer to the Node and allocate memory for the struct itself
-//     struct Node *node = NULL;
-//     node = malloc(sizeof(struct Node));
+    // Handle allocation failure
+    if (node->value == NULL) {
+        free(node);
+        return NULL;
+    }
 
-//     // Handle allocation failure
-//     if (node == NULL) { }
+    // Copy the raw memory contents from the memory pointed to by `val` into `node->value`
+    memcpy(node->value, val, node->item_size);
+    return node;
+}
 
-//     // Set size of item stored in the node and initialize next and prev pointers to NULL
-//     node->item_size = size;
-//     node->next = NULL;
+// Initializes a new LinkedList
+struct LinkedList * _init() { 
 
-//     // Allocate memory for the type of data this node will store
-//     void *tmp = NULL;
-//     tmp = malloc(size);
+    // Allocate memory for the linked list itself
+    struct LinkedList *list = NULL;
+    list = malloc(sizeof(struct LinkedList));
 
-//     // Handle allocation failure
-//     if (tmp == NULL) { }
+    // Handle allocation failure
+    if (list == NULL) {
+        return NULL;
+    }
 
-//     // Point the `value` pointer to the memory allocated for the value and
-//     // copy the raw memory contents from the memory pointed to by `val` into `node->value`
-//     node->value = tmp;
-//     memcpy(node->value, val, node->item_size);
+    // Set the lists initial length and the initial pointers for the head and tail nodes
+    list->length = 0;
+    list->head = NULL;
+    list->tail = NULL;
+    return list;
+}
 
-//     return node;
-// }
+// Inserts a new node at the head of the linked list
+void _insert(struct Node *node, struct LinkedList *list) {
 
-// // Initializes a new LinkedList
-// struct LinkedList * _init() {
+    node->next = list->head;                // Point the node being inserted `next` pointer to the head of the list (what head currently points to)
+    list->head = node;                      // Point the head of the list to the node being inserted
 
-//     // Allocate memory for the linked list itself
-//     struct LinkedList *list = NULL;
-//     list = malloc(sizeof(struct LinkedList));
+    // Check if the tail of the list is NULL, meaning the list is empty
+    // If it is, we set the tail to the node being inserted since its the only node
+    if (list->tail == NULL) {
+        list->tail = node;
+    }
 
-//     // Handle allocation failure
-//     if (list == NULL) { }
-
-//     list->length = 0;
-//     list->head = NULL;
-//     list->tail = NULL;
-//     return list;
-// }
-
-// // Inserts a new node at the head of the linked list
-// void _insert(struct Node *node, struct LinkedList *list) {
-
-//     // Check if list is empty
-//     if (list->head == NULL) {
-//         node->next = list->head;                    // Assign the node being inserted `next` to the head of the list
-//         list->head = node;                          // Set the head of the list to the node being inserted
-//         list->tail = node;                          // Set the tail of the list to the node being inserted since its the only node
-//         list->length++;             
-
-//     // List is not empty, reassign head
-//     } else {
-//         struct Node *old_head = list->head;
-//         node->next = old_head;
-//         old_head->prev = node;
-//         list->head = node;
-//         list->length++;
+    list->length++;
+}
 
 
+// Frees the memory allocated by the node
+void _discard_node(struct Node *node) {
+    if (node != NULL) {
+        free(node->next);
+        free(node->value);
+        free(node);
+    }
+}
 
-//     }
-// }
+// Frees the memory allocated by the linked list
+void _discard(struct LinkedList *list) {
+    if (list != NULL) {
+        free(list);
+    }
+}
+
+
 
 
 
@@ -92,20 +105,3 @@
 //     return list->length;
 // }
 
-
-// // Free the memory allocated by the Node
-// void _discard_node(struct Node *node) { 
-//     if (node != NULL) {
-//         free(node->next);
-//         free(node->prev);
-//         free(node->value);
-//         free(node);
-//     }
-// }
-
-// // Free the memory allocated by the LinkedList
-// void _discard(struct LinkedList *linked_list) { 
-//     if (linked_list != NULL) {
-//         free(linked_list);
-//     }
-// }
