@@ -38,6 +38,7 @@ void _remove_at(struct LinkedList *list, int index);
 bool _is_empty(struct LinkedList *list);
 int _size(struct LinkedList *list);
 void _discard_node(struct Node *node);
+void _discard_all_nodes(struct LinkedList *list);
 void _discard(struct LinkedList *linked_list);
 
 

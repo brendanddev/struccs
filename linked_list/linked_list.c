@@ -175,6 +175,20 @@ void _discard_node(struct Node *node) {
     }
 }
 
+// Frees the memory allocated by each node in the linked list
+void _discard_all_nodes(struct LinkedList *list) {
+    
+    // Start from the head of the list, and traverse to the end
+    struct Node *current = list->head;
+    while (current != NULL) {
+        // For each node, store the `next` pointer before freeing the current node
+        // to ensure we dont lose the reference to the rest of the list when a node is freed
+        struct Node *next = current->next;
+        _discard_node(current);
+        current = next;
+    }
+}
+
 // Frees the memory allocated by the linked list
 void _discard(struct LinkedList *list) {
     if (list != NULL) {
