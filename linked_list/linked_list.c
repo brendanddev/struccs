@@ -395,11 +395,26 @@ void _reverse(struct LinkedList *list) {
 
     // Traverse from the head node to the tail of the list
     while (current != NULL) {
-        
 
+        // Start at the head of the list, at this point the `prev` pointer points to NULL.
+        // In each iteration, we store the current nodes `next` pointer to avoid losing the link to the rest of the list.
+        // In the first iteration, we set the current nodes `next` pointer to `prev`, which in the first iteration, sets the heads
+        // `next to NULL. After we have the current node pointing to NULL, we point `prev` to the current node, and the 
+        // `current` node to the next node, effectively moving up through the list after weve flipped the current nodes pointer.
+        // For all subsequent iterations, we store the current nodes next pointer, flip the current nodes next pointer, and
+        // set the `prev` pointer to the current node, then point the current node to the next node
+
+        // In the first iteration, we store the node after the head so we dont lose this link, and set the current nodes
+        // `next` pointer to `prev`
+        next = current->next;               // Store the pointer to the next node in the list to keep reference to the rest of the list
+        current->next = prev;               // Flip the current nodes next pointer to point at the previous node
+
+        prev = current;                     // Point the `prev` pointer to the current node
+        current = next;                     // Point the `current` node to the next node in the list to continue reversing
     }
 
-
+    list->tail = list->head;                // The head of the list becomes the new tail
+    list->head = prev;                      // Point the new head to `prev`, which now points to the last node and is the new head       
 }
 
 // Creates and returns a deep copy of a linked list
