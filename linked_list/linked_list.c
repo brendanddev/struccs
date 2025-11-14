@@ -92,6 +92,45 @@ void _insert_tail(struct Node *node, struct LinkedList *list) {
     }
 }
 
+// Inserts a new node at the specified location in the linked list
+void _insert_at(struct Node *node, struct LinkedList *list, int index) {
+
+    if (index < 0 || index > list->length) return;
+
+    // If index = 0, the insertion point is the head so insert at head
+    if (index == 0) {
+        _insert(node, list);    // insert at head
+    
+    // If index = length, the insertion point is the tail so insert at tail
+    } else if (index == list->length) {
+        _insert_tail(node, list);   // insert at tail
+    
+    // Otherwise need to find insertion point
+    } else {
+
+        // Traverse the list starting from the head to find the insertion point
+        int idx = 0;
+        for (struct Node *current = list->head; current != NULL; current = current->next) {
+
+            // Check to see if weve reached the node before the insertion point
+            // This is so we can reassign the surrounding nodes to insert the node
+            if (idx == (index - 1)) {
+
+                struct Node *prev = current;                // The 'current' node which is the node before the insertion point
+                struct Node *curr = current->next;          // The node at the insertion point
+
+                // Set the node before the insertion point `next` pointer to the node being inserted
+                // Set the node being inserted `next` to the node previosly at the insertion point to relink the nodes
+                prev->next = node;
+                node->next = curr;
+                list->length++;
+                break;
+            }
+            idx++;
+        }
+    }
+}
+
 
 
 
