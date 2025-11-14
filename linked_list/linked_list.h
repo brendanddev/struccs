@@ -39,12 +39,12 @@ bool _set(struct LinkedList *list, int index, void *in);
 int _find(struct LinkedList *list, void *item, bool (* comparator)(void*, void*));
 bool _contains(struct LinkedList *list, void *item, bool (* comparator)(void*, void*));
 void _clear(struct LinkedList *list);
-
 bool _is_empty(struct LinkedList *list);
 int _size(struct LinkedList *list);
 void _discard_node(struct Node *node);
 void _discard_all_nodes(struct LinkedList *list);
 void _discard(struct LinkedList *linked_list);
+void _print(struct LinkedList *list, void (* print_fn)(void*));
 
 
 #endif

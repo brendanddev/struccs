@@ -369,3 +369,11 @@ void _discard(struct LinkedList *list) {
     }
 }
 
+// Prints all items stored in the linked list, requiring a caller defined print function that knows how to print each value
+void _print(struct LinkedList *list, void (* print_fn)(void*)) {
+
+    for (struct Node *current = list->head; current != NULL; current = current->next) {
+        print_fn(current->value);
+    }
+    printf("\n");
+}
