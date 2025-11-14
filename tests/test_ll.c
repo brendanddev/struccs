@@ -24,40 +24,26 @@ int main() {
     struct Node *node = _init_node(ptr, sizeof(int));
     printf("Value: %d, Item Size: %zu, Next: %p, Previous: %p\n", * (int *) node->value, node->item_size, node->next, node->prev);
 
-    if (_insert(node, linked_list)) {
-        printf("Inserted at head...\n");
-        printf("Value: %d, Item Size: %zu, Next: %p, Previous: %p\n", * (int *) node->value, node->item_size, node->next, node->prev);
-    }
-
+    _insert(node, linked_list);
+    printf("Inserted at head...\n");
+    printf("Value: %d, Item Size: %zu, Next: %p, Previous: %p\n", * (int *) node->value, node->item_size, node->next, node->prev);
     print_int_linked_list(linked_list);
-
 
     int val2 = 999;
-    struct Node *node2 = _init_node(&val2, sizeof(int));
-    if (_insert(node2, linked_list)) {
-        printf("Inserted at head...\n");
-        printf("Value: %d, Item Size: %zu, Next: %p, Previous: %p\n", * (int *) node->value, node->item_size, node->next, node->prev);
-    }
-
+    void *ptr2 = &val2;
+    struct Node *node2 = _init_node(ptr2, sizeof(int));
+    _insert(node2, linked_list);
+    printf("Inserted at head...\n");
+    printf("Value: %d, Item Size: %zu, Next: %p, Previous: %p\n", * (int *) node2->value, node2->item_size, node2->next, node2->prev);
     print_int_linked_list(linked_list);
 
-    int val3 = 10000;
-    struct Node *node3 = _init_node(&val3, sizeof(int));
-    if (_insert(node3, linked_list)) {
-        printf("Inserted at head...\n");
-        printf("Value: %d, Item Size: %zu, Next: %p, Previous: %p\n", * (int *) node->value, node->item_size, node->next, node->prev);
-    }
-
+    int val3 = 9021;
+    void *ptr3 = &val3;
+    struct Node *node3 = _init_node(ptr3, sizeof(int));
+    _insert(node3, linked_list);
+    printf("Inserted at head...\n");
+    printf("Value: %d, Item Size: %zu, Next: %p, Previous: %p\n", * (int *) node3->value, node3->item_size, node3->next, node3->prev);
     print_int_linked_list(linked_list);
-
-    // int val4 = 2346;
-    // struct Node *node4 = _init_node(&val4, sizeof(int));
-    // if (_insert_tail(node4, linked_list)) {
-    //     printf("Inserted at tail...\n");
-    //     printf("Value: %d, Item Size: %zu, Next: %p, Previous: %p\n", * (int *) node->value, node->item_size, node->next, node->prev);
-    // }
-
-    // print_int_linked_list(linked_list);
 
     _discard_node(node);
     _discard(linked_list);
@@ -68,7 +54,7 @@ int main() {
 
 void print_int_linked_list(struct LinkedList *list) {
     for (struct Node *current = list->head; current != NULL; current = current->next) {
-        printf("%d ", * (int *) current->value);
+        printf("[%d] ", * (int *) current->value);
     }
     printf("\n");
 }

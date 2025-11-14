@@ -1,6 +1,6 @@
 
 /// linked_list.h
-//// Header for the generic Doubly LinkedList implementation
+//// Header for the generic Singly LinkedList implementation
 /// Brendan Dileo - November 11 2025
 
 #ifndef LINKED_LIST_H
@@ -16,7 +16,6 @@ typedef struct Node {
     void *value;                        // Pointer to the value stored in the Node
     size_t item_size;                   // The size of the item stored in this Node
     struct Node *next;                  // Pointer to the next Node in the Linked List
-    struct Node *prev;                  // Pointer to the previous Node in the Linked List
 } Node;
 
 // Defines the LinkedList struct type
@@ -29,8 +28,8 @@ typedef struct LinkedList {
 
 struct Node * _init_node(void *val, size_t size);
 struct LinkedList * _init();
-bool _insert(struct Node *node, struct LinkedList *list);
-bool _insert_tail(struct Node *node, struct LinkedList *list);
+void _insert(struct Node *node, struct LinkedList *list);
+void _insert_tail(struct Node *node, struct LinkedList *list);
 void _insert_at(struct Node *node, struct LinkedList *list, int index);
 
 bool _is_empty(struct LinkedList *list);
