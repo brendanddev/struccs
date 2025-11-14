@@ -382,28 +382,33 @@ void _print(struct LinkedList *list, void (* print_fn)(void*)) {
 void _reverse(struct LinkedList *list) {
     if (list->head == NULL) return;
 
-    struct Node *prev = NULL;
-    struct Node *curr = list->head;
+    // `prev` = the node that should come AFTER the current in the reversed list
+    // `current` = the node were currently flipping around
+    // `next` = temporary backup so we dont lose the rest of the list
+    struct Node *prev = NULL;          // Starts with NULL because the new tail must point to NULL
+    struct Node *current = list->head;
     struct Node *next = NULL;
 
-    for (struct Node *current = list->head; current != NULL; current = current->next) {
+    while (current != NULL) {
+        next = current->next;           // BACKUP: Save where to go next BEFORE we break the link
+        current->next = prev;           // FLIP: Make `current` point BACKWARDS instead of forwards
 
-        next = current->next;
-        current->next = prev;
-        prev = current;
-        current = next;
-
+        // SHIFT: Move the three-pointer window one step forward
+        prev = current;                 // The node we just flipped is now 'behind'
+        current = next;                 // Move to the next node to flip
     }
-    list->tail = list->head;            // old head becomes new tail
-    list->head = prev;
+
+    list->tail = list->head;            // Old head is now the tail (points to NULL)
+    list->head = prev;                  // `prev` ended up at the old tail, which is the new head
 }
 
-// Takes pointer to original list, and creates a new empty linked list.
-// Traverse the original list from head to tail, and for each node
-// allocate a new node, allocate memoruf for val and copy it,
-// append to new list
+// Creates and returns a deep copy of a linked list
 struct LinkedList * _copy(struct LinkedList *orig) {
     struct LinkedList *copy = _init();
 
+    for (struct Node *current = orig->head; current != NULL; current = current->next) {
+        struct Node *ncopy = _init_node(current->value, current->item_size);
+        _insert_tail(ncopy, copy);
+    }
     return copy;
 }

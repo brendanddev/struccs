@@ -145,6 +145,12 @@ int main() {
     _print(linked_list, print_int);
 
 
+    // Copy the linked list
+    struct LinkedList *list_copy = _copy(linked_list);
+    printf("Copy of Linked List: \n");
+    _print(list_copy, print_int);
+
+
     // Get an item at a index
     int get_val;
     if (_get(linked_list, 0, &get_val)) {
@@ -239,11 +245,6 @@ int main() {
     } else {
         _print(linked_list, print_int);
     }
-
-
-    // Reverse the linked list
-    _reverse(linked_list);
-    _print(linked_list, print_int);
 
 
 
