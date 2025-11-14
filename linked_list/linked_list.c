@@ -306,7 +306,7 @@ void _clear(struct LinkedList *list) {
         struct Node *next = current->next;
         free(current->value);
         free(current);
-        current->next = next;
+        current = next;
     }
 
     list->head = NULL;

@@ -223,8 +223,14 @@ int main() {
 
 
     // Clear the linked list
-    _clear(linked_list);
+    _clear(linked_list);        // seg faults
     print_int_linked_list(linked_list);
+
+    if (_is_empty(linked_list)) {
+        printf("The list is empty!\n");
+    } else {
+        print_int_linked_list(linked_list);
+    }
 
 
 
