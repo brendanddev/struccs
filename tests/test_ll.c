@@ -25,10 +25,20 @@ int main() {
     struct Node *node = _init_node(ptr, sizeof(int));
     printf("Node - Item Size: %zu, Next: %p\n", node->item_size, node->next);
 
+    // Check if list is empty, it should be
+    printf("The list is empty: %d\n", _is_empty(linked_list));
+
+    // Print current length/size, should be 0
+    printf("LinkedList Length: %d\n", _size(linked_list));
+
     
     // Insert at head
     _insert(node, linked_list);
     print_int_linked_list(linked_list);
+    printf("The list is empty: %d\n", _is_empty(linked_list));      // should be false now (0)
+    printf("LinkedList Length: %d\n", _size(linked_list));          // should be 1 now
+
+    
 
     int val2 = 450;
     void *ptr2 = &val2;
