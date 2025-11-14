@@ -57,6 +57,31 @@ struct LinkedList * _init() {
     return list;
 }
 
+bool _insert(struct Node *node, struct LinkedList *list) {
+    
+    if (list->head == NULL) {
+        node->next = list->head;
+        list->head = node;
+        list->tail = node;
+        list->length++;
+        return true;
+    }
+    return false;
+}
+
+
+
+// Returns whether the linked list is empty or not
+bool _is_empty(struct LinkedList *list) {
+    if (list->head == NULL) return true;
+    return false;
+}
+
+// Returns the current size (length) of the linked list
+int _size(struct LinkedList *list) {
+    return list->length;
+}
+
 
 // Free the memory allocated by the Node
 void _discard_node(struct Node *node) { 
@@ -73,15 +98,4 @@ void _discard(struct LinkedList *linked_list) {
     if (linked_list != NULL) {
         free(linked_list);
     }
-}
-
-// Returns whether the linked list is empty or not
-bool _is_empty(struct LinkedList *list) {
-    if (list->head == NULL) return true;
-    return false;
-}
-
-// Returns the current size (length) of the linked list
-int _size(struct LinkedList *list) {
-    return list->length;
 }
