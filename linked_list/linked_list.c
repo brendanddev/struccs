@@ -252,6 +252,29 @@ bool _get(struct LinkedList *list, int index, void *out) {
     return false;
 }
 
+// Sets the value of the node at the specified location in the linked list
+bool _set(struct LinkedList *list, int index, void *in) {
+
+    // Handle case where index is out of bounds or list is empty
+    if (index < 0 || index >= list->length) return false;
+    if (list->head == NULL) return false;
+
+    // Traverse from head of list to tail to find the location of the node to set value for
+    int idx = 0;
+    for (struct Node *current = list->head; current != NULL; current = current->next) {
+
+        // Check if we found location of the node to set the value for
+        if (idx == index) {
+
+            // Copy the raw memory contents of the value passed to the func
+            // into the value pointed to by the current node
+            memcpy(current->value, in, current->item_size);
+            return true;
+        }
+        idx++;
+    }
+    return false;
+}
 
 
 // Returns whether the linked list is empty or not
