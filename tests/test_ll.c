@@ -222,6 +222,10 @@ int main() {
 
 
 
+    // Clear the linked list
+    _clear(linked_list);
+    print_int_linked_list(linked_list);
+
 
 
     
