@@ -97,12 +97,39 @@ int main() {
     print_int_linked_list(linked_list);
 
 
+    // Remove head node
+    _remove(linked_list);
+    print_int_linked_list(linked_list);
+
+    _remove(linked_list);
+    print_int_linked_list(linked_list);
+
+    _remove(linked_list);
+    print_int_linked_list(linked_list);
+
+
+
+
+    // Free all nodes 
     _discard_node(node);
     node = NULL;
     _discard_node(node2);
     node2 = NULL;
     _discard_node(node3);
     node3 = NULL;
+    _discard_node(node4);
+    node4 = NULL;
+    _discard_node(node5);
+    node5 = NULL;
+    _discard_node(node6);
+    node6 = NULL;
+    _discard_node(node7);
+    node7 = NULL;
+    _discard_node(node8);
+    node8 = NULL;
+    _discard_node(node9);
+    node9 = NULL;
+
 
     _discard(linked_list);
     linked_list = NULL;
