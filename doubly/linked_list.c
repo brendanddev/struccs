@@ -53,3 +53,16 @@ struct LinkedList * ll_init() {
 
     return linked_list;
 }
+
+// Inserts a node at the head of the linked list
+void ll_insert(struct Node *node, struct LinkedList *list) {
+
+    // Check if list is emptu,
+    if (list->head == NULL) {
+
+    // List is not empty
+    } else {
+
+
+    }
+}
