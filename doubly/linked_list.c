@@ -9,23 +9,8 @@
 /// A generic Doubly Linked List implementation
 /// Brendan Dileo - November 14 2025
 
-// // Defines the LinkedList struct type
-// typedef struct LinkedList {
-//     int length;
-//     struct Node *head;                  // Pointer to the head node (first element)
-//     struct Node *tail;                  // Pointer to the tail node (last element)
-// } LinkedList;
 
-
-// // Definess the doubly Node struct type
-// typedef struct Node {
-//     void *value;                        // Pointer to the value stored in this node
-//     size_t item_size;                   // The size of the item stored in the node
-//     struct Node *next;                  // Pointer to the next node in the list
-//     struct Node *prev;                  // Pointer to the previous node in the list
-// } Node;
-
-
+// Initalizes a new node
 struct Node * ll_init_node(void *val, size_t size) {
 
     // Allocate memory for the node itself and
@@ -54,6 +39,17 @@ struct Node * ll_init_node(void *val, size_t size) {
     return node;
 }
 
-
+// Creates a new linked list
 struct LinkedList * ll_init() {
+    // Allocate mmeory for the linked list itself
+    struct LinkedList *linked_list = malloc(sizeof(struct LinkedList));
+
+    // Handle allocation failure
+    if (linked_list == NULL) { }
+
+    linked_list->length = 0;
+    linked_list->head = NULL;
+    linked_list->tail = NULL;
+
+    return linked_list;
 }
