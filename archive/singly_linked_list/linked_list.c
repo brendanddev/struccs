@@ -1,0 +1,429 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <string.h>
+#include "linked_list.h"
+
+
+/// linked_list.c
+/// A generic Singly Linked List implementation
+/// Brendan Dileo - November 12 2025
+
+// Initializes a new node
+struct Node * _init_node(void *val, size_t size) {
+
+    // Define a pointer to the Node and allocate memory for the struct node itself
+    struct Node *node = NULL;
+    node = malloc(sizeof(struct Node));
+
+    // Handle allocation failure
+    if (node == NULL) { 
+        return NULL;
+    }
+
+    // Set size of item stored in the node and initialize its next pointer
+    node->item_size = size;
+    node->next = NULL;
+
+    // Allocate memory for the type of data this node will store
+    node->value = malloc(size);
+    
+    // Handle allocation failure
+    if (node->value == NULL) {
+        free(node);
+        return NULL;
+    }
+
+    // Copy the raw memory contents from the memory pointed to by `val` into `node->value`
+    memcpy(node->value, val, node->item_size);
+    return node;
+}
+
+// Initializes a new LinkedList
+struct LinkedList * _init() { 
+
+    // Allocate memory for the linked list itself
+    struct LinkedList *list = NULL;
+    list = malloc(sizeof(struct LinkedList));
+
+    // Handle allocation failure
+    if (list == NULL) {
+        return NULL;
+    }
+
+    // Set the lists initial length and the initial pointers for the head and tail nodes
+    list->length = 0;
+    list->head = NULL;
+    list->tail = NULL;
+    return list;
+}
+
+// Inserts a new node at the head of the linked list
+void _insert(struct Node *node, struct LinkedList *list) {
+
+    node->next = list->head;                // Point the node being inserted `next` pointer to the head of the list (what head currently points to)
+    list->head = node;                      // Point the head of the list to the node being inserted
+
+    // Check if the tail of the list is NULL, meaning the list is empty
+    // If it is, we set the tail to the node being inserted since its the only node
+    if (list->tail == NULL) {
+        list->tail = node;
+    }
+
+    list->length++;
+}
+
+// Inserts a new node at the tail of the linked list
+void _insert_tail(struct Node *node, struct LinkedList *list) {
+
+    // If the list is empty, insert at the head as this is the only node and will be the tail too
+    if (list->head == NULL) {
+        node->next = list->head;
+        list->head = node;
+        list->tail = node;
+        list->length++;
+    
+    // List is not empty, use tail pointer to insert at tail
+    } else {
+        list->tail->next = node;            // Point the tails `next` pointer to the node being inserted
+        node->next = NULL;                  // Point the node being inserted `next` to NULL since its the new tail
+        list->tail = node;                  // Set the tail of the list to the newly inserted node
+        list->length++;
+    }
+}
+
+// Inserts a new node at the specified location in the linked list
+void _insert_at(struct Node *node, struct LinkedList *list, int index) {
+
+    if (index < 0 || index > list->length) return;
+
+    // If index = 0, the insertion point is the head so insert at head
+    if (index == 0) {
+        _insert(node, list);    // insert at head
+    
+    // If index = length, the insertion point is the tail so insert at tail
+    } else if (index == list->length) {
+        _insert_tail(node, list);   // insert at tail
+    
+    // Otherwise need to find insertion point
+    } else {
+
+        // Traverse the list starting from the head to find the insertion point
+        int idx = 0;
+        for (struct Node *current = list->head; current != NULL; current = current->next) {
+
+            // Check to see if weve reached the node before the insertion point
+            // This is so we can reassign the surrounding nodes to insert the node
+            if (idx == (index - 1)) {
+
+                struct Node *prev = current;                // The 'current' node which is the node before the insertion point
+                struct Node *curr = current->next;          // The node at the insertion point
+
+                // Set the node before the insertion point `next` pointer to the node being inserted
+                // Set the node being inserted `next` to the node previosly at the insertion point to relink the nodes
+                prev->next = node;
+                node->next = curr;
+                list->length++;
+                break;
+            }
+            idx++;
+        }
+    }
+}
+
+// Removes the node at the head of the linked list
+void _remove(struct LinkedList *list) {
+
+    // Return if list is already empty
+    if (list->head == NULL) {
+        return;
+    }
+
+    // Store a pointer to the old head before removal to track the link to the next node and
+    // free the memory allocated by the old head to remove it
+    struct Node *temp = list->head->next;
+    free(list->head->value);
+    free(list->head);
+    list->head = temp;
+    list->length--;
+}
+
+// Removes the node at the tail of the linked list
+void _remove_tail(struct LinkedList *list) {
+
+    // Return if list is empty
+    if (list->head == NULL) {
+        return;
+    }
+
+    // Check if there is only one node in the list
+    if (list->head == list->tail) {
+        free(list->head->value);
+        free(list->head);
+        list->head = NULL;
+        list->tail = NULL;
+        list->length--;
+        return;
+   
+    // More than one node in the list, need to traverse
+    } else {
+
+        // If list is not empty, need to traverse from the head to the node before the tail
+        for (struct Node *current = list->head; current != NULL; current = current->next) {
+
+            // Check if the current node points to a node that points to NULL
+            // If it does, the node pointed to by the current nodes `next` pointer is the tail
+            // That means `current->next` is the tail
+            if (current->next->next == NULL) {
+                // Free memory allocated by the value stored in the node and the node itself to remove it
+                free(current->next->value);
+                free(current->next);
+
+                // `current` now references the tail of the list, so
+                // we set its `next` pointer to NULL since it no longer points to anything
+                // Then we set the new tail of the list to the current node since this is the new tail
+                current->next = NULL;
+                list->tail = current;
+                list->length--;
+                break;
+            }
+        }
+    }
+}
+
+// Removes a node at a specified location in the linked list
+void _remove_at(struct LinkedList *list, int index) {
+
+    if (index < 0 || index > list->length - 1) return;
+
+    // Check if head is being removed
+    if (index == 0) {
+        _remove(list);
+        return;
+    
+    // Check if tail is being removed
+    } else if (index == list->length - 1) {
+        _remove_tail(list);
+        return;
+
+    // Otherwise need to traverse to the location of the node being removed
+    } else {
+
+        // Traverse the list starting from the head node to find the location of the node being removed
+        int idx = 0;
+        for (struct Node *current = list->head; current != NULL; current = current->next) {
+
+            // Check if we are at the node before the location of the node being removed
+            if (idx == (index - 1)) {
+
+                // Store the pointer to the node after the node being removed
+                struct Node *temp = current->next->next;
+                free(current->next->value);
+                free(current->next);
+                current->next = temp;
+                list->length--;
+                break;
+            }
+            idx++;
+        }
+    }
+}
+
+// Retrieves the value stored in the node at the specified location
+bool _get(struct LinkedList *list, int index, void *out) {
+
+    // Handle case where index is out of bounds or list is empty
+    if (index < 0 || index >= list->length) return false;
+    if (list->head == NULL) return false;
+
+    // Traverse from head of list to tail of list to search for node at location
+    int idx = 0;
+    for (struct Node *current = list->head; current != NULL; current = current->next) {
+
+        // Check if we reached location of node
+        if (idx == index) {
+            // Copy the raw memory contents of the value stored in the node
+            // into the pointer passed to the function
+            memcpy(out, current->value, current->item_size);
+            return true;
+        }
+        idx++;
+    } 
+    return false;
+}
+
+// Sets the value of the node at the specified location in the linked list
+bool _set(struct LinkedList *list, int index, void *in) {
+
+    // Handle case where index is out of bounds or list is empty
+    if (index < 0 || index >= list->length) return false;
+    if (list->head == NULL) return false;
+
+    // Traverse from head of list to tail to find the location of the node to set value for
+    int idx = 0;
+    for (struct Node *current = list->head; current != NULL; current = current->next) {
+
+        // Check if we found location of the node to set the value for
+        if (idx == index) {
+
+            // Copy the raw memory contents of the value passed to the func
+            // into the value pointed to by the current node
+            memcpy(current->value, in, current->item_size);
+            return true;
+        }
+        idx++;
+    }
+    return false;
+}
+
+// Finds the node with the specified value and returns the location (index) of the node, or -1 if not found
+// Relies on a caller defined comparator function to determine how to compare two items of the type stored
+int _find(struct LinkedList *list, void *item, bool (* comparator)(void*, void*)) {
+    if (list->head == NULL) return -1;
+
+    // Traverse from head to tail to search for the item
+    int idx = 0;
+    for (struct Node *current = list->head; current != NULL; current = current->next) {
+        
+        // Check if the value stored in the current node and the item being searched for
+        // are equal based on the user defined comparator, if they are return current location (index)
+        if (comparator(current->value, item)) {
+            return idx;
+        }
+        idx++;
+    }
+    return -1;
+}
+
+// Clears each node in the linked list
+void _clear(struct LinkedList *list) {
+    if (list->head == NULL) return;
+
+    // Traverse from the head to the tail to clear (free) each node
+    struct Node *current = list->head;
+    while (current != NULL) {
+
+        struct Node *next = current->next;
+        free(current->value);
+        free(current);
+        current = next;
+    }
+
+    list->head = NULL;
+    list->tail = NULL;
+    list->length = 0;
+}
+
+// Returns a boolean value indicating whether the linked list contains a specific value
+bool _contains(struct LinkedList *list, void *item, bool (* comparator)(void*, void*)) {
+    if (list->head == NULL) return false;
+
+    // Traverse from head to tail to search for the item
+    int idx = 0;
+    for (struct Node *current = list->head; current != NULL; current = current->next) {
+
+        if (comparator(current->value, item)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// Returns whether the linked list is empty or not
+bool _is_empty(struct LinkedList *list) {
+    if (list->head == NULL) return true;
+    return false;
+}
+
+// Returns the current size (length) of the linked list
+int _size(struct LinkedList *list) {
+    return list->length;
+}
+
+// Frees the memory allocated by the node
+void _discard_node(struct Node *node) {
+    if (node != NULL) {
+        free(node->value);
+        free(node);
+    }
+}
+
+// Frees the memory allocated by each node in the linked list
+void _discard_all_nodes(struct LinkedList *list) {
+    
+    // Start from the head of the list, and traverse to the end
+    struct Node *current = list->head;
+    while (current != NULL) {
+        // For each node, store the `next` pointer before freeing the current node
+        // to ensure we dont lose the reference to the rest of the list when a node is freed
+        struct Node *next = current->next;
+        _discard_node(current);
+        current = next;
+    }
+}
+
+// Frees the memory allocated by the linked list
+void _discard(struct LinkedList *list) {
+    if (list != NULL) {
+        free(list);
+    }
+}
+
+// Prints all items stored in the linked list, requiring a caller defined print function that knows how to print each value
+void _print(struct LinkedList *list, void (* print_fn)(void*)) {
+
+    for (struct Node *current = list->head; current != NULL; current = current->next) {
+        print_fn(current->value);
+    }
+    printf("\n");
+}
+
+// Reverses the contents of the linked list in place
+void _reverse(struct LinkedList *list) {
+    if (list->head == NULL) return;
+
+    // You need to save the next node BEFORE you reverse the current arrow, or you'll lose the rest of the list forever.
+    // You're flipping arrows one at a time, and you need to track: where you came from (prev), where you are (current), and where you're going (next).
+    // The first node needs to point to NULL because it's going to become the tail, so start prev = NULL.
+
+    // `prev` = the node that should come AFTER the current in the reversed list
+    // `current` = the node were currently flipping around
+    // `next` = temporary backup so we dont lose the rest of the list
+    struct Node *prev = NULL;          // Starts with NULL because the new tail must point to NULL
+    struct Node *current = list->head;
+    struct Node *next = NULL;
+
+    // Traverse from the head node to the tail of the list
+    while (current != NULL) {
+
+        // Start at the head of the list, at this point the `prev` pointer points to NULL.
+        // In each iteration, we store the current nodes `next` pointer to avoid losing the link to the rest of the list.
+        // In the first iteration, we set the current nodes `next` pointer to `prev`, which in the first iteration, sets the heads
+        // `next to NULL. After we have the current node pointing to NULL, we point `prev` to the current node, and the 
+        // `current` node to the next node, effectively moving up through the list after weve flipped the current nodes pointer.
+        // For all subsequent iterations, we store the current nodes next pointer, flip the current nodes next pointer, and
+        // set the `prev` pointer to the current node, then point the current node to the next node
+
+        // In the first iteration, we store the node after the head so we dont lose this link, and set the current nodes
+        // `next` pointer to `prev`
+        next = current->next;               // Store the pointer to the next node in the list to keep reference to the rest of the list
+        current->next = prev;               // Flip the current nodes next pointer to point at the previous node
+
+        prev = current;                     // Point the `prev` pointer to the current node
+        current = next;                     // Point the `current` node to the next node in the list to continue reversing
+    }
+
+    list->tail = list->head;                // The head of the list becomes the new tail
+    list->head = prev;                      // Point the new head to `prev`, which now points to the last node and is the new head       
+}
+
+// Creates and returns a deep copy of a linked list
+struct LinkedList * _copy(struct LinkedList *orig) {
+    struct LinkedList *copy = _init();
+
+    for (struct Node *current = orig->head; current != NULL; current = current->next) {
+        struct Node *ncopy = _init_node(current->value, current->item_size);
+        _insert_tail(ncopy, copy);
+    }
+    return copy;
+}
