@@ -80,8 +80,27 @@ int main() {
     // Removal
     ll_remove(linked_list);
     ll_print(linked_list, print_int);
-    ll_debug(linked_list);
 
+    ll_remove(linked_list);
+    ll_print(linked_list, print_int);
+
+    ll_remove(linked_list);
+    ll_print(linked_list, print_int);
+
+    ll_remove(linked_list);
+    ll_print(linked_list, print_int);
+
+    ll_remove(linked_list);
+    ll_print(linked_list, print_int);
+
+    ll_remove(linked_list);
+    ll_print(linked_list, print_int);
+
+    printf("Length: %d\n", linked_list->length);
+    ll_remove(linked_list);
+    ll_print(linked_list, print_int);
+    ll_debug(linked_list);
+    
 
     // Free memory allocated by the linked list
     ll_discard(linked_list);
