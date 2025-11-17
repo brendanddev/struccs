@@ -161,7 +161,6 @@ void ll_insert_at(struct Node *node, struct LinkedList *list, int index) {
     }
 }
 
-
 // Removes the node at the head of the linked list
 void ll_remove(struct LinkedList *list) {
     if (list->head == NULL) return;
@@ -201,14 +200,15 @@ void ll_remove_tail(struct LinkedList *list) {
     // Otherwise access the tail node to append the new node
     } else {
 
-        // To remove tail:
-        // 1. Store the node before the tail
-        // 2. Remove the old tail (value + struct)
-        // 3. Set new tail
+        // Store pointer to the node before the current tail,
+        // this is the node that will become the new tail, and
+        // free memory allocated by the current tail
         struct Node *new_tail = list->tail->prev;
         free(list->tail->value);
         free(list->tail);
 
+        // Set the new tail of the list and update the new tails
+        // `next` pointer to point to NULL
         list->tail = new_tail;
         list->tail->next = NULL;
         list->length--;
@@ -217,24 +217,54 @@ void ll_remove_tail(struct LinkedList *list) {
 }
 
 
+// Removes a node at a specified location in the linked list
+void ll_remove_at(struct LinkedList *list, int index) {
+    if (index < 0 || index >= list->length) return;
 
-//             if (current->next->next == NULL) {
-//                 // Free memory allocated by the value stored in the node and the node itself to remove it
-//                 free(current->next->value);
-//                 free(current->next);
+    // Check if head node is being removed
+    if (index == 0) {
+        ll_remove(list);
+        return;
+    
+    // Check if tail node is being removed
+    } else if (index == list->length - 1) {
+        ll_remove_tail(list);
+        return;
 
-//                 // `current` now references the tail of the list, so
-//                 // we set its `next` pointer to NULL since it no longer points to anything
-//                 // Then we set the new tail of the list to the current node since this is the new tail
-//                 current->next = NULL;
-//                 list->tail = current;
-//                 list->length--;
-//                 break;
-//             }
-//         }
-//     }
-// }
+    // Otherwise node being removed is in between
+    } else {
 
+        // Need to traverse from head to tail to find location of node being removed
+        int idx = 0;
+        for (struct Node *current = list->head; current != NULL; current = current->next) {
+
+            // Check if were at the removal point
+            // Current node is the node to remove
+            if (idx == index) {
+
+                // To remove a node:
+                // 1. Need the node before it, and the node after it
+                // 2. Free value and node itself
+                // 3. Link surrounding nodes
+
+                struct Node *previous = current->prev;
+                struct Node *next = current->next;
+
+                free(current->value);
+                free(current);
+
+                previous->next = next;
+                next->prev = previous;
+                list->length--;
+                break;
+
+
+
+            }
+        }
+        idx++;
+    }
+}
 
 
 // Frees the memory allocated by a single node
