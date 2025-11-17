@@ -184,6 +184,57 @@ void ll_remove(struct LinkedList *list) {
     list->length--;
 }
 
+// Removes the node at the tail of the linked list
+void ll_remove_tail(struct LinkedList *list) {
+    if (list->head == NULL) return;
+
+    // Check if there is only one node in the list
+    if (list->head == list->tail) {
+        // Free the memory allocated by the head node and update the head/tail pointers
+        free(list->head->value);
+        free(list->head);
+        list->head = NULL;
+        list->tail = NULL;
+        list->length--;
+        return;
+
+    // Otherwise access the tail node to append the new node
+    } else {
+
+        // To remove tail:
+        // 1. Store the node before the tail
+        // 2. Remove the old tail (value + struct)
+        // 3. Set new tail
+        struct Node *new_tail = list->tail->prev;
+        free(list->tail->value);
+        free(list->tail);
+
+        list->tail = new_tail;
+        list->tail->next = NULL;
+        list->length--;
+        return;
+    }
+}
+
+
+
+//             if (current->next->next == NULL) {
+//                 // Free memory allocated by the value stored in the node and the node itself to remove it
+//                 free(current->next->value);
+//                 free(current->next);
+
+//                 // `current` now references the tail of the list, so
+//                 // we set its `next` pointer to NULL since it no longer points to anything
+//                 // Then we set the new tail of the list to the current node since this is the new tail
+//                 current->next = NULL;
+//                 list->tail = current;
+//                 list->length--;
+//                 break;
+//             }
+//         }
+//     }
+// }
+
 
 
 // Frees the memory allocated by a single node
