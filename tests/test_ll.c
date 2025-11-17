@@ -155,6 +155,16 @@ int main() {
     int found3 = ll_find(linked_list, &to_find3, compare_int);
     printf("The index of the item found (or -1 if not found): %d\n", found3);
 
+    // Contains an item
+    bool contains_num = ll_contains(linked_list, &to_find, compare_int);
+    printf("The list contains %d: %d\n", to_find, contains_num);
+
+    bool contains_num2 = ll_contains(linked_list, &to_find2, compare_int);
+    printf("The list contains %d: %d\n", to_find2, contains_num2);
+
+    bool contains_num3 = ll_contains(linked_list, &to_find3, compare_int);
+    printf("The list contains %d: %d\n", to_find3, contains_num3);
+
     // Removal
     // ll_remove(linked_list);
     // ll_print(linked_list, print_int);
