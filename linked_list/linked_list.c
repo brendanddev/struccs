@@ -257,15 +257,16 @@ void ll_remove_at(struct LinkedList *list, int index) {
                 next->prev = previous;
                 list->length--;
                 break;
-
-
-
             }
         }
         idx++;
     }
 }
 
+// Returns the size (length) of the linked list
+int ll_size(struct LinkedList *list) {
+    return list->length;
+}
 
 // Frees the memory allocated by a single node
 void ll_discard_node(struct Node *node) {
