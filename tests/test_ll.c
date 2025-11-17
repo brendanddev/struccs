@@ -106,6 +106,33 @@ int main() {
         printf("Failed to get item at index: %d\n", end2);
     }
 
+    // Set an item
+    ll_print(linked_list, print_int);
+    int num = 338;
+    if (ll_set(linked_list, 1, &num)) {
+        printf("Set the nodes value at index 1 to: %d\n", num);
+    } else {
+        printf("Failed to set the value of the node\n");
+    }
+    ll_print(linked_list, print_int);
+
+    ll_print(linked_list, print_int);
+    int num2 = 5;
+    if (ll_set(linked_list, linked_list->length - 1, &num2)) {
+        printf("Set the nodes value at index 1 to: %d\n", num2);
+    } else {
+        printf("Failed to set the value of the node\n");
+    }
+    ll_print(linked_list, print_int);
+
+    ll_print(linked_list, print_int);
+    int num3 = 21;
+    if (ll_set(linked_list, linked_list->length, &num3)) {
+        printf("Set the nodes value at index 1 to: %d\n", num3);
+    } else {
+        printf("Failed to set the value of the node\n");
+    }
+    ll_print(linked_list, print_int);
 
     // Removal
     // ll_remove(linked_list);
