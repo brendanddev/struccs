@@ -171,7 +171,16 @@ void ll_discard_node(struct Node *node) {
     }
 }
 
-void ll_discard_all_nodes(struct LinkedList *list);
+// Discards the memory allocated by the nodes in a linked list
+void ll_discard_all_nodes(struct LinkedList *list) {
+    if (list != NULL) {
+        for (struct Node *current = list->head; current != NULL; current = current->next) {
+            ll_discard_node(current);
+        }
+    }
+}
+
+
 void ll_discard(struct LinkedList *list);
 
 
