@@ -364,7 +364,15 @@ bool ll_contains(struct LinkedList *list, void *item, bool (* comparator)(void*,
     return false;
 }
 
+// Clears each node in the linked list
+void ll_clear(struct LinkedList *list) {
+    if (list->head == NULL) return;
 
+    ll_discard_all_nodes(list);
+    list->head = NULL;
+    list->tail = NULL;
+    list->length = 0;
+}
 
 // Returns whether the linked list is empty or not
 bool ll_is_empty(struct LinkedList *list) {
