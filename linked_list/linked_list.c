@@ -64,10 +64,20 @@ struct LinkedList * ll_init() {
 // Inserts a node at the head of the linked list
 void ll_insert(struct Node *node, struct LinkedList *list) {
 
-    node->next = list->head;
-    node->prev = NULL;
-    list->head = node;
+    // ISSUE: OLD HEADS PREV PTR NEVER SET
 
+    // Check if the `head` of the list points to NULL since we 
+    // can only update the old heads `prev` pointer if there is an old head
+    if (list->head != NULL) {
+        list->head->prev = node;
+    }
+
+    node->next = list->head;                                // Point the node being inserted `next` pointer to the head of the list (what head currently points to)
+    node->prev = NULL;                                      // Point the node being inserted `prev` pointer to NULL since its the new head
+    list->head = node;                                      // Point the head of the list to the node being inserted
+
+    // Check if the tail of the list is NULL, meaning list is empty
+    // If it is, set the tail to the node being inserted since its the only node in the list
     if (list->tail == NULL) {
         list->tail = node;
     }
@@ -83,7 +93,8 @@ void ll_print(struct LinkedList *list, void (* print_fn)(void*)) {
     printf("\n");
 }
 
-// 
+
+// Prints each node in the linked list with its address, value, and next/prev pointers for debugging
 void ll_debug(struct LinkedList *list) {
     struct Node *curr = list->head;
     while (curr != NULL) {
