@@ -266,17 +266,33 @@ void ll_remove_at(struct LinkedList *list, int index) {
 bool ll_get(struct LinkedList *list, int index, void *out) {
     if (index < 0 || index >= list->length) return false;
 
-    // Traverse from head to tail looking for the node
-    int idx = 0;
-    for (struct Node *current = list->head; current != NULL; current = current->next) {
-        
-        // If weve reached the position of the node, copy its memory contents into the `out` pointer
-        // and return true
-        if (idx == index) {
-            memcpy(out, current->value, current->item_size);
-            return true;
+    // Check if location (index) is in the second half of the list
+    if (index > list->length / 2) {
+
+        // Traverse starting from the tail of the list
+        int idx = list->length - 1;
+        for (struct Node *current = list->tail; current != NULL; current = current->prev) {
+            if (idx == index) {
+                // If position is reached, copy the raw memory from where the value is stored into the 
+                // memory pointed to by the `out` pointer
+                memcpy(out, current->value, current->item_size);
+                return true;
+            }
+            idx--;
         }
-        idx++;
+    // Otherwise start traversal from head
+    } else {
+        int idx = 0;
+        for (struct Node *current = list->head; current != NULL; current = current->next) {
+            
+            // If weve reached the position of the node, copy its memory contents into the `out` pointer
+            // and return true
+            if (idx == index) {
+                memcpy(out, current->value, current->item_size);
+                return true;
+            }
+            idx++;
+        }
     }
     return false;
 }
