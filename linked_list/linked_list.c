@@ -139,20 +139,23 @@ void ll_insert_at(struct Node *node, struct LinkedList *list, int index) {
             // Check if weve reached the insertion point
             if (idx == index) {
 
-                // To insert the new node:
-                // 1. Link the previous nodes `next` to point to the node being inserted
-                // 2. Linked the node being inserted `next` to point to the node previously at the insertion point
-
+                // If weve reached the insertion point, store temporary pointers
+                // to the node before the current node and the current node itself
                 struct Node *previous = current->prev;
                 struct Node *next = current;
 
+                // Update pointers to insert the new node
+                // Point the previous nodes `next` to the new node
+                // Point the current nodes `prev` to the new node
+                // Point the new nodes `next` to the current node
+                // Point the new nodes `prev` to the previous node
                 previous->next = node;
+                next->prev = node;
                 node->next = next;
                 node->prev = previous;
                 list->length++;
                 break;
             }
-
             idx++;
         }
     }
