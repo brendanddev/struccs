@@ -299,7 +299,6 @@ bool ll_get(struct LinkedList *list, int index, void *out) {
 
 // Sets the value of the node at the specified location (index) in the linked list
 bool ll_set(struct LinkedList *list, int index, void *in) {
-
     if (index < 0 || index >= list->length) return false;
 
     // Check if location is closer to tail
@@ -333,6 +332,13 @@ bool ll_set(struct LinkedList *list, int index, void *in) {
     return false;
 }
 
+
+// Finds the node with the specified value and returns the location (index) of the node, or -1 if not found
+// Relies on a caller defined comparator function to determine how to compare two items of the type stored
+
+
+int ll_find(struct LinkedList *list, void *item, bool (* comparator)(void*, void*)) {
+}
 
 
 // Returns whether the linked list is empty or not
