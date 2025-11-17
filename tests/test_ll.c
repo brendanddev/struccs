@@ -90,6 +90,22 @@ int main() {
         printf("Failed to get item at index 1\n");
     }
 
+    int val3;
+    int end = linked_list->length - 1;
+    if (ll_get(linked_list, end, &val3)) {
+        printf("Located the value at index %d: %d\n", end, val3);
+    } else {
+        printf("Failed to get item at index: %d\n", end);
+    }
+
+    int val4;
+    int end2 = linked_list->length;
+    if (ll_get(linked_list, end2, &val4)) {
+        printf("Located the value at index %d: %d\n", end2, val4);
+    } else {
+        printf("Failed to get item at index: %d\n", end2);
+    }
+
 
     // Removal
     // ll_remove(linked_list);
