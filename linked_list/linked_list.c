@@ -62,22 +62,9 @@ void ll_insert(struct Node *node, struct LinkedList *list) {
 
     // Check if list is empty
     if (list->head == NULL) {
-        node->next = list->head;
-        node->prev = NULL;
-        list->head = node;
-        list->tail = node;
-        list->length++;
-        return;
-
+        
     // List is not empty
     } else {
-
-        struct Node *old_head = list->head;
-        list->head->prev = node;
-        node->next = list->head;
-        list->head = node;
-        list->length++;
-        return;
 
 
     }
