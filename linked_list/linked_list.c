@@ -258,8 +258,8 @@ void ll_remove_at(struct LinkedList *list, int index) {
                 list->length--;
                 break;
             }
+            idx++;
         }
-        idx++;
     }
 }
 
