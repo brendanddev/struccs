@@ -163,17 +163,13 @@ void ll_insert_at(struct Node *node, struct LinkedList *list, int index) {
 
 
 
-
-
-// To discard a single node:
-// Discard the memory allocated by the value stored in the node
-// Discard the memory allocated by the struct itself
-
 // Discards the memory allocated by a single node
 void ll_discard_node(struct Node *node) {
-   
+    if (node != NULL) {
+        free(node->value);
+        free(node);
+    }
 }
-
 
 void ll_discard_all_nodes(struct LinkedList *list);
 void ll_discard(struct LinkedList *list);
