@@ -378,8 +378,12 @@ void ll_clear(struct LinkedList *list) {
 struct LinkedList* ll_copy(struct LinkedList *orig) {
     struct LinkedList *copy = ll_init();
 
+    // Traverse from the original lists head to tail, and for each node in the original list
+    // initialize a new node which is a copy of the current node to prevent breaking the links
+    // between the nodes
     for (struct Node *current = orig->head; current != NULL; current = current->next) {
-        ll_insert_tail(current, copy);
+        struct Node *cnode = ll_init_node(current->value, current->item_size);
+        ll_insert_tail(cnode, copy);
     }
     return copy;
 }
