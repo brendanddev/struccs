@@ -103,22 +103,31 @@ int main() {
 
 
     // Tail removal
-    ll_remove_tail(linked_list);
-    ll_print(linked_list, print_int);
-    ll_remove_tail(linked_list);
-    ll_print(linked_list, print_int);
-    ll_debug(linked_list);
+    // ll_remove_tail(linked_list);
+    // ll_print(linked_list, print_int);
+    // ll_remove_tail(linked_list);
+    // ll_print(linked_list, print_int);
+    // ll_debug(linked_list);
 
-    ll_remove_tail(linked_list);
+    // ll_remove_tail(linked_list);
+    // ll_print(linked_list, print_int);
+    // ll_remove_tail(linked_list);
+    // ll_print(linked_list, print_int);
+    // ll_remove_tail(linked_list);
+    // ll_print(linked_list, print_int);
+    // ll_remove_tail(linked_list);
+    // ll_print(linked_list, print_int);
+    // ll_remove_tail(linked_list);
+    // ll_print(linked_list, print_int);
+
+    // Remove at 
+    printf("Size before removal: %d\n", ll_size(linked_list));
+    ll_remove_at(linked_list, 1);
     ll_print(linked_list, print_int);
-    ll_remove_tail(linked_list);
+    ll_remove_at(linked_list, 1);
     ll_print(linked_list, print_int);
-    ll_remove_tail(linked_list);
-    ll_print(linked_list, print_int);
-    ll_remove_tail(linked_list);
-    ll_print(linked_list, print_int);
-    ll_remove_tail(linked_list);
-    ll_print(linked_list, print_int);
+    printf("Size after removals: %d\n", ll_size(linked_list));
+
     
 
     // Free memory allocated by the linked list
