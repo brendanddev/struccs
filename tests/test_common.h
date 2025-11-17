@@ -9,9 +9,11 @@
 
 
 // Factory functions
-struct GenericArray * create_int_array(void);
-struct GenericArray * create_int_array_from_size(int size);
-struct LinkedList *create_int_list(void);
+struct GenericArray* create_int_array(void);
+struct GenericArray* create_int_array_from_size(int size);
+
+struct LinkedList* create_int_list(void);
+struct LinkedList* create_int_list_from_size(int size);
 
 
 // Print functions
