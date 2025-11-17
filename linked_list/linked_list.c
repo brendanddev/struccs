@@ -262,6 +262,28 @@ void ll_remove_at(struct LinkedList *list, int index) {
     }
 }
 
+// Retrieves the value stored in the node at the location specified
+bool ll_get(struct LinkedList *list, int index, void *out) {
+    if (index < 0 || index >= list->length) return false;
+
+    // Traverse from head to tail looking for the node
+    int idx = 0;
+    for (struct Node *current = list->head; current != NULL; current = current->next) {
+        
+        // If weve reached the position of the node, copy its memory contents into the `out` pointer
+        // and return true
+        if (idx == index) {
+            memcpy(out, current->value, current->item_size);
+            return true;
+        }
+        idx++;
+    }
+    return false;
+}
+
+
+
+
 // Returns whether the linked list is empty or not
 bool ll_is_empty(struct LinkedList *list) {
     if (list->head == NULL) return true;
