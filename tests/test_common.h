@@ -22,7 +22,5 @@ void print_int(void *value);
 
 // Comparators
 bool compare_int(void *a, void *b);
-bool equals_int(void *a, void *b);
-
 
 #endif
