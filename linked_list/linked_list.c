@@ -374,6 +374,16 @@ void ll_clear(struct LinkedList *list) {
     list->length = 0;
 }
 
+// Creates and returns a deep copy of a linked list
+struct LinkedList* ll_copy(struct LinkedList *orig) {
+    struct LinkedList *copy = ll_init();
+
+    for (struct Node *current = orig->head; current != NULL; current = current->next) {
+        ll_insert_tail(current, copy);
+    }
+    return copy;
+}
+
 // Returns whether the linked list is empty or not
 bool ll_is_empty(struct LinkedList *list) {
     if (list->head == NULL) return true;
