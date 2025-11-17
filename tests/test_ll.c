@@ -37,5 +37,15 @@ int main() {
 
     ll_print(linked_list, print_int);
 
+    int value3 = 1600;
+    void *ptr3 = &value3;
+    struct Node *node3 = ll_init_node(ptr3, sizeof(int));
+    ll_insert(node3, linked_list);
+    ll_print(linked_list, print_int);
+
+
+    printf("DEBUG PRINT: \n");
+    ll_debug(linked_list);
+
     return 0;
 }

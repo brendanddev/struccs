@@ -36,8 +36,12 @@ struct Node * ll_init_node(void *val, size_t size) {
         return NULL;
     }
 
+    // Copy the raw memory contents from the memory pointed to by `val` into `node->value`
+    memcpy(node->value, val, node->item_size);
+
     return node;
 }
+
 
 // Creates a new linked list
 struct LinkedList * ll_init() {
@@ -78,3 +82,18 @@ void ll_print(struct LinkedList *list, void (* print_fn)(void*)) {
     }
     printf("\n");
 }
+
+// 
+void ll_debug(struct LinkedList *list) {
+    struct Node *curr = list->head;
+    while (curr != NULL) {
+        printf("Node %p | value=%d | prev=%p | next=%p\n", 
+            (void *) curr, 
+            * (int *) curr->value, 
+            (void *) curr->prev, 
+            (void *) curr->next);
+        curr = curr->next;
+    }
+}
+
+
