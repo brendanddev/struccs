@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include "test_common.h"
+#include "../linked_list/linked_list.h"
+
+
+/// test_ll.c
+/// The test suite for the LinkedList implementation
+/// Brendan Dileo, November 17 2025
+
+
+void print_int(void *value) {
+    printf("[%d] ", * (int *) value);
+}
+
+
+int main() {
+
+    struct LinkedList *linked_list = ll_init();
+    printf("LinkedList - Length: %d, Head: %p, Tail: %p\n", linked_list->length, linked_list->head, linked_list->tail);
+
+    int value = 100;
+    void *ptr = &value;
+    struct Node *node = ll_init_node(ptr, sizeof(int));
+    printf("Node - Item Size: %zu, Next: %p, Prev: %p\n", node->item_size, node->next, node->prev);
+
+    ll_insert(node, linked_list);
+    printf("LinkedList - Length: %d, Head: %p, Tail: %p\n", linked_list->length, linked_list->head, linked_list->tail);
+
+
+    int value2 = 67;
+    void *ptr2 = &value2;
+    struct Node *node2 = ll_init_node(ptr2, sizeof(int));
+    ll_insert(node2, linked_list);
+    printf("LinkedList - Length: %d, Head: %p, Tail: %p\n", linked_list->length, linked_list->head, linked_list->tail);
+
+    ll_print(linked_list, print_int);
+
+    return 0;
+}
