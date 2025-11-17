@@ -216,7 +216,6 @@ void ll_remove_tail(struct LinkedList *list) {
     }
 }
 
-
 // Removes a node at a specified location in the linked list
 void ll_remove_at(struct LinkedList *list, int index) {
     if (index < 0 || index >= list->length) return;
@@ -242,17 +241,17 @@ void ll_remove_at(struct LinkedList *list, int index) {
             // Current node is the node to remove
             if (idx == index) {
 
-                // To remove a node:
-                // 1. Need the node before it, and the node after it
-                // 2. Free value and node itself
-                // 3. Link surrounding nodes
-
+                // Store pointers to the nodes before and after the current node
                 struct Node *previous = current->prev;
                 struct Node *next = current->next;
 
+                // Free the current node to remove it
                 free(current->value);
                 free(current);
 
+                // Relink the surrounding nodes by setting the previous nodes `next` to the 
+                // node that followed the removed node, and the next nodes `prev` to the 
+                // previous node
                 previous->next = next;
                 next->prev = previous;
                 list->length--;
@@ -261,6 +260,12 @@ void ll_remove_at(struct LinkedList *list, int index) {
             idx++;
         }
     }
+}
+
+// Returns whether the linked list is empty or not
+bool ll_is_empty(struct LinkedList *list) {
+    if (list->head == NULL) return true;
+    return false;
 }
 
 // Returns the size (length) of the linked list
