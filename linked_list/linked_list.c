@@ -332,12 +332,22 @@ bool ll_set(struct LinkedList *list, int index, void *in) {
     return false;
 }
 
-
 // Finds the node with the specified value and returns the location (index) of the node, or -1 if not found
-// Relies on a caller defined comparator function to determine how to compare two items of the type stored
-
-
+// Relies on a caller defined comparator function to determine how to compare items of the type stored
 int ll_find(struct LinkedList *list, void *item, bool (* comparator)(void*, void*)) {
+    if (list->head == NULL) return -1;
+
+    // Traverse from head to tail
+    int idx = 0;
+    for (struct Node *current = list->head; current != NULL; current = current->next) {
+
+        // If the current value is equal to the value being searched for, return current index
+        if (comparator(current->value, item)) {
+            return idx;
+        }
+        idx++;
+    }
+    return -1;
 }
 
 
