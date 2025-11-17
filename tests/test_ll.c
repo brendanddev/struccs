@@ -10,6 +10,13 @@
 /// Brendan Dileo, November 17 2025
 
 
+bool compare_int(void *a, void *b) {
+    int ia = * (int *) a;
+    int ib = * (int *) b;
+    if (ia == ib) return true;
+    return false;
+}
+
 void print_int(void *value) {
     printf("[%d] ", * (int *) value);
 }
@@ -133,6 +140,20 @@ int main() {
         printf("Failed to set the value of the node\n");
     }
     ll_print(linked_list, print_int);
+
+
+    // Find an item by value
+    int to_find = 1;
+    int found = ll_find(linked_list, &to_find, compare_int);
+    printf("The index of the item found (or -1 if not found): %d\n", found);
+
+    int to_find2 = 5;
+    int found2 = ll_find(linked_list, &to_find2, compare_int);
+    printf("The index of the item found (or -1 if not found): %d\n", found2);
+
+    int to_find3 = 888;
+    int found3 = ll_find(linked_list, &to_find3, compare_int);
+    printf("The index of the item found (or -1 if not found): %d\n", found3);
 
     // Removal
     // ll_remove(linked_list);
