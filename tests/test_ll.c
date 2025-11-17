@@ -78,28 +78,47 @@ int main() {
 
 
     // Removal
-    ll_remove(linked_list);
-    ll_print(linked_list, print_int);
+    // ll_remove(linked_list);
+    // ll_print(linked_list, print_int);
 
-    ll_remove(linked_list);
-    ll_print(linked_list, print_int);
+    // ll_remove(linked_list);
+    // ll_print(linked_list, print_int);
 
-    ll_remove(linked_list);
-    ll_print(linked_list, print_int);
+    // ll_remove(linked_list);
+    // ll_print(linked_list, print_int);
 
-    ll_remove(linked_list);
-    ll_print(linked_list, print_int);
+    // ll_remove(linked_list);
+    // ll_print(linked_list, print_int);
 
-    ll_remove(linked_list);
-    ll_print(linked_list, print_int);
+    // ll_remove(linked_list);
+    // ll_print(linked_list, print_int);
 
-    ll_remove(linked_list);
-    ll_print(linked_list, print_int);
+    // ll_remove(linked_list);
+    // ll_print(linked_list, print_int);
 
-    printf("Length: %d\n", linked_list->length);
-    ll_remove(linked_list);
+    // printf("Length: %d\n", linked_list->length);
+    // ll_remove(linked_list);
+    // ll_print(linked_list, print_int);
+    // ll_debug(linked_list);
+
+
+    // Tail removal
+    ll_remove_tail(linked_list);
+    ll_print(linked_list, print_int);
+    ll_remove_tail(linked_list);
     ll_print(linked_list, print_int);
     ll_debug(linked_list);
+
+    ll_remove_tail(linked_list);
+    ll_print(linked_list, print_int);
+    ll_remove_tail(linked_list);
+    ll_print(linked_list, print_int);
+    ll_remove_tail(linked_list);
+    ll_print(linked_list, print_int);
+    ll_remove_tail(linked_list);
+    ll_print(linked_list, print_int);
+    ll_remove_tail(linked_list);
+    ll_print(linked_list, print_int);
     
 
     // Free memory allocated by the linked list
