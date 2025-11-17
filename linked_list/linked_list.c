@@ -144,10 +144,11 @@ void ll_insert_at(struct Node *node, struct LinkedList *list, int index) {
                 // 2. Linked the node being inserted `next` to point to the node previously at the insertion point
 
                 struct Node *previous = current->prev;
-                struct Node *next = current->next;
+                struct Node *next = current;
 
                 previous->next = node;
                 node->next = next;
+                node->prev = previous;
                 list->length++;
                 break;
             }

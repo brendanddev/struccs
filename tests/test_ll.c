@@ -58,9 +58,6 @@ int main() {
     ll_insert_tail(node5, linked_list);
 
     ll_print(linked_list, print_int);
-    printf("DEBUG PRINT: \n");
-    ll_debug(linked_list);
-
 
     // Insert at
     int value6 = 10;
@@ -68,9 +65,15 @@ int main() {
     struct Node *node6 = ll_init_node(ptr6, sizeof(int));
     printf("Inserting at index 1...\n");
     ll_insert_at(node6, linked_list, 1);
-
     ll_print(linked_list, print_int);
-    printf("DEBUG PRINT: \n");
+
+    int value7 = 999;
+    void *ptr7 = &value7;
+    struct Node *node7 = ll_init_node(ptr7, sizeof(int));
+    printf("Inserting at index 1...\n");
+    ll_insert_at(node7, linked_list, 1);
+    ll_print(linked_list, print_int);
+
     ll_debug(linked_list);
 
 
