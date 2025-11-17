@@ -62,5 +62,20 @@ int main() {
     ll_debug(linked_list);
 
 
+    // Insert at
+    int value6 = 10;
+    void *ptr6 = &value6;
+    struct Node *node6 = ll_init_node(ptr6, sizeof(int));
+    printf("Inserting at index 1...\n");
+    ll_insert_at(node6, linked_list, 1);
+
+    ll_print(linked_list, print_int);
+    printf("DEBUG PRINT: \n");
+    ll_debug(linked_list);
+
+
+
+
+
     return 0;
 }
