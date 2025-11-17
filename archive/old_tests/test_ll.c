@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "../linked_list/linked_list.h"
-#include "../doubly/linked_list.h"
 
 
 /// test_ll.c
