@@ -70,9 +70,13 @@ void ll_insert(struct Node *node, struct LinkedList *list) {
         list->head->prev = node;
     }
 
-    node->next = list->head;                                // Point the node being inserted `next` pointer to the head of the list (what head currently points to)
-    node->prev = NULL;                                      // Point the node being inserted `prev` pointer to NULL since its the new head
-    list->head = node;                                      // Point the head of the list to the node being inserted
+    // Point the node being inserted `next` pointer to whatever the head of the list 
+    // currently points to, and the `prev` pointer of the node being inserted to NULL
+    // since its the new head of the list. Point the head of the list to the node being
+    // inserted
+    node->next = list->head;                                
+    node->prev = NULL;                                      
+    list->head = node;
 
     // Check if the tail of the list is NULL, meaning list is empty
     // If it is, set the tail to the node being inserted since its the only node in the list
@@ -88,6 +92,9 @@ void ll_insert_tail(struct Node *node, struct LinkedList *list) {
 
     // Check if list is empty
     if (list->head == NULL) {
+        // If list is empty, point the node being inserted `next` pointer to whatever the head of
+        // the list currently points to, the node being inserted `prev` to NULL since its the new
+        // head of the list, and the tail to the node inserted since its the only node in the list
         node->next = list->head;
         node->prev = NULL;
         list->head = node;
@@ -96,12 +103,57 @@ void ll_insert_tail(struct Node *node, struct LinkedList *list) {
 
     // List not empty, need to access and insert at tail
     } else {
+        // If list is not empty, set the current tail `next` pointer to the node being inserted,
+        // and the node being inserted `next` to NULL since its the new tail. To link the new tail
+        // with the old, set the `prev` pointer of the node being inserted to point to the old tail
         list->tail->next = node;
         node->next = NULL;
         node->prev = list->tail;
         list->tail = node;
         list->length++;
+    }
+}
 
+// Inserts a node at the specified location in the linked list
+void ll_insert_at(struct Node *node, struct LinkedList *list, int index) {
+
+    if (index < 0 || index > list->length) return;
+
+    // Check if insertion point is the head of the list
+    if (index == 0) {
+        ll_insert(node, list);
+        return;
+
+    // Check if insertion point is the tail of the list
+    } else if (index == list->length) {
+        ll_insert_tail(node, list);
+        return;
+
+    // If insertion point is not head or tail, its somewhere in between
+    } else {
+
+        // Traverse the list starting from the head to find the insertion point 
+        int idx = 0;
+        for (struct Node *current = list->head; current != NULL; current = current->next) {
+
+            // Check if weve reached the insertion point
+            if (idx == index) {
+
+                // To insert the new node:
+                // 1. Link the previous nodes `next` to point to the node being inserted
+                // 2. Linked the node being inserted `next` to point to the node previously at the insertion point
+
+                struct Node *previous = current->prev;
+                struct Node *next = current->next;
+
+                previous->next = node;
+                node->next = next;
+                list->length++;
+                break;
+            }
+
+            idx++;
+        }
     }
 }
 
