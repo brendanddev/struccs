@@ -74,7 +74,21 @@ int main() {
     ll_insert_at(node7, linked_list, 1);
     ll_print(linked_list, print_int);
 
-    ll_debug(linked_list);
+
+    // Get item
+    int val;
+    if (ll_get(linked_list, 1, &val)) {
+        printf("Located value at index 1: %d\n", val);
+    } else {
+        printf("Failed to get item at index 1\n");
+    }
+
+    int val2;
+    if (ll_get(linked_list, 2, &val2)) {
+        printf("Located value at index 2: %d\n", val2);
+    } else {
+        printf("Failed to get item at index 1\n");
+    }
 
 
     // Removal
@@ -121,26 +135,26 @@ int main() {
     // ll_print(linked_list, print_int);
 
     // Remove at 
-    printf("Size before removal: %d\n", ll_size(linked_list));
-    printf("Linked List before removals: \n");
-    ll_print(linked_list, print_int);
-    ll_remove_at(linked_list, 1);
-    ll_print(linked_list, print_int);
-    ll_remove_at(linked_list, 1);
-    ll_print(linked_list, print_int);
-    ll_remove_at(linked_list, 1);
-    ll_print(linked_list, print_int);
-    ll_remove_at(linked_list, 1);
-    ll_print(linked_list, print_int);
-    ll_remove_at(linked_list, 1);
-    ll_print(linked_list, print_int);
-    ll_remove_at(linked_list, 1);
-    ll_print(linked_list, print_int);
-    ll_remove_at(linked_list, 1);
-    ll_print(linked_list, print_int);
-    ll_remove_at(linked_list, 0);
-    ll_print(linked_list, print_int);
-    printf("Size after removals: %d\n", ll_size(linked_list));
+    // printf("Size before removal: %d\n", ll_size(linked_list));
+    // printf("Linked List before removals: \n");
+    // ll_print(linked_list, print_int);
+    // ll_remove_at(linked_list, 1);
+    // ll_print(linked_list, print_int);
+    // ll_remove_at(linked_list, 1);
+    // ll_print(linked_list, print_int);
+    // ll_remove_at(linked_list, 1);
+    // ll_print(linked_list, print_int);
+    // ll_remove_at(linked_list, 1);
+    // ll_print(linked_list, print_int);
+    // ll_remove_at(linked_list, 1);
+    // ll_print(linked_list, print_int);
+    // ll_remove_at(linked_list, 1);
+    // ll_print(linked_list, print_int);
+    // ll_remove_at(linked_list, 1);
+    // ll_print(linked_list, print_int);
+    // ll_remove_at(linked_list, 0);
+    // ll_print(linked_list, print_int);
+    // printf("Size after removals: %d\n", ll_size(linked_list));
 
     
 
