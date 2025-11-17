@@ -162,8 +162,22 @@ void ll_insert_at(struct Node *node, struct LinkedList *list, int index) {
 }
 
 
+// Removes the node at the head of the linked list
+void ll_remove(struct LinkedList *list) {
 
-// Discards the memory allocated by a single node
+    if (list->head == NULL) return;
+
+    // Store pointer to the old head before removal to keep the link to rest of the list
+    struct Node *temp = list->head->next;
+    free(list->head->value);
+    free(list->head);
+    list->head = temp;
+    list->head->prev = NULL;
+    list->length--;
+}
+
+
+// Frees the memory allocated by a single node
 void ll_discard_node(struct Node *node) {
     if (node != NULL) {
         free(node->value);
@@ -171,17 +185,28 @@ void ll_discard_node(struct Node *node) {
     }
 }
 
-// Discards the memory allocated by the nodes in a linked list
+// Frees the memory allocated by each node in a linked list
 void ll_discard_all_nodes(struct LinkedList *list) {
     if (list != NULL) {
-        for (struct Node *current = list->head; current != NULL; current = current->next) {
+        // Start from the head of the list, traverse to the end
+        struct Node *current = list->head;
+        while (current != NULL) {
+            // Store the nodes `next` pointer before freeing the current node
+            // to avoid losing reference to the rest of the list
+            struct Node *next = current->next;
             ll_discard_node(current);
+            current = next;
         }
     }
 }
 
-
-void ll_discard(struct LinkedList *list);
+// Frees all memory associated with a linked list
+void ll_discard(struct LinkedList *list) {
+    if (list != NULL) {
+        ll_discard_all_nodes(list);
+        free(list);
+    }
+}
 
 
 // Prints all items stored in the linked list, requiring a caller defined print function that knows how to print each value

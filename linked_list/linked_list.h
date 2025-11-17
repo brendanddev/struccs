@@ -34,6 +34,9 @@ void ll_insert(struct Node *node, struct LinkedList *list);
 void ll_insert_tail(struct Node *node, struct LinkedList *list);
 void ll_insert_at(struct Node *node, struct LinkedList *list, int index);
 
+void ll_remove(struct LinkedList *list);
+void ll_remove_tail(struct LinkedList *list);
+void ll_remove_at(struct LinkedList *list, int index);
 
 void ll_discard_node(struct Node *node);
 void ll_discard_all_nodes(struct LinkedList *list);
