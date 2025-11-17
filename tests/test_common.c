@@ -19,7 +19,6 @@ struct LinkedList* create_int_list(void) {
     return linked_list;
 }
 
-
 // Creates a new LinkedList with a specified size and populates it with integers
 struct LinkedList* create_int_list_from_size(int size) {
     struct LinkedList *linked_list = ll_init();

@@ -388,6 +388,18 @@ struct LinkedList* ll_copy(struct LinkedList *orig) {
     return copy;
 }
 
+// Reverses the contents of the linked list in place
+void ll_reverse(struct LinkedList *list) {
+    if (list->head == NULL) return;
+
+    // Swap next and prev for every node
+    // Swap head and tail
+
+    
+
+
+}
+
 // Returns whether the linked list is empty or not
 bool ll_is_empty(struct LinkedList *list) {
     if (list->head == NULL) return true;

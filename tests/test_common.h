@@ -8,12 +8,14 @@
 #include "../linked_list/linked_list.h"
 
 
-// Factory functions
-struct GenericArray* create_int_array(void);
-struct GenericArray* create_int_array_from_size(int size);
-
+// Linked List factory functions
 struct LinkedList* create_int_list(void);
 struct LinkedList* create_int_list_from_size(int size);
+
+
+// Generic Array factory functions
+struct GenericArray* create_int_array(void);
+struct GenericArray* create_int_array_from_size(int size);
 
 
 // Print functions
