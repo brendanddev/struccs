@@ -162,6 +162,23 @@ void ll_insert_at(struct Node *node, struct LinkedList *list, int index) {
 }
 
 
+
+
+
+// To discard a single node:
+// Discard the memory allocated by the value stored in the node
+// Discard the memory allocated by the struct itself
+
+// Discards the memory allocated by a single node
+void ll_discard_node(struct Node *node) {
+   
+}
+
+
+void ll_discard_all_nodes(struct LinkedList *list);
+void ll_discard(struct LinkedList *list);
+
+
 // Prints all items stored in the linked list, requiring a caller defined print function that knows how to print each value
 void ll_print(struct LinkedList *list, void (* print_fn)(void*)) {
     for (struct Node *current = list->head; current != NULL; current = current->next) {
