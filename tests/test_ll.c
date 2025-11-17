@@ -47,5 +47,20 @@ int main() {
     printf("DEBUG PRINT: \n");
     ll_debug(linked_list);
 
+    int value4 = 888;
+    void *ptr4 = &value4;
+    struct Node *node4 = ll_init_node(ptr4, sizeof(int));
+    ll_insert_tail(node4, linked_list);
+
+    int value5 = 78365;
+    void *ptr5 = &value5;
+    struct Node *node5 = ll_init_node(ptr5, sizeof(int));
+    ll_insert_tail(node5, linked_list);
+
+    ll_print(linked_list, print_int);
+    printf("DEBUG PRINT: \n");
+    ll_debug(linked_list);
+
+
     return 0;
 }
