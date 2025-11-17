@@ -122,9 +122,23 @@ int main() {
 
     // Remove at 
     printf("Size before removal: %d\n", ll_size(linked_list));
+    printf("Linked List before removals: \n");
+    ll_print(linked_list, print_int);
     ll_remove_at(linked_list, 1);
     ll_print(linked_list, print_int);
     ll_remove_at(linked_list, 1);
+    ll_print(linked_list, print_int);
+    ll_remove_at(linked_list, 1);
+    ll_print(linked_list, print_int);
+    ll_remove_at(linked_list, 1);
+    ll_print(linked_list, print_int);
+    ll_remove_at(linked_list, 1);
+    ll_print(linked_list, print_int);
+    ll_remove_at(linked_list, 1);
+    ll_print(linked_list, print_int);
+    ll_remove_at(linked_list, 1);
+    ll_print(linked_list, print_int);
+    ll_remove_at(linked_list, 0);
     ll_print(linked_list, print_int);
     printf("Size after removals: %d\n", ll_size(linked_list));
 
