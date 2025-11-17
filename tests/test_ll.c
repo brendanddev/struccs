@@ -165,10 +165,18 @@ int main() {
     bool contains_num3 = ll_contains(linked_list, &to_find3, compare_int);
     printf("The list contains %d: %d\n", to_find3, contains_num3);
 
-    // Clear the linked list
-    ll_clear(linked_list);
+    // Copy the linked list
+    printf("Current Linked List: \n");
     ll_print(linked_list, print_int);
-    if (linked_list->length == 0) printf("The list is empty!\n");
+
+    printf("Copy of LinkedList: \n");
+    struct LinkedList *linked_list_copy = ll_copy(linked_list);
+    ll_print(linked_list_copy, print_int);
+
+    // Clear the linked list
+    // ll_clear(linked_list);
+    // ll_print(linked_list, print_int);
+    // if (linked_list->length == 0) printf("The list is empty!\n");
 
     // Removal
     // ll_remove(linked_list);
