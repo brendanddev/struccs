@@ -297,6 +297,41 @@ bool ll_get(struct LinkedList *list, int index, void *out) {
     return false;
 }
 
+// Sets the value of the node at the specified location (index) in the linked list
+bool ll_set(struct LinkedList *list, int index, void *in) {
+
+    if (index < 0 || index >= list->length) return false;
+
+    // Check if location is closer to tail
+    if (index > list->length / 2) {
+
+        // Traverse from tail to head
+        int idx = list->length - 1;
+        for (struct Node *current = list->tail; current != NULL; current = current->prev) {
+            // If weve reached the target node, copy the data pointed to by the `in` pointer
+            // into the memory allocated for the nodes value
+            if (idx == index) {
+                memcpy(current->value, in, current->item_size);
+                return true;
+            }
+            idx--;
+        }
+    // Location is closer to head
+    } else {
+
+        // Traverse from head to tail
+        int idx = 0;
+        for (struct Node *current = list->head; current != NULL; current = current->next) {
+            // If reached target node, copy memory pointed to by `in` into `current->value`
+            if (idx == index) {
+                memcpy(current->value, in, current->item_size);
+                return true;
+            }
+            idx++;
+        }
+    }
+    return false;
+}
 
 
 

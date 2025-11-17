@@ -36,8 +36,8 @@ void ll_insert_at(struct Node *node, struct LinkedList *list, int index);
 void ll_remove(struct LinkedList *list);
 void ll_remove_tail(struct LinkedList *list);
 void ll_remove_at(struct LinkedList *list, int index);
-
 bool ll_get(struct LinkedList *list, int index, void *out);
+
 bool ll_set(struct LinkedList *list, int index, void *in);
 int ll_find(struct LinkedList *list, void *item, bool (* comparator)(void*, void*));
 bool ll_contains(struct LinkedList *list, void *item, bool (* comparator)(void*, void*));
