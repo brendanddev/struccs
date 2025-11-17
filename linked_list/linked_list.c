@@ -164,17 +164,26 @@ void ll_insert_at(struct Node *node, struct LinkedList *list, int index) {
 
 // Removes the node at the head of the linked list
 void ll_remove(struct LinkedList *list) {
-
     if (list->head == NULL) return;
 
     // Store pointer to the old head before removal to keep the link to rest of the list
+    // and free memory allocated by the old head to remove it and set new head
     struct Node *temp = list->head->next;
     free(list->head->value);
     free(list->head);
     list->head = temp;
-    list->head->prev = NULL;
+
+    // Check if the list is empty after removing the old head
+    if (list->head != NULL) {
+        // If list not empty, update the new head `prev` pointer to point to NULL
+        list->head->prev = NULL;
+    } else {
+        // If the list is now empty, update the tail pointer since no nodes are left
+        list->tail = NULL;
+    }
     list->length--;
 }
+
 
 
 // Frees the memory allocated by a single node
