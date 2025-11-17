@@ -60,12 +60,21 @@ struct LinkedList * ll_init() {
 // Inserts a node at the head of the linked list
 void ll_insert(struct Node *node, struct LinkedList *list) {
 
-    // Check if list is empty
-    if (list->head == NULL) {
-        
-    // List is not empty
-    } else {
+    node->next = list->head;
+    node->prev = NULL;
+    list->head = node;
 
-
+    if (list->tail == NULL) {
+        list->tail = node;
     }
+
+    list->length++;
+}
+
+// Prints all items stored in the linked list, requiring a caller defined print function that knows how to print each value
+void ll_print(struct LinkedList *list, void (* print_fn)(void*)) {
+    for (struct Node *current = list->head; current != NULL; current = current->next) {
+        print_fn(current->value);
+    }
+    printf("\n");
 }

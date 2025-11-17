@@ -34,6 +34,6 @@ void ll_insert(struct Node *node, struct LinkedList *list);
 void ll_discard_node(struct Node *node);
 void ll_discard_all_nodes(struct LinkedList *list);
 void ll_discard(struct LinkedList *list);
-
+void ll_print(struct LinkedList *list, void (* print_fn)(void*));
 
 #endif
