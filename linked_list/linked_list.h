@@ -31,6 +31,8 @@ typedef struct LinkedList {
 struct Node * ll_init_node(void *val, size_t size);
 struct LinkedList * ll_init();
 void ll_insert(struct Node *node, struct LinkedList *list);
+void ll_insert_tail(struct Node *node, struct LinkedList *list);
+
 void ll_discard_node(struct Node *node);
 void ll_discard_all_nodes(struct LinkedList *list);
 void ll_discard(struct LinkedList *list);

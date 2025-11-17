@@ -64,8 +64,6 @@ struct LinkedList * ll_init() {
 // Inserts a node at the head of the linked list
 void ll_insert(struct Node *node, struct LinkedList *list) {
 
-    // ISSUE: OLD HEADS PREV PTR NEVER SET
-
     // Check if the `head` of the list points to NULL since we 
     // can only update the old heads `prev` pointer if there is an old head
     if (list->head != NULL) {
@@ -84,6 +82,29 @@ void ll_insert(struct Node *node, struct LinkedList *list) {
 
     list->length++;
 }
+
+// Inserts a node at the tail of the linked list
+void ll_insert_tail(struct Node *node, struct LinkedList *list) {
+
+    // Check if list is empty
+    if (list->head == NULL) {
+        node->next = list->head;
+        node->prev = NULL;
+        list->head = node;
+        list->tail = node;
+        list->length++;
+
+    // List not empty, need to access and insert at tail
+    } else {
+        list->tail->next = node;
+        node->next = NULL;
+        node->prev = list->tail;
+        list->tail = node;
+        list->length++;
+
+    }
+}
+
 
 // Prints all items stored in the linked list, requiring a caller defined print function that knows how to print each value
 void ll_print(struct LinkedList *list, void (* print_fn)(void*)) {
