@@ -411,10 +411,39 @@ void ll_reverse(struct LinkedList *list) {
     list->head = previous;
 }
 
+
 // Sorts a linked list relying on the caller defined comparator to know how to order items
 void ll_sort(struct LinkedList *list, bool (* comparator)(void*, void*)) {
 
+    // Go through each node in the list
+    // For each node
+
+    if (list->head == NULL) return;
+
+    int idx = 0;
+    bool swapped;
+
+    // Continue iterating over the whole linked list
+    while (idx < list->length) {
+        struct Node *current = list->head;
+        struct Node *prev = list->head;
+        swapped = false;
+
+        while (current->next != NULL) {
+
+            struct Node *temp = current->next;
+            if (comparator(current->value, temp->value)) {
+                swap_nodes(current->value, temp->value);
+                swapped = true;
+            }
+        }
+
+        if (swapped == false) break;
+
+        idx++;
+    }
 }
+
 
 
 // Swaps the value stored within two nodes
