@@ -392,18 +392,31 @@ struct LinkedList* ll_copy(struct LinkedList *orig) {
 void ll_reverse(struct LinkedList *list) {
     if (list->head == NULL) return;
 
+    // Store pointers to the current node and the most recently processed node
+    // Start at the head of the list, and with the most recently processed node set to NULL
     struct Node *current = list->head;
+    struct Node *last = NULL;
+
+    // Rely on the node currently being processed
     while (current != NULL) {
 
-        struct Node *temp = current->next;          // temp pointer to hold the next node in the list
-        current->next = current->prev;              // Point the current node `next` to the `prev` to flip its `next` pointer
-        current->prev = temp;                       // Point the current node `prev` to the next node in the list
-        current = temp;                             // Move the current node to the node next to the current
+        // Store the current nodes `next` node to prevent losing the link to the rest of the list
+        // Then we point the current nodes `next` pointer to its `prev` to flip the pointer
+        struct Node *temp = current->next;
+        current->next = current->prev;
+
+        // To move to the next node, point the current nodes `prev` to the original next node
+        // Store pointer to the node just reversed in `last` to track most recently reversed node
+        // Point the current node to the original next node
+        current->prev = temp;
+        last = current;
+        current = temp;
     }
 
+    // Point the tail of the list to the head,
+    // and the head to the most recently reversed node
     list->tail = list->head;
-    list->head = current->prev;
-
+    list->head = last;
 }
 
 
