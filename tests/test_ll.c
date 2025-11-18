@@ -15,6 +15,26 @@ int main() {
     struct LinkedList *linked_list = create_int_list();
     ll_print(linked_list, print_int);
 
+    ll_reverse(linked_list);
+    ll_print(linked_list, print_int);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     // struct LinkedList *linked_list = ll_init();
     // printf("LinkedList - Length: %d, Head: %p, Tail: %p\n", linked_list->length, linked_list->head, linked_list->tail);
 
