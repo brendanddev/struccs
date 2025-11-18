@@ -392,72 +392,38 @@ struct LinkedList* ll_copy(struct LinkedList *orig) {
 void ll_reverse(struct LinkedList *list) {
     if (list->head == NULL) return;
 
-    // Swap next and prev for every node
-    // Swap head and tail
 
-    // Not efficient....
-    struct Node *previous = NULL;
+
+    // Store the original next in a temp
+    // Swap next and prev
+    // Move to what used to be the next node → which is now stored in the temp
+    // That’s the clean reverse concept.
+
     struct Node *current = list->head;
-    struct Node *next = NULL;
+    while (current->next != NULL) {
 
-    while (current != NULL) {
-        next = current->next;
-        current->next = previous;
-        previous = current;
-        current = next;
+        struct Node *temp = current->next;          // temp pointer to hold the next node in the list
+        current->next = current->prev;              // Point the current node `next` to the `prev` to flip its `next` pointer
+        current->prev = temp;                       // Point the current node `prev` to the next node in the list
+        current = temp;                             // Move the current node to the node next to the current
     }
 
     list->tail = list->head;
-    list->head = previous;
+    list->head = current->prev;
+
 }
 
 
-// Sorts a linked list relying on the caller defined comparator to know how to order items
-void ll_sort(struct LinkedList *list, bool (* comparator)(void*, void*)) {
-
-    // Go through each node in the list
-    // For each node
-
-    if (list->head == NULL) return;
-
-    int idx = 0;
-    bool swapped;
-
-    // Continue iterating over the whole linked list
-    while (idx < list->length) {
-        struct Node *current = list->head;
-        struct Node *prev = list->head;
-        swapped = false;
-
-        while (current->next != NULL) {
-
-            struct Node *temp = current->next;
-            if (comparator(current->value, temp->value)) {
-                swap_nodes(current->value, temp->value);
-                swapped = true;
-            }
-        }
-
-        if (swapped == false) break;
-
-        idx++;
-    }
-}
+// Sorts a linked list using a Bubble Sort implementation and relying on a caller defined comparator to know how to order items
+void ll_bsort(struct LinkedList *list, bool (* comparator)(void*, void*)) { }
 
 
 
 // Swaps the value stored within two nodes
 void swap_nodes(struct Node *a, struct Node *b) {
-
     void *temp = a->value;
     a->value = b->value;
     b->value = temp;
-
-
-
-    // struct Node *temp = a;
-    // a = b;
-    // b = temp;
 }
 
 

@@ -18,26 +18,24 @@ int main() {
     ll_reverse(linked_list);
     ll_print(linked_list, print_int);
 
-    ll_sort(linked_list, greater_than);
-    ll_print(linked_list, print_int);
 
 
 
-    struct LinkedList *linked_list2 = ll_init();
+    // struct LinkedList *linked_list2 = ll_init();
 
-    int num1 = 100;
-    int num2 = 999;
-    struct Node *node1 = ll_init_node(&num1, sizeof(int));
-    struct Node *node2 = ll_init_node(&num2, sizeof(int));
-    ll_insert_tail(node1, linked_list2);
-    ll_insert_tail(node2, linked_list2);
-    ll_print(linked_list2, print_int);
+    // int num1 = 100;
+    // int num2 = 999;
+    // struct Node *node1 = ll_init_node(&num1, sizeof(int));
+    // struct Node *node2 = ll_init_node(&num2, sizeof(int));
+    // ll_insert_tail(node1, linked_list2);
+    // ll_insert_tail(node2, linked_list2);
+    // ll_print(linked_list2, print_int);
 
-    swap_nodes(node1, node2);
-    ll_print(linked_list2, print_int);
+    // swap_nodes(node1, node2);
+    // ll_print(linked_list2, print_int);
 
-    swap_nodes(node1, node2);
-    ll_print(linked_list2, print_int);
+    // swap_nodes(node1, node2);
+    // ll_print(linked_list2, print_int);
 
 
 
