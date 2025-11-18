@@ -18,6 +18,9 @@ int main() {
     ll_reverse(linked_list);
     ll_print(linked_list, print_int);
 
+    ll_sort(linked_list, greater_than);
+    ll_print(linked_list, print_int);
+
 
 
     struct LinkedList *linked_list2 = ll_init();
