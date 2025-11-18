@@ -395,9 +395,19 @@ void ll_reverse(struct LinkedList *list) {
     // Swap next and prev for every node
     // Swap head and tail
 
-    
+    struct Node *previous = NULL;
+    struct Node *current = list->head;
+    struct Node *next = NULL;
 
+    while (current != NULL) {
+        next = current->next;
+        current->next = previous;
+        previous = current;
+        current = next;
+    }
 
+    list->tail = list->head;
+    list->head = previous;
 }
 
 // Returns whether the linked list is empty or not
