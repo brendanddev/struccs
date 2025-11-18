@@ -395,6 +395,7 @@ void ll_reverse(struct LinkedList *list) {
     // Swap next and prev for every node
     // Swap head and tail
 
+    // Not efficient....
     struct Node *previous = NULL;
     struct Node *current = list->head;
     struct Node *next = NULL;
@@ -409,6 +410,28 @@ void ll_reverse(struct LinkedList *list) {
     list->tail = list->head;
     list->head = previous;
 }
+
+// Sorts a linked list relying on the caller defined comparator to know how to order items
+void ll_sort(struct LinkedList *list, bool (* comparator)(void*, void*)) {
+
+}
+
+
+// Swaps the value stored within two nodes
+void swap_nodes(struct Node *a, struct Node *b) {
+
+    void *temp = a->value;
+    a->value = b->value;
+    b->value = temp;
+
+
+
+    // struct Node *temp = a;
+    // a = b;
+    // b = temp;
+}
+
+
 
 // Returns whether the linked list is empty or not
 bool ll_is_empty(struct LinkedList *list) {
