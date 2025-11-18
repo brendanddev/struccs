@@ -434,14 +434,17 @@ void swap_nodes(struct LinkedList *list, struct Node *a, struct Node *b) {
     // If two nodes are adjacent
     } else if (a->next == b || b->next == a) {
 
-    // If either node is the head of list
-    } else if (a == list->head || b == list->head) {
+        struct Node *aprev = a->prev;
+        struct Node *bnext = b->next;
 
-    // If either node is the tail of the list
-    } else if (a == list->tail || b == list->tail) {
+        a->next = b->next;
+        b->next->prev = a->next;
+
+        b->prev = a->prev;
+        a->prev->next = b->prev;
 
 
-    // If the nodes are non adjacent and neither is head/tail
+    // If the nodes are non adjacent
     } else {
 
     }
