@@ -24,5 +24,6 @@ void print_int(void *value);
 
 // Comparators
 bool compare_int(void *a, void *b);
+bool greater_than(void *a, void *b);
 
 #endif

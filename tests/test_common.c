@@ -39,6 +39,13 @@ bool compare_int(void *a, void *b) {
     return false;
 }
 
+bool greater_than(void *a, void *b) {
+    int ia = * (int *) a;
+    int ib = * (int *) b;
+    if (ia > ib) return true;
+    return false;
+}
+
 // Prints an integer value
 void print_int(void *value) {
     printf("[%d] ", * (int *) value);
