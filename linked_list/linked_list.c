@@ -424,13 +424,36 @@ void ll_reverse(struct LinkedList *list) {
 void ll_bsort(struct LinkedList *list, bool (* comparator)(void*, void*)) { }
 
 
+// Swaps the positions of two nodes in the linked list
+void swap_nodes(struct LinkedList *list, struct Node *a, struct Node *b) {
 
-// Swaps the value stored within two nodes
-void swap_nodes(struct Node *a, struct Node *b) {
-    void *temp = a->value;
-    a->value = b->value;
-    b->value = temp;
+    // If two nodes are the same
+    if (a == b) {
+        return;
+    
+    // If two nodes are adjacent
+    } else if (a->next == b || b->next == a) {
+
+    // If either node is the head of list
+    } else if (a == list->head || b == list->head) {
+
+    // If either node is the tail of the list
+    } else if (a == list->tail || b == list->tail) {
+
+
+    // If the nodes are non adjacent and neither is head/tail
+    } else {
+
+    }
+
 }
+
+// // Swaps the value stored within two nodes
+// void swap_nodes(struct Node *a, struct Node *b) {
+//     void *temp = a->value;
+//     a->value = b->value;
+//     b->value = temp;
+// }
 
 
 
