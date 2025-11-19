@@ -61,3 +61,8 @@ bool greater_than(void *a, void *b) {
 void print_int(void *value) {
     printf("[%d] ", * (int *) value);
 }
+
+// Prints a char value
+void print_chr(void *value) {
+    printf("[%c] ", * (char *) value);
+}

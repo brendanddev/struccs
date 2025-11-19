@@ -16,6 +16,7 @@ struct LinkedList* create_chr_list(void);
 
 // Print functions
 void print_int(void *value);
+void print_chr(void *value);
 
 // Comparators
 bool compare_int(void *a, void *b);
