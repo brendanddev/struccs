@@ -26,9 +26,10 @@ int main() {
 
     // test_get_set(linked_list);
     // test_find_contains(linked_list);
+    test_sorting(linked_list);
+    test_copy(linked_list);
 
     // test_swapping();
-    test_sorting(linked_list);
    
 
 
@@ -91,6 +92,14 @@ void test_find_contains(struct LinkedList *list) {
     } else {
         printf("The list does not contain %d\n", value);
     }
+}
+
+void test_copy(struct LinkedList *list) {
+
+    struct LinkedList *copy = ll_copy(list);
+    printf("Copied List: \n");
+    ll_print(copy, print_int);
+
 }
 
 // Tests the node swapping logic
