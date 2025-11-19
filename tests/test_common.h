@@ -11,6 +11,7 @@
 // Linked List factory functions
 struct LinkedList* create_int_list(void);
 struct LinkedList* create_int_list_from_size(int size);
+struct LinkedList* create_chr_list(void);
 
 
 // Print functions

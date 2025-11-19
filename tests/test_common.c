@@ -30,6 +30,17 @@ struct LinkedList* create_int_list_from_size(int size) {
     return linked_list;
 }
 
+// Creates a new LinkedList and populates it with chars
+struct LinkedList* create_chr_list(void) {
+    struct LinkedList *linked_list = ll_init();
+    for (int i = 0; i < 10; i++) {
+        char rd_chr = 'A' + rand() % 26;
+        struct Node *node = ll_init_node(&rd_chr, sizeof(char));
+        ll_insert_tail(node, linked_list);
+    }
+    return linked_list;
+}
+
 
 // Compares two integers
 bool compare_int(void *a, void *b) {
