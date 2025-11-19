@@ -44,7 +44,7 @@ void ll_clear(struct LinkedList *list);
 struct LinkedList* ll_copy(struct LinkedList *orig);
 void ll_reverse(struct LinkedList *list);
 
-void ll_sort(struct LinkedList *list, bool (* comparator)(void*, void*));
+void ll_bsort(struct LinkedList *list, bool (* comparator)(void*, void*));
 void swap_nodes(struct Node *a, struct Node *b);
 // void swap_nodes(struct LinkedList *list, struct Node *a, struct Node *b);
 

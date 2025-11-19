@@ -425,17 +425,19 @@ void ll_bsort(struct LinkedList *list, bool (* comparator)(void*, void*)) {
     if (list->head == NULL) return;
 
     bool swapped = true;
+    while (swapped) {
 
-
-    for (int i = 0; i < list->length - 1; i++) {
         swapped = false;
+        struct Node *current  = list->head;
 
-        for (int j = 0; j < list->length - i - 1; j++) {
-
+        while (current->next != NULL) {
+            if (comparator(current->value, current->next->value)) {
+                swap_nodes(current, current->next);
+                swapped = true;
+            }
+            current = current->next;
         }
     }
-
-
 }
 
 
