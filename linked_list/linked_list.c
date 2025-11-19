@@ -421,74 +421,48 @@ void ll_reverse(struct LinkedList *list) {
 
 
 // Sorts a linked list using a Bubble Sort implementation and relying on a caller defined comparator to know how to order items
-void ll_bsort(struct LinkedList *list, bool (* comparator)(void*, void*)) { }
+void ll_bsort(struct LinkedList *list, bool (* comparator)(void*, void*)) { 
+    if (list->head == NULL) return;
+
+    bool swapped = true;
 
 
-// Swaps the positions of two nodes in the linked list
-void swap_nodes(struct LinkedList *list, struct Node *a, struct Node *b) {
+    for (int i = 0; i < list->length - 1; i++) {
+        swapped = false;
 
-    // If two nodes are the same
-    if (a == b) {
-        return;
-    
-    // If two nodes are adjacent
-    } else if (a->next == b || b->next == a) {
+        for (int j = 0; j < list->length - i - 1; j++) {
 
-        // Store pointers to the node before `a` and the node after `b`
-        struct Node *aprev = a->prev;
-        struct Node *bnext = b->next;
-
-        if (bnext != NULL) {
-            a->next = bnext;    // point node a's `next` to the node after `b`
-            bnext->prev = a;    // point the node after `b` to `a`
         }
-
-        if (aprev != NULL) {
-            b->prev = aprev;    // point node b's `prev` to the node before `a`
-            aprev->next = b;    // point the node before `a` to `b`
-        }
-        
-        a->prev = b;
-        b->next = a;
-
-        // Need to check if surrounding pointers are NULL in the case of head/tail nodes
-        // as calling `bnext` on NULL would segfault
-
-        // If node `a` was the head
-        if (a == list->head) { 
-            list->head = b;
-        }
-
-        // If node `a` was the tail
-        if (a == list->tail) { 
-            list->tail = b;
-        }
-
-        // If node `b` was the head
-        if (b == list->head) { 
-            list->head = a;
-        }
-
-        // If node `b` was the tail
-        if (b == list->tail) {
-            list->tail = a;
-        }
-
-
-    // If the nodes are non adjacent
-    } else {
-
     }
+
 
 }
 
-// // Swaps the value stored within two nodes
-// void swap_nodes(struct Node *a, struct Node *b) {
-//     void *temp = a->value;
-//     a->value = b->value;
-//     b->value = temp;
-// }
 
+// Swaps the value stored within two nodes
+void swap_nodes(struct Node *a, struct Node *b) {
+    void *temp = a->value;
+    a->value = b->value;
+    b->value = temp;
+}
+
+
+// Swaps the positions of two nodes in the linked list
+// void swap_nodes(struct LinkedList *list, struct Node *a, struct Node *b) {
+
+//     // If two nodes are the same
+//     if (a == b) {
+//         return;
+    
+//     // If two nodes are adjacent
+//     } else if (a->next == b || b->next == a) {
+
+//     // If the nodes are non adjacent
+//     } else {
+
+//     }
+
+// }
 
 
 // Returns whether the linked list is empty or not
