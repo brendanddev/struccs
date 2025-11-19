@@ -14,20 +14,21 @@ void test_get_set(struct LinkedList *list);
 void test_find_contains(struct LinkedList *list);
 void test_copy(struct LinkedList *list);
 void test_swapping();
+void test_sorting(struct LinkedList *list);
 
 int main() {
 
-    // struct LinkedList *linked_list = create_int_list();
-    // ll_print(linked_list, print_int);
+    struct LinkedList *linked_list = create_int_list();
+    ll_print(linked_list, print_int);
 
-    // ll_reverse(linked_list);
-    // ll_print(linked_list, print_int);
+    ll_reverse(linked_list);
+    ll_print(linked_list, print_int);
 
     // test_get_set(linked_list);
     // test_find_contains(linked_list);
 
-    test_swapping();
-
+    // test_swapping();
+    test_sorting(linked_list);
    
 
 
@@ -103,9 +104,11 @@ void test_swapping() {
     ll_insert(node2, list);
     ll_print(list, print_int);
 
-    swap_nodes(list, node, node2);
     ll_print(list, print_int);
 
+}
 
-
+void test_sorting(struct LinkedList *list) {
+    ll_bsort(list, greater_than);
+    ll_print(list, print_int);
 }
