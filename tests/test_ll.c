@@ -38,13 +38,14 @@ int main() {
     
 
     // Free memory allocated by the linked list
-    // ll_discard(linked_list);
-    // linked_list = NULL;
+    ll_discard(linked_list);
+    linked_list = NULL;
     return 0;
 }
 
 
 
+// Test get and set functions
 void test_get_set(struct LinkedList *list) {
     int num;
     if (ll_get(list, 1, &num)) {    // should work
@@ -74,6 +75,7 @@ void test_get_set(struct LinkedList *list) {
     }
 }
 
+// Test find and contains functions
 void test_find_contains(struct LinkedList *list) {
     int num = 100;
     int found = ll_find(list, &num, compare_int);
@@ -91,6 +93,7 @@ void test_find_contains(struct LinkedList *list) {
     }
 }
 
+// Tests the node swapping logic
 void test_swapping() {
     
     int num = 100;
@@ -108,6 +111,7 @@ void test_swapping() {
 
 }
 
+// Tests the bubble sort function
 void test_sorting(struct LinkedList *list) {
     ll_bsort(list, greater_than);
     ll_print(list, print_int);

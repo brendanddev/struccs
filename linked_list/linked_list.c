@@ -449,24 +449,6 @@ void swap_nodes(struct Node *a, struct Node *b) {
 }
 
 
-// Swaps the positions of two nodes in the linked list
-// void swap_nodes(struct LinkedList *list, struct Node *a, struct Node *b) {
-
-//     // If two nodes are the same
-//     if (a == b) {
-//         return;
-    
-//     // If two nodes are adjacent
-//     } else if (a->next == b || b->next == a) {
-
-//     // If the nodes are non adjacent
-//     } else {
-
-//     }
-
-// }
-
-
 // Returns whether the linked list is empty or not
 bool ll_is_empty(struct LinkedList *list) {
     if (list->head == NULL) return true;
@@ -533,3 +515,24 @@ void ll_debug(struct LinkedList *list) {
 }
 
 
+
+
+
+
+
+// Swaps the positions of two nodes in the linked list
+// void swap_nodes(struct LinkedList *list, struct Node *a, struct Node *b) {
+
+//     // If two nodes are the same
+//     if (a == b) {
+//         return;
+    
+//     // If two nodes are adjacent
+//     } else if (a->next == b || b->next == a) {
+
+//     // If the nodes are non adjacent
+//     } else {
+
+//     }
+
+// }
