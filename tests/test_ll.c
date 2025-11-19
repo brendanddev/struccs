@@ -21,6 +21,9 @@ int main() {
     struct LinkedList *linked_list = create_int_list();
     ll_print(linked_list, print_int);
 
+    struct LinkedList *linked_list_chr = create_chr_list();
+    ll_print(linked_list_chr, print_chr);
+
     ll_reverse(linked_list);
     ll_print(linked_list, print_int);
 
