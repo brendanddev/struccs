@@ -438,15 +438,18 @@ void swap_nodes(struct LinkedList *list, struct Node *a, struct Node *b) {
         struct Node *aprev = a->prev;
         struct Node *bnext = b->next;
 
-        a->next = bnext;    // point node a's `next` to the node after `b`
-        bnext->prev = a;    // point the node after `b` to `a`
+        if (bnext != NULL) {
+            a->next = bnext;    // point node a's `next` to the node after `b`
+            bnext->prev = a;    // point the node after `b` to `a`
+        }
 
-        b->prev = aprev;    // point node b's `prev` to the node before `a`
-        aprev->next = b;    // point the node before `a` to `b`
+        if (aprev != NULL) {
+            b->prev = aprev;    // point node b's `prev` to the node before `a`
+            aprev->next = b;    // point the node before `a` to `b`
+        }
         
         a->prev = b;
         b->next = a;
-
 
         // Need to check if surrounding pointers are NULL in the case of head/tail nodes
         // as calling `bnext` on NULL would segfault
