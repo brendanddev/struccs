@@ -23,6 +23,7 @@ int main() {
     ll_print(linked_list, print_int);
 
     test_get_set(linked_list);
+    test_find_contains(linked_list);
 
    
 
@@ -66,5 +67,22 @@ void test_get_set(struct LinkedList *list) {
         printf("Set the item at index 1 to: %d\n", value);
     } else {
         printf("Failed to set the item\n");
+    }
+}
+
+void test_find_contains(struct LinkedList *list) {
+    int num = 100;
+    int found = ll_find(list, &num, compare_int);
+    if (found != -1) {
+        printf("Found %d at index: %d\n", num, found);
+    } else {
+        printf("Could not find the item\n");
+    }
+
+    int value = 709;
+    if (ll_contains(list, &value, compare_int)) {
+        printf("Found the item %d\n", value);
+    } else {
+        printf("The list does not contain %d\n", value);
     }
 }
