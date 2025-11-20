@@ -46,13 +46,13 @@ This project began as a simple **integer array** and has evolved into a comprehe
   *(The older Dynamic Array is preserved in `archive/` for reference and comparison.)*
 
 - **Linked List**:
-  - Doubly linked structure with both forward and backward traversal
-  - Generic type support through void* pointers and memcpy
-  - Optimized traversal: Automatically chooses head or tail as starting point based on target index position
-  - Flexible insertion: Add nodes at head (ll_insert), tail (ll_insert_tail), or any index (ll_insert_at)
-  - Flexible removal: Remove nodes from head (ll_remove), tail (ll_remove_tail), or any index (ll_remove_at)
-  - Search operations: Find elements by value with custom comparators (ll_find, ll_contains)
-  - Data access: Get and set values at any index with optimized bidirectional traversal
+  - Doubly **linked structure** with both forward and backward traversal
+  - Generic type support through `void*` pointers and `memcpy`
+  - **Optimized traversal:** Automatically chooses head or tail as starting point based on target index position
+  - **Flexible insertion:** Add nodes at head `(ll_insert)`, tail `(ll_insert_tail)`, or any index `(ll_insert_at)`
+  - **Flexible removal:** Remove nodes from head `(ll_remove)`, tail `(ll_remove_tail)`, or any index `(ll_remove_at)`
+  - **Search operations:** Find elements by value with custom comparators `(ll_find, ll_contains)`
+  - **Data access:** Get and set values at any index with optimized bidirectional traversal
 
 ---
 
@@ -60,7 +60,7 @@ This project began as a simple **integer array** and has evolved into a comprehe
 
 ```
 structures-from-scratch/
-├── archive/                    # Older DynamicArray implementation
+├── archive/                    # Older implementations
 ├── generic_array/              # GenericArray library
 │ ├── generic_array.h
 │ └── generic_array.c
