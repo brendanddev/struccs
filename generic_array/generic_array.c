@@ -213,8 +213,12 @@ void ga_discard(struct GenericArray *ga) {
 }
 
 // Prints the current state of the GenericArray
-void ga_print(struct GenericArray *ga) {
-    printf("Capacity: %d, Length: %d, Item Size: %zu bytes, Usage: %f\n", ga->capacity, ga->length, ga->item_size, ga_usage(ga));
+void ga_print(struct GenericArray *ga, void (* print_fn)(void*)) {
+    if (ga->length == 0) return;
+    for (int i = 0; i < ga->length; i++) {
+        void *curr = (char *) ga->ptrData + i * ga->item_size;
+        print_fn(curr);
+    }
 }
 
 // Bubble Sort implementation for an array of integers with a caller defined 

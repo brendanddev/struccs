@@ -35,7 +35,7 @@ int ga_size(struct GenericArray *ga);
 int ga_capacity(struct GenericArray *ga);
 double ga_usage(struct GenericArray *ga);
 void ga_discard(struct GenericArray *ga);
-void ga_print(struct GenericArray *ga);
+void ga_print(struct GenericArray *ga, void (* print_fn)(void*));
 void ga_sort(struct GenericArray *ga, bool (* comparator)(void*, void*));
 void ga_reverse(struct GenericArray *ga);
 struct GenericArray* ga_copy(struct GenericArray *ga);
