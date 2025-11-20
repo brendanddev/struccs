@@ -48,7 +48,7 @@ struct GenericArray * ga_init(size_t item_size) {
 }
 
 // Adds an item to the end of the array
-bool _append(struct GenericArray *ga, void *itemPtr) { 
+bool ga_append(struct GenericArray *ga, void *itemPtr) { 
 
     // Check if resize is needed
     if (ga->length == ga->capacity) {
@@ -70,7 +70,7 @@ bool _append(struct GenericArray *ga, void *itemPtr) {
 }
 
 // Inserts a new item at a specified index within the GenericArray
-bool _add(struct GenericArray *ga, int index, void *in_ptr) {
+bool ga_add(struct GenericArray *ga, int index, void *in_ptr) {
     if (index < 0 || index > ga->length) return false;
 
     // Check if resize is needed
@@ -91,7 +91,7 @@ bool _add(struct GenericArray *ga, int index, void *in_ptr) {
 }
 
 // Retrieves an item from a specified index in the array
-bool _get(struct GenericArray *ga, int index, void *out_ptr) {
+bool ga_get(struct GenericArray *ga, int index, void *out_ptr) {
     if (index < 0 || index >= ga->length) return false;
 
     // Calculate the memory address of the item at the given index by
@@ -104,7 +104,7 @@ bool _get(struct GenericArray *ga, int index, void *out_ptr) {
     return true;
 }
 
-bool _set(struct GenericArray *ga, int index, void *in_ptr) {
+bool ga_set(struct GenericArray *ga, int index, void *in_ptr) {
     if (index < 0 || index >= ga->length) return false;
 
     // Calculate the memory address of the item at the given index
@@ -117,7 +117,7 @@ bool _set(struct GenericArray *ga, int index, void *in_ptr) {
 }
 
 // Find the index of a specified item in the array
-int _find(struct GenericArray *ga, void *item_ptr, bool (*comparator)(void*, void*)) {
+int ga_find(struct GenericArray *ga, void *item_ptr, bool (*comparator)(void*, void*)) {
 
     for (int i = 0; i < ga->length; i++) {
         void *curr = (char *) ga->ptrData + i * ga->item_size;
@@ -132,12 +132,12 @@ int _find(struct GenericArray *ga, void *item_ptr, bool (*comparator)(void*, voi
 }
 
 // Removes the last item in the GenericArray
-bool _remove_last(struct GenericArray *ga) {
+bool ga_remove_last(struct GenericArray *ga) {
     if (!ga || ga->length == 0) return false;
     ga->length--;
 
     // Check if memory is underutilized
-    if (_usage(ga) < SHRINK_THRESHOLD) { 
+    if (ga_usage(ga) < SHRINK_THRESHOLD) { 
         printf("SHRINKING...\n");
         shrink(ga);
     }
@@ -145,12 +145,12 @@ bool _remove_last(struct GenericArray *ga) {
 }
 
 // Removes an item from the specified index in the GenericArray
-bool _remove_at(struct GenericArray *ga, int index) {
+bool ga_remove_at(struct GenericArray *ga, int index) {
     if (index < 0 || index >= ga->length) return false;
     ga->length--;
 
     // Check if memory is underutilized
-    if (_usage(ga) < SHRINK_THRESHOLD) { 
+    if (ga_usage(ga) < SHRINK_THRESHOLD) { 
         printf("SHRINKING...\n");
         shrink(ga);
     }
@@ -163,7 +163,7 @@ bool _remove_at(struct GenericArray *ga, int index) {
 // Checks if the GenericArray contains another item
 // Takes a pointer to another function that defines how the two items will be compared,
 // and another pointer to the target item we are searching the array for
-bool _contains(struct GenericArray *ga, bool (*funcptr)(void*, void*), void *trgtptr) {
+bool ga_contains(struct GenericArray *ga, bool (*funcptr)(void*, void*), void *trgtptr) {
     for (int i = 0; i < ga->length; i++) {
         // Current address = start of memory + index * item_size
         // For the item at index i: Start at base address of the array
@@ -182,30 +182,30 @@ bool _contains(struct GenericArray *ga, bool (*funcptr)(void*, void*), void *trg
 // Clears the contents of the array by setting the length to 0
 // The allocated memory and existing data remain intact but are marked as unused
 // Old values will be overwritten when new items are added
-bool _clear(struct GenericArray *ga) {
+bool ga_clear(struct GenericArray *ga) {
     if (!ga) return false;
     ga->length = 0;
     return true;
 }
 
 // Returns the length of the GenericArray
-int _size(struct GenericArray *ga) {
+int ga_size(struct GenericArray *ga) {
     return ga->length;
 }
 
 // Returns the current capacity of the GenericArray
-int _capacity(struct GenericArray *ga) {
+int ga_capacity(struct GenericArray *ga) {
     return ga->capacity;
 }
 
 // Calculates how full the array is internally based on the current number of elements and total allocated space
-double _usage(struct GenericArray *ga) {
+double ga_usage(struct GenericArray *ga) {
     double usage = (double) ga->length / ga->capacity * 100;
     return usage;
 }
 
 // Frees any memory allocated by the GenericArray internal array and struct
-void _discard(struct GenericArray *ga) {
+void ga_discard(struct GenericArray *ga) {
     if (ga != NULL) {
         free(ga->ptrData);
         free(ga);
@@ -213,13 +213,13 @@ void _discard(struct GenericArray *ga) {
 }
 
 // Prints the current state of the GenericArray
-void _print(struct GenericArray *ga) {
-    printf("Capacity: %d, Length: %d, Item Size: %zu bytes, Usage: %f\n", ga->capacity, ga->length, ga->item_size, _usage(ga));
+void ga_print(struct GenericArray *ga) {
+    printf("Capacity: %d, Length: %d, Item Size: %zu bytes, Usage: %f\n", ga->capacity, ga->length, ga->item_size, ga_usage(ga));
 }
 
 // Bubble Sort implementation for an array of integers with a caller defined 
 // comparator function to determine how to order elements
-void _sort(struct GenericArray *ga, bool (* comparator)(void*, void*)) { 
+void ga_sort(struct GenericArray *ga, bool (* comparator)(void*, void*)) { 
     bool is_swapped;
     for (int i = 0; i < ga->length - 1; i++) {
         
@@ -245,7 +245,7 @@ void _sort(struct GenericArray *ga, bool (* comparator)(void*, void*)) {
 }
 
 // Reverses items in-place within the array
-void _reverse(struct GenericArray *ga) {
+void ga_reverse(struct GenericArray *ga) {
 
     // Loop until the middle index of the array to swap front/back pairs in each iteration
     // Once half the array is handled, the entire array is reversed
@@ -260,7 +260,7 @@ void _reverse(struct GenericArray *ga) {
 }
 
 // Makes and returns a deep copy of the GenericArray provided
-struct GenericArray * _copy(struct GenericArray *ga) {
+struct GenericArray* ga_copy(struct GenericArray *ga) {
 
     // Allocate memory for the copy of the struct itself
     struct GenericArray *ga_copy = NULL;
@@ -288,7 +288,7 @@ struct GenericArray * _copy(struct GenericArray *ga) {
 
 // Searches for an item within a sorted array using a Binary Search implementation and a caller defined comparator function
 // to determine how items in the array should be compared
-bool _binary_find(struct GenericArray *ga, void *item_ptr, int (* comparator)(void*, void*)) {
+bool ga_binary_find(struct GenericArray *ga, void *item_ptr, int (* comparator)(void*, void*)) {
     // Initialize low and high indexes
     int low = 0;
     int high = ga->length - 1;
