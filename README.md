@@ -13,12 +13,12 @@ This project began as a simple **integer array** and has evolved into a comprehe
 
 - **GenericArray**: A type-agnostic, dynamically resizing array that can store any data type using `void*` pointers and function pointers for custom operations.
 
-- **LinkedList**: In progress...
+- **LinkedList**: A fully functional doubly linked list with generic type support, bidirectional traversal optimization, and comprehensive manipulation operations.
 
 ### Planned Implementations
 
-- **Stack & Queue**
 - **Hash Table**
+- **Stack & Queue**
 - **Binary Search Tree**
 - **Heap / Priority Queue**
 - More advanced structures as the project evolves
@@ -46,6 +46,13 @@ This project began as a simple **integer array** and has evolved into a comprehe
   *(The older Dynamic Array is preserved in `archive/` for reference and comparison.)*
 
 - **Linked List**:
+  - Doubly linked structure with both forward and backward traversal
+  - Generic type support through void* pointers and memcpy
+  - Optimized traversal: Automatically chooses head or tail as starting point based on target index position
+  - Flexible insertion: Add nodes at head (ll_insert), tail (ll_insert_tail), or any index (ll_insert_at)
+  - Flexible removal: Remove nodes from head (ll_remove), tail (ll_remove_tail), or any index (ll_remove_at)
+  - Search operations: Find elements by value with custom comparators (ll_find, ll_contains)
+  - Data access: Get and set values at any index with optimized bidirectional traversal
 
 ---
 
@@ -146,6 +153,7 @@ clang generic_array.c utils.c main.c -o out
 
 ## Usage Example
 
+### Generic Array
 ```c
 #include "generic_array.h"
 
@@ -171,6 +179,45 @@ if (_contains(ga, compare_int, &target)) {
 
 // Clean up
 _discard(ga);
+```
+
+### Linked List
+```c
+#include "linked_list.h"
+
+// Create a new linked list
+struct LinkedList *list = ll_init();
+
+// Add some integers
+int values[] = {10, 20, 30, 40};
+for (int i = 0; i < 4; i++) {
+    struct Node *node = ll_init_node(&values[i], sizeof(int));
+    ll_insert_tail(node, list);
+}
+
+// Define a comparison function
+bool compare_int(void *a, void *b) {
+    return (*(int*)a == *(int*)b);
+}
+
+// Search for a value
+int target = 30;
+int index = ll_find(list, &target, compare_int);
+if (index != -1) {
+    printf("Found %d at index %d\n", target, index);
+}
+
+// Access an element
+int value;
+if (ll_get(list, 2, &value)) {
+    printf("Element at index 2: %d\n", value);
+}
+
+// Reverse the list
+ll_reverse(list);
+
+// Clean up
+ll_discard(list);
 ```
 
 ---

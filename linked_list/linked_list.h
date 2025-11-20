@@ -43,12 +43,8 @@ bool ll_contains(struct LinkedList *list, void *item, bool (* comparator)(void*,
 void ll_clear(struct LinkedList *list);
 struct LinkedList* ll_copy(struct LinkedList *orig);
 void ll_reverse(struct LinkedList *list);
-
 void ll_bsort(struct LinkedList *list, bool (* comparator)(void*, void*));
 void swap_nodes(struct Node *a, struct Node *b);
-// void swap_nodes(struct LinkedList *list, struct Node *a, struct Node *b);
-
-
 int ll_size(struct LinkedList *list);
 bool ll_is_empty(struct LinkedList *list);
 void ll_discard_node(struct Node *node);
@@ -56,5 +52,7 @@ void ll_discard_all_nodes(struct LinkedList *list);
 void ll_discard(struct LinkedList *list);
 void ll_print(struct LinkedList *list, void (* print_fn)(void*));
 void ll_debug(struct LinkedList *list);
+
+void swap_node_positions(struct LinkedList *list, struct Node *a, struct Node *b);
 
 #endif
