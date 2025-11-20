@@ -18,7 +18,7 @@ static void swap(struct GenericArray *ga, void *val1, void *val2);
 
 
 // Initializes a new GenericArray
-struct GenericArray * _init(size_t item_size) {
+struct GenericArray * ga_init(size_t item_size) {
 
     // Allocate memory for the struct
     struct GenericArray *ga = NULL;

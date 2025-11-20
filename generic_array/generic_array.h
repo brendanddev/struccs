@@ -21,24 +21,24 @@ typedef struct GenericArray {
 } GenericArray;
 
 
-struct GenericArray * _init(size_t item_size);
-bool _append(struct GenericArray *ga, void *item_ptr);
-bool _add(struct GenericArray *ga, int index, void *in_ptr);
-bool _get(struct GenericArray *ga, int index, void *out_ptr);
-bool _set(struct GenericArray *ga, int index, void *in_ptr);
-int _find(struct GenericArray *ga, void *item_ptr, bool (* comparator)(void*, void*));
-bool _remove_last(struct GenericArray *ga);
-bool _remove_at(struct GenericArray *ga, int index);
-bool _contains(struct GenericArray *ga, bool (*funcptr)(void*, void*), void *trgtptr);
-bool _clear(struct GenericArray *ga);
-int _size(struct GenericArray *ga);
-int _capacity(struct GenericArray *ga);
-double _usage(struct GenericArray *ga);
-void _discard(struct GenericArray *ga);
-void _print(struct GenericArray *ga);
-void _sort(struct GenericArray *ga, bool (* comparator)(void*, void*));
-void _reverse(struct GenericArray *ga);
-struct GenericArray * _copy(struct GenericArray *ga);
-bool _binary_find(struct GenericArray *ga, void *item_ptr, int (* comparator)(void*, void*));
+struct GenericArray* ga_init(size_t item_size);
+bool ga_append(struct GenericArray *ga, void *item_ptr);
+bool ga_add(struct GenericArray *ga, int index, void *in_ptr);
+bool ga_get(struct GenericArray *ga, int index, void *out_ptr);
+bool ga_set(struct GenericArray *ga, int index, void *in_ptr);
+int ga_find(struct GenericArray *ga, void *item_ptr, bool (* comparator)(void*, void*));
+bool ga_remove_last(struct GenericArray *ga);
+bool ga_remove_at(struct GenericArray *ga, int index);
+bool ga_contains(struct GenericArray *ga, bool (*funcptr)(void*, void*), void *trgtptr);
+bool ga_clear(struct GenericArray *ga);
+int ga_size(struct GenericArray *ga);
+int ga_capacity(struct GenericArray *ga);
+double ga_usage(struct GenericArray *ga);
+void ga_discard(struct GenericArray *ga);
+void ga_print(struct GenericArray *ga);
+void ga_sort(struct GenericArray *ga, bool (* comparator)(void*, void*));
+void ga_reverse(struct GenericArray *ga);
+struct GenericArray* ga_copy(struct GenericArray *ga);
+bool ga_binary_find(struct GenericArray *ga, void *item_ptr, int (* comparator)(void*, void*));
 
 #endif
