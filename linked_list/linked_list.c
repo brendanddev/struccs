@@ -448,34 +448,50 @@ void swap_nodes(struct Node *a, struct Node *b) {
     b->value = temp;
 }
 
+// TODO:
 // 1. Identify the two nodes: current & next
 // 2. Keep track of surrounding nodes: prev (current->prev), after (next->next)
 // 3. Update pointers of the two nodes themselves
 // 4. Update the surrounding nodes (If prev exists, if after exists)
 // 5. Update the head pointer if needed
 // 6. After swapping, current now points to the second node in the pair
-void swap_node_positions(struct LinkedList *list, struct Node *a, struct Node *b) {
-
-}
-
-
 
 // Swaps the positions of two nodes in the linked list
-// void swap_nodes(struct LinkedList *list, struct Node *a, struct Node *b) {
+void swap_node_positions(struct LinkedList *list, struct Node *a, struct Node *b) {
 
-//     // If two nodes are the same
-//     if (a == b) {
-//         return;
-    
-//     // If two nodes are adjacent
-//     } else if (a->next == b || b->next == a) {
+    // Nodes are the same
+    if (a == b) {
+        return;
+    // Nodes are adjacent
+    } else if (a->next == b || b->next == a) {
 
-//     // If the nodes are non adjacent
-//     } else {
+        // Track surronding
+        struct Node *aprev = a->prev;       // could be NULL
+        struct Node *bnext = b->next;
 
-//     }
+        // Update pointers of the two nodes themselves
+        a->next = bnext;
+        b->next = a;
 
-// }
+        if (aprev != NULL) {
+            aprev->next = b;
+        }
+
+        if (bnext != NULL) {
+            bnext->prev = a;
+        }
+
+
+
+    // Nodes not adjadent
+    } else {
+
+
+    }
+
+
+
+}
 
 
 // Returns whether the linked list is empty or not
