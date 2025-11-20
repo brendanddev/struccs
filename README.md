@@ -81,29 +81,29 @@ structures-from-scratch/
 ## Performance Characteristics
 
 ### Generic Array Operations
-| Operation       | Time Complexity | Notes                                                                      |
-|-----------------|---------------------|----------------------------------------------------------------------- |
-| `_append`       | **O(1) amortized**  | Adds to the end, occasionally needing resize                           |               
-| `_add`          | **O(n)**            | Inserts at an index, requires shifting subsequent elements right.      |
-| `_get`          | **O(1)**            | Directly accesses element by index.                                    |
-| `_set`          | **O(1)**            | Overwrites an element at a given index.                                |
-| `_find`         | **O(n)**            | Does a Linear Search; depends on user-supplied comparator.             |
-| `_contains`     | **O(n)**            | Checks all elements using provided comparator.                         |
-| `_remove_last`  | **O(1) amortized**  | Removes last element; may trigger shrink when underutilized.           |
-| `_remove_at`    | **O(n)**            | Removes element at index and shifts remaining items left.              |
-| `_clear`        | **O(1)**            | Sets `length` to 0 without freeing memory.                             |
-| `_size`         | **O(1)**            | Returns current number of elements.                                    |
-| `_capacity`     | **O(1)**            | Returns total allocated slots.                                         |
-| `_usage`        | **O(1)**            | Computes fill ratio as percentage.                                     |
-| `_discard`      | **O(1)**            | Frees allocated memory for array and struct.                           |
-| `_sort`         | **O(n²)**           | Bubble sort implementation; comparator determines ordering.            |
-| `_reverse`      | **O(n)**            | Swaps front/back elements in place.                                    |
-| `_copy`         | **O(n)**            | Performs a deep copy of struct and all elements.                       |
-| `resize`        | **O(n)**            | Allocates larger memory block and copies existing items.               |
-| `shrink`        | **O(n)**            | Allocates smaller memory block and copies existing items.              |
-| `shift_right`   | **O(n)**            | Moves all elements after insertion index one slot right.               |
-| `shift_left`    | **O(n)**            | Moves all elements after deletion index one slot left.                 |
-| `swap`          | **O(1)**            | Exchanges two items using temporary memory.                            |
+| Operation       | Time Complexity | Notes                                                                         |
+|--------------------|---------------------|----------------------------------------------------------------------- |
+| `ga_append`        | **O(1) amortized**  | Adds to the end, occasionally needing resize                           |               
+| `ga_add`           | **O(n)**            | Inserts at an index, requires shifting subsequent elements right.      |
+| `ga_get`           | **O(1)**            | Directly accesses element by index.                                    |
+| `ga_set`           | **O(1)**            | Overwrites an element at a given index.                                |
+| `ga_find`          | **O(n)**            | Does a Linear Search; depends on user-supplied comparator.             |
+| `ga_contains`      | **O(n)**            | Checks all elements using provided comparator.                         |
+| `ga_remove_last`   | **O(1) amortized**  | Removes last element; may trigger shrink when underutilized.           |
+| `ga_remove_at`     | **O(n)**            | Removes element at index and shifts remaining items left.              |
+| `ga_clear`         | **O(1)**            | Sets `length` to 0 without freeing memory.                             |
+| `ga_size`          | **O(1)**            | Returns current number of elements.                                    |
+| `ga_capacity`      | **O(1)**            | Returns total allocated slots.                                         |
+| `ga_usage`         | **O(1)**            | Computes fill ratio as percentage.                                     |
+| `ga_discard`       | **O(1)**            | Frees allocated memory for array and struct.                           |
+| `ga_sort`          | **O(n²)**           | Bubble sort implementation; comparator determines ordering.            |
+| `ga_reverse`       | **O(n)**            | Swaps front/back elements in place.                                    |
+| `ga_copy`          | **O(n)**            | Performs a deep copy of struct and all elements.                       |
+| `resize`           | **O(n)**            | Allocates larger memory block and copies existing items.               |
+| `shrink`           | **O(n)**            | Allocates smaller memory block and copies existing items.              |
+| `shift_right`      | **O(n)**            | Moves all elements after insertion index one slot right.               |
+| `shift_left`       | **O(n)**            | Moves all elements after deletion index one slot left.                 |
+| `swap`             | **O(1)**            | Exchanges two items using temporary memory.                            |
 
 ### Linked List Operations
 | Operation       | Time Complexity    | Notes                                                       |
