@@ -111,6 +111,16 @@ structures-from-scratch/
 | ll_set          | Optimized **O(n)** | Traverses to the index to update the node's data.           |
 | ll_find         | **O(n)**           | Linear search through nodes using comparator function.      | 
 | ll_contains     | **O(n)**           | Checks for existence of an item using comparator function.  |
+| ll_clear        | **O(n)**           | Frees all nodes but retains list structure.                 |
+| ll_copy         | **O(n)**           | Deep copies the entire list and its nodes.                  |
+| ll_reverse      | **O(n)**           | Reverses the order of nodes in the list.                    |
+| ll_bsort        | **O(n²)**          | Bubble sort implementation; comparator determines ordering. |
+| swap_nodes      | **O(1)**           | Swaps data between two nodes.                               |
+| ll_size         | **O(1)**           | Returns the number of nodes in the list.                    |
+| ll_is_empty     | **O(1)**           | Checks if the list has no nodes.                            |
+| ll_discard_node | **O(1)**           | Frees a single node.                                        |
+| ll_discard_all_nodes | **O(n)**      | Frees all nodes but retains list structure.                 |
+| ll_discard      | **O(n)**           | Frees all nodes and the list structure.                     |
 
 ---
 
