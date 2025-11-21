@@ -31,13 +31,11 @@ struct Node* stack_create_node(void *val, size_t size);
 struct Stack* stack_create();
 bool stack_push(struct Stack *stack, void *value, size_t size);
 bool stack_peek(struct Stack *stack, void *out);
-bool stack_pop(struct Stack *stack);
+bool stack_pop(struct Stack *stack, void *out);
+void stack_clear(struct Stack *stack);
 bool stack_is_empty(struct Stack *stack);
 int stack_size(struct Stack *stack);
 void stack_print(struct Stack *stack, void (* print_fn)(void*));
-
-void stack_discard_node();
-void stack_discard_all_nodes();
-void stack_discard();
+void stack_discard(struct Stack *stack);
 
 #endif

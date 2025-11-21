@@ -10,6 +10,11 @@
 /// Brendan Dileo - November 21 2025
 
 
+// Prototypes
+static void stack_discard_node(struct Node *node);
+static void stack_discard_all_nodes(struct Stack *stack);
+
+
 // Creates a new node to be stored in the stack
 struct Node* stack_create_node(void *val, size_t size) {
 
@@ -82,7 +87,16 @@ bool stack_peek(struct Stack *stack, void *out) {
 }
 
 // Pops the node stored at the top of the stack
-bool stack_pop(struct Stack *stack) {
+bool stack_pop(struct Stack *stack, void *out) {
+    if (stack_is_empty(stack)) return false;
+
+    // store pointer to the current top node
+    // free the top node value + struct
+    // set new top to next pointed to by temp pointer
+}
+
+
+void stack_clear(struct Stack *stack) {
 
 }
 
@@ -102,5 +116,29 @@ int stack_size(struct Stack *stack) {
 void stack_print(struct Stack *stack, void (* print_fn)(void*)) {
     for (struct Node *current = stack->top; current != NULL; current = current->next) {
         print_fn(current->value);
+    }
+}
+
+void stack_discard(struct Stack *stack) {
+    if (stack != NULL) {
+        stack_discard_all_nodes(stack);
+        free(stack);
+    }
+}
+
+
+
+// Frees the memory occupied by a single node
+static void stack_discard_node(struct Node *node) {
+    if (node != NULL) {
+        free(node->value);
+        free(node);
+    }
+}
+
+// Frees the memory occupied by each node in the stack
+static void stack_discard_all_nodes(struct Stack *stack) {
+    for (struct Node *current = stack->top; current != NULL; current = current->next) {
+        stack_discard_node(current);
     }
 }
