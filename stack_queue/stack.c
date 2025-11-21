@@ -95,11 +95,12 @@ bool stack_pop(struct Stack *stack, void *out) {
     // set new top to next pointed to by temp pointer
 }
 
-
-void stack_clear(struct Stack *stack) {
-
+// Clears the contents of the stack but keeps the stack itself
+void stack_clear(struct Stack *stack) { 
+    stack_discard_all_nodes(stack);
+    stack->top = NULL;
+    stack->length = 0;
 }
-
 
 // Returns a boolean value indicating whether the stack is empty or not
 bool stack_is_empty(struct Stack *stack) {
@@ -119,6 +120,7 @@ void stack_print(struct Stack *stack, void (* print_fn)(void*)) {
     }
 }
 
+// Frees the memory occupied by the stack
 void stack_discard(struct Stack *stack) {
     if (stack != NULL) {
         stack_discard_all_nodes(stack);
@@ -126,6 +128,8 @@ void stack_discard(struct Stack *stack) {
     }
 }
 
+
+// Private helper functions, linkage limited to this file
 
 
 // Frees the memory occupied by a single node
@@ -138,7 +142,10 @@ static void stack_discard_node(struct Node *node) {
 
 // Frees the memory occupied by each node in the stack
 static void stack_discard_all_nodes(struct Stack *stack) {
-    for (struct Node *current = stack->top; current != NULL; current = current->next) {
+    struct Node *current = stack->top;
+    while (current != NULL) {
+        struct Node *next = current->next;
         stack_discard_node(current);
+        current = next;
     }
 }
