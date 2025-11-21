@@ -504,9 +504,6 @@ void ll_bsort(struct LinkedList *list, bool (* comparator)(void*, void*)) {
     }
 }
 
-void ll_isort(struct LinkedList *list, bool (* comparator)(void*, void*)) { 
-}
-
 // Swaps the value stored within two nodes
 void swap_nodes(struct Node *a, struct Node *b) {
     void *temp = a->value;

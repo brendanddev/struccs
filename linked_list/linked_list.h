@@ -52,7 +52,6 @@ void ll_print(struct LinkedList *list, void (* print_fn)(void*));
 void ll_debug(struct LinkedList *list);
 
 void ll_bsort(struct LinkedList *list, bool (* comparator)(void*, void*));
-void ll_isort(struct LinkedList *list, bool (* comparator)(void*, void*));
 void swap_node_positions(struct LinkedList *list, struct Node *a, struct Node *b);
 void swap_nodes(struct Node *a, struct Node *b);
 
