@@ -9,6 +9,9 @@
 /// Brendan Dileo, November 21 2025
 
 
+void print_int(void *value) {
+    printf("[%d] ", * (int *) value);
+}
 
 int main() {
 
@@ -21,6 +24,16 @@ int main() {
 
     printf("Stack is empty? %d  (1 = true, 0 = false) \n", stack_is_empty(stack));
     printf("Stack Size: %d\n", stack_size(stack));
+
+    stack_push(stack, &value, sizeof(int));
+    stack_push(stack, &value, sizeof(int));
+    stack_push(stack, &value, sizeof(int));
+    stack_push(stack, &value, sizeof(int));
+    stack_push(stack, &value, sizeof(int));
+
+    printf("Stack is empty? %d  (1 = true, 0 = false) \n", stack_is_empty(stack));
+    printf("Stack Size: %d\n", stack_size(stack));
+    stack_print(stack, print_int);
 
     return 0;
 }

@@ -87,9 +87,8 @@ int stack_size(struct Stack *stack) {
     return stack->length;
 }
 
-
-
-void stack_print() {
-
-
+void stack_print(struct Stack *stack, void (* print_fn)(void*)) {
+    for (struct Node *current = stack->top; current != NULL; current = current->next) {
+        print_fn(current->value);
+    }
 }

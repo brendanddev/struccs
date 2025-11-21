@@ -36,7 +36,7 @@ int stack_size(struct Stack *stack);
 void stack_pop();
 void stack_peek();
 
-void stack_print();
+void stack_print(struct Stack *stack, void (* print_fn)(void*));
 void stack_discard_node();
 void stack_discard_all_nodes();
 void stack_discard();
