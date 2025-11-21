@@ -58,13 +58,16 @@ bool stack_push(struct Stack *stack, void *value, size_t size) {
     struct Node *node = stack_create_node(value, size);
 
     if (stack_is_empty(stack)) {
+        // Set the node as the top of the stack
         stack->top = node;
         stack->top->next = NULL;
         stack->length++;
         return true;
     } else {
-        struct Node *temp = stack->top;
-        stack->top->next = node;
+        struct Node *temp = stack->top;         // store pointer to current top node
+        stack->top = node;                      // set top node to node being pushed
+        stack->top->next = temp;                // re link nodes to maintain stack
+        stack->length++;
         return true;
     }
 
@@ -78,7 +81,7 @@ bool stack_push(struct Stack *stack, void *value, size_t size) {
 
 // Returns a boolean value indicating whether the stack is empty or not
 bool stack_is_empty(struct Stack *stack) {
-    if (stack->length == 0) return true;
+    if (stack->top == NULL) return true;
     return false;
 }
 
@@ -87,6 +90,7 @@ int stack_size(struct Stack *stack) {
     return stack->length;
 }
 
+// Prints the contents of the stack from top to bottom
 void stack_print(struct Stack *stack, void (* print_fn)(void*)) {
     for (struct Node *current = stack->top; current != NULL; current = current->next) {
         print_fn(current->value);
