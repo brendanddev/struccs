@@ -29,15 +29,14 @@ typedef struct Stack {
 
 struct Node* stack_create_node(void *val, size_t size);
 struct Stack* stack_create();
-void stack_push();
+bool stack_push(struct Stack *stack, void *value, size_t size);
+bool stack_is_empty(struct Stack *stack);
+int stack_size(struct Stack *stack);
+
 void stack_pop();
 void stack_peek();
 
-bool stack_is_empty();
-int stack_size();
-
 void stack_print();
-
 void stack_discard_node();
 void stack_discard_all_nodes();
 void stack_discard();

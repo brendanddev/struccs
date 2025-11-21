@@ -51,3 +51,23 @@ struct Stack* stack_create() {
 
     return stack;
 }
+
+// Pushes an item to the top of the stack
+bool stack_push(struct Stack *stack, void *value, size_t size) {
+
+    // Creates a node to insert at the top of the stack
+    // Sets this node to the new top of the stack
+    // Returns true if successful
+}
+
+
+// Returns a boolean value indicating whether the stack is empty or not
+bool stack_is_empty(struct Stack *stack) {
+    if (stack->length == 0) return true;
+    return false;
+}
+
+// Returns the current size of the stack (length)
+int stack_size(struct Stack *stack) {
+    return stack->length;
+}
