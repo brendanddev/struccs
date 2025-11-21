@@ -44,6 +44,8 @@ int main() {
     printf("Stack Size: %d\n", stack_size(stack));    // should still be 5
 
 
+
+    stack_discard(stack);
     return 0;
 }
 
