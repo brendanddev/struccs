@@ -18,21 +18,21 @@ void test_sorting(struct LinkedList *list);
 
 int main() {
 
-    struct LinkedList *linked_list = create_int_list();
-    ll_print(linked_list, print_int);
+    // struct LinkedList *linked_list = create_int_list();
+    // ll_print(linked_list, print_int);
 
-    struct LinkedList *linked_list_chr = create_chr_list();
-    ll_print(linked_list_chr, print_chr);
+    // struct LinkedList *linked_list_chr = create_chr_list();
+    // ll_print(linked_list_chr, print_chr);
 
-    ll_reverse(linked_list);
-    ll_print(linked_list, print_int);
+    // ll_reverse(linked_list);
+    // ll_print(linked_list, print_int);
 
     // test_get_set(linked_list);
     // test_find_contains(linked_list);
-    test_sorting(linked_list);
-    test_copy(linked_list);
+    // test_sorting(linked_list);
+    // test_copy(linked_list);
 
-    // test_swapping();
+    test_swapping();
    
 
 
@@ -42,8 +42,8 @@ int main() {
     
 
     // Free memory allocated by the linked list
-    ll_discard(linked_list);
-    linked_list = NULL;
+    // ll_discard(linked_list);
+    // linked_list = NULL;
     return 0;
 }
 
@@ -119,7 +119,10 @@ void test_swapping() {
     ll_insert(node2, list);
     ll_print(list, print_int);
 
+    swap_node_positions(list, node, node2);
     ll_print(list, print_int);
+
+    ll_discard(list);
 
 }
 

@@ -490,34 +490,44 @@ void swap_node_positions(struct LinkedList *list, struct Node *a, struct Node *b
             list->tail = a;
         }
 
-        // if (list->head == a) {
-        //     list->head = b;
-        // } else if (list->tail == a) {
-        //     list->tail = b;
-        // } else if (list->head == b) {
-        //     list->head = a;
-        // } else if (list->tail == b) { 
-        //     list->tail = a;
-        // }
-
-
-
-
-        // a->next = bnext;
-        // b->next = a;
-
-        // if (aprev != NULL) {
-        //     aprev->next = b;
-        // }
-
-        // if (bnext != NULL) {
-        //     bnext->prev = a;
-        // }
-
-
-
     // Nodes not adjadent
     } else {
+
+        struct Node *aprev = a->prev;
+        struct Node *anext = a->next;
+
+        struct Node *bprev = b->prev;
+        struct Node *bnext = b->next;
+
+        b->prev = aprev;
+        b->next = anext;
+
+        a->next = bnext;
+        a->prev = bprev;
+
+        if (aprev != NULL) {
+            aprev->next = b;
+        }
+
+        if (bnext != NULL) {
+            bnext->prev = a;
+        }       
+
+
+         // If head was swapped, reassign it
+        if (list->head == a) {
+            list->head = b;
+        } else if (list->head == b) {
+            list->head = a;
+        }
+
+        // If tail was swapped, reassign it
+        if (list->tail == a) {
+            list->tail = b;
+        } else if (list->tail == b) {
+            list->tail = a;
+        }
+
 
 
     }
