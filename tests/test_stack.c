@@ -43,7 +43,12 @@ int main() {
     
     printf("Stack Size: %d\n", stack_size(stack));    // should still be 5
 
-    stack_clear(stack);
+    // stack_clear(stack);
+    int popval;
+    stack_pop(stack, &popval);
+    if (stack_pop(stack, &popval)) {
+        printf("Popped the value %d off the stack\n", popval);
+    }
     printf("Stack Size: %d\n", stack_size(stack));    // should be 0
     stack_print(stack, print_int);
     printf("\n");
