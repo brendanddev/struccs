@@ -37,4 +37,17 @@ struct Node* stack_create_node(void *val, size_t size) {
 }
 
 // Creates a new stack
-struct Stack* stack_create() { }
+struct Stack* stack_create() { 
+
+    // Allocate memory for the stack struct and 
+    // handle allocation failure
+    struct Stack *stack = malloc(sizeof(struct Stack));
+    if (stack == NULL) return NULL;
+
+    // Set pointer to top node to NULL and length to 0 
+    // as default
+    stack->top = NULL;
+    stack->length = 0;
+
+    return stack;
+}
