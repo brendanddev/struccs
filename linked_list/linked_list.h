@@ -12,7 +12,7 @@
 #include <stdbool.h>
 
 
-// Definess the doubly Node struct type
+// Defines the doubly Node struct type
 typedef struct Node {
     void *value;                        // Pointer to the value stored in this node
     size_t item_size;                   // The size of the item stored in the node
