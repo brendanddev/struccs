@@ -122,6 +122,9 @@ void test_swapping() {
     swap_node_positions(list, node, node2);
     ll_print(list, print_int);
 
+    swap_node_positions(list, node, node2);
+    ll_print(list, print_int);
+
     ll_discard(list);
 
 }

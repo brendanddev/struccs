@@ -440,7 +440,6 @@ void ll_bsort(struct LinkedList *list, bool (* comparator)(void*, void*)) {
     }
 }
 
-
 // Swaps the value stored within two nodes
 void swap_nodes(struct Node *a, struct Node *b) {
     void *temp = a->value;
@@ -456,6 +455,13 @@ void swap_node_positions(struct LinkedList *list, struct Node *a, struct Node *b
         return;
     // Nodes are adjacent
     } else if (a->next == b || b->next == a) {
+
+        if (b->next == a) {
+            // swap the local variables so that `a` is always the left node
+            struct Node *tmp = a;
+            a = b;
+            b = tmp;
+        }
 
         // Track surronding
         struct Node *aprev = a->prev;       // could be NULL, need to check
@@ -514,7 +520,7 @@ void swap_node_positions(struct LinkedList *list, struct Node *a, struct Node *b
         }       
 
 
-         // If head was swapped, reassign it
+        // If head was swapped, reassign it
         if (list->head == a) {
             list->head = b;
         } else if (list->head == b) {
@@ -527,13 +533,7 @@ void swap_node_positions(struct LinkedList *list, struct Node *a, struct Node *b
         } else if (list->tail == b) {
             list->tail = a;
         }
-
-
-
     }
-
-
-
 }
 
 
