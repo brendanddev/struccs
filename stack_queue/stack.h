@@ -17,13 +17,29 @@ typedef struct Node {
     void *value;            // pointer to the memory holding the value stored in this node
     size_t item_size;       // size of the item stored in the node
     struct Node *next;      // pointer to the next node in the stack
-    struct Node *top;       // pointer to the current top node of the stack
 } Node;
 
 
 // Defines the Stack struct type
 typedef struct Stack {
+    struct Node *top;       // pointer to the top node in the stack
+    int length;             // current length of the stack
 } Stack;
 
+
+struct Node* stack_create_node(void *val, size_t size);
+struct Stack* stack_create();
+void stack_push();
+void stack_pop();
+void stack_peek();
+
+bool stack_is_empty();
+int stack_size();
+
+void stack_print();
+
+void stack_discard_node();
+void stack_discard_all_nodes();
+void stack_discard();
 
 #endif
