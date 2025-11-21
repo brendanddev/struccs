@@ -448,14 +448,6 @@ void swap_nodes(struct Node *a, struct Node *b) {
     b->value = temp;
 }
 
-// TODO:
-// 1. Identify the two nodes: current & next
-// 2. Keep track of surrounding nodes: prev (current->prev), after (next->next)
-// 3. Update pointers of the two nodes themselves
-// 4. Update the surrounding nodes (If prev exists, if after exists)
-// 5. Update the head pointer if needed
-// 6. After swapping, current now points to the second node in the pair
-
 // Swaps the positions of two nodes in the linked list
 void swap_node_positions(struct LinkedList *list, struct Node *a, struct Node *b) {
 
@@ -466,20 +458,61 @@ void swap_node_positions(struct LinkedList *list, struct Node *a, struct Node *b
     } else if (a->next == b || b->next == a) {
 
         // Track surronding
-        struct Node *aprev = a->prev;       // could be NULL
+        struct Node *aprev = a->prev;       // could be NULL, need to check
         struct Node *bnext = b->next;
 
         // Update pointers of the two nodes themselves
-        a->next = bnext;
-        b->next = a;
+        b->prev = aprev;    // this could be NULL and that is ok
+        b->next = a;        // point next to `a`
 
-        if (aprev != NULL) {
+        a->next = bnext;    // this could also be NULL, also ok
+        a->prev = b;        // point back to `b`
+
+        if (aprev != NULL) {    // as long as a->prev is not NULL then it can point `next` to b
             aprev->next = b;
         }
 
-        if (bnext != NULL) {
+        if (bnext != NULL) {    // as long as b->next is not NULL then it can point `prev` to a
             bnext->prev = a;
         }
+
+        // If head was swapped, reassign it
+        if (list->head == a) {
+            list->head = b;
+        } else if (list->head == b) {
+            list->head = a;
+        }
+
+        // If tail was swapped, reassign it
+        if (list->tail == a) {
+            list->tail = b;
+        } else if (list->tail == b) {
+            list->tail = a;
+        }
+
+        // if (list->head == a) {
+        //     list->head = b;
+        // } else if (list->tail == a) {
+        //     list->tail = b;
+        // } else if (list->head == b) {
+        //     list->head = a;
+        // } else if (list->tail == b) { 
+        //     list->tail = a;
+        // }
+
+
+
+
+        // a->next = bnext;
+        // b->next = a;
+
+        // if (aprev != NULL) {
+        //     aprev->next = b;
+        // }
+
+        // if (bnext != NULL) {
+        //     bnext->prev = a;
+        // }
 
 
 
