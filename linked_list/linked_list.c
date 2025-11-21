@@ -449,13 +449,13 @@ void swap_nodes(struct Node *a, struct Node *b) {
 
 // Swaps the positions of two nodes in the linked list
 void swap_node_positions(struct LinkedList *list, struct Node *a, struct Node *b) {
-
-    // Nodes are the same
+    // Check if the two nodes are the same, if they are no swap required
     if (a == b) {
         return;
-    // Nodes are adjacent
+    // Check if the two nodes are adjacent (are beside eachother)
     } else if (a->next == b || b->next == a) {
 
+        // Handle case where ...
         if (b->next == a) {
             // swap the local variables so that `a` is always the left node
             struct Node *tmp = a;
@@ -463,7 +463,7 @@ void swap_node_positions(struct LinkedList *list, struct Node *a, struct Node *b
             b = tmp;
         }
 
-        // Track surronding
+        // Track surrounding nodes
         struct Node *aprev = a->prev;       // could be NULL, need to check
         struct Node *bnext = b->next;
 
@@ -499,9 +499,9 @@ void swap_node_positions(struct LinkedList *list, struct Node *a, struct Node *b
     // Nodes not adjadent
     } else {
 
+        // Track all surrounding nodes of the two nodes being swapped
         struct Node *aprev = a->prev;
         struct Node *anext = a->next;
-
         struct Node *bprev = b->prev;
         struct Node *bnext = b->next;
 
@@ -515,10 +515,17 @@ void swap_node_positions(struct LinkedList *list, struct Node *a, struct Node *b
             aprev->next = b;
         }
 
+        if (anext != NULL) {
+            anext->prev = b;
+        }
+
+        if (bprev != NULL) {
+            bprev->next = a;
+        }
+
         if (bnext != NULL) {
             bnext->prev = a;
-        }       
-
+        }
 
         // If head was swapped, reassign it
         if (list->head == a) {
