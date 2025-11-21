@@ -108,21 +108,26 @@ void test_copy(struct LinkedList *list) {
 // Tests the node swapping logic
 void test_swapping() {
     
+    struct LinkedList *list = ll_init();
+
     int num = 100;
     struct Node *node = ll_init_node(&num, sizeof(int));
 
     int num2 = 200;
     struct Node *node2 = ll_init_node(&num2, sizeof(int));
 
-    struct LinkedList *list = ll_init();
+    int num3 = 300;
+    struct Node *node3 = ll_init_node(&num3, sizeof(int));
+
     ll_insert(node, list);
     ll_insert(node2, list);
+    ll_insert(node3, list);
     ll_print(list, print_int);
 
     swap_node_positions(list, node, node2);
     ll_print(list, print_int);
 
-    swap_node_positions(list, node, node2);
+    swap_node_positions(list, node3, node2);
     ll_print(list, print_int);
 
     ll_discard(list);
