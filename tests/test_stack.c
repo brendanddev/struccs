@@ -34,6 +34,15 @@ int main() {
     printf("Stack is empty? %d  (1 = true, 0 = false) \n", stack_is_empty(stack));
     printf("Stack Size: %d\n", stack_size(stack));
     stack_print(stack, print_int);
+    printf("\n");
+
+    int peekval;
+    if (stack_peek(stack, &peekval)) {
+        printf("Peek Value: %d\n", peekval);
+    }
+    
+    printf("Stack Size: %d\n", stack_size(stack));    // should still be 5
+
 
     return 0;
 }
