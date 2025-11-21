@@ -19,6 +19,9 @@ int main() {
     printf("Node - Item Size: %zu\n", stack_node->item_size);
     printf("Stack - Length: %d\n", stack->length);
 
+    printf("Stack is empty? %d  (1 = true, 0 = false) \n", stack_is_empty(stack));
+    printf("Stack Size: %d\n", stack_size(stack));
+
     return 0;
 }
 
