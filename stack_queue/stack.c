@@ -64,17 +64,25 @@ bool stack_push(struct Stack *stack, void *value, size_t size) {
         stack->length++;
         return true;
     } else {
-        struct Node *temp = stack->top;         // store pointer to current top node
-        stack->top = node;                      // set top node to node being pushed
-        stack->top->next = temp;                // re link nodes to maintain stack
+        // Store pointer to the current top node, reassign the top to the 
+        // node being pushed, and relink nodes to maintain stack
+        struct Node *temp = stack->top;
+        stack->top = node;                     
+        stack->top->next = temp;
         stack->length++;
         return true;
     }
+}
 
-    // Creates a node to insert at the top of the stack
-    // Sets this node to the new top of the stack
-    // Returns true if successful
+// Returns the value stored in the node at the top of the stack without removing the node
+bool stack_peek(struct Stack *stack, void *out) {
+    if (stack_is_empty(stack)) return false;
+    memcpy(out, stack->top->value, stack->top->item_size);
+    return true;
+}
 
+// Pops the node stored at the top of the stack
+bool stack_pop(struct Stack *stack) {
 
 }
 
