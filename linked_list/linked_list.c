@@ -419,6 +419,70 @@ void ll_reverse(struct LinkedList *list) {
     list->head = last;
 }
 
+// Returns whether the linked list is empty or not
+bool ll_is_empty(struct LinkedList *list) {
+    if (list->head == NULL) return true;
+    return false;
+}
+
+// Returns the size (length) of the linked list
+int ll_size(struct LinkedList *list) {
+    return list->length;
+}
+
+// Frees the memory allocated by a single node
+void ll_discard_node(struct Node *node) {
+    if (node != NULL) {
+        free(node->value);
+        free(node);
+    }
+}
+
+// Frees the memory allocated by each node in a linked list
+void ll_discard_all_nodes(struct LinkedList *list) {
+    if (list != NULL) {
+        // Start from the head of the list, traverse to the end
+        struct Node *current = list->head;
+        while (current != NULL) {
+            // Store the nodes `next` pointer before freeing the current node
+            // to avoid losing reference to the rest of the list
+            struct Node *next = current->next;
+            ll_discard_node(current);
+            current = next;
+        }
+    }
+}
+
+// Frees all memory associated with a linked list
+void ll_discard(struct LinkedList *list) {
+    if (list != NULL) {
+        ll_discard_all_nodes(list);
+        free(list);
+    }
+}
+
+
+// Prints all items stored in the linked list, requiring a caller defined print function that knows how to print each value
+void ll_print(struct LinkedList *list, void (* print_fn)(void*)) {
+    for (struct Node *current = list->head; current != NULL; current = current->next) {
+        print_fn(current->value);
+    }
+    printf("\n");
+}
+
+
+// Prints each node in the linked list with its address, value, and next/prev pointers for debugging
+void ll_debug(struct LinkedList *list) {
+    struct Node *curr = list->head;
+    while (curr != NULL) {
+        printf("Node %p | value=%d | prev=%p | next=%p\n", 
+            (void *) curr, 
+            * (int *) curr->value, 
+            (void *) curr->prev, 
+            (void *) curr->next);
+        curr = curr->next;
+    }
+}
 
 // Sorts a linked list using a Bubble Sort implementation and relying on a caller defined comparator to know how to order items
 void ll_bsort(struct LinkedList *list, bool (* comparator)(void*, void*)) { 
@@ -438,6 +502,9 @@ void ll_bsort(struct LinkedList *list, bool (* comparator)(void*, void*)) {
             current = current->next;
         }
     }
+}
+
+void ll_isort(struct LinkedList *list, bool (* comparator)(void*, void*)) { 
 }
 
 // Swaps the value stored within two nodes
@@ -505,16 +572,22 @@ void swap_node_positions(struct LinkedList *list, struct Node *a, struct Node *b
         struct Node *bprev = b->prev;
         struct Node *bnext = b->next;
 
+        // Reassign the `b` node to the nodes previosly pointed to by `a`
         b->prev = aprev;
         b->next = anext;
 
+        // Reassign the node `a` to the nodes previously pointed to by `b`
         a->next = bnext;
         a->prev = bprev;
 
+        // If the node `aprev` exists, point its `next` pointer to `b` to reconnect the
+        // previous node to the new position of `b`
         if (aprev != NULL) {
             aprev->next = b;
         }
 
+        // If the node `anext` exists, point its `prev` pointer to reconnect the 
+        // next node to the new position of `b`
         if (anext != NULL) {
             anext->prev = b;
         }
@@ -540,71 +613,5 @@ void swap_node_positions(struct LinkedList *list, struct Node *a, struct Node *b
         } else if (list->tail == b) {
             list->tail = a;
         }
-    }
-}
-
-
-// Returns whether the linked list is empty or not
-bool ll_is_empty(struct LinkedList *list) {
-    if (list->head == NULL) return true;
-    return false;
-}
-
-// Returns the size (length) of the linked list
-int ll_size(struct LinkedList *list) {
-    return list->length;
-}
-
-// Frees the memory allocated by a single node
-void ll_discard_node(struct Node *node) {
-    if (node != NULL) {
-        free(node->value);
-        free(node);
-    }
-}
-
-// Frees the memory allocated by each node in a linked list
-void ll_discard_all_nodes(struct LinkedList *list) {
-    if (list != NULL) {
-        // Start from the head of the list, traverse to the end
-        struct Node *current = list->head;
-        while (current != NULL) {
-            // Store the nodes `next` pointer before freeing the current node
-            // to avoid losing reference to the rest of the list
-            struct Node *next = current->next;
-            ll_discard_node(current);
-            current = next;
-        }
-    }
-}
-
-// Frees all memory associated with a linked list
-void ll_discard(struct LinkedList *list) {
-    if (list != NULL) {
-        ll_discard_all_nodes(list);
-        free(list);
-    }
-}
-
-
-// Prints all items stored in the linked list, requiring a caller defined print function that knows how to print each value
-void ll_print(struct LinkedList *list, void (* print_fn)(void*)) {
-    for (struct Node *current = list->head; current != NULL; current = current->next) {
-        print_fn(current->value);
-    }
-    printf("\n");
-}
-
-
-// Prints each node in the linked list with its address, value, and next/prev pointers for debugging
-void ll_debug(struct LinkedList *list) {
-    struct Node *curr = list->head;
-    while (curr != NULL) {
-        printf("Node %p | value=%d | prev=%p | next=%p\n", 
-            (void *) curr, 
-            * (int *) curr->value, 
-            (void *) curr->prev, 
-            (void *) curr->next);
-        curr = curr->next;
     }
 }
