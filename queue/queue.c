@@ -37,9 +37,22 @@ struct Queue* queue_create() {
 }
 
 // Adds an item to the tail of the queue
-void queue_enqueue(void *val, size_t item_size) {
-
-
+void queue_enqueue(struct Queue *queue, void *val, size_t item_size) {
+    
+    struct Node *node = queue_create_node(val, item_size);
+    
+    if (queue_is_empty(queue)) {
+        queue->tail = node;
+        queue->head = node;
+        queue->length++;
+        return;
+    } else {
+        queue->head = queue->tail;
+        queue->tail = node;
+        queue->tail->next = NULL;
+        queue->head->next = queue->tail;
+        queue->length++;
+    }
 }
 
 // Returns a boolean value indicating whether the queue is empty or not

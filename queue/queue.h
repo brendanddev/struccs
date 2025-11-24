@@ -25,7 +25,7 @@ typedef struct Queue {
 
 
 struct Queue* queue_create();
-void queue_enqueue(void *val, size_t item_size);
+void queue_enqueue(struct Queue *queue, void *val, size_t item_size);
 bool queue_is_empty(struct Queue *queue);
 
 void queue_dequeue();
