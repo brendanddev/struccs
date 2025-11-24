@@ -59,5 +59,22 @@ static struct Node* queue_create_node(void *val, size_t size) {
 
 // Frees the memory occupied by a single node
 static void queue_discard_node(struct Node *node) {
+    if (node != NULL) {
+        // Free memory occupied by the value stored in the node
+        // and the node itself
+        free(node->value);
+        free(node);
+    }
+}
 
+// Frees the memory occupied by each node in the queue
+static void queue_discard_all_nodes(struct Queue *queue) {
+    struct Node *current = queue->head;
+    while (current != NULL) {
+        // Store pointer to next node in queue before freeing to prevent
+        // losing reference to the rest of queue
+        struct Node *next = current->next;
+        queue_discard_node(current);
+        current = next;
+    }
 }
