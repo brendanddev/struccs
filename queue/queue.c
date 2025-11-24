@@ -110,8 +110,16 @@ void queue_print(struct Queue *queue, void (* print_fn)(void*)) {
 
 // Prints the 
 void queue_debug(struct Queue *queue) {
-    if (queue_is_empty) return;
+    if (queue_is_empty(queue)) return;
     printf("Queue: Length: %d, Head: %p, Head Next: %p, Tail: %p, Tail Next: %p\n", queue_length(queue), queue->head, queue->head->next, queue->tail, queue->tail->next);
+}
+
+// Frees the memory occupied by the queue
+void queue_discard(struct Queue *queue) {
+    if (queue != NULL) {
+        queue_discard_all_nodes(queue);
+        free(queue);
+    }
 }
 
 

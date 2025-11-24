@@ -74,7 +74,8 @@ int main() {
 
 
 
-
+    queue_discard(queue);
+    queue = NULL;
 
     return 0;
 }
