@@ -9,6 +9,10 @@
 /// Brendan Dileo, November 24 2025
 
 
+void print_int(void *value) {
+    printf("[%d] ", * (int *) value);
+}
+
 int main() {
 
 
@@ -23,8 +27,11 @@ int main() {
     queue_enqueue(queue, &value2, sizeof(int));
     printf("State of Queue: Length: %d, Head: %p, Tail: %p\n", queue->length, queue->head, queue->tail);
 
-    // void queue_enqueue(struct Queue *queue, void *val, size_t item_size) {
+    int value3 = 159;
+    queue_enqueue(queue, &value3, sizeof(int));
+    printf("State of Queue: Length: %d, Head: %p, Tail: %p\n", queue->length, queue->head, queue->tail);
 
+    queue_print(queue, print_int);
 
 
 
