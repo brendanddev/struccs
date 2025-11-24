@@ -94,11 +94,19 @@ bool stack_pop(struct Stack *stack, void *out) {
     // free the top node value + struct
     // set new top to next pointed to by temp pointer
 
-    struct Node *temp = stack->top;
+    struct Node *temp = stack->top->next;       // new top after pop
+    memcpy(out, stack->top->value, stack->top->item_size);
     stack_discard_node(stack->top);
-    stack->top = temp->next;
-    memcpy(out, temp->value, stack->top->item_size);
+    stack->top = temp;
+    stack->length--;
     return true;
+
+
+
+    // stack_discard_node(stack->top);
+    // stack->top = temp->next;
+    // memcpy(out, temp->value, stack->top->item_size);
+    // return true;
 }
 
 // Clears the contents of the stack but keeps the stack itself
