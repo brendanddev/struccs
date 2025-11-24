@@ -24,3 +24,40 @@ static void queue_discard_node(struct Node *node);
 static void queue_discard_all_nodes(struct Queue *queue);
 
 
+
+
+
+
+
+
+// Private helper functions, linkage limited to this file
+
+
+// Creates a new node to be stored in the queue
+static struct Node* queue_create_node(void *val, size_t size) {
+
+    // Allocate memory for the node itself and handle allocation failure
+    struct Node *node = malloc(sizeof(struct Node));
+    if (node == NULL) return NULL;
+
+    // Set size of item stored in node and initialize next pointer
+    node->item_size = size;
+    node->next = NULL;
+
+    // Allocate memory for the value to be stored in the node
+    // and handle allocation failure
+    node->value = malloc(node->item_size);
+    if (node->value == NULL) {
+        free(node);
+        return NULL;
+    }
+
+    // Copy memory pointed to by `val` into the memory pointed to by the node
+    memcpy(node->value, val, node->item_size);
+    return node;
+}
+
+// Frees the memory occupied by a single node
+static void queue_discard_node(struct Node *node) {
+
+}
