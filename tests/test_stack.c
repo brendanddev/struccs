@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "../stack_queue/stack.h"
+#include "../stack/stack.h"
 
 
 /// test_stack.c

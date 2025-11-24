@@ -90,23 +90,15 @@ bool stack_peek(struct Stack *stack, void *out) {
 bool stack_pop(struct Stack *stack, void *out) {
     if (stack_is_empty(stack)) return false;
 
-    // store pointer to the current top node
-    // free the top node value + struct
-    // set new top to next pointed to by temp pointer
-
-    struct Node *temp = stack->top->next;       // new top after pop
+    // Store pointer to the next node pointed to by the top of the stack,
+    // copy its memory contents into the memory pointed to by the `out` pointer
+    // Then free the node and relink the stack
+    struct Node *temp = stack->top->next;
     memcpy(out, stack->top->value, stack->top->item_size);
     stack_discard_node(stack->top);
     stack->top = temp;
     stack->length--;
     return true;
-
-
-
-    // stack_discard_node(stack->top);
-    // stack->top = temp->next;
-    // memcpy(out, temp->value, stack->top->item_size);
-    // return true;
 }
 
 // Clears the contents of the stack but keeps the stack itself
