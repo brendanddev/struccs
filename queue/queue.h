@@ -24,4 +24,16 @@ typedef struct Queue {
 } Queue;
 
 
+struct Queue* queue_create();
+void queue_enqueue();
+void queue_dequeue();
+void queue_peek();
+
+bool queue_is_empty();
+int queue_length();
+void queue_clear();
+void queue_print();
+void queue_discard();
+
+
 #endif
