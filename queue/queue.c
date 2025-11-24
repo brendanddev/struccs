@@ -17,14 +17,24 @@ typedef struct Node {
     struct Node *next;      // Pointer to the next node in the queue
 } Node;
 
-
 // Prototypes
 static struct Node* queue_create_node(void *val, size_t size);
 static void queue_discard_node(struct Node *node);
 static void queue_discard_all_nodes(struct Queue *queue);
 
 
+// Creates a new queue
+struct Queue* queue_create() {
+    // Allocate memory for the queue itself and handle allocation failure
+    struct Queue *queue = malloc(sizeof(struct Queue));
+    if (queue == NULL) return NULL;
 
+    // Set initial length and pointers to head/tail
+    queue->length = 0;
+    queue->head = NULL;
+    queue->tail = NULL;
+    return queue;
+}
 
 
 
