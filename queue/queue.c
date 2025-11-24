@@ -61,8 +61,17 @@ bool queue_is_empty(struct Queue *queue) {
     return false;
 }
 
+// Prints the contents of the queue
+void queue_print(struct Queue *queue, void (* print_fn)(void*)) {
+    struct Node *current = queue->head;
+    while (current != NULL) {
+        print_fn(current->value);
+        current = current->next;
+    }
+    printf("\n");
 
 
+}
 
 
 // Private helper functions, linkage limited to this file
