@@ -30,11 +30,9 @@ bool queue_peek(struct Queue *queue, void *out);
 bool queue_dequeue(struct Queue *queue, void *out);
 bool queue_is_empty(struct Queue *queue);
 int queue_length(struct Queue *queue);
+void queue_clear(struct Queue *queue);
+void queue_discard(struct Queue *queue);
 void queue_print(struct Queue *queue, void (* print_fn)(void*));
 void queue_debug(struct Queue *queue);
-
-void queue_clear();
-void queue_discard();
-
 
 #endif

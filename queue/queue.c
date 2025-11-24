@@ -89,6 +89,15 @@ int queue_length(struct Queue *queue) {
     return queue->length;
 }
 
+// Clears the contents of the queue
+void queue_clear(struct Queue *queue) {
+    if (queue_is_empty(queue)) return;
+    queue_discard_all_nodes(queue);
+    queue->head = NULL;
+    queue->tail = NULL;
+    queue->length = 0;
+}
+
 // Prints the contents of the queue
 void queue_print(struct Queue *queue, void (* print_fn)(void*)) {
     struct Node *current = queue->head;
