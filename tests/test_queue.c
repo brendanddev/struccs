@@ -34,6 +34,11 @@ int main() {
     queue_print(queue, print_int);
     queue_debug(queue);
 
+    int value4 = 9;
+    queue_enqueue(queue, &value4, sizeof(int));
+    queue_print(queue, print_int);
+    queue_debug(queue);
+
 
 
 

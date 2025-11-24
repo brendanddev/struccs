@@ -40,17 +40,16 @@ struct Queue* queue_create() {
 void queue_enqueue(struct Queue *queue, void *val, size_t item_size) {
     
     struct Node *node = queue_create_node(val, item_size);
-    
     if (queue_is_empty(queue)) {
+        // Queue is empty so node being inserted is both the head and tail
         queue->tail = node;
         queue->head = node;
         queue->length++;
         return;
     } else {
-        queue->head = queue->tail;
+        // Queue isnt empty so enqueue to the new node to the tail of the queue
+        queue->tail->next = node;
         queue->tail = node;
-        queue->tail->next = NULL;
-        queue->head->next = queue->tail;
         queue->length++;
     }
 }
@@ -69,8 +68,11 @@ void queue_print(struct Queue *queue, void (* print_fn)(void*)) {
         current = current->next;
     }
     printf("\n");
+}
 
-
+// Prints the 
+void queue_debug(struct Queue *queue) {
+    printf("Queue: Length: %d, Head: %p, Head Next: %p, Tail: %p, Tail Next: %p\n", queue->length, queue->head, queue->head->next, queue->tail, queue->tail->next);
 }
 
 
