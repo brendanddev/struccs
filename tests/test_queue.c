@@ -21,17 +21,19 @@ int main() {
 
     int value = 5000;
     queue_enqueue(queue, &value, sizeof(int));
-    printf("State of Queue: Length: %d, Head: %p, Tail: %p\n", queue->length, queue->head, queue->tail);
+    queue_print(queue, print_int);
+    queue_debug(queue);
 
     int value2 = 999;
     queue_enqueue(queue, &value2, sizeof(int));
-    printf("State of Queue: Length: %d, Head: %p, Tail: %p\n", queue->length, queue->head, queue->tail);
+    queue_print(queue, print_int);
+    queue_debug(queue);
 
     int value3 = 159;
     queue_enqueue(queue, &value3, sizeof(int));
-    printf("State of Queue: Length: %d, Head: %p, Tail: %p\n", queue->length, queue->head, queue->tail);
-
     queue_print(queue, print_int);
+    queue_debug(queue);
+
 
 
 
