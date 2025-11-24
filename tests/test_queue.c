@@ -39,6 +39,13 @@ int main() {
     queue_print(queue, print_int);
     queue_debug(queue);
 
+    int head;
+    if (queue_peek(queue, &head)) {
+        printf("Peeked the value: %d at the head of the queue\n", head);
+    } else {
+        printf("Could not peek the queue\n");
+    }
+
 
 
 
