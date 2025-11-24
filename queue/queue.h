@@ -25,10 +25,11 @@ typedef struct Queue {
 
 
 struct Queue* queue_create();
-void queue_enqueue();
+void queue_enqueue(void *val, size_t item_size);
+bool queue_is_empty(struct Queue *queue);
+
 void queue_dequeue();
 void queue_peek();
-
 bool queue_is_empty();
 int queue_length();
 void queue_clear();
