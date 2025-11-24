@@ -67,21 +67,10 @@ int main() {
     }
     queue_print(queue, print_int);
 
-    int dequeue3;
-    if (queue_dequeue(queue, &dequeue3)) {
-        printf("Dequeued the value: %d at the head of the queue\n", dequeue3);
-    } else {
-        printf("Could not dequeue from the queue\n");
-    }
+    queue_clear(queue);
     queue_print(queue, print_int);
-
-    int dequeue4;
-    if (queue_dequeue(queue, &dequeue4)) {
-        printf("Dequeued the value: %d at the head of the queue\n", dequeue4);
-    } else {
-        printf("Could not dequeue from the queue\n");
-    }
-    queue_print(queue, print_int);
+    printf("Queue Size: %d\n", queue_length(queue));
+    // queue_debug(queue);              // segfaults
 
 
 
