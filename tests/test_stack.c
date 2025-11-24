@@ -45,7 +45,6 @@ int main() {
 
     // stack_clear(stack);
     int popval;
-    stack_pop(stack, &popval);
     if (stack_pop(stack, &popval)) {
         printf("Popped the value %d off the stack\n", popval);
     }
