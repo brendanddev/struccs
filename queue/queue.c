@@ -54,10 +54,22 @@ void queue_enqueue(struct Queue *queue, void *val, size_t item_size) {
     }
 }
 
+// Returns the value stored in the head node of the queue but does not remove it
+bool queue_peek(struct Queue *queue, void *out) {
+    if (queue_is_empty(queue)) return false;
+    memcpy(out, queue->head->value, queue->head->item_size);
+    return true;
+}
+
 // Returns a boolean value indicating whether the queue is empty or not
 bool queue_is_empty(struct Queue *queue) {
     if (queue->head == NULL) return true;
     return false;
+}
+
+// Returns the length of the queue
+int queue_length(struct Queue *queue) {
+    return queue->length;
 }
 
 // Prints the contents of the queue
@@ -72,7 +84,7 @@ void queue_print(struct Queue *queue, void (* print_fn)(void*)) {
 
 // Prints the 
 void queue_debug(struct Queue *queue) {
-    printf("Queue: Length: %d, Head: %p, Head Next: %p, Tail: %p, Tail Next: %p\n", queue->length, queue->head, queue->head->next, queue->tail, queue->tail->next);
+    printf("Queue: Length: %d, Head: %p, Head Next: %p, Tail: %p, Tail Next: %p\n", queue_length(queue), queue->head, queue->head->next, queue->tail, queue->tail->next);
 }
 
 
