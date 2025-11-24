@@ -61,6 +61,23 @@ bool queue_peek(struct Queue *queue, void *out) {
     return true;
 }
 
+// Removes and returns the node at the head of the queue
+bool queue_dequeue(struct Queue *queue, void *out) {
+    if (queue_is_empty(queue)) return false;
+
+    // Copy raw memory pointed to by the head into the `out` pointer
+    memcpy(out, queue->head->value, queue->head->item_size);
+
+    // Store the `next` pointer of the current head of the queue
+    // and discard the memory allocated by the current head
+    // then reassign the new head
+    struct Node *temp = queue->head->next;
+    queue_discard_node(queue->head);
+    queue->head = temp;
+    queue->length--;
+    return true;
+}
+
 // Returns a boolean value indicating whether the queue is empty or not
 bool queue_is_empty(struct Queue *queue) {
     if (queue->head == NULL) return true;
