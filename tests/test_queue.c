@@ -70,7 +70,7 @@ int main() {
     queue_clear(queue);
     queue_print(queue, print_int);
     printf("Queue Size: %d\n", queue_length(queue));
-    // queue_debug(queue);              // segfaults
+    queue_debug(queue);
 
 
 
