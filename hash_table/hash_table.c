@@ -70,7 +70,7 @@ static int ht_hash(void *key, size_t ksize, int capacity) {
     for (int i = 0; i < ksize; i++) {
         // For each byte, access the value of the i-th byte of the key
         // and mix the byte into the running hash to get a better distribution
-        unsigned char byte = ((unsigned char *) key) + i;
+        unsigned char byte = ((unsigned char *) key)[i];
         raw_hash = raw_hash * 33 + byte;
     }
 
