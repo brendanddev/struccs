@@ -12,14 +12,8 @@
 #include <stdbool.h>
 
 
-// Defines the Node struct type representing a key-value pair stored in the table
-typedef struct Node {
-    void *key;                          // Pointer to memory where the key is stored
-    size_t key_size;                    // The size of the key stored
-    void *value;                        // Pointer to the memory where the value is stored
-    size_t value_size;                  // The size of the value stored
-    struct Node *next;                  // Pointer to the next node in the buckets chain
-} Node;
+// Forward declaration of the struct Node stored in the buckets of the hash table
+struct Node;
 
 
 // Defines the HashTable struct type
@@ -30,6 +24,16 @@ typedef struct HashTable {
     float load_factor;
 } HashTable;
 
+
+
+struct HashTable* ht_create();
+bool ht_insert(void *key, size_t ksize, void *value, size_t vsize);
+bool ht_get(void *key, size_t ksize, void *out);
+bool ht_remove(void *key, size_t ksize);
+bool ht_is_empty(struct HashTable *hashtable);
+int ht_size(struct HashTable *hashtable);
+void ht_print(struct HashTable *hashtable);
+void ht_discard(struct HashTable *hashtable);
 
 
 #endif
