@@ -40,13 +40,10 @@ struct LinkedList* ll_copy(struct LinkedList *orig);
 void ll_reverse(struct LinkedList *list);
 int ll_size(struct LinkedList *list);
 bool ll_is_empty(struct LinkedList *list);
-
 void ll_discard(struct LinkedList *list);
 void ll_print(struct LinkedList *list, void (* print_fn)(void*));
 void ll_debug(struct LinkedList *list);
 
 void ll_bsort(struct LinkedList *list, bool (* comparator)(void*, void*));
-void swap_node_positions(struct LinkedList *list, struct Node *a, struct Node *b);
-void swap_nodes(struct Node *a, struct Node *b);
 
 #endif

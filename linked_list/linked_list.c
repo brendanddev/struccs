@@ -22,6 +22,8 @@ typedef struct Node {
 static struct Node* ll_create_node(void *val, size_t size);
 static void ll_discard_node(struct Node *node);
 static void ll_discard_all_nodes(struct LinkedList *list);
+static void swap_node_positions(struct LinkedList *list, struct Node *a, struct Node *b);
+static void swap_nodes(struct Node *a, struct Node *b);
 
 
 // Creates a new linked list
@@ -470,15 +472,74 @@ void ll_bsort(struct LinkedList *list, bool (* comparator)(void*, void*)) {
     }
 }
 
+
+// Private helper functions, linkage limited to this file
+
+
+// Creates a new node
+struct Node * ll_create_node(void *val, size_t size) {
+
+    // Allocate memory for the node itself and
+    struct Node *node = malloc(sizeof(struct Node));
+    
+    // Handle allocation failure
+    if (node == NULL) {
+        return NULL;
+    }
+
+    // Set the size of the item stored in the node and initialize
+    // the nodes `next` and `prev` pointers to NULL
+    node->item_size = size;
+    node->next = NULL;
+    node->prev = NULL;
+
+    // Allocate memory for the value that will be stored in the node
+    node->value = malloc(node->item_size);
+
+    // Handle allocation failure
+    if (node->value == NULL) {
+        free(node);
+        return NULL;
+    }
+
+    // Copy the raw memory contents from the memory pointed to by `val` into `node->value`
+    memcpy(node->value, val, node->item_size);
+
+    return node;
+}
+
+// Frees the memory allocated by a single node
+static void ll_discard_node(struct Node *node) {
+    if (node != NULL) {
+        free(node->value);
+        free(node);
+    }
+}
+
+// Frees the memory allocated by each node in a linked list
+static void ll_discard_all_nodes(struct LinkedList *list) {
+    if (list != NULL) {
+        // Start from the head of the list, traverse to the end
+        struct Node *current = list->head;
+        while (current != NULL) {
+            // Store the nodes `next` pointer before freeing the current node
+            // to avoid losing reference to the rest of the list
+            struct Node *next = current->next;
+            ll_discard_node(current);
+            current = next;
+        }
+    }
+}
+
 // Swaps the value stored within two nodes
-void swap_nodes(struct Node *a, struct Node *b) {
+static void swap_nodes(struct Node *a, struct Node *b) {
     void *temp = a->value;
     a->value = b->value;
     b->value = temp;
 }
 
 // Swaps the positions of two nodes in the linked list
-void swap_node_positions(struct LinkedList *list, struct Node *a, struct Node *b) {
+static void swap_node_positions(struct LinkedList *list, struct Node *a, struct Node *b) {
     // Check if the two nodes are the same, if they are no swap required
     if (a == b) {
         return;
@@ -575,67 +636,6 @@ void swap_node_positions(struct LinkedList *list, struct Node *a, struct Node *b
             list->tail = b;
         } else if (list->tail == b) {
             list->tail = a;
-        }
-    }
-}
-
-
-
-
-// Private helper functions, linkage limited to this file
-
-
-// Creates a new node
-struct Node * ll_create_node(void *val, size_t size) {
-
-    // Allocate memory for the node itself and
-    struct Node *node = malloc(sizeof(struct Node));
-    
-    // Handle allocation failure
-    if (node == NULL) {
-        return NULL;
-    }
-
-    // Set the size of the item stored in the node and initialize
-    // the nodes `next` and `prev` pointers to NULL
-    node->item_size = size;
-    node->next = NULL;
-    node->prev = NULL;
-
-    // Allocate memory for the value that will be stored in the node
-    node->value = malloc(node->item_size);
-
-    // Handle allocation failure
-    if (node->value == NULL) {
-        free(node);
-        return NULL;
-    }
-
-    // Copy the raw memory contents from the memory pointed to by `val` into `node->value`
-    memcpy(node->value, val, node->item_size);
-
-    return node;
-}
-
-// Frees the memory allocated by a single node
-static void ll_discard_node(struct Node *node) {
-    if (node != NULL) {
-        free(node->value);
-        free(node);
-    }
-}
-
-// Frees the memory allocated by each node in a linked list
-static void ll_discard_all_nodes(struct LinkedList *list) {
-    if (list != NULL) {
-        // Start from the head of the list, traverse to the end
-        struct Node *current = list->head;
-        while (current != NULL) {
-            // Store the nodes `next` pointer before freeing the current node
-            // to avoid losing reference to the rest of the list
-            struct Node *next = current->next;
-            ll_discard_node(current);
-            current = next;
         }
     }
 }
