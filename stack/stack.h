@@ -12,22 +12,17 @@
 #include <stdbool.h>
 
 
-// Defines the Node struct type
-typedef struct Node {
-    void *value;            // pointer to the memory holding the value stored in this node
-    size_t item_size;       // size of the item stored in the node
-    struct Node *next;      // pointer to the next node in the stack
-} Node;
+// Forward declaration of the struct Node stored in the queue
+struct Node;
 
 
 // Defines the Stack struct type
 typedef struct Stack {
-    struct Node *top;       // pointer to the top node in the stack
+    struct Node *top;       // Pointer to the top node in the stack
     int length;             // current length of the stack
 } Stack;
 
 
-struct Node* stack_create_node(void *val, size_t size);
 struct Stack* stack_create();
 bool stack_push(struct Stack *stack, void *value, size_t size);
 bool stack_peek(struct Stack *stack, void *out);

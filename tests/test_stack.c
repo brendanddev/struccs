@@ -16,11 +16,7 @@ void print_int(void *value) {
 int main() {
 
     int value = 100;
-    struct Node *stack_node = stack_create_node(&value, sizeof(int));
     struct Stack *stack = stack_create();
-
-    printf("Node - Item Size: %zu\n", stack_node->item_size);
-    printf("Stack - Length: %d\n", stack->length);
 
     printf("Stack is empty? %d  (1 = true, 0 = false) \n", stack_is_empty(stack));
     printf("Stack Size: %d\n", stack_size(stack));
@@ -51,7 +47,6 @@ int main() {
     printf("Stack Size: %d\n", stack_size(stack));    // should be 0
     stack_print(stack, print_int);
     printf("\n");
-
 
     stack_discard(stack);
     stack = NULL;

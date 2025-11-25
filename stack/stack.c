@@ -10,36 +10,18 @@
 /// Brendan Dileo - November 21 2025
 
 
+// Defines the Node struct type
+typedef struct Node {
+    void *value;            // Pointer to the memory holding the value stored in this node
+    size_t item_size;       // Size of the item stored in the node
+    struct Node *next;      // Pointer to the next node in the stack
+} Node;
+
 // Prototypes
+static struct Node* stack_create_node(void *val, size_t size);
 static void stack_discard_node(struct Node *node);
 static void stack_discard_all_nodes(struct Stack *stack);
 
-
-// Creates a new node to be stored in the stack
-struct Node* stack_create_node(void *val, size_t size) {
-
-    // Allocate memory for the node struct itself and
-    // handle allocation failure
-    struct Node *node = malloc(sizeof(struct Node));
-    if (node == NULL) return NULL;
-
-    // Set size of item stored in the node and initial pointer to next node to NULL
-    node->item_size = size;
-    node->next = NULL;
-
-    // Allocate memory for the value the node will store and
-    // handle allocation failure
-    node->value = malloc(size);
-    if (node->value == NULL) {
-        free(node);
-        return NULL;
-    }
-
-    // Copies the raw bytes from the memory pointed to by `val` into
-    // the memory allocated for this node at `node->value`
-    memcpy(node->value, val, node->item_size);
-    return node;
-}
 
 // Creates a new stack
 struct Stack* stack_create() { 
@@ -137,6 +119,32 @@ void stack_discard(struct Stack *stack) {
 
 // Private helper functions, linkage limited to this file
 
+
+// Creates a new node to be stored in the stack
+static struct Node* stack_create_node(void *val, size_t size) {
+
+    // Allocate memory for the node struct itself and
+    // handle allocation failure
+    struct Node *node = malloc(sizeof(struct Node));
+    if (node == NULL) return NULL;
+
+    // Set size of item stored in the node and initial pointer to next node to NULL
+    node->item_size = size;
+    node->next = NULL;
+
+    // Allocate memory for the value the node will store and
+    // handle allocation failure
+    node->value = malloc(size);
+    if (node->value == NULL) {
+        free(node);
+        return NULL;
+    }
+
+    // Copies the raw bytes from the memory pointed to by `val` into
+    // the memory allocated for this node at `node->value`
+    memcpy(node->value, val, node->item_size);
+    return node;
+}
 
 // Frees the memory occupied by a single node
 static void stack_discard_node(struct Node *node) {
