@@ -12,7 +12,7 @@
 #include <stdbool.h>
 
 
-// Forward declaration of the struct Node stored in the queue
+// Forward declaration of the struct Node stored in the stack
 struct Node;
 
 
