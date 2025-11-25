@@ -20,6 +20,7 @@ typedef struct Node {
 
 
 // Prototypes
+static int ht_hash();
 static struct Node* ht_create_node(void *key, size_t ksize, void *value, size_t vsize);
 static void ht_discard_node(struct Node *node);
 static void ht_discard_all_nodes(struct HashTable *hashtable);
@@ -52,11 +53,31 @@ struct HashTable* ht_create() {
     return hashtable;
 }
 
-
+// Inserts a new or updates an existing key/value pair in the hash table
+bool ht_insert(void *key, size_t ksize, void *value, size_t vsize) {
+}
 
 
 // Private helper functions, linkage limited to this file
 
+
+// Turns a keys raw bytes into a hash value that corresponds to a bucket in the hash table following the djb2-style hash
+static int ht_hash(void *key, size_t ksize, int capacity) {
+    // Initialize the hash with a seed value
+    unsigned long raw_hash = 5381;
+
+    // Loop over each byte of the key
+    for (int i = 0; i < ksize; i++) {
+        // For each byte, access the value of the i-th byte of the key
+        // and mix the byte into the running hash to get a better distribution
+        unsigned char byte = ((unsigned char *) key) + i;
+        raw_hash = raw_hash * 33 + byte;
+    }
+
+    // Map the hash to a bucket in the table based on the raw hash and capacity of the table
+    int bucket_index = raw_hash % capacity;
+    return bucket_index;
+}
 
 // Creates a new node to store a key/value pair in a hash table bucket
 static struct Node* ht_create_node(void *key, size_t ksize, void *value, size_t vsize) {
