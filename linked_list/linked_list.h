@@ -12,13 +12,9 @@
 #include <stdbool.h>
 
 
-// Defines the doubly Node struct type
-typedef struct Node {
-    void *value;                        // Pointer to the value stored in this node
-    size_t item_size;                   // The size of the item stored in the node
-    struct Node *next;                  // Pointer to the next node in the list
-    struct Node *prev;                  // Pointer to the previous node in the list
-} Node;
+// Forward declaration of the struct Node stored in the linked list
+struct Node;
+
 
 // Defines the LinkedList struct type
 typedef struct LinkedList {
@@ -28,11 +24,10 @@ typedef struct LinkedList {
 } LinkedList;
 
 
-struct Node* ll_create_node(void *val, size_t size);
 struct LinkedList* ll_create();
-void ll_insert(struct Node *node, struct LinkedList *list);
-void ll_insert_tail(struct Node *node, struct LinkedList *list);
-void ll_insert_at(struct Node *node, struct LinkedList *list, int index);
+void ll_insert(struct LinkedList *list, void *value, size_t item_size);
+void ll_insert_tail(struct LinkedList *list, void *value, size_t item_size);
+void ll_insert_at(struct LinkedList *list, void *value, size_t item_size, int index);
 void ll_remove(struct LinkedList *list);
 void ll_remove_tail(struct LinkedList *list);
 void ll_remove_at(struct LinkedList *list, int index);
@@ -45,8 +40,7 @@ struct LinkedList* ll_copy(struct LinkedList *orig);
 void ll_reverse(struct LinkedList *list);
 int ll_size(struct LinkedList *list);
 bool ll_is_empty(struct LinkedList *list);
-void ll_discard_node(struct Node *node);
-void ll_discard_all_nodes(struct LinkedList *list);
+
 void ll_discard(struct LinkedList *list);
 void ll_print(struct LinkedList *list, void (* print_fn)(void*));
 void ll_debug(struct LinkedList *list);

@@ -10,37 +10,18 @@
 /// Brendan Dileo - November 14 2025
 
 
-// Initalizes a new node
-struct Node * ll_create_node(void *val, size_t size) {
+// Defines the doubly Node struct type
+typedef struct Node {
+    void *value;                        // Pointer to the value stored in this node
+    size_t item_size;                   // The size of the item stored in the node
+    struct Node *next;                  // Pointer to the next node in the list
+    struct Node *prev;                  // Pointer to the previous node in the list
+} Node;
 
-    // Allocate memory for the node itself and
-    struct Node *node = malloc(sizeof(struct Node));
-    
-    // Handle allocation failure
-    if (node == NULL) {
-        return NULL;
-    }
-
-    // Set the size of the item stored in the node and initialize
-    // the nodes `next` and `prev` pointers to NULL
-    node->item_size = size;
-    node->next = NULL;
-    node->prev = NULL;
-
-    // Allocate memory for the value that will be stored in the node
-    node->value = malloc(node->item_size);
-
-    // Handle allocation failure
-    if (node->value == NULL) {
-        free(node);
-        return NULL;
-    }
-
-    // Copy the raw memory contents from the memory pointed to by `val` into `node->value`
-    memcpy(node->value, val, node->item_size);
-
-    return node;
-}
+// Prototypes
+static struct Node* ll_create_node(void *val, size_t size);
+static void ll_discard_node(struct Node *node);
+static void ll_discard_all_nodes(struct LinkedList *list);
 
 
 // Creates a new linked list
@@ -62,7 +43,10 @@ struct LinkedList * ll_create() {
 }
 
 // Inserts a node at the head of the linked list
-void ll_insert(struct Node *node, struct LinkedList *list) {
+void ll_insert(struct LinkedList *list, void *value, size_t item_size) {
+
+    // Create node to insert
+    struct Node *node = ll_create_node(value, item_size);
 
     // Check if the `head` of the list points to NULL since we 
     // can only update the old heads `prev` pointer if there is an old head
@@ -88,7 +72,10 @@ void ll_insert(struct Node *node, struct LinkedList *list) {
 }
 
 // Inserts a node at the tail of the linked list
-void ll_insert_tail(struct Node *node, struct LinkedList *list) {
+void ll_insert_tail(struct LinkedList *list, void *value, size_t item_size) {
+
+    // Create node to insert
+    struct Node *node = ll_create_node(value, item_size);
 
     // Check if list is empty
     if (list->head == NULL) {
@@ -115,18 +102,20 @@ void ll_insert_tail(struct Node *node, struct LinkedList *list) {
 }
 
 // Inserts a node at the specified location in the linked list
-void ll_insert_at(struct Node *node, struct LinkedList *list, int index) {
+void ll_insert_at(struct LinkedList *list, void *value, size_t item_size, int index) {
 
+    // Create node to insert
     if (index < 0 || index > list->length) return;
+    struct Node *node = ll_create_node(value, item_size);
 
     // Check if insertion point is the head of the list
     if (index == 0) {
-        ll_insert(node, list);
+        ll_insert(list, value, item_size);
         return;
 
     // Check if insertion point is the tail of the list
     } else if (index == list->length) {
-        ll_insert_tail(node, list);
+        ll_insert_tail(list, value, item_size);
         return;
 
     // If insertion point is not head or tail, its somewhere in between
@@ -383,7 +372,7 @@ struct LinkedList* ll_copy(struct LinkedList *orig) {
     // between the nodes
     for (struct Node *current = orig->head; current != NULL; current = current->next) {
         struct Node *cnode = ll_create_node(current->value, current->item_size);
-        ll_insert_tail(cnode, copy);
+        ll_insert_tail(copy, cnode->value, cnode->item_size);       // CHECK THIS !!!!!
     }
     return copy;
 }
@@ -428,29 +417,6 @@ bool ll_is_empty(struct LinkedList *list) {
 // Returns the size (length) of the linked list
 int ll_size(struct LinkedList *list) {
     return list->length;
-}
-
-// Frees the memory allocated by a single node
-void ll_discard_node(struct Node *node) {
-    if (node != NULL) {
-        free(node->value);
-        free(node);
-    }
-}
-
-// Frees the memory allocated by each node in a linked list
-void ll_discard_all_nodes(struct LinkedList *list) {
-    if (list != NULL) {
-        // Start from the head of the list, traverse to the end
-        struct Node *current = list->head;
-        while (current != NULL) {
-            // Store the nodes `next` pointer before freeing the current node
-            // to avoid losing reference to the rest of the list
-            struct Node *next = current->next;
-            ll_discard_node(current);
-            current = next;
-        }
-    }
 }
 
 // Frees all memory associated with a linked list
@@ -609,6 +575,67 @@ void swap_node_positions(struct LinkedList *list, struct Node *a, struct Node *b
             list->tail = b;
         } else if (list->tail == b) {
             list->tail = a;
+        }
+    }
+}
+
+
+
+
+// Private helper functions, linkage limited to this file
+
+
+// Creates a new node
+struct Node * ll_create_node(void *val, size_t size) {
+
+    // Allocate memory for the node itself and
+    struct Node *node = malloc(sizeof(struct Node));
+    
+    // Handle allocation failure
+    if (node == NULL) {
+        return NULL;
+    }
+
+    // Set the size of the item stored in the node and initialize
+    // the nodes `next` and `prev` pointers to NULL
+    node->item_size = size;
+    node->next = NULL;
+    node->prev = NULL;
+
+    // Allocate memory for the value that will be stored in the node
+    node->value = malloc(node->item_size);
+
+    // Handle allocation failure
+    if (node->value == NULL) {
+        free(node);
+        return NULL;
+    }
+
+    // Copy the raw memory contents from the memory pointed to by `val` into `node->value`
+    memcpy(node->value, val, node->item_size);
+
+    return node;
+}
+
+// Frees the memory allocated by a single node
+static void ll_discard_node(struct Node *node) {
+    if (node != NULL) {
+        free(node->value);
+        free(node);
+    }
+}
+
+// Frees the memory allocated by each node in a linked list
+static void ll_discard_all_nodes(struct LinkedList *list) {
+    if (list != NULL) {
+        // Start from the head of the list, traverse to the end
+        struct Node *current = list->head;
+        while (current != NULL) {
+            // Store the nodes `next` pointer before freeing the current node
+            // to avoid losing reference to the rest of the list
+            struct Node *next = current->next;
+            ll_discard_node(current);
+            current = next;
         }
     }
 }

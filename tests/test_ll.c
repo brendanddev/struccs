@@ -13,7 +13,7 @@
 void test_get_set(struct LinkedList *list);
 void test_find_contains(struct LinkedList *list);
 void test_copy(struct LinkedList *list);
-void test_swapping();
+// void test_swapping();
 void test_sorting(struct LinkedList *list);
 
 int main() {
@@ -26,13 +26,11 @@ int main() {
 
     // ll_reverse(linked_list);
     // ll_print(linked_list, print_int);
-
     // test_get_set(linked_list);
     // test_find_contains(linked_list);
     // test_sorting(linked_list);
     // test_copy(linked_list);
-
-    test_swapping();
+    // test_swapping();
    
 
 
@@ -42,8 +40,8 @@ int main() {
     
 
     // Free memory allocated by the linked list
-    // ll_discard(linked_list);
-    // linked_list = NULL;
+    ll_discard(linked_list);
+    linked_list = NULL;
     return 0;
 }
 
@@ -105,34 +103,34 @@ void test_copy(struct LinkedList *list) {
 
 }
 
-// Tests the node swapping logic
-void test_swapping() {
+// // Tests the node swapping logic
+// void test_swapping() {
     
-    struct LinkedList *list = ll_create();
+//     struct LinkedList *list = ll_create();
 
-    int num = 100;
-    struct Node *node = ll_create_node(&num, sizeof(int));
+//     int num = 100;
+//     struct Node *node = ll_create_node(&num, sizeof(int));
 
-    int num2 = 200;
-    struct Node *node2 = ll_create_node(&num2, sizeof(int));
+//     int num2 = 200;
+//     struct Node *node2 = ll_create_node(&num2, sizeof(int));
 
-    int num3 = 300;
-    struct Node *node3 = ll_create_node(&num3, sizeof(int));
+//     int num3 = 300;
+//     struct Node *node3 = ll_create_node(&num3, sizeof(int));
 
-    ll_insert(node, list);
-    ll_insert(node2, list);
-    ll_insert(node3, list);
-    ll_print(list, print_int);
+//     ll_insert(node, list);
+//     ll_insert(node2, list);
+//     ll_insert(node3, list);
+//     ll_print(list, print_int);
 
-    swap_node_positions(list, node, node2);
-    ll_print(list, print_int);
+//     swap_node_positions(list, node, node2);
+//     ll_print(list, print_int);
 
-    swap_node_positions(list, node3, node2);
-    ll_print(list, print_int);
+//     swap_node_positions(list, node3, node2);
+//     ll_print(list, print_int);
 
-    ll_discard(list);
+//     ll_discard(list);
 
-}
+// }
 
 // Tests the bubble sort function
 void test_sorting(struct LinkedList *list) {
