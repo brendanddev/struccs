@@ -22,10 +22,10 @@
 
 // Creates a new LinkedList and populates it with integers
 struct LinkedList* create_int_list(void) {
-    struct LinkedList *linked_list = ll_init();
+    struct LinkedList *linked_list = ll_create();
     for (int i = 0; i < 10; i++) {
         int rd_num = rand() % 1500;
-        struct Node *node = ll_init_node(&rd_num, sizeof(int));
+        struct Node *node = ll_create_node(&rd_num, sizeof(int));
         ll_insert_tail(node, linked_list);
     }
     return linked_list;
@@ -33,10 +33,10 @@ struct LinkedList* create_int_list(void) {
 
 // Creates a new LinkedList with a specified size and populates it with integers
 struct LinkedList* create_int_list_from_size(int size) {
-    struct LinkedList *linked_list = ll_init();
+    struct LinkedList *linked_list = ll_create();
     for (int i = 0; i < size; i++) {
         int rd_num = rand() % 1500;
-        struct Node *node = ll_init_node(&rd_num, sizeof(int));
+        struct Node *node = ll_create_node(&rd_num, sizeof(int));
         ll_insert_tail(node, linked_list);
     }
     return linked_list;
@@ -44,10 +44,10 @@ struct LinkedList* create_int_list_from_size(int size) {
 
 // Creates a new LinkedList and populates it with chars
 struct LinkedList* create_chr_list(void) {
-    struct LinkedList *linked_list = ll_init();
+    struct LinkedList *linked_list = ll_create();
     for (int i = 0; i < 10; i++) {
         char rd_chr = 'A' + rand() % 26;
-        struct Node *node = ll_init_node(&rd_chr, sizeof(char));
+        struct Node *node = ll_create_node(&rd_chr, sizeof(char));
         ll_insert_tail(node, linked_list);
     }
     return linked_list;

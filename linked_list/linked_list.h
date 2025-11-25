@@ -28,8 +28,8 @@ typedef struct LinkedList {
 } LinkedList;
 
 
-struct Node* ll_init_node(void *val, size_t size);
-struct LinkedList* ll_init();
+struct Node* ll_create_node(void *val, size_t size);
+struct LinkedList* ll_create();
 void ll_insert(struct Node *node, struct LinkedList *list);
 void ll_insert_tail(struct Node *node, struct LinkedList *list);
 void ll_insert_at(struct Node *node, struct LinkedList *list, int index);

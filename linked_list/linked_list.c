@@ -11,7 +11,7 @@
 
 
 // Initalizes a new node
-struct Node * ll_init_node(void *val, size_t size) {
+struct Node * ll_create_node(void *val, size_t size) {
 
     // Allocate memory for the node itself and
     struct Node *node = malloc(sizeof(struct Node));
@@ -44,7 +44,7 @@ struct Node * ll_init_node(void *val, size_t size) {
 
 
 // Creates a new linked list
-struct LinkedList * ll_init() {
+struct LinkedList * ll_create() {
     // Allocate mmeory for the linked list itself
     struct LinkedList *linked_list = malloc(sizeof(struct LinkedList));
 
@@ -376,13 +376,13 @@ void ll_clear(struct LinkedList *list) {
 
 // Creates and returns a deep copy of a linked list
 struct LinkedList* ll_copy(struct LinkedList *orig) {
-    struct LinkedList *copy = ll_init();
+    struct LinkedList *copy = ll_create();
 
     // Traverse from the original lists head to tail, and for each node in the original list
     // initialize a new node which is a copy of the current node to prevent breaking the links
     // between the nodes
     for (struct Node *current = orig->head; current != NULL; current = current->next) {
-        struct Node *cnode = ll_init_node(current->value, current->item_size);
+        struct Node *cnode = ll_create_node(current->value, current->item_size);
         ll_insert_tail(cnode, copy);
     }
     return copy;

@@ -18,11 +18,11 @@ void test_sorting(struct LinkedList *list);
 
 int main() {
 
-    // struct LinkedList *linked_list = create_int_list();
-    // ll_print(linked_list, print_int);
+    struct LinkedList *linked_list = create_int_list();
+    ll_print(linked_list, print_int);
 
-    // struct LinkedList *linked_list_chr = create_chr_list();
-    // ll_print(linked_list_chr, print_chr);
+    struct LinkedList *linked_list_chr = create_chr_list();
+    ll_print(linked_list_chr, print_chr);
 
     // ll_reverse(linked_list);
     // ll_print(linked_list, print_int);
@@ -108,16 +108,16 @@ void test_copy(struct LinkedList *list) {
 // Tests the node swapping logic
 void test_swapping() {
     
-    struct LinkedList *list = ll_init();
+    struct LinkedList *list = ll_create();
 
     int num = 100;
-    struct Node *node = ll_init_node(&num, sizeof(int));
+    struct Node *node = ll_create_node(&num, sizeof(int));
 
     int num2 = 200;
-    struct Node *node2 = ll_init_node(&num2, sizeof(int));
+    struct Node *node2 = ll_create_node(&num2, sizeof(int));
 
     int num3 = 300;
-    struct Node *node3 = ll_init_node(&num3, sizeof(int));
+    struct Node *node3 = ll_create_node(&num3, sizeof(int));
 
     ll_insert(node, list);
     ll_insert(node2, list);
