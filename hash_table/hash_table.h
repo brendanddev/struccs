@@ -27,7 +27,8 @@ typedef struct HashTable {
 
 
 struct HashTable* ht_create();
-bool ht_insert(void *key, size_t ksize, void *value, size_t vsize);
+bool ht_insert(struct HashTable *hashtable, void *key, size_t ksize, void *value, size_t vsize);
+
 bool ht_get(void *key, size_t ksize, void *out);
 bool ht_remove(void *key, size_t ksize);
 bool ht_is_empty(struct HashTable *hashtable);

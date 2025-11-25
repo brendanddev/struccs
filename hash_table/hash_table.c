@@ -54,7 +54,31 @@ struct HashTable* ht_create() {
 }
 
 // Inserts a new or updates an existing key/value pair in the hash table
-bool ht_insert(void *key, size_t ksize, void *value, size_t vsize) {
+bool ht_insert(struct HashTable *hashtable, void *key, size_t ksize, void *value, size_t vsize) {
+
+    // Compute hash code to determine which bucket the key/value pair belongs to
+    int hash = ht_hash(key, ksize, hashtable->capacity);
+
+
+    
+    // Need to check if the bucket is empty, and if it is, creare a new node and set as head of the bucket
+
+
+    // Traverse the linked list inside of the bucket
+    for (struct Node *current = hashtable->buckets[hash]; current != NULL; current = current->next) {
+        
+        // Check if we found key to update using `memcmp` to compare the raw bytes in memory at two pointers
+        // to determine if they hold identical content
+        if (memcmp(current->key, key, current->key_size) == 0) {
+            // Update the stored value by copying the new value bytes into the memory pointed to by node->value
+            memcpy(current->value, value, vsize);
+            return true;
+        }
+    }
+
+
+
+    // Key not found, need to create a new node and append to bucket
 }
 
 
