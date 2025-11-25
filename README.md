@@ -17,10 +17,12 @@ This project began as a simple **integer array** and has evolved into a comprehe
 
 - **Stack**: In progres...
 
+- **Queue**: In progres...
+
+- **HashTable**: In progres...
+
 ### Planned Implementations
 
-- **Hash Table**
-- **Stack & Queue**
 - **Binary Search Tree**
 - **Heap / Priority Queue**
 - More advanced structures as the project evolves
@@ -56,6 +58,9 @@ This project began as a simple **integer array** and has evolved into a comprehe
   - **Search operations:** Find elements by value with custom comparators `(ll_find, ll_contains)`
   - **Data access:** Get and set values at any index with optimized bidirectional traversal
 
+- **Stack**: 
+
+- **Queue**:
 ---
 
 ## Project Structure
