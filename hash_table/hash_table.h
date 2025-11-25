@@ -19,8 +19,8 @@ struct Node;
 // Defines the HashTable struct type
 typedef struct HashTable {
     struct Node **buckets;              // Pointer to the array of buckets where each element is a pointer to a node
-    int capacity;                       // The capacity of the table
-    int length;                         // The current length of the table
+    int capacity;                       // The number of buckets in the hash table
+    int length;                         // The number of key/value pairs stored in the hash table
     float load_factor;
 } HashTable;
 

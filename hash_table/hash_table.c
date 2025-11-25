@@ -65,8 +65,30 @@ static struct Node* ht_create_node(void *key, size_t ksize, void *value, size_t 
     return node;
 }
 
+// Frees the memory occupied by a single node
 static void ht_discard_node(struct Node *node) {
+    if (node != NULL) {
+        free(node->key);
+        free(node->value);
+        free(node);
+    }
 }
 
+// Frees the memory occupied by each node in the hash table
 static void ht_discard_all_nodes(struct HashTable *hashtable) {
+    
+    // Loop through each bucket in the table
+    for (int i = 0; i < hashtable->capacity; i++) {
+
+        // For each bucket, traverse the nodes inside the bucket
+        // to free each one
+        struct Node *current = hashtable->buckets[i];
+        while (current != NULL) {
+            // Store pointer to next node in the bucket to prevent losing
+            // link to the rest of the nodes
+            struct Node *next = current->next;
+            ht_discard_node(current);
+            current = next;
+        }
+    }
 }
