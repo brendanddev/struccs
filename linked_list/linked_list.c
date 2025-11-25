@@ -429,7 +429,6 @@ void ll_discard(struct LinkedList *list) {
     }
 }
 
-
 // Prints all items stored in the linked list, requiring a caller defined print function that knows how to print each value
 void ll_print(struct LinkedList *list, void (* print_fn)(void*)) {
     for (struct Node *current = list->head; current != NULL; current = current->next) {
@@ -437,7 +436,6 @@ void ll_print(struct LinkedList *list, void (* print_fn)(void*)) {
     }
     printf("\n");
 }
-
 
 // Prints each node in the linked list with its address, value, and next/prev pointers for debugging
 void ll_debug(struct LinkedList *list) {
