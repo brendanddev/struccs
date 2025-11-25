@@ -25,6 +25,31 @@ static void ht_discard_node(struct Node *node);
 static void ht_discard_all_nodes(struct HashTable *hashtable);
 
 
+// Creates a new hash table
+struct HashTable* ht_create() {
+
+    // Allocate memory for the hash table itself and handle allocation failure
+    struct HashTable *hashtable = malloc(sizeof(struct HashTable));
+    if (hashtable == NULL) return NULL;
+
+    // Initialize capacity, length, and load factore of the table
+    hashtable->capacity = 8;
+    hashtable->length = 0;
+    hashtable->load_factor = 0;
+
+    // Allocate memory for the buckets, which is an array of pointers to the nodes and
+    // handle allocation failure
+    // No memory is allocated yet for the nodes themselves, just the slots to hold pointers to them
+    // where each slot corresponds to a bucket
+    hashtable->buckets = malloc(hashtable->capacity * sizeof(struct Node *));
+    if (hashtable->buckets == NULL) {
+        free(hashtable);
+        return NULL;
+    }
+    
+    return hashtable;
+}
+
 
 
 
