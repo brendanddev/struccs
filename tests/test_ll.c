@@ -24,24 +24,22 @@ int main() {
     struct LinkedList *linked_list_chr = create_chr_list();
     ll_print(linked_list_chr, print_chr);
 
-    // ll_reverse(linked_list);
-    // ll_print(linked_list, print_int);
-    // test_get_set(linked_list);
-    // test_find_contains(linked_list);
-    // test_sorting(linked_list);
-    // test_copy(linked_list);
-    // test_swapping();
+    ll_reverse(linked_list);
+    ll_print(linked_list, print_int);
+
+    test_get_set(linked_list);
+    test_find_contains(linked_list);
+    test_sorting(linked_list);
+    test_copy(linked_list);
    
-
-
-
-
-
-    
-
-    // Free memory allocated by the linked list
+    // Free memory allocated by the int linked list
     ll_discard(linked_list);
     linked_list = NULL;
+
+    // Free memory allocated by the char linked list
+    ll_discard(linked_list_chr);
+    linked_list_chr = NULL;
+
     return 0;
 }
 
@@ -95,42 +93,12 @@ void test_find_contains(struct LinkedList *list) {
     }
 }
 
+// Tests the copy function
 void test_copy(struct LinkedList *list) {
-
     struct LinkedList *copy = ll_copy(list);
     printf("Copied List: \n");
     ll_print(copy, print_int);
-
 }
-
-// // Tests the node swapping logic
-// void test_swapping() {
-    
-//     struct LinkedList *list = ll_create();
-
-//     int num = 100;
-//     struct Node *node = ll_create_node(&num, sizeof(int));
-
-//     int num2 = 200;
-//     struct Node *node2 = ll_create_node(&num2, sizeof(int));
-
-//     int num3 = 300;
-//     struct Node *node3 = ll_create_node(&num3, sizeof(int));
-
-//     ll_insert(node, list);
-//     ll_insert(node2, list);
-//     ll_insert(node3, list);
-//     ll_print(list, print_int);
-
-//     swap_node_positions(list, node, node2);
-//     ll_print(list, print_int);
-
-//     swap_node_positions(list, node3, node2);
-//     ll_print(list, print_int);
-
-//     ll_discard(list);
-
-// }
 
 // Tests the bubble sort function
 void test_sorting(struct LinkedList *list) {
