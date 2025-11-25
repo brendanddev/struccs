@@ -37,16 +37,18 @@ struct HashTable* ht_create() {
     hashtable->length = 0;
     hashtable->load_factor = 0;
 
-    // Allocate memory for the buckets, which is an array of pointers to the nodes and
-    // handle allocation failure
+    // Allocate memory for the buckets, which is an array of pointers to the nodes 
     // No memory is allocated yet for the nodes themselves, just the slots to hold pointers to them
     // where each slot corresponds to a bucket
-    hashtable->buckets = malloc(hashtable->capacity * sizeof(struct Node *));
+    // Use calloc() instead of malloc() to initialize all allocated memory to 0
+    hashtable->buckets = calloc(hashtable->capacity, sizeof(struct Node *));
+
+    // Handle allocation failure
     if (hashtable->buckets == NULL) {
         free(hashtable);
         return NULL;
     }
-    
+
     return hashtable;
 }
 
