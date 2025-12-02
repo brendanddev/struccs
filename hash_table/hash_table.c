@@ -101,6 +101,44 @@ bool ht_insert(struct HashTable *hashtable, void *key, size_t ksize, void *value
     return true;
 }
 
+// Removes a key/value pair from the table if the key is found
+bool ht_remove(struct HashTable *hashtable, void *key, size_t ksize) {
+    if (ht_is_empty(hashtable)) return false;
+
+    // Hash the key to find the bucket index
+    int hash = ht_hash(key, ksize, hashtable->capacity);
+
+    // Track both previous and current nodes while traversing
+    struct Node *previous = NULL;
+    struct Node *current = hashtable->buckets[hash];
+
+    while (current != NULL) {
+
+        // Check if we found the key by comparing raw bytes in memory
+        if (memcmp(current->key, key, ksize) == 0) {
+
+            // Check if the current node is the head based on the previous node
+            if (previous == NULL) {
+                hashtable->buckets[hash] = current->next;
+
+            // Not head of the list
+            } else {
+                previous->next = current->next;
+            }
+
+            // Discard the memory allocated by the key/value pair and node itself
+            ht_discard_node(current);
+            hashtable->length--;
+            return true;
+        }
+
+        // Advance the pointers if key not found
+        previous = current;
+        current = current->next;
+    }
+    return false;
+}
+
 // Retrieves the value for a given key in the hash table
 bool ht_get(struct HashTable *hashtable, void *key, size_t ksize, void *out) {
     if (ht_is_empty(hashtable)) return false;
@@ -143,7 +181,7 @@ void ht_print(struct HashTable *hashtable, void (*print_fn)(void*, void*)) {
 
         // Check if bucket is empty for debugging
         if (!current) {
-            printf(" empty\n");
+            printf(" -> NULL (empty)\n");
             continue;
         }
 

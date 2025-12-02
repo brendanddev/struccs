@@ -43,6 +43,22 @@ int main() {
         printf("No value found for the given key=%d\n", k);
     }
 
+    // Remove value 
+    if (ht_remove(hashtable, &k, sizeof(int))) {
+        printf("The value associated with the key=%d was removed\n", k);
+        ht_print(hashtable, print_int_key_value);
+    } else {
+        printf("Failed to remove the key/value pair\n");
+    }
+
+    int k2 = 6;
+    if (ht_remove(hashtable, &k2, sizeof(int))) {
+        printf("The value associated with the key=6 was removed\n");
+        ht_print(hashtable, print_int_key_value);
+    } else {
+        printf("Failed to remove the key/value pair\n");
+    }
+
     
 
 
