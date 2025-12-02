@@ -107,17 +107,21 @@ bool ht_is_empty(struct HashTable *hashtable) {
 }
 
 // Prints the contents 
-void ht_print(struct HashTable *hashtable) {
-
-    // Need to traverse each bucket
-    // Traverse each possible bucket
+void ht_print(struct HashTable *hashtable, void (* print_fn)(void*, void*)) {
+    // Traverse each possible bucket in the table
     for (int i = 0; i < hashtable->capacity; i++) {
-
-
-
+        
+        printf("Bucket [%d]\n", i);
+        // The head of the current bucket
+        // Traverse the linked nodes inside the bucket starting from the head
+        struct Node *current = hashtable->buckets[i];
+        while (current != NULL) {
+            printf("        Node - Key: ");
+            print_fn(current->key, current->value);
+            printf("\n");
+            current = current->next;
+        }
     }
-
-
 }
 
 
