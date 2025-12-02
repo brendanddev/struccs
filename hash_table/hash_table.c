@@ -9,6 +9,9 @@
 /// Brendan Dileo - November 24 2025
 
 
+static const float LOAD_FACTOR_THRESHOLD = 0.7f;
+
+
 // Defines the Node struct type representing a key-value pair stored in the table
 typedef struct Node {
     void *key;                          // Pointer to memory where the key is stored
@@ -21,6 +24,7 @@ typedef struct Node {
 
 // Prototypes
 static int ht_hash(void *key, size_t ksize, int capacity);
+static void ht_resize(struct HashTable *hashtable);
 static struct Node* ht_create_node(void *key, size_t ksize, void *value, size_t vsize);
 static void ht_discard_node(struct Node *node);
 static void ht_discard_all_nodes(struct HashTable *hashtable);
@@ -33,10 +37,9 @@ struct HashTable* ht_create() {
     struct HashTable *hashtable = malloc(sizeof(struct HashTable));
     if (hashtable == NULL) return NULL;
 
-    // Initialize capacity, length, and load factore of the table
+    // Initialize capacity, length of the table
     hashtable->capacity = 8;
     hashtable->length = 0;
-    hashtable->load_factor = 0;
 
     // Allocate memory for the buckets, which is an array of pointers to the nodes 
     // No memory is allocated yet for the nodes themselves, just the slots to hold pointers to them
@@ -205,6 +208,15 @@ void ht_print(struct HashTable *hashtable, void (*print_fn)(void*, void*)) {
     }
 }
 
+// Frees all memory occupied by the contents of the hash table and the table itself
+void ht_discard(struct HashTable *hashtable) {
+    ht_discard_all_nodes(hashtable);
+    if (hashtable != NULL) {
+        free(hashtable->buckets);
+        free(hashtable);
+    }
+}
+
 
 // Private helper functions, linkage limited to this file
 
@@ -225,6 +237,15 @@ static int ht_hash(void *key, size_t ksize, int capacity) {
     // Map the hash to a bucket in the table based on the raw hash and capacity of the table
     int bucket_index = raw_hash % capacity;
     return bucket_index;
+}
+
+// Resizes the hash tables internal array of bucket pointers and rehashes all key/value pairs to 
+// redistribute them across the new set of buckets
+static void ht_resize(struct HashTable *hashtable) {
+
+
+
+    
 }
 
 // Creates a new node to store a key/value pair in a hash table bucket

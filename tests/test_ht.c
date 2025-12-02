@@ -72,6 +72,10 @@ int main() {
     printf("Length: %d, Capacity: %d\n", ht_size(hashtable), ht_capacity(hashtable));
 
 
+    // Discard the hash table
+    ht_discard(hashtable);
+    hashtable = NULL;
+
     
 
 

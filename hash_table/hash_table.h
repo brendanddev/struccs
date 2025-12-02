@@ -21,7 +21,6 @@ typedef struct HashTable {
     struct Node **buckets;              // Pointer to the array of buckets where each element is a pointer to a node
     int capacity;                       // The number of buckets in the hash table
     int length;                         // The number of key/value pairs stored in the hash table
-    float load_factor;
 } HashTable;
 
 
@@ -33,7 +32,6 @@ bool ht_is_empty(struct HashTable *hashtable);
 int ht_size(struct HashTable *hashtable);
 int ht_capacity(struct HashTable *hashtable);
 void ht_print(struct HashTable *hashtable, void (* print_fn)(void*, void*));
-
 void ht_discard(struct HashTable *hashtable);
 
 
