@@ -168,6 +168,16 @@ bool ht_is_empty(struct HashTable *hashtable) {
     return hashtable->length == 0;
 }
 
+// Returns the number of key/value pairs stored in the hash table
+int ht_size(struct HashTable *hashtable) {
+    return hashtable->length;
+}
+
+// Returns the current number of buckets in the hash table
+int ht_capacity(struct HashTable *hashtable) {
+    return hashtable->capacity;
+}
+
 // Prints the contents of each bucket in the hash table, printing the key/value pair for each node in a bucket
 void ht_print(struct HashTable *hashtable, void (*print_fn)(void*, void*)) {
     printf("HashTable - Capacity: %d, Length: %d\n", hashtable->capacity, hashtable->length);

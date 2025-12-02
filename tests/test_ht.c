@@ -59,6 +59,19 @@ int main() {
         printf("Failed to remove the key/value pair\n");
     }
 
+    // Both keys hash to same bucket index currently - collision
+    int k3 = 0, k4 = 8;
+    if (ht_remove(hashtable, &k3, sizeof(int)) && ht_remove(hashtable, &k4, sizeof(int))) {
+        printf("The values associated with the key=0 and key=8 was removed\n");
+        ht_print(hashtable, print_int_key_value);
+    } else {
+        printf("Failed to remove the key/value pair\n");
+    }
+
+    // Print length and capacity
+    printf("Length: %d, Capacity: %d\n", ht_size(hashtable), ht_capacity(hashtable));
+
+
     
 
 
