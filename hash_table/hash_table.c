@@ -250,9 +250,39 @@ static int ht_hash(void *key, size_t ksize, int capacity) {
 // redistribute them across the new set of buckets
 static void ht_resize(struct HashTable *hashtable) {
 
+    // Store old capacity of the table and pointer to the old buckets
+    int old_capacity = hashtable->capacity;    
+    struct Node **oldbuckets = hashtable->buckets;
+    int new_capacity = hashtable->capacity * 2;
 
+    // Allocate memory for the new larger buckets array which is an array of pointers to the nodes
+    struct Node **newbuckets = calloc(new_capacity, sizeof(struct Node *));
+    if (newbuckets == NULL) return;
 
+    // Traverse each of the buckets in the hash table
+    for (int i = 0; i < old_capacity; i++) {
 
+        // For each bucket, traverse the linked nodes inside the bucket
+        struct Node *current = hashtable->buckets[i];
+        while (current != NULL) {
+
+            struct Node *next = current->next;
+
+            int new_hash = ht_hash(current->key, current->key_size, hashtable->capacity);
+            current->next = newbuckets[new_hash];
+            newbuckets[new_hash] = current;
+
+            current = next;
+        }
+    }
+
+    // Update the hash table pointer to point to the new buckets array
+    // and update capacity and length
+    hashtable->buckets = newbuckets;
+    hashtable->capacity = new_capacity;
+
+    // Free the memory allocated by the old array of buckets
+    free(oldbuckets);
 }
 
 // Creates a new node to store a key/value pair in a hash table bucket
