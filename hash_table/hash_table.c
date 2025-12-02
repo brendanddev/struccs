@@ -263,12 +263,16 @@ static void ht_resize(struct HashTable *hashtable) {
     for (int i = 0; i < old_capacity; i++) {
 
         // For each bucket, traverse the linked nodes inside the bucket
-        struct Node *current = hashtable->buckets[i];
+        struct Node *current = oldbuckets[i];
         while (current != NULL) {
 
+            // Store the current nodes `next` pointer to prevent losing reference to the rest of the nodes
+            // in the original bucket
             struct Node *next = current->next;
 
-            int new_hash = ht_hash(current->key, current->key_size, hashtable->capacity);
+            // Compute the new hash for the bucket index in the new array and 
+            // set the current node as the head node in the new bucket
+            int new_hash = ht_hash(current->key, current->key_size, new_capacity);
             current->next = newbuckets[new_hash];
             newbuckets[new_hash] = current;
 
