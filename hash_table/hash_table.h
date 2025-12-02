@@ -31,6 +31,7 @@ bool ht_get(struct HashTable *hashtable, void *key, size_t ksize, void *out);
 bool ht_is_empty(struct HashTable *hashtable);
 int ht_size(struct HashTable *hashtable);
 int ht_capacity(struct HashTable *hashtable);
+float ht_load_factor(struct HashTable *hashtable);
 void ht_print(struct HashTable *hashtable, void (* print_fn)(void*, void*));
 void ht_discard(struct HashTable *hashtable);
 

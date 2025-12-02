@@ -181,6 +181,13 @@ int ht_capacity(struct HashTable *hashtable) {
     return hashtable->capacity;
 }
 
+// Computes the load factor which is the ratio of key/value pairs to buckets
+float ht_load_factor(struct HashTable *hashtable) {
+    if (hashtable->capacity == 0) return 0.0f;
+    return (float) hashtable->length / hashtable->capacity;
+}
+
+
 // Prints the contents of each bucket in the hash table, printing the key/value pair for each node in a bucket
 void ht_print(struct HashTable *hashtable, void (*print_fn)(void*, void*)) {
     printf("HashTable - Capacity: %d, Length: %d\n", hashtable->capacity, hashtable->length);
@@ -245,7 +252,7 @@ static void ht_resize(struct HashTable *hashtable) {
 
 
 
-    
+
 }
 
 // Creates a new node to store a key/value pair in a hash table bucket
