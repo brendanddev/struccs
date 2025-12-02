@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
-#include "hash_table/hash_table.h"
+#include "hash_table.h"
 
 /// hash_table.c
 /// A generic implementation of a hash table
@@ -20,7 +20,7 @@ typedef struct Node {
 
 
 // Prototypes
-static int ht_hash();
+static int ht_hash(void *key, size_t ksize, int capacity);
 static struct Node* ht_create_node(void *key, size_t ksize, void *value, size_t vsize);
 static void ht_discard_node(struct Node *node);
 static void ht_discard_all_nodes(struct HashTable *hashtable);
@@ -59,12 +59,21 @@ bool ht_insert(struct HashTable *hashtable, void *key, size_t ksize, void *value
     // Compute hash code to determine which bucket the key/value pair belongs to
     int hash = ht_hash(key, ksize, hashtable->capacity);
 
+    // Check if specific bucket being inserted into is empty
+    if (hashtable->buckets[hash] == NULL) {
+        // Create the node to insert into this bucket as the head
+        // and handle allocation failure
+        struct Node *newnode = ht_create_node(key, ksize, value, vsize);
+        if (newnode == NULL) return false;
 
-    
-    // Need to check if the bucket is empty, and if it is, creare a new node and set as head of the bucket
+        // Set the new node as the head of this bucket
+        hashtable->buckets[hash] = newnode;
+        hashtable->length++;
+        return true;
+    }
 
-
-    // Traverse the linked list inside of the bucket
+    // If bucket being inserted to is not empty, need to traverse the linked nodes starting from the 
+    // head node of the bucket to try and find the key and update if found
     for (struct Node *current = hashtable->buckets[hash]; current != NULL; current = current->next) {
         
         // Check if we found key to update using `memcmp` to compare the raw bytes in memory at two pointers
@@ -76,9 +85,39 @@ bool ht_insert(struct HashTable *hashtable, void *key, size_t ksize, void *value
         }
     }
 
+    // If we reach here, key was not found inside of the bucket and we need to append
+    // a new node to this bucket
+    struct Node *newnode = ht_create_node(key, ksize, value, vsize);
+
+    // Traverse the nodes inside of the bucket starting from the head node
+    struct Node *current = hashtable->buckets[hash];
+    while (current->next != NULL) {
+        current = current->next;
+    }
+
+    // At this point `current->next == NULL` so we can append the bucket
+    current->next = newnode;
+    hashtable->length++;
+    return true;
+}
+
+// Checks if the hash table is empty, meaning it contains no key/value pairs
+bool ht_is_empty(struct HashTable *hashtable) {
+    return hashtable->length == 0;
+}
+
+// Prints the contents 
+void ht_print(struct HashTable *hashtable) {
+
+    // Need to traverse each bucket
+    // Traverse each possible bucket
+    for (int i = 0; i < hashtable->capacity; i++) {
 
 
-    // Key not found, need to create a new node and append to bucket
+
+    }
+
+
 }
 
 

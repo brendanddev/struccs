@@ -28,12 +28,13 @@ typedef struct HashTable {
 
 struct HashTable* ht_create();
 bool ht_insert(struct HashTable *hashtable, void *key, size_t ksize, void *value, size_t vsize);
+bool ht_is_empty(struct HashTable *hashtable);
+void ht_print(struct HashTable *hashtable);
+
 
 bool ht_get(void *key, size_t ksize, void *out);
 bool ht_remove(void *key, size_t ksize);
-bool ht_is_empty(struct HashTable *hashtable);
 int ht_size(struct HashTable *hashtable);
-void ht_print(struct HashTable *hashtable);
 void ht_discard(struct HashTable *hashtable);
 
 
