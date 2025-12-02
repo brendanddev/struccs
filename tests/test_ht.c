@@ -12,7 +12,7 @@
 void print_int_key_value(void *key, void *value) {
     int *k = (int*)key;
     int *v = (int*)value;
-    printf("Key: %d, Value: %d", *k, *v);
+    printf("[Key: %d: Value: %d]", *k, *v);
 }
 
 int main() {
@@ -24,13 +24,24 @@ int main() {
     // Check if empty
     printf("HashTable is empty: %d\n", ht_is_empty(hashtable));
 
+    // Insert key value pairs into the hash table
     for (int i = 0; i < 10; i++) {
         int key = i;
         int value = i * 10;
         ht_insert(hashtable, &key, sizeof(int), &value, sizeof(int));
     }
 
+    // Print the contents of the hash table
     ht_print(hashtable, print_int_key_value);
+
+    // Get value stored in the hash table by key
+    int val;
+    int k = 7;
+    if (ht_get(hashtable, &k, sizeof(int), &val)) {
+        printf("Value found for key=%d: %d\n", k, val);
+    } else {
+        printf("No value found for the given key=%d\n", k);
+    }
 
     
 

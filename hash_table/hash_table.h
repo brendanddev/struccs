@@ -28,11 +28,10 @@ typedef struct HashTable {
 
 struct HashTable* ht_create();
 bool ht_insert(struct HashTable *hashtable, void *key, size_t ksize, void *value, size_t vsize);
+bool ht_get(struct HashTable *hashtable, void *key, size_t ksize, void *out);
 bool ht_is_empty(struct HashTable *hashtable);
 void ht_print(struct HashTable *hashtable, void (* print_fn)(void*, void*));
 
-
-bool ht_get(void *key, size_t ksize, void *out);
 bool ht_remove(void *key, size_t ksize);
 int ht_size(struct HashTable *hashtable);
 void ht_discard(struct HashTable *hashtable);

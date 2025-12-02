@@ -101,26 +101,59 @@ bool ht_insert(struct HashTable *hashtable, void *key, size_t ksize, void *value
     return true;
 }
 
+// Retrieves the value for a given key in the hash table
+bool ht_get(struct HashTable *hashtable, void *key, size_t ksize, void *out) {
+    if (ht_is_empty(hashtable)) return false;
+
+    // Hash the key to find the bucket
+    int hash = ht_hash(key, ksize, hashtable->capacity);
+
+    // Start from the head of the linked nodes inside the bucket
+    // and traverse to search for key
+    struct Node *current = hashtable->buckets[hash];
+    while (current != NULL) {
+
+        // Check if we found the key by comparing the raw bytes stored in memory
+        if (memcmp(current->key, key, ksize) == 0) {
+            // If the key is found, copy raw bytes stored in memory into the 
+            // memory pointed to by the out pointer
+            memcpy(out, current->value, current->value_size);
+            return true;
+        }
+        current = current->next;
+    }
+    return false;
+}
+
 // Checks if the hash table is empty, meaning it contains no key/value pairs
 bool ht_is_empty(struct HashTable *hashtable) {
     return hashtable->length == 0;
 }
 
-// Prints the contents 
-void ht_print(struct HashTable *hashtable, void (* print_fn)(void*, void*)) {
+// Prints the contents of each bucket in the hash table, printing the key/value pair for each node in a bucket
+void ht_print(struct HashTable *hashtable, void (*print_fn)(void*, void*)) {
+    printf("HashTable - Capacity: %d, Length: %d\n", hashtable->capacity, hashtable->length);
+
     // Traverse each possible bucket in the table
     for (int i = 0; i < hashtable->capacity; i++) {
         
-        printf("Bucket [%d]\n", i);
         // The head of the current bucket
-        // Traverse the linked nodes inside the bucket starting from the head
         struct Node *current = hashtable->buckets[i];
+        printf("Bucket [%d]:", i);
+
+        // Check if bucket is empty for debugging
+        if (!current) {
+            printf(" empty\n");
+            continue;
+        }
+
+        // Traverse the linked nodes inside the bucket starting from the head node
         while (current != NULL) {
-            printf("        Node - Key: ");
+            printf(" -> ");
             print_fn(current->key, current->value);
-            printf("\n");
             current = current->next;
         }
+        printf("\n");
     }
 }
 
