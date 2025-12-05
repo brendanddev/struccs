@@ -33,14 +33,20 @@ struct HashTable* ht_create() {
     struct HashTable *hashtable = malloc(sizeof(struct HashTable));
     if (hashtable == NULL) return NULL;
 
+    // Set initial capacity and length of the hash table
+    hashtable->capacity = 8;
+    hashtable->length = 0;
 
-//  struct Node **buckets;         // Pointer to an array of node pointers, where each node pointer represents a bucket
-//     int capacity;                  // Number of buckets in the hash table
-//     int length;     
-
+    // Allocate memory for the hash tables internal array of buckets
+    // using calloc to initialize each bucket to NULL to know whether they are empty,
+    // and handle allocation failure
+    hashtable->buckets = calloc(hashtable->capacity, sizeof(struct Node*));
+    if (hashtable->buckets == NULL) {
+        free(hashtable);
+        return NULL;
+    }
 
     return hashtable;
-
 }
 
 
