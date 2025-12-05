@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "test_common.h"
 #include "../linked_list/linked_list.h"
 
 
@@ -9,6 +8,18 @@
 /// The test suite for the LinkedList implementation
 /// Brendan Dileo, November 17 2025
 
+
+void print_int(void *value) {
+    printf("[%d] ", * (int *) value);
+}
+
+void print_chr(void *value) {
+    printf("[%c] ", * (char *) value);
+}
+
+bool compare_int(void *a, void *b) {
+    return * (int *) a == * (int *) b;
+}
 
 void test_get_set(struct LinkedList *list);
 void test_find_contains(struct LinkedList *list);
@@ -98,10 +109,4 @@ void test_copy(struct LinkedList *list) {
     struct LinkedList *copy = ll_copy(list);
     printf("Copied List: \n");
     ll_print(copy, print_int);
-}
-
-// Tests the bubble sort function
-void test_sorting(struct LinkedList *list) {
-    ll_bsort(list, greater_than);
-    ll_print(list, print_int);
 }
