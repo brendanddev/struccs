@@ -164,6 +164,23 @@ bool ht_remove(struct HashTable *hashtable, void *key, size_t ksize) {
     return false;
 }
 
+// Retrieves the value associated with a key if found
+bool ht_get(struct HashTable *hashtable, void *key, size_t ksize, void *out) {
+
+    // To find the value associated with a key:
+    // 1. Hash the key to find the bucket to search for the key in
+    // 2. Traverse the bucket, comparing the current nodes key with the provided key
+    // 3. If the key is found, copy its value into the output pointer and return
+    // 4. If not found, return false
+
+    
+
+
+
+
+    return false;
+}
+
 // Prints the contents of the hash table, visiting each bucket and printing its contents
 void ht_print(struct HashTable *hashtable, void (* print_fn)(void*, void*)) {
     
