@@ -99,3 +99,23 @@ static void ht_discard_node(struct Node *node) {
         free(node);
     }
 }
+
+// Frees the memory previously allocated by all nodes in the hash table
+static void ht_discard_all_nodes(struct HashTable *hashtable) {
+
+    // Loop through each bucket in the hash table
+    for (int i = 0; i < hashtable->capacity; i++) {
+
+        // Start from head node in each bucket and
+        // loop through each node in the bucket to free each
+        struct Node *current = hashtable->buckets[i];
+        while (current != NULL) {
+
+            // Store pointer to the next node in the bucket to prevent
+            // losing the link to the rest of the nodes when freeing the current
+            struct Node *next = current->next;
+            ht_discard_node(current);
+            current = next;
+        }
+    }
+}
