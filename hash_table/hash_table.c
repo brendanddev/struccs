@@ -21,5 +21,54 @@ typedef struct Node {
 
 // Prototypes
 static struct Node* ht_create_node(void *key, size_t ksize, void *value, size_t vsize);
+static int ht_hash(void *key);
 static void ht_discard_node(struct Node *node);
 static void ht_discard_all_nodes(struct HashTable *hashtable);
+
+
+// Creates a new hash table
+struct HashTable* ht_create() { }
+
+
+
+
+// Private helper functions, linkage limited to this file
+
+
+// Creates a new node
+static struct Node* ht_create_node(void *key, size_t ksize, void *value, size_t vsize) {
+
+    // Allocate memory for the node itself and handle allocation failure
+    struct Node *node = malloc(sizeof(struct Node));
+    if (node == NULL) {
+        return NULL;
+    }
+
+    // Set size of key and value being stored in the node 
+    // and initial pointer to the next node
+    node->key_size = ksize;
+    node->value_size = vsize;
+    node->next = NULL;
+
+    // Allocate memory for the key and handle allocation failure
+    node->key = malloc(node->key_size);
+    if (node->key == NULL) {
+        free(node);
+        return NULL;
+    }
+
+    // Allocate memory for the value and handle allocation failure,
+    // freeing the memory allocated for the key and node itself
+    node->value = malloc(node->value_size);
+    if (node->value == NULL) {
+        free(node->key);
+        free(node);
+        return NULL;
+    }
+
+    // Copy the raw memory pointed to by the pointer arguments into the memory pointed to by
+    // the nodes members
+    memcpy(node->key, key, node->key_size);
+    memcpy(node->value, value, node->value_size);
+    return node;
+}
