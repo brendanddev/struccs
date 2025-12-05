@@ -56,6 +56,19 @@ struct HashTable* ht_create() {
 
 
 
+void ht_print(struct HashTable *hashtable, void (* print_fn)(void*, void*));
+
+
+// Frees the memory previously allocated by the hash table
+void ht_discard(struct HashTable *hashtable) {
+    if (hashtable != NULL) {
+        ht_discard_all_nodes(hashtable);
+        free(hashtable->buckets);
+        free(hashtable);
+    }
+}
+
+
 // Checks whether the hash table is empty or not
 bool ht_is_empty(struct HashTable *hashtable) {
     return hashtable->length == 0;
