@@ -112,32 +112,32 @@ bool ht_insert(struct HashTable *hashtable, void *key, size_t ksize, void *value
     return false;
 }
 
-
-
-
-// CHECK THIS:
 // Prints the contents of the hash table, visiting each bucket and printing its contents
 void ht_print(struct HashTable *hashtable, void (* print_fn)(void*, void*)) {
-
-    // Print each bucket
-    // Print each node inside each bucket
-        // by traversing the linked nodes inside the bucket
-
     
     // Loop through each bucket in the hash table
     for (int i = 0; i < hashtable->capacity; i++) {
-        printf("Bucket %d\n", i);
+        printf("Bucket %d -> ", i);
 
         // The head node of the current bucket
         struct Node *current = hashtable->buckets[i];
-        while (current != NULL) {
-            printf("Key/Value: \n");
-            print_fn(current->key, current->value);
-            current = current->next;
+
+        if (current == NULL) {
+            printf("NULL\n");
+        } else {
+
+            // For each node in the bucket, print its key and value
+            while (current != NULL) {
+                print_fn(current->key, current->value);
+                if (current->next != NULL) {
+                    printf(" -> ");
+                }
+                current = current->next;
+            }
+            printf("\n");
         }
     }
 }
-
 
 // Frees the memory previously allocated by the hash table
 void ht_discard(struct HashTable *hashtable) {

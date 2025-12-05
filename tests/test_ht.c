@@ -26,7 +26,7 @@ int main() {
 
 
     // Insert new key/value pairs into the hash table
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 12; i++) {
         int k = i;
         int v = i * 15;
         ht_insert(hashtable, &k, sizeof(int), &v, sizeof(int));
