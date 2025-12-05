@@ -15,11 +15,12 @@ This project began as a simple **integer array** and has evolved into a comprehe
 
 - **LinkedList**: A fully functional doubly linked list with generic type support, bidirectional traversal optimization, and comprehensive manipulation operations.
 
-- **Stack**: In progres...
+- **Stack**: A LIFO data structure backed by linked nodes with generic type support for storing any data type.
 
-- **Queue**: In progres...
+- **Queue**: A FIFO data structure backed by linked nodes with generic type support for storing any data type.
 
-- **HashTable**: In progres...
+- **HashTable**: In Progres...
+
 
 ### Planned Implementations
 
@@ -59,8 +60,19 @@ This project began as a simple **integer array** and has evolved into a comprehe
   - **Data access:** Get and set values at any index with optimized bidirectional traversal
 
 - **Stack**: 
+  - Classic LIFO (Last In, First Out) data structure
+  - Generic type support using `void*` pointers and `memcpy` for storing any **data type**
+  - Linked node implementation for dynamic memory allocation without fixed capacity
+  - Proper memory management with automatic cleanup via (stack_discard)
 
 - **Queue**:
+  - Classic FIFO (First In, First Out) data structure
+  - Generic type support using `void*` pointers and `memcpy` for storing any data type
+  - Linked node implementation with head and tail pointers for O(1) enqueue and dequeue
+  - Proper memory management with automatic cleanup via (queue_discard)
+
+- **HashTable**: *(Planned)*
+
 ---
 
 ## Project Structure

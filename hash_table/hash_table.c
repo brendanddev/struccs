@@ -59,6 +59,11 @@ struct HashTable* ht_create() {
 // Inserts a new or updates an existing key/value pair in the hash table
 bool ht_insert(struct HashTable *hashtable, void *key, size_t ksize, void *value, size_t vsize) {
 
+    if (ht_load_factor(hashtable) > LOAD_FACTOR_THRESHOLD) {
+        
+
+    }
+
     // Compute hash code to determine which bucket the key/value pair belongs to
     int hash = ht_hash(key, ksize, hashtable->capacity);
 
