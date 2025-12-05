@@ -28,12 +28,13 @@ struct HashTable* ht_create();
 bool ht_insert(struct HashTable *hashtable, void *key, size_t ksize, void *value, size_t vsize);
 bool ht_remove(struct HashTable *hashtable, void *key, size_t ksize);
 bool ht_get(struct HashTable *hashtable, void *key, size_t ksize, void *out);
+bool ht_contains(struct HashTable *hashtable, void *key, size_t ksize);
+void ht_clear(struct HashTable *hashtable);
 bool ht_is_empty(struct HashTable *hashtable);
 int ht_size(struct HashTable *hashtable);
 int ht_capacity(struct HashTable *hashtable);
 float ht_load_factor(struct HashTable *hashtable);
 void ht_print(struct HashTable *hashtable, void (* print_fn)(void*, void*));
 void ht_discard(struct HashTable *hashtable);
-
 
 #endif
