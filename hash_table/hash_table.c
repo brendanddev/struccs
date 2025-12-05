@@ -55,6 +55,80 @@ struct HashTable* ht_create() {
 }
 
 
+// The insert method should:
+
+// Hash the key to find the bucket index
+// Check if the key already exists in that bucket's chain
+
+// If it exists: update the value
+// If it doesn't exist: create a new node and add it to the chain
+
+
+// Increment length (only if inserting new, not updating)
+// Check if load factor exceeds threshold, resize if needed
+
+
+bool ht_insert(struct HashTable *hashtable, void *key, size_t ksize, void *value, size_t vsize) {
+
+    // Check if resize is needed
+    if (ht_load_factor(hashtable) > LOAD_THRESHOLD) {
+        printf("WOULD RESIZE HERE...\n");
+    }
+
+    // Hash the key to find the bucket index
+    int hash = ht_hash(key, ksize, hashtable->capacity);
+
+    // Find head node of the current bucket based on the hash, could be NULL if empty
+    struct Node *head = hashtable->buckets[hash];
+
+    // If bucket is empty, need to create new node and set as head of linked nodes
+    if (head == NULL) {
+
+        struct Node *newnode = ht_create_node(key, ksize, value, vsize);
+        head = newnode;
+        head->next = NULL;
+
+        hashtable->length++;
+        return true;
+
+    // Otherwise traverse the linked nodes in the bucket and search for the key to update, 
+    // appending a new node if not found
+    } else {
+
+        // Keep track of the node before the current node
+        struct Node *previous = NULL;
+
+        // Traverse from the head node in the bucket
+        while (head != NULL) {
+
+            // Compare current nodes key with the key being inserted
+            if (head->key == key) {
+
+                // If key already exists, update the value by copying raw memory
+                memcpy(head->value, value, vsize);
+                return true;
+            }
+
+            // Advance both pointers to continue traversal
+            previous = head;
+            head = head->next;
+        }
+
+        // If we get here, no matching key was found so append a new node to the bucket
+        struct Node *newnode = ht_create_node(key, ksize, value ,vsize);
+        previous->next = newnode;
+        hashtable->length++;
+        
+        return true;
+    }
+
+    return false;
+}
+
+
+
+
+// CHECK THIS:
 // Prints the contents of the hash table, visiting each bucket and printing its contents
 void ht_print(struct HashTable *hashtable, void (* print_fn)(void*, void*)) {
 
