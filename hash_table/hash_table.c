@@ -36,8 +36,10 @@ bool ht_is_empty(struct HashTable *hashtable) {
     return hashtable->length == 0;
 }
 
-
-int ht_size(struct HashTable *hashtable);
+// Returns the number of key/value pairs (nodes) in the hash table
+int ht_size(struct HashTable *hashtable) {
+    return hashtable->length;
+}
 
 int ht_capacity(struct HashTable *hashtable);
 float ht_load_factor(struct HashTable *hashtable);
