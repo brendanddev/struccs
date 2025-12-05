@@ -11,11 +11,11 @@
 
 // Defines the Node struct type
 typedef struct Node {
-    void *key;
-    size_t key_size;
-    void *value;
-    size_t value_size;
-    struct Node *next;
+    void *key;              // Pointer to the memory where the key data is stored
+    size_t key_size;        // The number of bytes the key will occupy in the memory pointed to for the key
+    void *value;            // Pointer to the memory where the value data is stored
+    size_t value_size;      // The number of bytes that the value will occupy in the memory pointed to for the value
+    struct Node *next;      // Pointer to the next node in a bucket
 } Node;
 
 
@@ -27,7 +27,21 @@ static void ht_discard_all_nodes(struct HashTable *hashtable);
 
 
 // Creates a new hash table
-struct HashTable* ht_create() { }
+struct HashTable* ht_create() { 
+
+    // Allocate memory for the hash table itself and handle allocation failure
+    struct HashTable *hashtable = malloc(sizeof(struct HashTable));
+    if (hashtable == NULL) return NULL;
+
+
+//  struct Node **buckets;         // Pointer to an array of node pointers, where each node pointer represents a bucket
+//     int capacity;                  // Number of buckets in the hash table
+//     int length;     
+
+
+    return hashtable;
+
+}
 
 
 
