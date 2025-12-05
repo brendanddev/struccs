@@ -26,7 +26,7 @@ typedef struct Node {
 // Prototypes
 static struct Node* ht_create_node(void *key, size_t ksize, void *value, size_t vsize);
 static int ht_hash(void *key, size_t key_size, int capacity);
-static void ht_resize();
+static void ht_resize(struct HashTable *hashtable);
 static void ht_discard_node(struct Node *node);
 static void ht_discard_all_nodes(struct HashTable *hashtable);
 
@@ -338,6 +338,43 @@ static int ht_hash(void *key, size_t key_size, int capacity) {
 
     // Modulo to ensure hash value fits within the buckets array bounds
     return hash_value % capacity;
+}
+
+// Resizes the internal array of pointers to the buckets when the load factor reaches the max
+static void ht_resize(struct HashTable *hashtable) {
+
+    // Store a pointer to the hash tables current buckets, 
+    // store old capacity
+    struct Node **bucketscopy = hashtable->buckets;
+    int old_capacity = hashtable->capacity;
+
+    // Set new capacity for the hash table
+    hashtable->capacity = hashtable->capacity * 2;
+
+    // Allocate more memory for the new larger internal array of buckets
+    hashtable->buckets = calloc(hashtable->capacity, sizeof(struct Node*));
+
+    // Loop through each bucket in the hash table
+    for (int i = 0; i < old_capacity; i++) {
+
+        // The head node of the current bucket based on old capacity
+        struct Node *current = bucketscopy[i];
+
+        while (current != NULL) {
+
+            // Compute the current nodes new hash 
+            int hash = ht_hash(current->key, current->key_size, hashtable->capacity);
+
+            // Insert node into new bucket, need to track next to avoid losing link
+            // and check the new buckets head
+
+            
+            current = current->next;
+        }
+    }
+
+    // Free copy of the buckets after resizing
+    free(bucketscopy);
 }
 
 // Frees the memory previously allocated by a node
