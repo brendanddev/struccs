@@ -68,6 +68,28 @@ int main() {
         printf("Failed to retrieve the value!\n");
     }
 
+    // Check if the hash table contains a key
+    int keycontains = 10;
+    if (ht_contains(hashtable, &keycontains, sizeof(int))) {
+        printf("The hash table has key=%d\n", keycontains);
+    } else {
+        printf("Could not find key=%d in the table\n", keycontains);
+    }
+
+    keycontains = 11;
+    if (ht_contains(hashtable, &keycontains, sizeof(int))) {
+        printf("The hash table has key=%d\n", keycontains);
+    } else {
+        printf("Could not find key=%d in the table\n", keycontains);
+    }
+
+    keycontains = 900;
+    if (ht_contains(hashtable, &keycontains, sizeof(int))) {
+        printf("The hash table has key=%d\n", keycontains);
+    } else {
+        printf("Could not find key=%d in the table\n", keycontains);
+    }
+
 
     // Free memory allocated by the hash table
     ht_discard(hashtable);
