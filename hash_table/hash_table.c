@@ -41,7 +41,11 @@ int ht_size(struct HashTable *hashtable) {
     return hashtable->length;
 }
 
-int ht_capacity(struct HashTable *hashtable);
+// Returns the number of buckets in the hash table
+int ht_capacity(struct HashTable *hashtable) {
+    return hashtable->capacity;
+}
+
 float ht_load_factor(struct HashTable *hashtable);
 
 
