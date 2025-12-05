@@ -112,6 +112,57 @@ bool ht_insert(struct HashTable *hashtable, void *key, size_t ksize, void *value
     return false;
 }
 
+// Removes a node from a bucket in the hash table based on the keys hash
+bool ht_remove(struct HashTable *hashtable, void *key, size_t ksize) {
+
+    if (ht_is_empty(hashtable)) return false;
+
+    // Hash the key to find the nodes bucket
+    int hash = ht_hash(key, ksize, hashtable->capacity);
+
+    // Start from the head of the given bucket
+    // and track previous node incase of non-head node being removed
+    struct Node *current = hashtable->buckets[hash];
+    struct Node *previous = NULL;
+
+    // Traverse the linked nodes inside the current bucket to search for the key, starting from head of link
+    while (current != NULL) {
+
+        // Compare raw memory pointed to by the current nodes key and the key to search for
+        // to check for equality
+        if (memcmp(current->key, key, ksize) == 0) {
+
+            // If the key to remove is found, need to check which node in the link it is
+            // Check if head is node being removed
+            if (current == hashtable->buckets[hash]) {
+
+                // Store pointer to the next node in the link to prevent losing the link,
+                // free the current head of the link, and re-point the head to the next node
+                struct Node *next = current->next;
+                ht_discard_node(current);
+                hashtable->buckets[hash] = next;
+            
+            // Otherwise middle or tail node being removed
+            } else {
+
+                // Store pointer to the next node in the link to prevent losing the link,
+                // free the current node, and re-link the surrounding nodes by re-pointing 
+                // the previous pointer to the next node
+                struct Node *next = current->next;
+                ht_discard_node(current);
+                previous->next = next;
+            }
+
+            hashtable->length--;
+            return true;
+        }
+
+        // Advance pointers to continue traversal if key not found yet
+        previous = current;
+        current = current->next;
+    }
+}
+
 // Prints the contents of the hash table, visiting each bucket and printing its contents
 void ht_print(struct HashTable *hashtable, void (* print_fn)(void*, void*)) {
     
