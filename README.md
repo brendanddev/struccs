@@ -80,17 +80,33 @@ This project began as a simple **integer array** and has evolved into a comprehe
 ```
 structures-from-scratch/
 ├── archive/                    # Older implementations
+│
 ├── generic_array/              # GenericArray library
-│ ├── generic_array.h
-│ └── generic_array.c
+│   ├── generic_array.h
+│   └── generic_array.c
+│
 ├── linked_list/                # LinkedList library
-│ ├── linked_list.h
-│ └── linked_list.c
-├── tests/                      # Tests and helper functions for GenericArray
-│ ├── test_helpers.h
-│ ├── test_helpers.c
-│ ├── test_ll.c
-│ └── test_ga.c
+│   ├── linked_list.h
+│   └── linked_list.c
+│
+├── hash_table/                # HashTable library
+│   ├── hash_table.h
+│   └── hash_table.c
+│
+├── stack/                      # Stack library
+│   ├── stack.h
+│   └── stack.c
+│
+├── queue/                      # Queue library
+│   ├── queue.h
+│   └── queue.c
+│
+├── tests/                      # Tests
+│   ├── test_ll.c
+│   ├── test_ga.c
+│   ├── test_ht.c
+│   ├── test_stack.c
+│   └── test_queue.c
 └── README.md
 ```
 
