@@ -148,6 +148,16 @@ structures-from-scratch/
 | ll_discard_all_nodes | **O(n)**      | Frees all nodes but retains list structure.                 |
 | ll_discard      | **O(n)**           | Frees all nodes and the list structure.                     |
 
+### Stack Operations
+| Operation       | Time Complexity | Notes                                                          |
+|-----------------|-----------------|----------------------------------------------------------------|
+
+
+### Queue Operations
+| Operation       | Time Complexity | Notes                                                          |
+|-----------------|-----------------|----------------------------------------------------------------|
+
+
 ---
 
 ## Run the Code
