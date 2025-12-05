@@ -23,11 +23,23 @@ int main() {
 
     // Check if empty
     printf("HashTable is empty: %d\n", ht_is_empty(hashtable));
+
+
+    // Insert new key/value pairs into the hash table
+    for (int i = 0; i < 8; i++) {
+        int k = i;
+        int v = i * 15;
+        ht_insert(hashtable, &k, sizeof(int), &v, sizeof(int));
+    }
+
+    // Print contents of the hash table
+    ht_print(hashtable, print_int_key_value);
+    printf("HashTable is empty: %d\n", ht_is_empty(hashtable));
     
 
     // Free memory allocated by the hash table
     ht_discard(hashtable);
     hashtable = NULL;
-    
+
     return 0;
 }
