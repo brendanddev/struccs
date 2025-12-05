@@ -90,3 +90,12 @@ static int ht_hash(void *key, size_t key_size, int capacity) {
     // Modulo to ensure hash value fits within the buckets array bounds
     return hash_value % capacity;
 }
+
+// Frees the memory previously allocated by a node
+static void ht_discard_node(struct Node *node) {
+    if (node != NULL) {
+        free(node->key);
+        free(node->value);
+        free(node);
+    }
+}
