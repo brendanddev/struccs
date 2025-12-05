@@ -9,6 +9,10 @@
 /// Brendan Dileo - November 24 2025
 
 
+// Defines the maximum load factor allowed before the hash table should resize
+#define LOAD_THRESHOLD 0.75
+
+
 // Defines the Node struct type
 typedef struct Node {
     void *key;              // Pointer to the memory where the key data is stored
@@ -22,6 +26,7 @@ typedef struct Node {
 // Prototypes
 static struct Node* ht_create_node(void *key, size_t ksize, void *value, size_t vsize);
 static int ht_hash(void *key, size_t key_size, int capacity);
+static void ht_resize();
 static void ht_discard_node(struct Node *node);
 static void ht_discard_all_nodes(struct HashTable *hashtable);
 
