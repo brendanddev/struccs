@@ -178,7 +178,7 @@ bool ht_get(struct HashTable *hashtable, void *key, size_t ksize, void *out) {
         
         // Compare raw memory pointed to by the current nodes key and the key to search for to check
         // for equality
-        if (memcmp(current->key, key, ksize)) {
+        if (memcmp(current->key, key, ksize) == 0) {
 
             // If the key is found, copy the values raw bytes in memory pointed to by the node
             // into the memory pointed to by the out pointer
