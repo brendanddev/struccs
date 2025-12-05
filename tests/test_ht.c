@@ -90,6 +90,12 @@ int main() {
         printf("Could not find key=%d in the table\n", keycontains);
     }
 
+    // Clear the hash table
+    ht_clear(hashtable);
+    printf("Capacity: %d, Length: %d, Load Factor: %.2f\n", hashtable->capacity, hashtable->length, ht_load_factor(hashtable));
+    printf("HashTable is empty: %d\n", ht_is_empty(hashtable));
+
+
 
     // Free memory allocated by the hash table
     ht_discard(hashtable);

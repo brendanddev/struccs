@@ -195,14 +195,33 @@ bool ht_get(struct HashTable *hashtable, void *key, size_t ksize, void *out) {
 bool ht_contains(struct HashTable *hashtable, void *key, size_t ksize) {
     if (ht_is_empty(hashtable)) return false;
 
+    // Hash the key to find bucket index of the node and
+    // traverse from the head node in the bucket
     int hash = ht_hash(key, ksize, hashtable->capacity);
     struct Node *current = hashtable->buckets[hash];
     while (current != NULL) {
-
+        // Check for equality between the two values pointed to in memory
         if (memcmp(current->key, key, current->key_size) == 0) return true;
         current = current->next;
     }
     return false;
+}
+
+// Clears the entire contents of the hash table, including everything stored inside its buckets
+void ht_clear(struct HashTable *hashtable) {
+    if (ht_is_empty(hashtable)) return;
+
+    // Free all nodes and the array of pointers to the buckets
+    ht_discard_all_nodes(hashtable);
+    free(hashtable->buckets);
+
+    // Reset back to initial state
+    hashtable->length = 0;
+    hashtable->capacity = 8;
+
+    // Allocate fresh memory for the new internal array of pointers to the buckets
+    hashtable->buckets = calloc(hashtable->capacity, sizeof(struct Node*));
+    if (hashtable->buckets == NULL) return;
 }
 
 // Prints the contents of the hash table, visiting each bucket and printing its contents
