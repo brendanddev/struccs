@@ -34,8 +34,29 @@ int main() {
 
     // Print contents of the hash table
     ht_print(hashtable, print_int_key_value);
-    printf("HashTable is empty: %d\n", ht_is_empty(hashtable));
-    
+
+    // Remove key value pairs from the hash table
+    printf("Removing key/value pairs: \n");
+
+    printf("Removing key=1: \n");
+    int rk1 = 1;
+    ht_remove(hashtable, &rk1, sizeof(int));
+    ht_print(hashtable, print_int_key_value);
+
+    printf("Removing key=2: \n");
+    int rk2 = 2;
+    ht_remove(hashtable, &rk2, sizeof(int));
+    ht_print(hashtable, print_int_key_value);
+
+    printf("Removing key=3: \n");
+    int rk3 = 3;
+    ht_remove(hashtable, &rk3, sizeof(int));
+    ht_print(hashtable, print_int_key_value);
+
+    printf("Removing key=4: \n");
+    int rk4 = 4;
+    ht_remove(hashtable, &rk4, sizeof(int));
+    ht_print(hashtable, print_int_key_value);
 
     // Free memory allocated by the hash table
     ht_discard(hashtable);
