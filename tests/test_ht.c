@@ -26,7 +26,7 @@ int main() {
 
 
     // Insert new key/value pairs into the hash table
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 15; i++) {
         int k = i;
         int v = i * 15;
         ht_insert(hashtable, &k, sizeof(int), &v, sizeof(int));
@@ -57,6 +57,17 @@ int main() {
     int rk4 = 4;
     ht_remove(hashtable, &rk4, sizeof(int));
     ht_print(hashtable, print_int_key_value);
+
+
+    // Get a node by key
+    int key = 6;
+    int get_value;
+    if (ht_get(hashtable, &key, sizeof(int), &get_value)) {
+        printf("Value associated with key=%d: %d\n", key, get_value);
+    } else {
+        printf("Failed to retrieve the value!\n");
+    }
+
 
     // Free memory allocated by the hash table
     ht_discard(hashtable);
