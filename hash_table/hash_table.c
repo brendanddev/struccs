@@ -161,6 +161,7 @@ bool ht_remove(struct HashTable *hashtable, void *key, size_t ksize) {
         previous = current;
         current = current->next;
     }
+    return false;
 }
 
 // Prints the contents of the hash table, visiting each bucket and printing its contents
