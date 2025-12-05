@@ -21,7 +21,7 @@ typedef struct Node {
 
 // Prototypes
 static struct Node* ht_create_node(void *key, size_t ksize, void *value, size_t vsize);
-static int ht_hash(void *key);
+static int ht_hash(void *key, size_t key_size, int capacity);
 static void ht_discard_node(struct Node *node);
 static void ht_discard_all_nodes(struct HashTable *hashtable);
 
@@ -71,4 +71,22 @@ static struct Node* ht_create_node(void *key, size_t ksize, void *value, size_t 
     memcpy(node->key, key, node->key_size);
     memcpy(node->value, value, node->value_size);
     return node;
+}
+
+// Hashes a given key and returns its bucket index
+static int ht_hash(void *key, size_t key_size, int capacity) {
+
+    // Cast so each induvidual byte in the keys memory can be accessed 
+    unsigned char *bytes = (unsigned char *) key;
+    int hash_value = 0;
+
+    // Loop through each byte for key_size bytes to add each byte value to the rolling sum
+    for (int i = 0; i < key_size; i++) {
+        // Calculate memory address of the i-th byte from the start of the key in memory
+        // and dereference the address to get the actual byte value at that position
+        hash_value += *(bytes + i);
+    }
+
+    // Modulo to ensure hash value fits within the buckets array bounds
+    return hash_value % capacity;
 }
