@@ -166,17 +166,27 @@ bool ht_remove(struct HashTable *hashtable, void *key, size_t ksize) {
 
 // Retrieves the value associated with a key if found
 bool ht_get(struct HashTable *hashtable, void *key, size_t ksize, void *out) {
+    if (ht_is_empty(hashtable)) return false;
 
-    // To find the value associated with a key:
-    // 1. Hash the key to find the bucket to search for the key in
-    // 2. Traverse the bucket, comparing the current nodes key with the provided key
-    // 3. If the key is found, copy its value into the output pointer and return
-    // 4. If not found, return false
+    // Hash the provided key to find the bucket index of the node
+    int hash = ht_hash(key, ksize, hashtable->capacity);
 
-    
+    // Start from the head node in the given bucket and 
+    // traverse the bucket to search for the key
+    struct Node *current = hashtable->buckets[hash];
+    while (current != NULL) {
+        
+        // Compare raw memory pointed to by the current nodes key and the key to search for to check
+        // for equality
+        if (memcmp(current->key, key, ksize)) {
 
-
-
+            // If the key is found, copy the values raw bytes in memory pointed to by the node
+            // into the memory pointed to by the out pointer
+            memcpy(out, current->value, current->value_size);
+            return true;
+        }
+        current = current->next;
+    }
 
     return false;
 }
