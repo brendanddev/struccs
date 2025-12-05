@@ -191,6 +191,20 @@ bool ht_get(struct HashTable *hashtable, void *key, size_t ksize, void *out) {
     return false;
 }
 
+// Checks if the hash table contains a given key
+bool ht_contains(struct HashTable *hashtable, void *key, size_t ksize) {
+    if (ht_is_empty(hashtable)) return false;
+
+    int hash = ht_hash(key, ksize, hashtable->capacity);
+    struct Node *current = hashtable->buckets[hash];
+    while (current != NULL) {
+
+        if (memcmp(current->key, key, current->key_size) == 0) return true;
+        current = current->next;
+    }
+    return false;
+}
+
 // Prints the contents of the hash table, visiting each bucket and printing its contents
 void ht_print(struct HashTable *hashtable, void (* print_fn)(void*, void*)) {
     
