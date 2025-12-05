@@ -31,6 +31,17 @@ struct HashTable* ht_create() { }
 
 
 
+// Checks whether the hash table is empty or not
+bool ht_is_empty(struct HashTable *hashtable) {
+    return hashtable->length == 0;
+}
+
+
+int ht_size(struct HashTable *hashtable);
+
+int ht_capacity(struct HashTable *hashtable);
+float ht_load_factor(struct HashTable *hashtable);
+
 
 // Private helper functions, linkage limited to this file
 

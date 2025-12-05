@@ -17,64 +17,64 @@ void print_int_key_value(void *key, void *value) {
 
 int main() {
 
-    // Create the hash table
-    struct HashTable *hashtable = ht_create();
-    printf("Capacity: %d, Length: %d\n", hashtable->capacity, hashtable->length);
+    // // Create the hash table
+    // struct HashTable *hashtable = ht_create();
+    // printf("Capacity: %d, Length: %d\n", hashtable->capacity, hashtable->length);
 
-    // Check if empty
-    printf("HashTable is empty: %d\n", ht_is_empty(hashtable));
+    // // Check if empty
+    // printf("HashTable is empty: %d\n", ht_is_empty(hashtable));
 
-    // Insert key value pairs into the hash table
-    for (int i = 0; i < 10; i++) {
-        int key = i;
-        int value = i * 10;
-        ht_insert(hashtable, &key, sizeof(int), &value, sizeof(int));
-    }
+    // // Insert key value pairs into the hash table
+    // for (int i = 0; i < 10; i++) {
+    //     int key = i;
+    //     int value = i * 10;
+    //     ht_insert(hashtable, &key, sizeof(int), &value, sizeof(int));
+    // }
 
-    // Print the contents of the hash table
-    ht_print(hashtable, print_int_key_value);
+    // // Print the contents of the hash table
+    // ht_print(hashtable, print_int_key_value);
 
-    // Get value stored in the hash table by key
-    int val;
-    int k = 7;
-    if (ht_get(hashtable, &k, sizeof(int), &val)) {
-        printf("Value found for key=%d: %d\n", k, val);
-    } else {
-        printf("No value found for the given key=%d\n", k);
-    }
+    // // Get value stored in the hash table by key
+    // int val;
+    // int k = 7;
+    // if (ht_get(hashtable, &k, sizeof(int), &val)) {
+    //     printf("Value found for key=%d: %d\n", k, val);
+    // } else {
+    //     printf("No value found for the given key=%d\n", k);
+    // }
 
-    // Remove value 
-    if (ht_remove(hashtable, &k, sizeof(int))) {
-        printf("The value associated with the key=%d was removed\n", k);
-        ht_print(hashtable, print_int_key_value);
-    } else {
-        printf("Failed to remove the key/value pair\n");
-    }
+    // // Remove value 
+    // if (ht_remove(hashtable, &k, sizeof(int))) {
+    //     printf("The value associated with the key=%d was removed\n", k);
+    //     ht_print(hashtable, print_int_key_value);
+    // } else {
+    //     printf("Failed to remove the key/value pair\n");
+    // }
 
-    int k2 = 6;
-    if (ht_remove(hashtable, &k2, sizeof(int))) {
-        printf("The value associated with the key=6 was removed\n");
-        ht_print(hashtable, print_int_key_value);
-    } else {
-        printf("Failed to remove the key/value pair\n");
-    }
+    // int k2 = 6;
+    // if (ht_remove(hashtable, &k2, sizeof(int))) {
+    //     printf("The value associated with the key=6 was removed\n");
+    //     ht_print(hashtable, print_int_key_value);
+    // } else {
+    //     printf("Failed to remove the key/value pair\n");
+    // }
 
-    // Both keys hash to same bucket index currently - collision
-    int k3 = 0, k4 = 8;
-    if (ht_remove(hashtable, &k3, sizeof(int)) && ht_remove(hashtable, &k4, sizeof(int))) {
-        printf("The values associated with the key=0 and key=8 was removed\n");
-        ht_print(hashtable, print_int_key_value);
-    } else {
-        printf("Failed to remove the key/value pair\n");
-    }
+    // // Both keys hash to same bucket index currently - collision
+    // int k3 = 0, k4 = 8;
+    // if (ht_remove(hashtable, &k3, sizeof(int)) && ht_remove(hashtable, &k4, sizeof(int))) {
+    //     printf("The values associated with the key=0 and key=8 was removed\n");
+    //     ht_print(hashtable, print_int_key_value);
+    // } else {
+    //     printf("Failed to remove the key/value pair\n");
+    // }
 
-    // Print length and capacity
-    printf("Length: %d, Capacity: %d\n", ht_size(hashtable), ht_capacity(hashtable));
+    // // Print length and capacity
+    // printf("Length: %d, Capacity: %d\n", ht_size(hashtable), ht_capacity(hashtable));
 
 
-    // Discard the hash table
-    ht_discard(hashtable);
-    hashtable = NULL;
+    // // Discard the hash table
+    // ht_discard(hashtable);
+    // hashtable = NULL;
 
     
 
