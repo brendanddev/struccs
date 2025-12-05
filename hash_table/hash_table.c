@@ -46,7 +46,10 @@ int ht_capacity(struct HashTable *hashtable) {
     return hashtable->capacity;
 }
 
-float ht_load_factor(struct HashTable *hashtable);
+// Returns the load factor for the hash table, showing how full the hash table is
+float ht_load_factor(struct HashTable *hashtable) {
+    return hashtable->length / hashtable->capacity;
+}
 
 
 // Private helper functions, linkage limited to this file
