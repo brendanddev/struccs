@@ -340,53 +340,18 @@ static int ht_hash(void *key, size_t key_size, int capacity) {
     return hash_value % capacity;
 }
 
+
+
+// 1. Make copy of old buckets array 
+// 2. Store the old capacity of the buckets array 
+// 3. Compute new capacity 
+// 4. Allocate new larger array of pointers to the buckets based on new capacity 
+// 5. Go through each bucket in the old array of pointers to the buckets. 
+// 6. For each node in the old buckets, calculate its new hash, and move the node to ist new hash in the new hash table 
+// 7. Once each node has been rehashed, free the copy of the array used to rehash each bucket
+
 // Resizes the internal array of pointers to the buckets when the load factor reaches the max
 static void ht_resize(struct HashTable *hashtable) {
-
-    // Store a pointer to the hash tables current buckets, 
-    // store old capacity
-    struct Node **bucketscopy = hashtable->buckets;
-    int old_capacity = hashtable->capacity;
-
-    // Set new capacity for the hash table
-    hashtable->capacity = hashtable->capacity * 2;
-
-    // Allocate more memory for the new larger internal array of buckets
-    hashtable->buckets = calloc(hashtable->capacity, sizeof(struct Node*));
-
-    // Loop through each bucket in the hash table
-    for (int i = 0; i < old_capacity; i++) {
-
-        // The head node of the current bucket based on old capacity
-        struct Node *current = bucketscopy[i];
-
-        // Traverse the nodes of the current bucket
-        while (current != NULL) {
-
-            // Compute the current nodes new hash 
-            int hash = ht_hash(current->key, current->key_size, hashtable->capacity);
-
-            // Insert node into new bucket, need to track next to avoid losing link
-            // and check the new buckets head
-
-            // Store pointer to the next node in the link to prevent losing rest of the link
-            struct Node *next = current->next;
-
-            // Store pointer to the old head of the bucket
-            struct Node *oldhead = hashtable->buckets[hash];
-
-            // Point the current nodes next pointer to the old head of the bucket
-            current->next = oldhead;
-
-            hashtable->buckets[hash] = current;  // ??????
-
-            // here, check this
-            current = next;
-        }
-    }
-
-    // Free copy of the buckets after resizing
-    free(bucketscopy);
 }
 
 // Frees the memory previously allocated by a node
