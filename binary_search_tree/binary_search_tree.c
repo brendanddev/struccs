@@ -20,6 +20,7 @@ typedef struct Node {
 
 // Prototypes
 static struct Node* bst_insert_rec(struct Node *root, void *value, size_t vsize);
+static void bst_print_rec(struct Node *root, void (* print_fn)(void*));
 static struct Node* bst_create_node(void *value, size_t vsize);
 static void bst_discard_node(struct Node *node);
 static void bst_discard_all_nodes(struct BinarySearchTree binarytree);
@@ -69,7 +70,16 @@ static struct Node* bst_insert_rec(struct Node *root, void *value, size_t vsize)
     return root;
 }
 
+// Public interface for printing the contents of the binary search tree
+void bst_print(struct BinarySearchTree *binarytree, void (* print_fn)(void*)) {
+    // Start recursion from root of the binary tree until the base case is hit
+    bst_print_rec(binarytree->root, print_fn);
+}
 
+// Recursive helper function that prints each node in the tree
+static void bst_print_rec(struct Node *root, void (* print_fn)(void*)) {
+
+}
 
 
 // Checks if the binary tree is empty or not
