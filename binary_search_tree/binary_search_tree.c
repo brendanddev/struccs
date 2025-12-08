@@ -58,12 +58,12 @@ static struct Node* bst_insert_rec(struct Node *root, void *value, size_t vsize)
     // Compare raw memory of the two values, if the value being inserted is less than the root, traverse to the left
     } else if (memcmp(root->value, value, vsize) < 0) {
         // Recurse to the left of the tree to find insertion point
-        bst_insert_rec(root->left, value, vsize);
+        root->left = bst_insert_rec(root->left, value, vsize);
 
     // Otherwise value being inserted is equal to or larger to the root, traverse to the right
     } else {
         // Recurse to the right of the tree to find the insertion point
-        bst_insert_rec(root->right, value, vsize);
+        root->right = bst_insert_rec(root->right, value, vsize);
     }
 
     // Return original root to ensure tree remains linked
