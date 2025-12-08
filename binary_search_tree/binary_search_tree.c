@@ -20,6 +20,7 @@ typedef struct Node {
 
 // Prototypes
 static struct Node* bst_insert_rec(struct Node *root, void *value, size_t vsize);
+static bool bst_contains_rec(struct Node *root, void *value);
 static void bst_print_rec(struct Node *root, void (* print_fn)(void*), int level);
 static struct Node* bst_create_node(void *value, size_t vsize);
 static void bst_discard_node(struct Node *node);
@@ -69,6 +70,17 @@ static struct Node* bst_insert_rec(struct Node *root, void *value, size_t vsize)
 
     // Return original root to ensure tree remains linked
     return root;
+}
+
+// Public interface for checking whether the binary search tree contains a value
+bool bst_contains(struct BinarySearchTree *binarytree, void *value) {
+    if (bst_is_empty(binarytree)) return false;
+    return bst_contains_rec(binarytree->root, value);
+}
+
+// Recursive helper function that checks each node in the tree for the value
+static bool bst_contains_rec(struct Node *root, void *value) {
+
 }
 
 // Public interface for printing the contents of the binary search tree
