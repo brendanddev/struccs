@@ -23,7 +23,7 @@ static struct Node* bst_insert_rec(struct Node *root, void *value, size_t vsize)
 static void bst_print_rec(struct Node *root, void (* print_fn)(void*), int level);
 static struct Node* bst_create_node(void *value, size_t vsize);
 static void bst_discard_node(struct Node *node);
-static void bst_discard_all_nodes(struct BinarySearchTree binarytree);
+static void bst_discard_all_nodes(struct BinarySearchTree *binarytree);
 static void bst_discard_all_nodes_rec(struct Node *root);
 
 
@@ -93,6 +93,14 @@ static void bst_print_rec(struct Node *root, void (* print_fn)(void*), int level
     bst_print_rec(root->left, print_fn, level + 1);
 }
 
+// Clears the contents of the binary search tree
+void bst_clear(struct BinarySearchTree *binarytree) {
+    if (bst_is_empty(binarytree)) return;
+
+    bst_discard_all_nodes(binarytree);
+    binarytree->length = 0;
+    binarytree->root = NULL;
+}
 
 // Checks if the binary tree is empty or not
 bool bst_is_empty(struct BinarySearchTree *binarytree) {
