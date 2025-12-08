@@ -19,4 +19,21 @@ typedef struct Node {
 
 
 // Prototypes
-static struct Node* bt_create_node();
+static struct Node* bt_create_node(void *value, size_t vsize);
+static void bt_discard_node(struct Node *node);
+static void bt_discard_all_nodes(struct BinaryTree binarytree);
+
+
+// Creates a new BinaryTree
+struct BinaryTree* bt_create() {
+
+    // Allocate memory for the binary tree itself and handle allocation failure
+    struct BinaryTree *binarytree = malloc(sizeof(struct BinaryTree));
+    if (binarytree == NULL) return NULL;
+
+    // Set the initial pointer to the root node and length of the tree
+    binarytree->root = NULL;
+    binarytree->length = 0;
+
+    return binarytree;
+}
