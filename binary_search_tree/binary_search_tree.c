@@ -112,7 +112,13 @@ int bst_size(struct BinarySearchTree *binarytree) {
     return binarytree->length;
 }
 
-
+// Frees the memory previously allocated by the binary search tree
+void bst_discard(struct BinarySearchTree *binarytree) {
+    if (binarytree != NULL) {
+        bst_discard_all_nodes(binarytree);
+        free(binarytree);
+    }
+}
 
 
 

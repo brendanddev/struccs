@@ -29,11 +29,11 @@ void bst_print(struct BinarySearchTree *binarytree, void (* print_fn)(void*));
 void bst_clear(struct BinarySearchTree *binarytree);
 bool bst_is_empty(struct BinarySearchTree *binarytree);
 int bst_size(struct BinarySearchTree *binarytree);
+void bst_discard(struct BinarySearchTree *binarytree);
 
 void bst_remove();
 bool bst_search();
 bool bst_contains();
-void bst_discard();
 
 
 #endif
