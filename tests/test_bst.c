@@ -59,10 +59,20 @@ int main() {
     int value = 3;
     printf("The tree contains 3? %d\n", bst_contains(binarytree, &value));
 
+    // Search for a value in the tree
+    struct Node *found = bst_search(binarytree, &value);
+    if (found != NULL) 
+        printf("Found the value '%d' in the tree\n", value);
+    else 
+        printf("Did not find the value in the tree\n");
+
+
     // Clear the bst
     bst_clear(binarytree);
     printf("Length: %d\n", bst_size(binarytree));
     printf("Is empty? %d\n", bst_is_empty(binarytree));
+
+    printf("The tree contains 3? %d\n", bst_contains(binarytree, &value));
 
     // Free the bst
     bst_discard(binarytree);
