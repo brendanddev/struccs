@@ -24,7 +24,7 @@ typedef struct BinaryTree {
 
 
 struct BinaryTree* bt_create();
-void bt_insert(void* value, size_t vsize);
+void bt_insert(struct BinaryTree *binarytree, void* value, size_t vsize);
 void bt_remove();
 bool bt_search();
 bool bt_contains();

@@ -42,6 +42,7 @@ struct BinaryTree* bt_create() {
 
 
 
+
 // Private helper functions, linkage limited to this file
 
 
@@ -73,3 +74,15 @@ static struct Node* bt_create_node(void *value, size_t vsize) {
     return node;
 }
 
+// Frees the memory previously allocated by a node
+static void bt_discard_node(struct Node *node) {
+    if (node != NULL) {
+        free(node->value);
+        free(node);
+    }
+}
+
+// Frees the memory previously allocated by all nodes in the binary tree
+static void bt_discard_all_nodes(struct BinaryTree binarytree) {
+    return;
+}
