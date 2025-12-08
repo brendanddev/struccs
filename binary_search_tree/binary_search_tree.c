@@ -158,7 +158,7 @@ static void bst_discard_node(struct Node *node) {
 // Frees the memory previously allocated by all nodes in the binary search tree
 // by calling the recursive helper function
 static void bst_discard_all_nodes(struct BinarySearchTree *binarytree) {
-    bst_discard_all_nodes(binarytree->root);
+    bst_discard_all_nodes_rec(binarytree->root);
 }
 
 // Recursive helper function that frees all nodes in the binary search tree
