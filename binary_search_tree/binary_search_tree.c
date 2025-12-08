@@ -20,7 +20,7 @@ typedef struct Node {
 
 // Prototypes
 static struct Node* bst_insert_rec(struct Node *root, void *value, size_t vsize);
-static void bst_print_rec(struct Node *root, void (* print_fn)(void*));
+static void bst_print_rec(struct Node *root, void (* print_fn)(void*), int level);
 static struct Node* bst_create_node(void *value, size_t vsize);
 static void bst_discard_node(struct Node *node);
 static void bst_discard_all_nodes(struct BinarySearchTree binarytree);
@@ -56,7 +56,7 @@ static struct Node* bst_insert_rec(struct Node *root, void *value, size_t vsize)
         return bst_create_node(value, vsize);
 
     // Compare raw memory of the two values, if the value being inserted is less than the root, traverse to the left
-    } else if (memcmp(root->value, value, vsize) < 0) {
+    } else if (memcmp(value, root->value, vsize) < 0) {
         // Recurse to the left of the tree to find insertion point
         root->left = bst_insert_rec(root->left, value, vsize);
 
@@ -73,20 +73,23 @@ static struct Node* bst_insert_rec(struct Node *root, void *value, size_t vsize)
 // Public interface for printing the contents of the binary search tree
 void bst_print(struct BinarySearchTree *binarytree, void (* print_fn)(void*)) {
     // Start recursion from root of the binary tree until the base case is hit
-    bst_print_rec(binarytree->root, print_fn);
+    bst_print_rec(binarytree->root, print_fn, 0);
 }
 
 // Recursive helper function that prints each node in the tree
-static void bst_print_rec(struct Node *root, void (* print_fn)(void*)) {
+static void bst_print_rec(struct Node *root, void (* print_fn)(void*), int level) {
 
     // Base case
     // Root node is empty so we stop recursing here
     if (root == NULL) return;
 
-    // Recurse all the way down to the left, print, then do the same for the right
-    bst_print_rec(root->left, print_fn);
+    // Recurse all the way down to the right, print, then do the same for the left
+    bst_print_rec(root->right, print_fn, level + 1);
+
+    for (int i = 0; i < level; i++) printf("    ");
     print_fn(root->value);
-    bst_print_rec(root->right, print_fn);
+    printf("\n");
+    bst_print_rec(root->left, print_fn, level + 1);
 }
 
 

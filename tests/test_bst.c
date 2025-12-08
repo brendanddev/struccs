@@ -10,7 +10,7 @@
 
 
 void print_int(void *value) {
-    printf("%d ", * (int *) value);
+    printf("%d", * (int *) value);
 }
 
 
@@ -24,13 +24,25 @@ int main() {
     printf("Is empty? %d\n", bst_is_empty(binarytree));
 
     // Insert node into the tree
-    int val = 100;
+    int val = 10;
     bst_insert(binarytree, &val, sizeof(int));
     
-    val = 200;
+    val = 5;
     bst_insert(binarytree, &val, sizeof(int));
 
-    val = 77;
+    val = 1;
+    bst_insert(binarytree, &val, sizeof(int));
+
+    val = 34;
+    bst_insert(binarytree, &val, sizeof(int));
+
+    val = 3;
+    bst_insert(binarytree, &val, sizeof(int));
+
+    val = 45;
+    bst_insert(binarytree, &val, sizeof(int));
+
+    val = 17;
     bst_insert(binarytree, &val, sizeof(int));
 
 
@@ -40,6 +52,7 @@ int main() {
 
 
     // Print the contents of the bst
+    printf("==========\n");
     bst_print(binarytree, print_int);
 
 
