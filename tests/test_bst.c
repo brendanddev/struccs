@@ -59,8 +59,10 @@ int main() {
 
 
 
-
-
+    bst_clear(binarytree);
+    printf("Length: %d\n", bst_size(binarytree));
+    printf("Is empty? %d\n", bst_is_empty(binarytree));
+    
     return 0;
 
 }
