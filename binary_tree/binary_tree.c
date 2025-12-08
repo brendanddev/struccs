@@ -38,6 +38,24 @@ struct BinaryTree* bt_create() {
     return binarytree;
 }
 
+// Inserts a new node into the binary tree
+void bt_insert(struct BinaryTree *binarytree, void* value, size_t vsize) { 
+
+
+    
+}
+
+
+
+// Checks if the binary tree is empty or not
+bool bt_is_empty(struct BinaryTree *binarytree) {
+    return binarytree->length == 0;
+}
+
+// Returns the number of nodes stored in the binary tree
+int bt_size(struct BinaryTree *binarytree) {
+    return binarytree->length;
+}
 
 
 

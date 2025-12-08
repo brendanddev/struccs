@@ -25,6 +25,9 @@ typedef struct BinaryTree {
 
 struct BinaryTree* bt_create();
 void bt_insert(struct BinaryTree *binarytree, void* value, size_t vsize);
+bool bt_is_empty(struct BinaryTree *binarytree);
+int bt_size(struct BinaryTree *binarytree);
+
 void bt_remove();
 bool bt_search();
 bool bt_contains();
