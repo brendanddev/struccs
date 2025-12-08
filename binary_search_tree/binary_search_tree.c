@@ -21,7 +21,7 @@ typedef struct Node {
 // Prototypes
 static struct Node* bst_insert_rec(struct Node *root, void *value, size_t vsize);
 static bool bst_contains_rec(struct Node *root, void *value);
-struct Node* bst_search_rec(struct Node *node, void *value);
+struct Node* bst_search_rec(struct Node *root, void *value);
 static void bst_print_rec(struct Node *root, void (* print_fn)(void*), int level);
 static struct Node* bst_create_node(void *value, size_t vsize);
 static void bst_discard_node(struct Node *node);
@@ -111,10 +111,29 @@ struct Node* bst_search(struct BinarySearchTree *binarytree, void *value) {
 }
 
 // Recursive helper function that searches each node for a value in the tree
-struct Node* bst_search_rec(struct Node *node, void *value) { 
+struct Node* bst_search_rec(struct Node *root, void *value) { 
 
+    // Base case
+    // If the root node is empty, value isnt in the tree
+    if (root == NULL) {
+        return NULL;
+    
+    // Compare raw memory of the two values to check if we have found the value
+    } else if (memcmp(value, root->value, root->value_size) == 0) {
+        return root;
 
-    return NULL;
+    // Otherwise need to recurse based on the result of comparison
+    } else {
+
+        // Compare raw memory of the two values to see if we need to recurse left in the tree
+        if (memcmp(value, root->value, root->value_size) < 0) {
+            return bst_search_rec(root->left, value);
+
+        // Otherwise recurse to the right of the tree
+        } else {
+            return bst_search_rec(root->right, value);
+        }
+    }
 }
 
 
