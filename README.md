@@ -168,26 +168,26 @@ structures-from-scratch/
 | Operation       | Time Complexity | Notes                                                          |
 |-----------------|-----------------|----------------------------------------------------------------|
 | stack_create    | **O(1)**        | Initializes a new empty stack.                                 |
-| stack_push      |
-| stack_peek      |
-| stack_pop       |
-| stack_clear     |
-| stack_is_empty  |
-| stack_size      |
-| stack_discard   |
+| stack_push      | **O(1)**        | Adds an element to the top of the stack.                       |
+| stack_peek      | **O(1)**        | Returns the top element without removing it.                   |
+| stack_pop       | **O(1)**        | Removes and returns the top element of the stack.              |
+| stack_clear     | **O(n)**        | Removes all elements from the stack.                            |
+| stack_is_empty  | **O(1)**        | Checks if the stack is empty.                                  |
+| stack_size      | **O(1)**        | Returns the number of elements in the stack.                    |
+| stack_discard   | **O(n)**        | Frees all memory associated with the stack.                    |
 
 
 ### Queue Operations
 | Operation       | Time Complexity | Notes                                                          |
 |-----------------|-----------------|----------------------------------------------------------------|
-| queue_create    |
-| queue_enqueue   |
-| queue_peek      |
-| queue_dequeue   |
-| queue_is_empty  |
-| queue_length    |
-| queue_clear     |
-| queue_discard   |
+| queue_create    | **O(1)**        | Initializes a new empty queue.                                 |
+| queue_enqueue   | **O(1)**        | Adds an element to the end of the queue.                       |
+| queue_peek      | **O(1)**        | Returns the front element without removing it.                 |
+| queue_dequeue   | **O(1)**        | Removes and returns the front element of the queue.            |
+| queue_is_empty  | **O(1)**        | Checks if the queue is empty.                                  |
+| queue_length    | **O(1)**        | Returns the number of elements in the queue.                    |
+| queue_clear     | **O(n)**        | Removes all elements from the queue.                            |
+| queue_discard   | **O(n)**        | Frees all memory associated with the queue.                    |
 
 ---
 

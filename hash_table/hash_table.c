@@ -278,7 +278,7 @@ int ht_capacity(struct HashTable *hashtable) {
 
 // Returns the load factor for the hash table, showing how full the hash table is
 float ht_load_factor(struct HashTable *hashtable) {
-    return hashtable->length / hashtable->capacity;
+    return (float) hashtable->length / hashtable->capacity;
 }
 
 
@@ -370,7 +370,9 @@ static void ht_resize(struct HashTable *hashtable) {
             struct Node *next = current->next;
             struct Node *currhead = hashtable->buckets[hash];
 
-            // Set the current node as the head of the new bucket
+            // Link the current node to the existing chain and
+            // set the current node as the head of the new bucket
+            current->next = currhead;
             hashtable->buckets[hash] = current;
 
             // Advance pointer to continue traversal
