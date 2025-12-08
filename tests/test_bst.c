@@ -55,6 +55,10 @@ int main() {
     printf("==========\n");
     bst_print(binarytree, print_int);
 
+    // Check if the binary search tree contains a value
+    int value = 3;
+    printf("The tree contains 3? %d\n", bst_contains(binarytree, &value));
+
     // Clear the bst
     bst_clear(binarytree);
     printf("Length: %d\n", bst_size(binarytree));
