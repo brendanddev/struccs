@@ -360,6 +360,7 @@ static void ht_resize(struct HashTable *hashtable) {
         // The head node of the current bucket based on old capacity
         struct Node *current = bucketscopy[i];
 
+        // Traverse the nodes of the current bucket
         while (current != NULL) {
 
             // Compute the current nodes new hash 
@@ -368,8 +369,19 @@ static void ht_resize(struct HashTable *hashtable) {
             // Insert node into new bucket, need to track next to avoid losing link
             // and check the new buckets head
 
-            
-            current = current->next;
+            // Store pointer to the next node in the link to prevent losing rest of the link
+            struct Node *next = current->next;
+
+            // Store pointer to the old head of the bucket
+            struct Node *oldhead = hashtable->buckets[hash];
+
+            // Point the current nodes next pointer to the old head of the bucket
+            current->next = oldhead;
+
+            hashtable->buckets[hash] = current;  // ??????
+
+            // here, check this
+            current = next;
         }
     }
 
