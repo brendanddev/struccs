@@ -55,13 +55,14 @@ int main() {
     printf("==========\n");
     bst_print(binarytree, print_int);
 
-
-
-
-
+    // Clear the bst
     bst_clear(binarytree);
     printf("Length: %d\n", bst_size(binarytree));
     printf("Is empty? %d\n", bst_is_empty(binarytree));
+
+    // Free the bst
+    bst_discard(binarytree);
+    binarytree = NULL;
     
     return 0;
 
