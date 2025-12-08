@@ -171,9 +171,9 @@ structures-from-scratch/
 | stack_push      | **O(1)**        | Adds an element to the top of the stack.                       |
 | stack_peek      | **O(1)**        | Returns the top element without removing it.                   |
 | stack_pop       | **O(1)**        | Removes and returns the top element of the stack.              |
-| stack_clear     | **O(n)**        | Removes all elements from the stack.                            |
+| stack_clear     | **O(n)**        | Removes all elements from the stack.                           |
 | stack_is_empty  | **O(1)**        | Checks if the stack is empty.                                  |
-| stack_size      | **O(1)**        | Returns the number of elements in the stack.                    |
+| stack_size      | **O(1)**        | Returns the number of elements in the stack.                   |
 | stack_discard   | **O(n)**        | Frees all memory associated with the stack.                    |
 
 
@@ -185,9 +185,24 @@ structures-from-scratch/
 | queue_peek      | **O(1)**        | Returns the front element without removing it.                 |
 | queue_dequeue   | **O(1)**        | Removes and returns the front element of the queue.            |
 | queue_is_empty  | **O(1)**        | Checks if the queue is empty.                                  |
-| queue_length    | **O(1)**        | Returns the number of elements in the queue.                    |
-| queue_clear     | **O(n)**        | Removes all elements from the queue.                            |
+| queue_length    | **O(1)**        | Returns the number of elements in the queue.                   |
+| queue_clear     | **O(n)**        | Removes all elements from the queue.                           |
 | queue_discard   | **O(n)**        | Frees all memory associated with the queue.                    |
+
+
+## Hash Table Operations
+| Operation         | Time Complexity       | Notes                                                     |
+|-------------------|-----------------------|-----------------------------------------------------------|
+| `ht_create`       | **O(1)**              | Initializes a new empty hash table.                       |
+| `ht_insert `      | **O(1)** amortized    | Inserts a new key/value pair into the hash table          |
+| `ht_remove`       | **O(1)** average      | Removes a key/value pair from the hash table              |
+| `ht_get`          | **O(1)** average      | Retrieves a value associated with a key                   |
+| `ht_contains`     | **O(1)** average      | Checks if the hash table contains a key                   |
+| `ht_clear`        | **O(n)**              | Frees all nodes and resets the table                      |
+| `ht_is_empty`     | **O(1)**              | Checks if the hash table is empty or not                  |
+| `ht_size`         | **O(1)**              | Returns the length of the hash table                      |
+| `ht_load_factor`  | **O(1)**              | Returns the current load factor of the hash table         |
+| `ht_discard`      | **O(n)**              | Frees all contents of the hash table                      |
 
 ---
 
