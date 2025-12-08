@@ -20,6 +20,7 @@ typedef struct Node {
 
 // Prototypes
 static struct Node* bst_insert_rec(struct Node *root, void *value, size_t vsize);
+static struct Node* bst_remove_rec(struct Node *root, void *value);
 static bool bst_contains_rec(struct Node *root, void *value);
 struct Node* bst_search_rec(struct Node *root, void *value);
 static void bst_print_rec(struct Node *root, void (* print_fn)(void*), int level);
@@ -43,7 +44,7 @@ struct BinarySearchTree* bst_create() {
     return binarytree;
 }
 
-// Public interface for inserting a new node into the binary tree
+// Public interface for inserting a new node into the binary search tree
 void bst_insert(struct BinarySearchTree *binarytree, void* value, size_t vsize) { 
     // Call recursive helper to insert the node
     binarytree->root = bst_insert_rec(binarytree->root, value, vsize);
@@ -72,6 +73,58 @@ static struct Node* bst_insert_rec(struct Node *root, void *value, size_t vsize)
     // Return original root to ensure tree remains linked
     return root;
 }
+
+
+// Public interface for removing a node from the binary search tree
+bool bst_remove(struct BinarySearchTree *binarytree, void *value) { 
+    
+    if (bst_is_empty(binarytree)) return false;
+    int old_length = binarytree->length;
+    binarytree->root = (binarytree->root, value);
+        
+    if (old_length == binarytree->length) return false;
+    return true;
+}
+
+// Recursive helper function for removing a node from the tree
+static struct Node* bst_remove_rec(struct Node *root, void *value) { 
+
+    // Base case - root is empty
+    if (root == NULL) {
+        return NULL;
+
+    // Compare raw memory of the two values, check if the two values are equal
+    } else if (memcmp(value, root->value, root->value_size) == 0) {
+
+        // Check if the current node has no children
+        if (root->left == NULL && root->right == NULL) {
+
+
+        // Check if node has one child
+        } else if (root->left == NULL || root->right == NULL) {
+
+
+        // The node has no children
+        } else {
+
+        }
+
+
+    // Otherwise need to recurse further in the tree to search for the value
+    }  else {
+
+        // Compare raw memory of the two values to see if we need to recurse left in the tree
+        if (memcmp(value, root->value, root->value_size) < 0) {
+            root->left = bst_remove_rec(root->left, value);
+
+        // Otherwise recurse to the right of the tree
+        } else {
+            root->right = bst_remove_rec(root->right, value);
+        }
+    }
+}
+
+
 
 // Public interface for checking whether the binary search tree contains a value
 bool bst_contains(struct BinarySearchTree *binarytree, void *value) {
