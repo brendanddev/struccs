@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "../binary_tree/binary_tree.h"
+#include "../binary_search_tree/binary_search_tree.h"
 
 
 /// test_bt.c
@@ -11,7 +11,7 @@
 
 int main() {
 
-    struct BinaryTree *binarytree = bt_create();
+    struct BinarySearchTree *binarytree = bst_create();
     printf("Root Node: %p, Length: %d\n", binarytree->root, binarytree->length);
 
 
