@@ -79,6 +79,14 @@ void bst_print(struct BinarySearchTree *binarytree, void (* print_fn)(void*)) {
 // Recursive helper function that prints each node in the tree
 static void bst_print_rec(struct Node *root, void (* print_fn)(void*)) {
 
+    // Base case
+    // Root node is empty so we stop recursing here
+    if (root == NULL) return;
+
+    // Recurse all the way down to the left, print, then do the same for the right
+    bst_print_rec(root->left, print_fn);
+    print_fn(root->value);
+    bst_print_rec(root->right, print_fn);
 }
 
 

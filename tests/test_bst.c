@@ -9,6 +9,11 @@
 /// Brendan Dileo, December 8 2025
 
 
+void print_int(void *value) {
+    printf("%d ", * (int *) value);
+}
+
+
 int main() {
 
     struct BinarySearchTree *binarytree = bst_create();
@@ -21,10 +26,21 @@ int main() {
     // Insert node into the tree
     int val = 100;
     bst_insert(binarytree, &val, sizeof(int));
+    
+    val = 200;
+    bst_insert(binarytree, &val, sizeof(int));
+
+    val = 77;
+    bst_insert(binarytree, &val, sizeof(int));
+
+
 
     printf("Length: %d\n", bst_size(binarytree));
     printf("Is empty? %d\n", bst_is_empty(binarytree));
 
+
+    // Print the contents of the bst
+    bst_print(binarytree, print_int);
 
 
 
