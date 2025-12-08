@@ -141,38 +141,53 @@ structures-from-scratch/
 | `swap`             | **O(1)**            | Exchanges two items using temporary memory.                            |
 
 ### Linked List Operations
-| Operation       | Time Complexity    | Notes                                                       |
-|-----------------|--------------------|-------------------------------------------------------------|
-| ll_insert       | **O(1)**           | Inserts a new node at the head of the list.                 |
-| ll_insert_tail  | **O(1)**           | Inserts a new node at the tail of the list.                 |
-| ll_insert_at    | **O(n)**           | Inserts a new node at a specific index.                     |
-| ll_remove       | **O(1)**           | Removes the head node of the list.                          |
-| ll_remove_tail  | **O(1)**           | Removes the tail node of the list.                          |
-| ll_remove_at    | **O(n)**           | Removes a node at a specific index.                         |
-| ll_get          | Optimized **O(n)** | Traverses to the index to retrieve the node's data.         |
-| ll_set          | Optimized **O(n)** | Traverses to the index to update the node's data.           |
-| ll_find         | **O(n)**           | Linear search through nodes using comparator function.      | 
-| ll_contains     | **O(n)**           | Checks for existence of an item using comparator function.  |
-| ll_clear        | **O(n)**           | Frees all nodes but retains list structure.                 |
-| ll_copy         | **O(n)**           | Deep copies the entire list and its nodes.                  |
-| ll_reverse      | **O(n)**           | Reverses the order of nodes in the list.                    |
-| ll_bsort        | **O(n²)**          | Bubble sort implementation; comparator determines ordering. |
-| swap_nodes      | **O(1)**           | Swaps data between two nodes.                               |
-| ll_size         | **O(1)**           | Returns the number of nodes in the list.                    |
-| ll_is_empty     | **O(1)**           | Checks if the list has no nodes.                            |
-| ll_discard_node | **O(1)**           | Frees a single node.                                        |
-| ll_discard_all_nodes | **O(n)**      | Frees all nodes but retains list structure.                 |
-| ll_discard      | **O(n)**           | Frees all nodes and the list structure.                     |
+| Operation            | Time Complexity    | Notes                                                       |
+|----------------------|--------------------|-------------------------------------------------------------|
+| ll_insert            | **O(1)**           | Inserts a new node at the head of the list.                 |
+| ll_insert_tail       | **O(1)**           | Inserts a new node at the tail of the list.                 |
+| ll_insert_at         | **O(n)**           | Inserts a new node at a specific index.                     |
+| ll_remove            | **O(1)**           | Removes the head node of the list.                          |
+| ll_remove_tail       | **O(1)**           | Removes the tail node of the list.                          |
+| ll_remove_at         | **O(n)**           | Removes a node at a specific index.                         |
+| ll_get               | Optimized **O(n)** | Traverses to the index to retrieve the node's data.         |
+| ll_set               | Optimized **O(n)** | Traverses to the index to update the node's data.           |
+| ll_find              | **O(n)**           | Linear search through nodes using comparator function.      | 
+| ll_contains          | **O(n)**           | Checks for existence of an item using comparator function.  |
+| ll_clear             | **O(n)**           | Frees all nodes but retains list structure.                 |
+| ll_copy              | **O(n)**           | Deep copies the entire list and its nodes.                  |
+| ll_reverse           | **O(n)**           | Reverses the order of nodes in the list.                    |
+| ll_bsort             | **O(n²)**          | Bubble sort implementation; comparator determines ordering. |
+| swap_nodes           | **O(1)**           | Swaps data between two nodes.                               |
+| ll_size              | **O(1)**           | Returns the number of nodes in the list.                    |
+| ll_is_empty          | **O(1)**           | Checks if the list has no nodes.                            |
+| ll_discard_node      | **O(1)**           | Frees a single node.                                        |
+| ll_discard_all_nodes | **O(n)**      | Frees all nodes but retains list structure.                      |
+| ll_discard           | **O(n)**           | Frees all nodes and the list structure.                     |
 
 ### Stack Operations
 | Operation       | Time Complexity | Notes                                                          |
 |-----------------|-----------------|----------------------------------------------------------------|
+| stack_create    | **O(1)**        | Initializes a new empty stack.                                 |
+| stack_push      |
+| stack_peek      |
+| stack_pop       |
+| stack_clear     |
+| stack_is_empty  |
+| stack_size      |
+| stack_discard   |
 
 
 ### Queue Operations
 | Operation       | Time Complexity | Notes                                                          |
 |-----------------|-----------------|----------------------------------------------------------------|
-
+| queue_create    |
+| queue_enqueue   |
+| queue_peek      |
+| queue_dequeue   |
+| queue_is_empty  |
+| queue_length    |
+| queue_clear     |
+| queue_discard   |
 
 ---
 
