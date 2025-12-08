@@ -95,11 +95,11 @@ static bool bst_contains_rec(struct Node *root, void *value) {
 
         // Compare raw memory of the two values to see if we need to recurse left in the tree
         if (memcmp(value, root->value, root->value_size) < 0) {
-            return bst_contains_rec(root->left, root->value);
+            return bst_contains_rec(root->left, value);
 
         // Otherwise recurse to the right of the tree
         } else {
-            return bst_contains_rec(root->right, root->value);
+            return bst_contains_rec(root->right, value);
         }
     }
 }
