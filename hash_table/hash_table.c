@@ -60,7 +60,8 @@ bool ht_insert(struct HashTable *hashtable, void *key, size_t ksize, void *value
 
     // Check if resize is needed
     if (ht_load_factor(hashtable) > LOAD_THRESHOLD) {
-        printf("WOULD RESIZE HERE...\n");
+        printf("Resizing internal array...\n");
+        ht_resize(hashtable);
     }
 
     // Hash the key to find the bucket index
@@ -340,18 +341,46 @@ static int ht_hash(void *key, size_t key_size, int capacity) {
     return hash_value % capacity;
 }
 
-
-
-// 1. Make copy of old buckets array 
-// 2. Store the old capacity of the buckets array 
-// 3. Compute new capacity 
-// 4. Allocate new larger array of pointers to the buckets based on new capacity 
-// 5. Go through each bucket in the old array of pointers to the buckets. 
-// 6. For each node in the old buckets, calculate its new hash, and move the node to ist new hash in the new hash table 
-// 7. Once each node has been rehashed, free the copy of the array used to rehash each bucket
-
 // Resizes the internal array of pointers to the buckets when the load factor reaches the max
 static void ht_resize(struct HashTable *hashtable) {
+
+    // Create a copy of the buckets array and save the tables old capacity
+    struct Node **bucketscopy = hashtable->buckets;
+    int old_capacity = hashtable->capacity;
+
+    // Compute and set new capacity
+    hashtable->capacity = hashtable->capacity * 2;
+
+    // Allocate a larger block of memory for the internal array of buckets based on the new capacity
+    hashtable->buckets = calloc(hashtable->capacity, sizeof(struct Node*));
+
+    // Loop through each of the buckets in the old array of buckets to copy over the nodes
+    for (int i = 0; i < old_capacity; i++) {
+
+        // Start from the head node in each bucket of the old buckets and
+        // traverse in order to rehash each node and move to new bucket
+        struct Node *current = bucketscopy[i];
+        while (current != NULL) {
+
+            // Compute new hash based on the tables new capacity
+            int hash = ht_hash(current->key, current->key_size, hashtable->capacity);
+
+            // Save the current nodes `next` pointer and 
+            // the node at the head of the current bucket
+            struct Node *next = current->next;
+            struct Node *currhead = hashtable->buckets[hash];
+
+            // Set the current node as the head of the new bucket
+            hashtable->buckets[hash] = current;
+
+            // Advance pointer to continue traversal
+            current = next;
+        }
+    }
+
+    // Free the copy used to rehash all nodes
+    free(bucketscopy);
+    bucketscopy = NULL;
 }
 
 // Frees the memory previously allocated by a node
