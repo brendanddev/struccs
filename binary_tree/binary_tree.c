@@ -37,3 +37,39 @@ struct BinaryTree* bt_create() {
 
     return binarytree;
 }
+
+
+
+
+
+// Private helper functions, linkage limited to this file
+
+
+// Creates a new node to be stored in the binary tree
+static struct Node* bt_create_node(void *value, size_t vsize) {
+
+    // Allocate memory for the node itself and handle allocation failure
+    struct Node *node = malloc(sizeof(struct Node));
+    if (node == NULL) return NULL;
+
+    // Set initial left and right child pointers for the node
+    // and the size of the value to be stored in the node
+    node->left = NULL;
+    node->right = NULL;
+    node->value_size = vsize;
+
+    // Allocate memory for the value to be stored in the nodes and
+    // handle allocation failure
+    node->value = malloc(node->value_size);
+    if (node->value == NULL) {
+        free(node);
+        return NULL;
+    }
+
+    // Copy the raw memory pointed to by the pointer parameter into the memory pointed to by 
+    // the nodes value
+    memcpy(node->value, value, node->value_size);
+
+    return node;
+}
+
