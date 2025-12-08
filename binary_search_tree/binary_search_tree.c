@@ -19,6 +19,7 @@ typedef struct Node {
 
 
 // Prototypes
+static struct Node* bst_insert_rec(struct Node *root, void *value, size_t vsize);
 static struct Node* bst_create_node(void *value, size_t vsize);
 static void bst_discard_node(struct Node *node);
 static void bst_discard_all_nodes(struct BinarySearchTree binarytree);
@@ -38,12 +39,36 @@ struct BinarySearchTree* bst_create() {
     return binarytree;
 }
 
-// Inserts a new node into the binary tree
+// Public interface for inserting a new node into the binary tree
 void bst_insert(struct BinarySearchTree *binarytree, void* value, size_t vsize) { 
-
-
-    
+    // Call recursive helper to insert the node
+    binarytree->root = bst_insert_rec(binarytree->root, value, vsize);
+    binarytree->length++;
 }
+
+// Recursive helper function that performs the insertion
+static struct Node* bst_insert_rec(struct Node *root, void *value, size_t vsize) {
+
+    // Base case
+    // The root node is empty, so we can return the created node to insert here
+    if (root == NULL) {
+        return bst_create_node(value, vsize);
+
+    // Compare raw memory of the two values, if the value being inserted is less than the root, traverse to the left
+    } else if (memcmp(root->value, value, vsize) < 0) {
+        // Recurse to the left of the tree to find insertion point
+        bst_insert_rec(root->left, value, vsize);
+
+    // Otherwise value being inserted is equal to or larger to the root, traverse to the right
+    } else {
+        // Recurse to the right of the tree to find the insertion point
+        bst_insert_rec(root->right, value, vsize);
+    }
+
+    // Return original root to ensure tree remains linked
+    return root;
+}
+
 
 
 
