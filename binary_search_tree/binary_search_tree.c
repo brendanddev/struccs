@@ -24,6 +24,7 @@ static void bst_print_rec(struct Node *root, void (* print_fn)(void*), int level
 static struct Node* bst_create_node(void *value, size_t vsize);
 static void bst_discard_node(struct Node *node);
 static void bst_discard_all_nodes(struct BinarySearchTree binarytree);
+static void bst_discard_all_nodes_rec(struct Node *root);
 
 
 // Creates a new BinaryTree
@@ -146,7 +147,22 @@ static void bst_discard_node(struct Node *node) {
     }
 }
 
-// Frees the memory previously allocated by all nodes in the binary tree
-static void bst_discard_all_nodes(struct BinarySearchTree binarytree) {
-    return;
+// Frees the memory previously allocated by all nodes in the binary search tree
+// by calling the recursive helper function
+static void bst_discard_all_nodes(struct BinarySearchTree *binarytree) {
+    bst_discard_all_nodes(binarytree->root);
+}
+
+// Recursive helper function that frees all nodes in the binary search tree
+static void bst_discard_all_nodes_rec(struct Node *root) {
+
+    // Base case
+    // Root node is empty, stop recursing
+    if (root == NULL) return;
+    
+    // Recurse down to the left to free all nodes on the left side of the tree first,
+    // free the current node, then do the same for the right side of the tree
+    bst_discard_all_nodes_rec(root->left);
+    bst_discard_node(root);
+    bst_discard_all_nodes_rec(root->right);
 }
