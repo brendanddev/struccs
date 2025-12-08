@@ -81,6 +81,27 @@ bool bst_contains(struct BinarySearchTree *binarytree, void *value) {
 // Recursive helper function that checks each node in the tree for the value
 static bool bst_contains_rec(struct Node *root, void *value) {
 
+    // Base case
+    // If the root node is empty, value isnt in the tree
+    if (root == NULL)  {
+        return false;
+    
+    // Compare raw memory of the two values to check if we have found the value
+    } else if (memcmp(value, root->value, root->value_size) == 0) {
+        return true;
+
+    // Otherwise need to recurse based on the result of comparison
+    } else {
+
+        // Compare raw memory of the two values to see if we need to recurse left in the tree
+        if (memcmp(value, root->value, root->value_size) < 0) {
+            return bst_contains_rec(root->left, root->value);
+
+        // Otherwise recurse to the right of the tree
+        } else {
+            return bst_contains_rec(root->right, root->value);
+        }
+    }
 }
 
 // Public interface for printing the contents of the binary search tree
