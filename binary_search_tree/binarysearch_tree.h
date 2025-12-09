@@ -13,7 +13,20 @@
 #include <stdbool.h>
 
 
+// Forward declaration of the struct Node stored in the binary search tree
+struct Node;
 
+
+// Defines the BinarySearchTree struct type
+typedef struct BinarySearchTree {
+    struct Node *root;              // Pointer to the root of the tree
+    int length;                     // Number of nodes in the tree
+} BinarySearchTree;
+
+
+struct BinarySearchTree* bst_create();
+void bst_print(struct BinarySearchTree *tree);
+void bst_discard(struct BinarySearchTree *tree);
 
 
 #endif
