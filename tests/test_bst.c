@@ -10,12 +10,13 @@
 
 
 void print_int(void *value) {
-    printf("%d", * (int *) value);
+    printf("%d\n", * (int *) value);
 }
 
 
 int main() {
 
+    // Create new binary search tree
     struct BinarySearchTree *binarytree = bst_create();
     printf("Root Node: %p, Length: %d\n", binarytree->root, binarytree->length);
 
@@ -23,14 +24,17 @@ int main() {
     printf("Length: %d\n", bst_size(binarytree));
     printf("Is empty? %d\n", bst_isempty(binarytree));
 
+    int nums[4] = { 100, 20, 300, 40 };
 
+    // Insert integers into the tree
     for (int i = 0; i < 4; i++) {
-        int current = i;
-        bst_insert(binarytree, &i, sizeof(int));
+        bst_insert(binarytree, &nums[i], sizeof(int));
     }
+    printf("Length: %d, Is empty? %d\n", bst_size(binarytree), bst_isempty(binarytree));
 
-    printf("Length: %d\n", bst_size(binarytree));
-    printf("Is empty? %d\n", bst_isempty(binarytree));
-    
+    // Print the contents of the tree
+    bst_print(binarytree, print_int);
+
+
     return 0;
 }
