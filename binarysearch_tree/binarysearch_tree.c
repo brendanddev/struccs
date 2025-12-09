@@ -21,6 +21,7 @@ typedef struct Node {
 
 // Prototypes
 static struct Node* bst_insert_rec(struct Node *root, void *value, size_t value_size);
+static void bst_print_rec(struct Node *root, void (* print_fn)(void*));    
 static struct Node* bst_create_node(void *value, size_t value_size);
 static void bst_discard_node(struct Node *node);
 static void bst_discard_all_nodes(struct BinarySearchTree *tree);
@@ -46,29 +47,46 @@ void bst_insert(struct BinarySearchTree *tree, void *value, size_t value_size) {
     tree->length++;
 }
 
-// Recursive helper function for ...
+// Recursive helper function for inserting a value into the binary search tree
 static struct Node* bst_insert_rec(struct Node *root, void *value, size_t value_size) {
-
+    
     // Base case - if the root node is empty, return it to insert
     if (root == NULL) {
         return bst_create_node(value, value_size);
 
     // Compare memory blocks pointed to by the value being inserted and the current node value
     // to see if we need to recurse left in the tree
-    } else if (memcmp(value, root->value, root->value_size) < 0) {
+    } else if (memcmp(value, root->value, value_size) < 0) {
 
         // Recurse to the left of the tree to insert the value, then assign the returned
         // subtree back to the root nodes left child to maintain the connection, and return
         // root so the caller can update their pointer to this subtree
         root->left = bst_insert_rec(root->left, value, value_size);
         return root;
-
     // Otherwise recurse right in the tree
     } else {
         root->right = bst_insert_rec(root->right, value, value_size);
         return root;
     }
 }
+
+// Public interface for printing the contents of the binary search tree
+void bst_print(struct BinarySearchTree *tree, void (* print_fn)(void*)) {
+    bst_print_rec(tree->root, print_fn);
+}
+
+// Recursive helper function for printing the contents of the binary search tree in order
+static void bst_print_rec(struct Node *root, void (* print_fn)(void*)) {
+
+    // Base case - if we hit a empty node, weve hit the end of the branch
+    if (root == NULL) return;
+
+    // Recurse down the left side first, 
+    bst_print_rec(root->left, print_fn);
+    print_fn(root->value);
+    bst_print_rec(root->right, print_fn);
+}
+
 
 
 // Returns the number of nodes in the binary search tree

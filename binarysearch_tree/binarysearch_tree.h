@@ -26,14 +26,13 @@ typedef struct BinarySearchTree {
 
 struct BinarySearchTree* bst_create();
 void bst_insert(struct BinarySearchTree *tree, void *value, size_t value_size);
-void bst_print(struct BinarySearchTree *tree);
+void bst_print(struct BinarySearchTree *tree, void (* print_fn)(void*));
 int bst_size(struct BinarySearchTree *tree);
 bool bst_isempty(struct BinarySearchTree *tree);
 
 void bst_remove(struct BinarySearchTree *tree, void *value);
 bool bst_contains(struct BinarySearchTree *tree, void *value);
 struct Node* bst_search(struct BinarySearchTree *tree, void *value);
-void bst_print(struct BinarySearchTree *tree);
 void bst_discard(struct BinarySearchTree *tree);
 
 
