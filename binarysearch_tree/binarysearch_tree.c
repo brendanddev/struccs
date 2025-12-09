@@ -52,12 +52,14 @@ static struct Node* bst_insert_rec(struct Node *root, void *value, size_t value_
     
     // Base case - if the root node is empty, return it to insert
     if (root == NULL) {
+        printf("Inserting ROOT\n");
         return bst_create_node(value, value_size);
 
     // Compare memory blocks pointed to by the value being inserted and the current node value
     // to see if we need to recurse left in the tree
     } else if (memcmp(value, root->value, value_size) < 0) {
 
+        printf("Inserting %d, current root: %d, going LEFT\n", *(int*)value, *(int*)root->value);
         // Recurse to the left of the tree to insert the value, then assign the returned
         // subtree back to the root nodes left child to maintain the connection, and return
         // root so the caller can update their pointer to this subtree
@@ -65,6 +67,7 @@ static struct Node* bst_insert_rec(struct Node *root, void *value, size_t value_
         return root;
     // Otherwise recurse right in the tree
     } else {
+        printf("Inserting %d, current root: %d, going LEFT\n", *(int*)value, *(int*)root->value);
         root->right = bst_insert_rec(root->right, value, value_size);
         return root;
     }
