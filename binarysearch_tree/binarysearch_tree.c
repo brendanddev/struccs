@@ -39,7 +39,15 @@ struct BinarySearchTree* bst_create() {
     return tree;
 }
 
+// Returns the number of nodes in the binary search tree
+int bst_size(struct BinarySearchTree *tree) {
+    return tree->length;
+}
 
+// Checks whether the binary search tree is empty
+bool bst_isempty(struct BinarySearchTree *tree) {
+    return tree->length == 0;
+}
 
 
 // Private helper functions, linkage limited to this file

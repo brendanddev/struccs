@@ -21,7 +21,7 @@ int main() {
 
     // Print length of bst and whether its empty
     printf("Length: %d\n", bst_size(binarytree));
-    printf("Is empty? %d\n", bst_is_empty(binarytree));
+    printf("Is empty? %d\n", bst_isempty(binarytree));
     
     return 0;
 }
