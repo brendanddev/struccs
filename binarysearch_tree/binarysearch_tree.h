@@ -25,7 +25,7 @@ typedef struct BinarySearchTree {
 
 
 struct BinarySearchTree* bst_create();
-void bst_insert(struct BinarySearchTree *tree, void *value, size_t value_size);
+void bst_insert(struct BinarySearchTree *tree, void *value, size_t value_size, int (*compare)(void*, void*));
 void bst_print(struct BinarySearchTree *tree, void (* print_fn)(void*));
 int bst_size(struct BinarySearchTree *tree);
 bool bst_isempty(struct BinarySearchTree *tree);

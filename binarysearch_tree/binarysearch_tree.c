@@ -20,7 +20,7 @@ typedef struct Node {
 
 
 // Prototypes
-static struct Node* bst_insert_rec(struct Node *root, void *value, size_t value_size);
+static struct Node* bst_insert_rec(struct Node *root, void *value, size_t value_size, int (*compare)(void*, void*));
 static void bst_print_rec(struct Node *root, void (* print_fn)(void*));    
 static struct Node* bst_create_node(void *value, size_t value_size);
 static void bst_discard_node(struct Node *node);
@@ -42,13 +42,13 @@ struct BinarySearchTree* bst_create() {
 }
 
 // Public interface for inserting a new value into the binary search tree
-void bst_insert(struct BinarySearchTree *tree, void *value, size_t value_size) {
-    tree->root = bst_insert_rec(tree->root, value, value_size);
+void bst_insert(struct BinarySearchTree *tree, void *value, size_t value_size, int (*compare)(void*, void*)) {
+    tree->root = bst_insert_rec(tree->root, value, value_size, compare);
     tree->length++;
 }
 
 // Recursive helper function for inserting a value into the binary search tree
-static struct Node* bst_insert_rec(struct Node *root, void *value, size_t value_size) {
+static struct Node* bst_insert_rec(struct Node *root, void *value, size_t value_size, int (*compare)(void*, void*)) {
     
     // Base case - if the root node is empty, return it to insert
     if (root == NULL) {
@@ -57,18 +57,18 @@ static struct Node* bst_insert_rec(struct Node *root, void *value, size_t value_
 
     // Compare memory blocks pointed to by the value being inserted and the current node value
     // to see if we need to recurse left in the tree
-    } else if (memcmp(value, root->value, value_size) < 0) {
-
+    } else if (compare(value, root->value) < 0) {
         printf("Inserting %d, current root: %d, going LEFT\n", *(int*)value, *(int*)root->value);
+
         // Recurse to the left of the tree to insert the value, then assign the returned
         // subtree back to the root nodes left child to maintain the connection, and return
         // root so the caller can update their pointer to this subtree
-        root->left = bst_insert_rec(root->left, value, value_size);
+        root->left = bst_insert_rec(root->left, value, value_size, compare);
         return root;
     // Otherwise recurse right in the tree
     } else {
-        printf("Inserting %d, current root: %d, going LEFT\n", *(int*)value, *(int*)root->value);
-        root->right = bst_insert_rec(root->right, value, value_size);
+        printf("Inserting %d, current root: %d, going RIGHT\n", *(int*)value, *(int*)root->value);
+        root->right = bst_insert_rec(root->right, value, value_size, compare);
         return root;
     }
 }
@@ -78,15 +78,16 @@ void bst_print(struct BinarySearchTree *tree, void (* print_fn)(void*)) {
     bst_print_rec(tree->root, print_fn);
 }
 
-// Recursive helper function for printing the contents of the binary search tree in order
+// Recursive helper function for printing the contents of the binary search tree in order traversal
 static void bst_print_rec(struct Node *root, void (* print_fn)(void*)) {
 
     // Base case - if we hit a empty node, weve hit the end of the branch
     if (root == NULL) return;
 
-    // Recurse down the left side first, 
+    // Recurse down the left side first, once base case is hit, print current value,
+    // go to root, go to right child, print if no children, go back to root, print
     bst_print_rec(root->left, print_fn);
-    print_fn(root->value);
+    print_fn(root->value);  // wrong?
     bst_print_rec(root->right, print_fn);
 }
 
