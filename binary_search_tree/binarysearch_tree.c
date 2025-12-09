@@ -61,6 +61,15 @@ static struct Node* bst_create_node(void *value, size_t value_size) {
 
     // Copy the raw memory pointed to by the parameter into the memory pointed to by the nodes member
     memcpy(node->value, value, node->value_size);
-    
+
     return node;
 }
+
+// Frees the memory previously allocated by a node
+static void bst_discard_node(struct Node *node) {
+    if (node != NULL) {
+        free(node->value);
+        free(node);
+    }
+}
+
