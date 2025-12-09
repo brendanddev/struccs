@@ -19,12 +19,13 @@ This project began as a simple **integer array** and has evolved into a comprehe
 
 - **Queue**: A FIFO data structure backed by linked nodes with generic type support for storing any data type.
 
-- **HashTable**: In Progres...
+- **HashTable**: A generic, dynamically resizing hash table using separate chaining to handle collisions.
+
+- **BinarySearchTree**: In progress...
 
 
 ### Planned Implementations
 
-- **Binary Search Tree**
 - **Heap / Priority Queue**
 - More advanced structures as the project evolves
 
@@ -71,7 +72,12 @@ This project began as a simple **integer array** and has evolved into a comprehe
   - Linked node implementation with head and tail pointers for O(1) enqueue and dequeue
   - Proper memory management with automatic cleanup via (queue_discard)
 
-- **HashTable**: *(Planned)*
+- **HashTable**: 
+  - Generic key/value storage using `void*` pointers and `memcpy`
+  - Separate chaining with **linked nodes** for **collision handling**
+  - Automatic resizing when load factor exceeds 0.75, doubling capacity and rehashing entries
+  - Proper memory management ensures that all keys, values, and nodes are deep-copied and freed correctly
+  - Supports insert/update, remove, get, contains, and utility operations like clear and print
 
 ---
 
@@ -165,29 +171,29 @@ structures-from-scratch/
 | ll_discard           | **O(n)**           | Frees all nodes and the list structure.                     |
 
 ### Stack Operations
-| Operation       | Time Complexity | Notes                                                          |
-|-----------------|-----------------|----------------------------------------------------------------|
-| stack_create    | **O(1)**        | Initializes a new empty stack.                                 |
-| stack_push      | **O(1)**        | Adds an element to the top of the stack.                       |
-| stack_peek      | **O(1)**        | Returns the top element without removing it.                   |
-| stack_pop       | **O(1)**        | Removes and returns the top element of the stack.              |
-| stack_clear     | **O(n)**        | Removes all elements from the stack.                           |
-| stack_is_empty  | **O(1)**        | Checks if the stack is empty.                                  |
-| stack_size      | **O(1)**        | Returns the number of elements in the stack.                   |
-| stack_discard   | **O(n)**        | Frees all memory associated with the stack.                    |
+| Operation         | Time Complexity | Notes                                                          |
+|-------------------|-----------------|----------------------------------------------------------------|
+| `stack_create`    | **O(1)**        | Initializes a new empty stack.                                 |
+| `stack_push`      | **O(1)**        | Adds an element to the top of the stack.                       |
+| `stack_peek`      | **O(1)**        | Returns the top element without removing it.                   |
+| `stack_pop`       | **O(1)**        | Removes and returns the top element of the stack.              |
+| `stack_clear`     | **O(n)**        | Removes all elements from the stack.                           |
+| `stack_is_empty`  | **O(1)**        | Checks if the stack is empty.                                  |
+| `stack_size`      | **O(1)**        | Returns the number of elements in the stack.                   |
+| `stack_discard`   | **O(n)**        | Frees all memory associated with the stack.                    |
 
 
 ### Queue Operations
-| Operation       | Time Complexity | Notes                                                          |
-|-----------------|-----------------|----------------------------------------------------------------|
-| queue_create    | **O(1)**        | Initializes a new empty queue.                                 |
-| queue_enqueue   | **O(1)**        | Adds an element to the end of the queue.                       |
-| queue_peek      | **O(1)**        | Returns the front element without removing it.                 |
-| queue_dequeue   | **O(1)**        | Removes and returns the front element of the queue.            |
-| queue_is_empty  | **O(1)**        | Checks if the queue is empty.                                  |
-| queue_length    | **O(1)**        | Returns the number of elements in the queue.                   |
-| queue_clear     | **O(n)**        | Removes all elements from the queue.                           |
-| queue_discard   | **O(n)**        | Frees all memory associated with the queue.                    |
+| Operation         | Time Complexity | Notes                                                          |
+|-------------------|-----------------|----------------------------------------------------------------|
+| `queue_create`    | **O(1)**        | Initializes a new empty queue.                                 |
+| `queue_enqueue`   | **O(1)**        | Adds an element to the end of the queue.                       |
+| `queue_peek`      | **O(1)**        | Returns the front element without removing it.                 |
+| `queue_dequeue`   | **O(1)**        | Removes and returns the front element of the queue.            |
+| `queue_is_empty`  | **O(1)**        | Checks if the queue is empty.                                  |
+| `queue_length`    | **O(1)**        | Returns the number of elements in the queue.                   |
+| `queue_clear`     | **O(n)**        | Removes all elements from the queue.                           |
+| `queue_discard`   | **O(n)**        | Frees all memory associated with the queue.                    |
 
 
 ## Hash Table Operations
