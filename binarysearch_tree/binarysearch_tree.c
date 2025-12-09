@@ -27,9 +27,16 @@ static void bst_discard_all_nodes(struct BinarySearchTree *tree);
 
 // Creates a new binary search tree
 struct BinarySearchTree* bst_create() {
-    struct BinarySearchTree *tree = malloc(sizeof(struct BinarySearchTree));
-    return tree;
 
+    // Allocate memory for the tree itself and handle allocation failure
+    struct BinarySearchTree *tree = malloc(sizeof(struct BinarySearchTree));
+    if (tree == NULL) return NULL;
+
+    // Set the initial root pointer and length of the tree
+    tree->root = NULL;
+    tree->length = 0;
+    
+    return tree;
 }
 
 
