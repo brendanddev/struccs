@@ -52,13 +52,11 @@ static struct Node* bst_insert_rec(struct Node *root, void *value, size_t value_
     
     // Base case - if the root node is empty, return it to insert
     if (root == NULL) {
-        printf("Inserting ROOT\n");
         return bst_create_node(value, value_size);
 
     // Compare memory blocks pointed to by the value being inserted and the current node value
     // to see if we need to recurse left in the tree
     } else if (compare(value, root->value) < 0) {
-        printf("Inserting %d, current root: %d, going LEFT\n", *(int*)value, *(int*)root->value);
 
         // Recurse to the left of the tree to insert the value, then assign the returned
         // subtree back to the root nodes left child to maintain the connection, and return
@@ -67,7 +65,6 @@ static struct Node* bst_insert_rec(struct Node *root, void *value, size_t value_
         return root;
     // Otherwise recurse right in the tree
     } else {
-        printf("Inserting %d, current root: %d, going RIGHT\n", *(int*)value, *(int*)root->value);
         root->right = bst_insert_rec(root->right, value, value_size, compare);
         return root;
     }
@@ -84,13 +81,12 @@ static void bst_print_rec(struct Node *root, void (* print_fn)(void*)) {
     // Base case - if we hit a empty node, weve hit the end of the branch
     if (root == NULL) return;
 
-    // Recurse down the left side first, once base case is hit, print current value,
-    // go to root, go to right child, print if no children, go back to root, print
+    // Recursively traverse the left subtree, print the current node, then traverse the 
+    // right subtree
     bst_print_rec(root->left, print_fn);
-    print_fn(root->value);  // wrong?
+    print_fn(root->value);
     bst_print_rec(root->right, print_fn);
 }
-
 
 
 // Returns the number of nodes in the binary search tree
