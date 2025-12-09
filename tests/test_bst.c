@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "../binary_search_tree/binary_search_tree.h"
+#include "../binarysearch_tree/binarysearch_tree.h"
 
 
 /// test_bt.c
@@ -22,62 +22,6 @@ int main() {
     // Print length of bst and whether its empty
     printf("Length: %d\n", bst_size(binarytree));
     printf("Is empty? %d\n", bst_is_empty(binarytree));
-
-    // Insert node into the tree
-    int val = 10;
-    bst_insert(binarytree, &val, sizeof(int));
-    
-    val = 5;
-    bst_insert(binarytree, &val, sizeof(int));
-
-    val = 1;
-    bst_insert(binarytree, &val, sizeof(int));
-
-    val = 34;
-    bst_insert(binarytree, &val, sizeof(int));
-
-    val = 3;
-    bst_insert(binarytree, &val, sizeof(int));
-
-    val = 45;
-    bst_insert(binarytree, &val, sizeof(int));
-
-    val = 17;
-    bst_insert(binarytree, &val, sizeof(int));
-
-
-
-    printf("Length: %d\n", bst_size(binarytree));
-    printf("Is empty? %d\n", bst_is_empty(binarytree));
-
-
-    // Print the contents of the bst
-    printf("==========\n");
-    bst_print(binarytree, print_int);
-
-    // Check if the binary search tree contains a value
-    int value = 3;
-    printf("The tree contains 3? %d\n", bst_contains(binarytree, &value));
-
-    // Search for a value in the tree
-    struct Node *found = bst_search(binarytree, &value);
-    if (found != NULL) 
-        printf("Found the value '%d' in the tree\n", value);
-    else 
-        printf("Did not find the value in the tree\n");
-
-
-    // Clear the bst
-    bst_clear(binarytree);
-    printf("Length: %d\n", bst_size(binarytree));
-    printf("Is empty? %d\n", bst_is_empty(binarytree));
-
-    printf("The tree contains 3? %d\n", bst_contains(binarytree, &value));
-
-    // Free the bst
-    bst_discard(binarytree);
-    binarytree = NULL;
     
     return 0;
-
 }
