@@ -28,6 +28,7 @@ static struct Node* bst_create_node(void *value, size_t vsize);
 static void bst_discard_node(struct Node *node);
 static void bst_discard_all_nodes(struct BinarySearchTree *binarytree);
 static void bst_discard_all_nodes_rec(struct Node *root);
+static struct Node* bst_find_min(struct Node *root);
 
 
 // Creates a new BinaryTree
@@ -79,10 +80,7 @@ static struct Node* bst_insert_rec(struct Node *root, void *value, size_t vsize)
 bool bst_remove(struct BinarySearchTree *binarytree, void *value) { 
     
     if (bst_is_empty(binarytree)) return false;
-    int old_length = binarytree->length;
-    binarytree->root = (binarytree->root, value);
-        
-    if (old_length == binarytree->length) return false;
+
     return true;
 }
 
@@ -99,16 +97,37 @@ static struct Node* bst_remove_rec(struct Node *root, void *value) {
         // Check if the current node has no children
         if (root->left == NULL && root->right == NULL) {
 
+            // Remove the node by freeing memory allocated by the node
+            // and returning NULL so the caller assigns the result of the recursive call back
+            // to the left or right pointer
+            bst_discard_node(root);
+            return NULL;
 
         // Check if node has one child
         } else if (root->left == NULL || root->right == NULL) {
 
+            // Check if the left node is the child that exists
+            if (root->left != NULL) {
+                // Save pointer to the left node, free the current, and return the child node
+                // so that the parent of `root` now points to `root->left` instead of the deleted node
+                struct Node *temp = root->left;
+                bst_discard_node(root);
+                return temp;
+
+            // Otherwise right node is the child that exists
+            } else {
+                struct Node *temp = root->right;
+                bst_discard_node(root);
+                return temp;
+            }
 
         // The node has no children
         } else {
 
-        }
 
+
+
+        }
 
     // Otherwise need to recurse further in the tree to search for the value
     }  else {
@@ -298,4 +317,14 @@ static void bst_discard_all_nodes_rec(struct Node *root) {
     bst_discard_all_nodes_rec(root->left);
     bst_discard_node(root);
     bst_discard_all_nodes_rec(root->right);
+}
+
+
+// Recursive helper function that traverses left as far as possible in the tree to find the minumum node
+static struct Node* bst_find_min(struct Node *root) {
+
+    // Base case - if theres no left child, minumum has been found so return
+    if (root->left == NULL) return root;
+    // Otherwise, recurse the left side of the tree and return the result
+    return bst_find_min(root->left);
 }
