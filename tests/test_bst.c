@@ -13,6 +13,19 @@ void print_int(void *value) {
     printf("%d\n", * (int *) value);
 }
 
+int compare_int(void *a, void *b) {
+    int num1 = * (int *)a;
+    int num2 = * (int *)b;
+
+    if (num1 == num2) {
+        return 0;
+    } else if (num1 > num2) {
+        return 1;
+    } else {
+        return -1;
+    }
+}
+
 
 int main() {
 
@@ -28,7 +41,7 @@ int main() {
 
     // Insert integers into the tree
     for (int i = 0; i < 4; i++) {
-        bst_insert(binarytree, &nums[i], sizeof(int));
+        bst_insert(binarytree, &nums[i], sizeof(int), compare_int);
     }
     printf("Length: %d, Is empty? %d\n", bst_size(binarytree), bst_isempty(binarytree));
 
