@@ -48,6 +48,28 @@ int main() {
     // Print the contents of the tree
     bst_print(binarytree, print_int);
 
+    // Check if the tree contains a value
+    int val = 100;
+    if (bst_contains(binarytree, &val, compare_int)) {
+        printf("Found the value %d in the tree\n", val);
+    } else {
+        printf("Did not find the value %d in the tree\n", val);
+    }
+
+    val = 20;
+    if (bst_contains(binarytree, &val, compare_int)) {
+        printf("Found the value %d in the tree\n", val);
+    } else {
+        printf("Did not find the value %d in the tree\n", val);
+    }
+
+    val = 1000;     // Should not find this value
+    if (bst_contains(binarytree, &val, compare_int)) {
+        printf("Found the value %d in the tree\n", val);
+    } else {
+        printf("Did not find the value %d in the tree\n", val);
+    }
+
     // Clear contents of the binary tree
     bst_clear(binarytree);
     printf("Length: %d, Is empty? %d\n", bst_size(binarytree), bst_isempty(binarytree));
