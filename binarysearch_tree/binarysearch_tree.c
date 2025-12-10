@@ -21,6 +21,7 @@ typedef struct Node {
 
 // Prototypes
 static struct Node* bst_insert_rec(struct Node *root, void *value, size_t value_size, int (*compare)(void*, void*));
+static bool bst_contains_rec(struct Node *root, void *value, int (*compare)(void*, void*));
 static void bst_print_rec(struct Node *root, void (* print_fn)(void*));    
 static struct Node* bst_create_node(void *value, size_t value_size);
 static void bst_discard_node(struct Node *node);
@@ -87,6 +88,32 @@ static void bst_print_rec(struct Node *root, void (* print_fn)(void*)) {
     bst_print_rec(root->left, print_fn);
     print_fn(root->value);
     bst_print_rec(root->right, print_fn);
+}
+
+// Public interface for checking if the binary search tree contains a value
+bool bst_contains(struct BinarySearchTree *tree, void *value, int (*compare)(void*, void*)) {
+    if (bst_isempty(tree)) return false;
+    return bst_contains_rec(tree->root, value, compare);
+}
+
+// Recursive helper for checking if the tree contains a given value
+static bool bst_contains_rec(struct Node *root, void *value, int (*compare)(void*, void*)) { 
+
+    // Base case - if we have reached an empty node without finding value its not in the tree
+    if (root == NULL) return false;
+
+    // Check if we have found the value
+    if (compare(value, root->value) == 0) {
+        return true;
+
+    // Check if we need to traverse in the left branch
+    } else if (compare(value, root->value) < 0) {
+        return bst_contains_rec(root->left, value, compare);
+
+    // Otherwise we need to traverse in the right branch
+    } else {
+        return bst_contains_rec(root->right, value, compare);
+    }
 }
 
 
