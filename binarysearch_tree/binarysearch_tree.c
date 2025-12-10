@@ -100,7 +100,12 @@ bool bst_isempty(struct BinarySearchTree *tree) {
     return tree->length == 0;
 }
 
-void bst_clear(struct BinarySearchTree *tree) { }
+// Clears the contents of the binary search tree
+void bst_clear(struct BinarySearchTree *tree) { 
+    bst_discard_all_nodes(tree);
+    tree->root = NULL;
+    tree->length = 0;
+}
 
 
 // Private helper functions, linkage limited to this file
@@ -146,7 +151,7 @@ static void bst_discard_all_nodes(struct BinarySearchTree *tree) {
     bst_discard_all_nodes_rec(tree->root);
 }
 
-
+// Recursive helper function for freeing the memory allocated by each node in the tree
 static void bst_discard_all_nodes_rec(struct Node *root) {
 
     // Base case - hit an empty node
