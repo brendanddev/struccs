@@ -107,6 +107,15 @@ void bst_clear(struct BinarySearchTree *tree) {
     tree->length = 0;
 }
 
+// Frees the memory previously allocated by all nodes in the tree and the tree itself
+void bst_discard(struct BinarySearchTree *tree) {
+    if (tree != NULL) {
+        bst_discard_all_nodes(tree);
+        free(tree);
+    }
+}
+
+
 
 // Private helper functions, linkage limited to this file
 
