@@ -52,6 +52,9 @@ int main() {
     bst_clear(binarytree);
     printf("Length: %d, Is empty? %d\n", bst_size(binarytree), bst_isempty(binarytree));
 
+    // Free the binary search tree
+    bst_discard(binarytree);
+    binarytree = NULL;
 
     return 0;
 }
