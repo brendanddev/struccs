@@ -25,6 +25,7 @@ static void bst_print_rec(struct Node *root, void (* print_fn)(void*));
 static struct Node* bst_create_node(void *value, size_t value_size);
 static void bst_discard_node(struct Node *node);
 static void bst_discard_all_nodes(struct BinarySearchTree *tree);
+static void bst_discard_all_nodes_rec(struct Node *root);
 
 
 // Creates a new binary search tree
@@ -99,6 +100,8 @@ bool bst_isempty(struct BinarySearchTree *tree) {
     return tree->length == 0;
 }
 
+void bst_clear(struct BinarySearchTree *tree) { }
+
 
 // Private helper functions, linkage limited to this file
 
@@ -138,3 +141,18 @@ static void bst_discard_node(struct Node *node) {
     }
 }
 
+// Interface for freeing the memory previously allocated by all nodes in the tree
+static void bst_discard_all_nodes(struct BinarySearchTree *tree) { 
+    bst_discard_all_nodes_rec(tree->root);
+}
+
+
+static void bst_discard_all_nodes_rec(struct Node *root) {
+
+    // Base case - hit an empty node
+    if (root == NULL) return;
+
+    bst_discard_all_nodes_rec(root->left);
+    bst_discard_node(root);
+    bst_discard_all_nodes_rec(root->right);
+}
