@@ -21,7 +21,9 @@ typedef struct Node {
 
 // Prototypes
 static struct Node* bst_insert_rec(struct Node *root, void *value, size_t value_size, int (*compare)(void*, void*));
+static void bst_remove_rec(struct Node *root, void *value, int (*compare)(void*, void*));
 static bool bst_contains_rec(struct Node *root, void *value, int (*compare)(void*, void*));
+static struct Node* bst_search_rec(struct Node *root, void *value, int (*compare)(void*, void*));
 static void bst_print_rec(struct Node *root, void (* print_fn)(void*));    
 static struct Node* bst_create_node(void *value, size_t value_size);
 static void bst_discard_node(struct Node *node);
@@ -72,6 +74,37 @@ static struct Node* bst_insert_rec(struct Node *root, void *value, size_t value_
     }
 }
 
+
+void bst_remove(struct BinarySearchTree *tree, void *value, int (*compare)(void*, void*)) { }
+
+
+
+static void bst_remove_rec(struct Node *root, void *value, int (*compare)(void*, void*)) { 
+
+    // Base case - 
+    if (root == NULL) return;
+
+    // Check if we found the value
+    if (compare(value, root->value) == 0) {
+
+        // Case 1: No children
+        // Case 2: One child
+        // Case 3: Two children
+
+    } else if (compare(value, root->value) < 0) {
+
+    } else {
+
+
+    }
+
+
+
+
+
+}
+
+
 // Public interface for printing the contents of the binary search tree
 void bst_print(struct BinarySearchTree *tree, void (* print_fn)(void*)) {
     bst_print_rec(tree->root, print_fn);
@@ -113,6 +146,33 @@ static bool bst_contains_rec(struct Node *root, void *value, int (*compare)(void
     // Otherwise we need to traverse in the right branch
     } else {
         return bst_contains_rec(root->right, value, compare);
+    }
+}
+
+// Public interface for searching the binary search tree for a value
+struct Node* bst_search(struct BinarySearchTree *tree, void *value, int (*compare)(void*, void*)) {
+    if (bst_isempty(tree)) return NULL;
+    return bst_search_rec(tree->root, value, compare);
+}
+
+// Recursive helper for searching for a value in the tree
+static struct Node* bst_search_rec(struct Node *root, void *value, int (*compare)(void*, void*)) {
+
+    // Base case - if we have reached an empty node without finding value, its not in the tree
+    if (root == NULL) return NULL;
+
+    // Check if we found the value
+    if (compare(value, root->value) == 0) {
+        return root;
+
+    // Check if value is less than the value stored in the current node,
+    // if it is, traverse left down the tree
+    } else if (compare(value, root->value) < 0) {
+        return bst_search_rec(root->left, value, compare);
+
+    // Otherwise value is equal to or larger, so traverse right down the tree
+    } else {
+        return bst_search_rec(root->right, value, compare);
     }
 }
 

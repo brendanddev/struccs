@@ -51,9 +51,16 @@ int main() {
     // Check if the tree contains a value
     int val = 100;
     if (bst_contains(binarytree, &val, compare_int)) {
-        printf("Found the value %d in the tree\n", val);
+        printf("[CONTAINS] Found the value %d in the tree\n", val);
     } else {
-        printf("Did not find the value %d in the tree\n", val);
+        printf("[CONTAINS] Did not find the value %d in the tree\n", val);
+    }
+
+    // Test searching for a value in the tree
+    if (bst_search(binarytree, &val, compare_int) != NULL) {
+        printf("[SEARCH] Found the value %d in the tree\n", val);
+    } else {
+        printf("[SEARCH] Did not find the value %d in the tree\n", val);
     }
 
     val = 20;
@@ -63,11 +70,23 @@ int main() {
         printf("Did not find the value %d in the tree\n", val);
     }
 
+    if (bst_search(binarytree, &val, compare_int) != NULL) {
+        printf("[SEARCH] Found the value %d in the tree\n", val);
+    } else {
+        printf("[SEARCH] Did not find the value %d in the tree\n", val);
+    }
+
     val = 1000;     // Should not find this value
     if (bst_contains(binarytree, &val, compare_int)) {
         printf("Found the value %d in the tree\n", val);
     } else {
         printf("Did not find the value %d in the tree\n", val);
+    }
+
+    if (bst_search(binarytree, &val, compare_int) != NULL) {
+        printf("[SEARCH] Found the value %d in the tree\n", val);
+    } else {
+        printf("[SEARCH] Did not find the value %d in the tree\n", val);
     }
 
     // Clear contents of the binary tree
