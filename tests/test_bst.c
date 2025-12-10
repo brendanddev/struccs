@@ -48,6 +48,10 @@ int main() {
     // Print the contents of the tree
     bst_print(binarytree, print_int);
 
+    // Clear contents of the binary tree
+    bst_clear(binarytree);
+    printf("Length: %d, Is empty? %d\n", bst_size(binarytree), bst_isempty(binarytree));
+
 
     return 0;
 }

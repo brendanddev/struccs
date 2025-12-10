@@ -157,7 +157,9 @@ static void bst_discard_all_nodes_rec(struct Node *root) {
     // Base case - hit an empty node
     if (root == NULL) return;
 
+    // Free left and right child branches of the root node and
+    // then free the root node to avoid accessing freed memory
     bst_discard_all_nodes_rec(root->left);
-    bst_discard_node(root);
     bst_discard_all_nodes_rec(root->right);
+    bst_discard_node(root);
 }
