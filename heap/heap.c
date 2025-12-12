@@ -32,4 +32,14 @@ struct Heap* heap_create(size_t element_size) {
 }
 
 
+// Returns the current size (length) of the heap
+int heap_size(struct Heap *heap) {
+    return heap->length;
+}
 
+// Returns the capacity of the heap
+int heap_capacity(struct Heap *heap) {
+    return heap->capacity;
+}
+
+bool heap_isempty(struct Heap *heap);
