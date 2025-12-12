@@ -21,7 +21,7 @@ typedef struct Node {
 
 // Prototypes
 static struct Node* bst_insert_rec(struct Node *root, void *value, size_t value_size, int (*compare)(void*, void*));
-static void bst_remove_rec(struct Node *root, void *value, int (*compare)(void*, void*));
+static struct Node* bst_remove_rec(struct Node *root, void *value, int (*compare)(void*, void*), bool *found);
 static bool bst_contains_rec(struct Node *root, void *value, int (*compare)(void*, void*));
 static struct Node* bst_search_rec(struct Node *root, void *value, int (*compare)(void*, void*));
 static void bst_print_rec(struct Node *root, void (* print_fn)(void*));   
@@ -77,19 +77,22 @@ static struct Node* bst_insert_rec(struct Node *root, void *value, size_t value_
 
 // Public interface for removing a value from the binary search tree
 void bst_remove(struct BinarySearchTree *tree, void *value, int (*compare)(void*, void*)) { 
-    tree->root = bst_remove_rec(tree->root, value, compare);
-    tree->length--;
+    bool found = false;
+    tree->root = bst_remove_rec(tree->root, value, compare, &found);
+    if (found) tree->length--;
 }
 
 // Recursive helper for removing a value from the binary search tree
-static Node* bst_remove_rec(struct Node *root, void *value, int (*compare)(void*, void*)) { 
+static Node* bst_remove_rec(struct Node *root, void *value, int (*compare)(void*, void*), bool *found) { 
 
     // Base case - we found an empty node
     if (root == NULL) {
+        *found = false;
         return root;
 
     // Check if we found the value to remove
     } else if (compare(value, root->value) == 0) {
+        *found = true;
 
         // Check if the node being removed has no children
         if (root->left == NULL && root->right == NULL) {
@@ -130,7 +133,7 @@ static Node* bst_remove_rec(struct Node *root, void *value, int (*compare)(void*
             // Copy the value from the successor into the root and 
             // remove the successor itself by recursing down the right side of the tree
             memcpy(root->value, successor->value, root->value_size);
-            root->right = bst_remove_rec(root->right, successor->value, compare);
+            root->right = bst_remove_rec(root->right, successor->value, compare, found);
             return root;
         }
 
@@ -140,18 +143,17 @@ static Node* bst_remove_rec(struct Node *root, void *value, int (*compare)(void*
         // Check if we need to recurse to the left in the tree
         if (compare(value, root->value) < 0) {
 
-            root->left = bst_remove_rec(root->left, value, compare);
+            root->left = bst_remove_rec(root->left, value, compare, found);
             return root;
 
         // Otherwise recurse to the right
         } else {
 
-            root->right = bst_remove_rec(root->right, value, compare);
+            root->right = bst_remove_rec(root->right, value, compare, found);
             return root;
         }
     }
 }
-
 
 // Public interface for printing the contents of the binary search tree
 void bst_print(struct BinarySearchTree *tree, void (* print_fn)(void*)) {
