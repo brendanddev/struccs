@@ -22,6 +22,7 @@ typedef struct Heap {
 
 
 struct Heap* heap_create(size_t element_size);
+bool heap_insert(struct Heap *heap, void *value, size_t vsize, int (*compare)(void*, void*));
 void* heap_peek(struct Heap *heap);
 int heap_size(struct Heap *heap);
 int heap_capacity(struct Heap *heap);
@@ -29,7 +30,6 @@ bool heap_isempty(struct Heap *heap);
 void heap_clear(struct Heap *heap);
 void heap_discard(struct Heap *heap);
 
-void heap_insert(struct Heap *heap, void *value, size_t vsize);
 void heap_remove(struct Heap *heap, void *value, size_t vsize);
 
 void heap_print(struct Heap *heap);
