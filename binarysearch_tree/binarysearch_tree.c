@@ -236,8 +236,9 @@ void* bst_max(struct BinarySearchTree *tree) {
 
 // Recursive helper for finding the maximum value in the binary search tree
 static void* bst_max_rec(struct Node *root) {
+    if (root->right == NULL) return root->value;
+    return bst_max_rec(root->right);
 }
-
 
 // Public interface for finding the height of the binary search tree
 int bst_height(struct BinarySearchTree *tree) {
