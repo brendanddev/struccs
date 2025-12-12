@@ -24,7 +24,8 @@ static struct Node* bst_insert_rec(struct Node *root, void *value, size_t value_
 static void bst_remove_rec(struct Node *root, void *value, int (*compare)(void*, void*));
 static bool bst_contains_rec(struct Node *root, void *value, int (*compare)(void*, void*));
 static struct Node* bst_search_rec(struct Node *root, void *value, int (*compare)(void*, void*));
-static void bst_print_rec(struct Node *root, void (* print_fn)(void*));    
+static void bst_print_rec(struct Node *root, void (* print_fn)(void*));   
+static struct Node* bst_get_successor(struct Node *root); 
 static struct Node* bst_create_node(void *value, size_t value_size);
 static void bst_discard_node(struct Node *node);
 static void bst_discard_all_nodes(struct BinarySearchTree *tree);
@@ -74,34 +75,73 @@ static struct Node* bst_insert_rec(struct Node *root, void *value, size_t value_
     }
 }
 
+// Public interface for removing a value from the binary search tree
+void bst_remove(struct BinarySearchTree *tree, void *value, int (*compare)(void*, void*)) { 
+    tree->root = bst_remove_rec(tree->root, value, compare);
+    tree->length--;
+}
 
-void bst_remove(struct BinarySearchTree *tree, void *value, int (*compare)(void*, void*)) { }
+// Recursive helper for removing a value from the binary search tree
+static Node* bst_remove_rec(struct Node *root, void *value, int (*compare)(void*, void*)) { 
 
+    // Base case - we found an empty node
+    if (root == NULL) {
+        return root;
 
+    // Check if we found the value to remove
+    } else if (compare(value, root->value) == 0) {
 
-static void bst_remove_rec(struct Node *root, void *value, int (*compare)(void*, void*)) { 
+        // Check if the node being removed has no children
+        if (root->left == NULL && root->right == NULL) {
 
-    // Base case - 
-    if (root == NULL) return;
+            // Remove the node and return the new subtree root back up to the call stack so the 
+            // parent can update its child pointer
+            bst_discard_node(root);
+            root = NULL;
+            return root;
 
-    // Check if we found the value
-    if (compare(value, root->value) == 0) {
+        // Check if the node being removed has one child
+        } else if (root->left == NULL || root->right == NULL) {
 
-        // Case 1: No children
-        // Case 2: One child
-        // Case 3: Two children
+            // Check if left child is not empty
+            if (root->left != NULL) {
 
-    } else if (compare(value, root->value) < 0) {
+                // Save pointer to the left child, free the current node, and return the left child
+                // back up to the call stack so the parent can update its child pointer
+                struct Node *left = root->left;
+                bst_discard_node(root);
+                root = NULL;
+                return left;
 
+            // Otherwise right child is not empty
+            } else {
+                struct Node *right = root->right;
+                bst_discard_node(root);
+                root = NULL;
+                return right;
+            }
+
+        // Otherwise node has two children
+        } else {
+
+        }
+
+    // Didnt find the value to remove, need to recurse the tree further
     } else {
 
+        // Check if we need to recurse to the left in the tree
+        if (compare(value, root->value) < 0) {
 
+            root->left = bst_remove_rec(root->left, value, compare);
+            return root;
+
+        // Otherwise recurse to the right
+        } else {
+
+            root->right = bst_remove_rec(root->right, value, compare);
+            return root;
+        }
     }
-
-
-
-
-
 }
 
 
@@ -206,6 +246,12 @@ void bst_discard(struct BinarySearchTree *tree) {
 
 // Private helper functions, linkage limited to this file
 
+
+// Finds the minumum node in the tree, which when passed a node on the right subtree, returns the successor
+static struct Node* bst_get_successor(struct Node *root) {
+    if (root->left == NULL) return root;
+    return bst_get_successor(root->left);
+}
 
 // Creates a new node to be stored in the tree
 static struct Node* bst_create_node(void *value, size_t value_size) {
