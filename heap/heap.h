@@ -30,7 +30,7 @@ void heap_insert(struct Heap *heap, void *value, size_t vsize);
 void heap_remove(struct Heap *heap, void *value, size_t vsize);
 void* heap_peek(struct Heap *heap);
 
-
+void heap_print(struct Heap *heap);
 void heap_clear(struct Heap *heap);
 void heap_discard(struct Heap *heap);
 
