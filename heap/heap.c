@@ -51,6 +51,13 @@ bool heap_isempty(struct Heap *heap) {
     return heap->length == 0;
 }
 
+// Clears the contents of the heap
+void heap_clear(struct Heap *heap) {
+    if (heap != NULL) {
+        heap->length = 0;
+    }
+}
+
 // Frees the memory previously allocated by the heap
 void heap_discard(struct Heap *heap) {
     if (heap != NULL) {
