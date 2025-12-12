@@ -89,6 +89,21 @@ int main() {
         printf("[SEARCH] Did not find the value %d in the tree\n", val);
     }
 
+    // Remove value from the binary tree
+    int num = 100;
+    bst_remove(binarytree, &num, compare_int);
+    bst_print(binarytree, print_int);
+    printf("\n");
+
+    num = 20;
+    bst_remove(binarytree, &num, compare_int);
+    bst_print(binarytree, print_int);
+    printf("\n");
+
+    num = 300;
+    bst_remove(binarytree, &num, compare_int);
+    bst_print(binarytree, print_int);
+
     // Clear contents of the binary tree
     bst_clear(binarytree);
     printf("Length: %d, Is empty? %d\n", bst_size(binarytree), bst_isempty(binarytree));
