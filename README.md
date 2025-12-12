@@ -19,14 +19,16 @@ This project began as a simple **integer array** and has evolved into a comprehe
 
 - **Queue**: A FIFO data structure backed by linked nodes with generic type support for storing any data type.
 
-- **HashTable**: A generic, dynamically resizing hash table using separate chaining to handle collisions.
+- **HashTable**: A *generic*, dynamically resizing hash table using separate chaining to handle collisions.
 
-- **BinarySearchTree**: In progress...
+- **BinarySearchTree**: A *generic* binary search tree supporting any data type through `void*` pointers and `memcpy`.
+
+- **Heap**: In progress...
 
 
 ### Planned Implementations
 
-- **Heap / Priority Queue**
+- **Priority Queue**
 - More advanced structures as the project evolves
 
 ---
@@ -75,9 +77,21 @@ This project began as a simple **integer array** and has evolved into a comprehe
 - **HashTable**: 
   - Generic key/value storage using `void*` pointers and `memcpy`
   - Separate chaining with **linked nodes** for **collision handling**
-  - Automatic resizing when load factor exceeds 0.75, doubling capacity and rehashing entries
-  - Proper memory management ensures that all keys, values, and nodes are deep-copied and freed correctly
+  - Automatic resizing when load factor exceeds *0.75*, doubling capacity and *rehashing* entries
+  - Proper *memory management* ensures that all keys, values, and nodes are deep-copied and *freed* correctly
   - Supports insert/update, remove, get, contains, and utility operations like clear and print
+
+- **BinarySearchTree**: 
+  - Generic type support using `void*` pointers and `memcpy`
+  - Backed by *linked nodes* with `left` and `right` child pointers
+  - Proper *memory management* with deep copies of all node values
+  - Custom comparison functions via `function pointers` for flexible ordering
+  - *Recursive* insert, remove, and search operations
+  - In-order successor deletion for nodes with two children
+  - Three traversal methods: in-order, pre-order, and post-order
+  - Min/max value retrieval and height calculation
+
+- **Heap**: In Progress...
 
 ---
 
@@ -98,6 +112,14 @@ structures-from-scratch/
 ├── hash_table/                # HashTable library
 │   ├── hash_table.h
 │   └── hash_table.c
+│ 
+├── binarysearch_tree/          # BinarySearchTree library
+│   ├── binarysearch_tree.h
+│   └── binarysearch_tree.c
+│
+├── heap/                       # Heap library
+│   ├── heap.h
+│   └── heap.c
 │
 ├── stack/                      # Stack library
 │   ├── stack.h
@@ -109,6 +131,7 @@ structures-from-scratch/
 │
 ├── tests/                      # Tests
 │   ├── test_ll.c
+│   ├── test_bst.c
 │   ├── test_ga.c
 │   ├── test_ht.c
 │   ├── test_stack.c
