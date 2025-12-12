@@ -133,13 +133,15 @@ static void heap_print_rec(struct Heap *heap, void (* print_fn)(void*), int inde
     // Base case - if the index exceeds the length of the heap
     if (index >= heap->length) return;
 
-    // Print indentation for current level of the heap and print the current element
-    for (int i = 0; i < depth; i++) printf("    ");
-    print_fn((char *) heap->elements + index * heap->element_size);
-
-    // Recurse further down the left and right side of the heap
-    heap_print_rec(heap, print_fn, 2 * index + 1, depth + 1);
+    // Recurse further down the right child first
     heap_print_rec(heap, print_fn, 2 * index + 2, depth + 1);
+
+    // Print indentation for current level of the heap and print the current element
+    for (int i = 0; i < depth; i++) printf("    ");         
+    print_fn((char *) heap->elements + index * heap->element_size); 
+
+    // Recurse further down the left child after
+    heap_print_rec(heap, print_fn, 2 * index + 1, depth + 1); 
 }
 
 // Private helper functions, linkage limited to this file
