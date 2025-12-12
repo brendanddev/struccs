@@ -45,8 +45,11 @@ int main() {
     }
     printf("Length: %d, Is empty? %d\n", bst_size(binarytree), bst_isempty(binarytree));
 
-    // Print the contents of the tree
+    // Print the contents of the tree with visual depth
     bst_print(binarytree, print_int);
+
+    // Print the contents of the tree in order
+    bst_inorder(binarytree, print_int);
 
     // Check if the tree contains a value
     int val = 100;
