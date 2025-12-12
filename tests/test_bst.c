@@ -89,6 +89,9 @@ int main() {
         printf("[SEARCH] Did not find the value %d in the tree\n", val);
     }
 
+    // Get height of the tree
+    printf("The height of the tree: %d\n", bst_height(binarytree));
+
     // Remove value from the binary tree
     int num = 100;
     bst_remove(binarytree, &num, compare_int);
@@ -114,6 +117,8 @@ int main() {
     bst_remove(binarytree, &num, compare_int);
     bst_print(binarytree, print_int);
     printf("\n");
+
+    printf("The height of the tree: %d\n", bst_height(binarytree));
 
     // Clear contents of the binary tree
     bst_clear(binarytree);
