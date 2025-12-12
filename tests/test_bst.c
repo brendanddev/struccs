@@ -99,6 +99,9 @@ int main() {
     } else {
         printf("[SEARCH] Did not find the value %d in the tree\n", val);
     }
+    
+    // Get minumum value in the tree
+    printf("The minumum value in the tree: %d\n", * (int *) bst_min(binarytree));
 
     // Get height of the tree
     printf("The height of the tree: %d\n", bst_height(binarytree));
