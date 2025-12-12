@@ -51,6 +51,7 @@ bool heap_insert(struct Heap *heap, void *value, size_t vsize, int (*compare)(vo
 
     // Copy the new element into the array
     memcpy(current, value, vsize);
+    heap->length++;
 
     // Walk up the heap to ensure max-heap property is maintained
     while (current_idx > 0) {
@@ -59,18 +60,20 @@ bool heap_insert(struct Heap *heap, void *value, size_t vsize, int (*compare)(vo
         int parent_idx = (current_idx - 1) / 2;
         void *parent = (char *) heap->elements + parent_idx * heap->element_size;
 
-        // Its left child is at index 2 * i + 1.
-            // Its right child is at index 2 * i + 2.
-            // The parent of a node at index i can be found at index [(i-1)/2].
-
         // Check if the current value is larger than the parent value
         if (compare(current, parent) > 0) {
+
+            // Swap them to maintain max-heap property and
+            // set the current index to the parent index so the heap continues to walk up from the parent,
+            // which is now the element that was just inserted
+            heap_swap(current, parent, heap->element_size);
+            current_idx = parent_idx;
+        } else {
+            // If child inserted is less than the parent value, we can assume the max-heap property is valid
+            break;
         }
-
-        current_idx--;
     }
-
-    return false;
+    return true;
 }
 
 // Returns the value stored at the root of the heap
