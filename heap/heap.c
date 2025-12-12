@@ -50,3 +50,11 @@ int heap_capacity(struct Heap *heap) {
 bool heap_isempty(struct Heap *heap) {
     return heap->length == 0;
 }
+
+// Frees the memory previously allocated by the heap
+void heap_discard(struct Heap *heap) {
+    if (heap != NULL) {
+        free(heap->elements);
+        free(heap);
+    }
+}
