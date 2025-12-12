@@ -113,6 +113,13 @@ void heap_discard(struct Heap *heap) {
     }
 }
 
+// Prints the contents of the heap
+void heap_debug(struct Heap *heap, void (* print_fn)(void*)) {
+    for (int i = 0; i < heap->length; i++) {
+        print_fn((char *) heap->elements + i * heap->element_size);
+    }
+}
+
 
 // Private helper functions, linkage limited to this file
 
