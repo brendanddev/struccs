@@ -100,9 +100,20 @@ int main() {
     bst_print(binarytree, print_int);
     printf("\n");
 
+    num = 1220;     // Not in the tree
+    bst_remove(binarytree, &num, compare_int);
+    bst_print(binarytree, print_int);
+    printf("\n");
+
     num = 300;
     bst_remove(binarytree, &num, compare_int);
     bst_print(binarytree, print_int);
+    printf("\n");
+
+    num = 40;
+    bst_remove(binarytree, &num, compare_int);
+    bst_print(binarytree, print_int);
+    printf("\n");
 
     // Clear contents of the binary tree
     bst_clear(binarytree);
