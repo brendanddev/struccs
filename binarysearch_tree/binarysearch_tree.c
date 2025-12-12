@@ -25,6 +25,7 @@ static struct Node* bst_remove_rec(struct Node *root, void *value, int (*compare
 static bool bst_contains_rec(struct Node *root, void *value, int (*compare)(void*, void*));
 static struct Node* bst_search_rec(struct Node *root, void *value, int (*compare)(void*, void*));
 static void* bst_min_rec(struct Node *root);
+static void* bst_max_rec(struct Node *root);
 static int bst_height_rec(struct Node *root);
 static void bst_print_rec(struct Node *root, void (* print_fn)(void*), int depth);  
 static void bst_inorder_rec(struct Node *root, void (* print_fn)(void*));
@@ -227,6 +228,15 @@ static void* bst_min_rec(struct Node *root) {
     return bst_min_rec(root->left);
 }
 
+// Public interface for finding the maximum value in the binary search tree
+void* bst_max(struct BinarySearchTree *tree) {
+    if (bst_isempty(tree)) return NULL;
+    return bst_max_rec(tree->root);
+}
+
+// Recursive helper for finding the maximum value in the binary search tree
+static void* bst_max_rec(struct Node *root) {
+}
 
 
 // Public interface for finding the height of the binary search tree
