@@ -1,5 +1,5 @@
 
-# Structures From Scratch (In C)    v3.4
+# Structures From Scratch (In C)    v3.5
 
 A collection of fundamental data structures implemented from scratch in C for learning and practice. This project demonstrates low-level understanding of memory management, pointer arithmetic, and algorithmic thinking without relying on standard library implementations.
 
@@ -209,6 +209,27 @@ structures-from-scratch/
 | `ht_size`         | **O(1)**              | Returns the length of the hash table                      |
 | `ht_load_factor`  | **O(1)**              | Returns the current load factor of the hash table         |
 | `ht_discard`      | **O(n)**              | Frees all contents of the hash table                      |
+
+
+## Binary Search Tree Operations
+| Operation         | Time Complexity       | Notes                                                     |
+|-------------------|-----------------------|-----------------------------------------------------------|
+| `bst_create`      |
+| `bst_insert`      |
+| `bst_remove`      |
+| `bst_contains`    |
+| `bst_search`      |
+| `bst_min`         |
+| `bst_max`         |
+| `bst_height`      |
+| `bst_print`       |
+| `bst_inorder`     |
+| `bst_postorder`   |
+| `bst_preorder`    |
+| `bst_size`        |
+| `bst_isempty`     |
+| `bst_clear`       |
+| `bst_discard`     |
 
 ---
 
