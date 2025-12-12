@@ -284,6 +284,15 @@ void bst_postorder(struct BinarySearchTree *tree, void (* print_fn)(void*)) {
 
 // Recursive helper for traversing and printing the contents of the tree post-order
 static void bst_postorder_rec(struct Node *root, void (* print_fn)(void*)) {
+
+    // Base case - hit an empty node
+    if (root == NULL) return;
+
+    // Traverse the left side of the tree first, then the right side,
+    // then print the root
+    bst_postorder_rec(root->left, print_fn);
+    bst_postorder_rec(root->right, print_fn);
+    print_fn(root->value);
 }
 
 
