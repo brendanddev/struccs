@@ -28,7 +28,7 @@ static int bst_height_rec(struct Node *root);
 static void bst_print_rec(struct Node *root, void (* print_fn)(void*), int depth);  
 static void bst_inorder_rec(struct Node *root, void (* print_fn)(void*));
 static void bst_postorder_rec(struct Node *root, void (* print_fn)(void*));
-static void bst_preorder_rec(struct BinarySearchTree *tree, void (* print_fn)(void*));
+static void bst_preorder_rec(struct Node *root, void (* print_fn)(void*));
 static struct Node* bst_get_successor(struct Node *root); 
 static struct Node* bst_create_node(void *value, size_t value_size);
 static void bst_discard_node(struct Node *node);
@@ -303,7 +303,16 @@ void bst_preorder(struct BinarySearchTree *tree, void (* print_fn)(void*)) {
 }
 
 // Recursive helper for traversing and printing the contents of the tree pre-order
-static void bst_preorder_rec(struct BinarySearchTree *tree, void (* print_fn)(void*)) {
+static void bst_preorder_rec(struct Node *root, void (* print_fn)(void*)) {
+
+    // Base case - hit an empty node
+    if (root == NULL) return;
+
+    // Print the root node first, then recurse the left side of tree,
+    // then right side
+    print_fn(root->value);
+    bst_preorder_rec(root->left, print_fn);
+    bst_preorder_rec(root->right, print_fn);
 }
 
 
