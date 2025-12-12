@@ -25,7 +25,8 @@ static struct Node* bst_remove_rec(struct Node *root, void *value, int (*compare
 static bool bst_contains_rec(struct Node *root, void *value, int (*compare)(void*, void*));
 static struct Node* bst_search_rec(struct Node *root, void *value, int (*compare)(void*, void*));
 static int bst_height_rec(struct Node *root);
-static void bst_print_rec(struct Node *root, void (* print_fn)(void*), int depth);   
+static void bst_print_rec(struct Node *root, void (* print_fn)(void*), int depth);  
+static void bst_inorder_rec(struct Node *root, void (* print_fn)(void*));
 static struct Node* bst_get_successor(struct Node *root); 
 static struct Node* bst_create_node(void *value, size_t value_size);
 static void bst_discard_node(struct Node *node);
@@ -254,6 +255,26 @@ static void bst_print_rec(struct Node *root, void (* print_fn)(void*), int depth
     // Print left subtree
     bst_print_rec(root->right, print_fn, depth + 1);
 }
+
+// Public interface for traversing and printing the contents of the tree in-order
+void bst_inorder(struct BinarySearchTree *tree, void (* print_fn)(void*)) {
+    if (bst_isempty(tree)) return;
+    bst_inorder_rec(tree->root, print_fn);
+}
+
+// Recursive helper for traversing and printing the contents of the tree in-order
+static void bst_inorder_rec(struct Node *root, void (* print_fn)(void*)) {
+
+    // Base case - hit an empty node
+    if (root == NULL) return;
+
+    // Traverse the tree, first traversing the left side of the tree,
+    // the root node, then the right
+    bst_inorder_rec(root->left, print_fn);
+    print_fn(root->value);
+    bst_inorder_rec(root->right, print_fn);
+}
+
 
 // Returns the number of nodes in the binary search tree
 int bst_size(struct BinarySearchTree *tree) {
