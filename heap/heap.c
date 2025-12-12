@@ -77,12 +77,66 @@ bool heap_insert(struct Heap *heap, void *value, size_t vsize, int (*compare)(vo
     return true;
 }
 
+// Removes a value from the heap
+void heap_remove(struct Heap *heap, int index, int (*compare)(void*, void*)) {
+    if (heap_isempty(heap)) return;
+
+    // Compute the pointer of the element being removed
+    void *current = (char *) heap->elements + index * heap->element_size;
+
+    // Compute index and pointer of the current elements parent
+    int parent_idx = (index - 1) / 2;
+    void *parent = (char *) heap->elements + parent_idx * heap->element_size;
+
+    // Store the index of the last element in the heap and compute the pointer to the element
+    int last_idx = heap->length - 1;
+    void *last = (char *) heap->elements + last_idx * heap->element_size;
+
+    // Copy the contents of the last element into the index of the element being removed
+    // and decrement length to remove the last element
+    memcpy(current, last, heap->element_size);
+    heap->length--;
+
+    // Check if the removal index is not the root and if 
+    // the current value is larger than the parent
+    if (index > 0 && compare(current, parent > 0)) {
+
+        // Need to walk up the heap to make sure max-heap property is maintained
+        while (index > 0) {
+
+            // Compute the index and pointer of the current parent
+            int currparent_index = (index - 1) / 2;
+            void *currparent = (char *) heap->elements + currparent_index * heap->element_size;
+
+            if (compare(current, currparent) > 0) {
+                heap_swap(current, currparent, heap->element_size);
+                index = currparent_index;
+            } else {
+                break;
+            }
+        }
+
+    // Otherwise walk down the heap to ensure max-heap property is maintained
+    } else {
+
+        while (index < heap->length - 1) {
+
+            // Find children, compare larger child with current, if current is smaller, swap, update idx to child idx
+
+            
+            // Compute the index and pointer of the current parent
+            int currparent_index = (index - 1) / 2;
+            void *currparent = (char *) heap->elements + currparent_index * heap->element_size;
+
+        }
+    }
+}
+
 // Returns the value stored at the root of the heap
 void* heap_peek(struct Heap *heap) {
     if (heap_isempty(heap)) return NULL;
     return (char *) heap->elements;
 }
-
 
 // Returns the current size (length) of the heap
 int heap_size(struct Heap *heap) {
