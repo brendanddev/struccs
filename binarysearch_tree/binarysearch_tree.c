@@ -124,6 +124,14 @@ static Node* bst_remove_rec(struct Node *root, void *value, int (*compare)(void*
         // Otherwise node has two children
         } else {
 
+            // Find the successor node
+            struct Node *successor = bst_get_successor(root->right);
+
+            // Copy the value from the successor into the root and 
+            // remove the successor itself by recursing down the right side of the tree
+            memcpy(root->value, successor->value, root->value_size);
+            root->right = bst_remove_rec(root->right, successor->value, compare);
+            return root;
         }
 
     // Didnt find the value to remove, need to recurse the tree further
