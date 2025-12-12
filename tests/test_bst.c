@@ -54,6 +54,10 @@ int main() {
 
     // Print contents of the tree post order
     bst_postorder(binarytree, print_int);
+    printf("\n");
+
+    // Print the contents of the tree pre order
+    bst_preorder(binarytree, print_int);
 
     // Check if the tree contains a value
     int val = 100;
