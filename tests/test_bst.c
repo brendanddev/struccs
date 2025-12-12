@@ -50,6 +50,7 @@ int main() {
 
     // Print the contents of the tree in order
     bst_inorder(binarytree, print_int);
+    printf("\n");
 
     // Print contents of the tree post order
     bst_postorder(binarytree, print_int);

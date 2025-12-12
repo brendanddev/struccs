@@ -33,13 +33,11 @@ int bst_height(struct BinarySearchTree *tree);
 void bst_print(struct BinarySearchTree *tree, void (* print_fn)(void*));
 void bst_inorder(struct BinarySearchTree *tree, void (* print_fn)(void*));
 void bst_postorder(struct BinarySearchTree *tree, void (* print_fn)(void*));
-
+void bst_preorder(struct BinarySearchTree *tree, void (* print_fn)(void*));
 int bst_size(struct BinarySearchTree *tree);
 bool bst_isempty(struct BinarySearchTree *tree);
 void bst_clear(struct BinarySearchTree *tree);
 void bst_discard(struct BinarySearchTree *tree);
-
-void bst_preorder(struct BinarySearchTree *tree);
 
 
 #endif
