@@ -38,18 +38,18 @@ This project began as a simple **integer array** and has evolved into a comprehe
 - **Generic Array**:
   - Type-agnostic array supporting any data type (int, double, char, structs, etc.)
   - Uses `void*` pointers and `memcpy` for generic data handling
-  - **Automatic resizing** with configurable shrink threshold (5% usage)
-  - Custom comparison functions via function pointers for _contains and other operations
+  - **Automatic resizing** with configurable shrink threshold *(5% usage)*
+  - Custom *comparison functions* via `function pointers` for `ga_contains` and other operations
   - Supports adding, appending, removing, accessing, updating, and swapping elements
-  - Fully memory-managed, efficient, and reusable for any type
-  - Deep copy of the entire structure and its elements via `_copy` function
-  - Sort elements using Bubble Sort via `_sort` function
-    - Accepts a comparison function pointer for custom sorting logic
-  - In-order reversal via `_reverse` function
+  - Fully *memory-managed*, *efficient*, and *reusable* for any type
+  - Deep copy of the entire structure and its elements via `ga_copy` function
+  - Sort elements using *Bubble Sort* via `ga_sort` function
+    - Accepts a comparison `function pointer` for custom sorting logic
+  - In-order reversal via `ga_reverse` function
   - Binary Search implementation for sorted arrays via `_binary_find` function
     - Requires a sorted array and a comparison function pointer
-  - Swap elements at two indices via `_swap` function
-  - Discard the structure and free all associated memory via `_discard` function
+  - Swap elements at two indices via `ga_swap` function
+  - Discard the structure and free all associated memory via `ga_discard` function
 
   *(The older Dynamic Array is preserved in `archive/` for reference and comparison.)*
 
@@ -462,5 +462,190 @@ printf("Stack Size after pop: %d\n", stack_size(stack));
 stack_discard(stack);
 ```
 
+## Queue
+```c
+#include "queue.h"
+
+// Create a new queue
+struct Queue *queue = queue_create();
+printf("Initial State - Length: %d\n", queue->length);
+
+// Enqueue some integers
+int values[] = {5000, 999, 159, 9};
+for (int i = 0; i < 4; i++) {
+    queue_enqueue(queue, &values[i], sizeof(int));
+}
+
+// Define a print function
+void print_int(void *value) {
+    printf("[%d] ", *(int*)value);
+}
+
+// Print the queue
+queue_print(queue, print_int);
+
+// Peek at the front element
+int head;
+if (queue_peek(queue, &head)) {
+    printf("Peeked the value: %d at the head of the queue\n", head);
+}
+
+// Dequeue elements
+int dequeued;
+if (queue_dequeue(queue, &dequeued)) {
+    printf("Dequeued the value: %d\n", dequeued);
+}
+
+queue_print(queue, print_int);
+printf("Queue Length: %d\n", queue_length(queue));
+
+// Clear the queue
+queue_clear(queue);
+printf("Queue Size after clear: %d\n", queue_length(queue));
+
+// Clean up
+queue_discard(queue);
+```
+
+### HashTable
+```c
+#include "hash_table.h"
+
+// Create a new hash table
+struct HashTable *ht = ht_create();
+printf("Capacity: %d, Length: %d, Load Factor: %.2f\n", 
+       ht->capacity, ht->length, ht_load_factor(ht));
+
+// Check if empty
+printf("HashTable is empty: %d\n", ht_is_empty(ht));
+
+// Insert key-value pairs
+for (int i = 0; i < 8; i++) {
+    int key = i;
+    int value = i * 15;
+    ht_insert(ht, &key, sizeof(int), &value, sizeof(int));
+}
+
+// Define a print function
+void print_int_key_value(void *key, void *value) {
+    printf("[Key: %d: Value: %d]", *(int*)key, *(int*)value);
+}
+
+// Print the hash table
+ht_print(ht, print_int_key_value);
+
+// Get a value by key
+int key = 6;
+int get_value;
+if (ht_get(ht, &key, sizeof(int), &get_value)) {
+    printf("Value associated with key=%d: %d\n", key, get_value);
+}
+
+// Check if key exists
+int check_key = 10;
+if (ht_contains(ht, &check_key, sizeof(int))) {
+    printf("The hash table has key=%d\n", check_key);
+} else {
+    printf("Could not find key=%d in the table\n", check_key);
+}
+
+// Remove a key-value pair
+int remove_key = 1;
+ht_remove(ht, &remove_key, sizeof(int));
+
+// Clear the hash table
+ht_clear(ht);
+printf("After clear - Capacity: %d, Length: %d\n", ht->capacity, ht->length);
+
+// Clean up
+ht_discard(ht);
+```
+
+### BinarySearchTree
+```c
+#include "binarysearch_tree.h"
+
+// Create a new binary search tree
+struct BinarySearchTree *bst = bst_create();
+printf("Root Node: %p, Length: %d\n", bst->root, bst->length);
+
+// Check if empty
+printf("Is empty? %d\n", bst_isempty(bst));
+
+// Define a comparison function
+int compare_int(void *a, void *b) {
+    int num1 = *(int*)a;
+    int num2 = *(int*)b;
+    
+    if (num1 == num2) {
+        return 0;
+    } else if (num1 > num2) {
+        return 1;
+    } else {
+        return -1;
+    }
+}
+
+// Insert some integers
+int nums[] = {100, 20, 300, 40};
+for (int i = 0; i < 4; i++) {
+    bst_insert(bst, &nums[i], sizeof(int), compare_int);
+}
+
+printf("Length: %d, Is empty? %d\n", bst_size(bst), bst_isempty(bst));
+
+// Define a print function
+void print_int(void *value) {
+    printf("%d\n", *(int*)value);
+}
+
+// Print the tree with visual depth
+bst_print(bst, print_int);
+
+// Print in-order traversal
+printf("In-order: ");
+bst_inorder(bst, print_int);
+printf("\n");
+
+// Print post-order traversal
+printf("Post-order: ");
+bst_postorder(bst, print_int);
+printf("\n");
+
+// Print pre-order traversal
+printf("Pre-order: ");
+bst_preorder(bst, print_int);
+printf("\n");
+
+// Search for a value
+int val = 100;
+if (bst_contains(bst, &val, compare_int)) {
+    printf("Found the value %d in the tree\n", val);
+}
+
+// Search using bst_search
+if (bst_search(bst, &val, compare_int) != NULL) {
+    printf("Found the value %d in the tree\n", val);
+}
+
+// Get minimum and maximum values
+printf("The minimum value in the tree: %d\n", *(int*)bst_min(bst));
+printf("The maximum value in the tree: %d\n", *(int*)bst_max(bst));
+
+// Get tree height
+printf("The height of the tree: %d\n", bst_height(bst));
+
+// Remove a value
+int remove_val = 100;
+bst_remove(bst, &remove_val, compare_int);
+bst_print(bst, print_int);
+
+// Clear the tree
+bst_clear(bst);
+printf("After clear - Length: %d, Is empty? %d\n", bst_size(bst), bst_isempty(bst));
+
+// Clean up
+bst_discard(bst);
+```
 
 ---
