@@ -33,6 +33,18 @@ int main() {
     struct Heap *heap = heap_create(sizeof(int));
     printf("Created Heap - Capacity: %d, Length: %d, Is Empty: %d\n", heap_capacity(heap), heap_size(heap), heap_isempty(heap));
 
+    // Insert into the heap
+    int val = 100;
+    heap_insert(heap, &val, sizeof(int), compare_int);
+
+    val = 200;
+    heap_insert(heap, &val, sizeof(int), compare_int);
+    printf("Current Heap - Capacity: %d, Length: %d, Is Empty: %d\n", heap_capacity(heap), heap_size(heap), heap_isempty(heap));
+
+    // Peek at the root of the heap
+    void *peek = heap_peek(heap);
+    printf("Peeked value: %d\n", * (int *) peek);
+    
     // Clear the heap
     heap_clear(heap);
     printf("Cleared Heap - Capacity: %d, Length: %d, Is Empty: %d\n", heap_capacity(heap), heap_size(heap), heap_isempty(heap));
