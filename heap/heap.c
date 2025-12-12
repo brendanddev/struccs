@@ -31,9 +31,10 @@ struct Heap* heap_create(size_t element_size) {
     return heap;
 }
 
-
-
-
+// Returns the value stored at the root of the heap
+void* heap_peek(struct Heap *heap) {
+    return (char *) heap->elements + 0 * heap->element_size;
+}
 
 
 // Returns the current size (length) of the heap
