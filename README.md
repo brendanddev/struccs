@@ -170,28 +170,28 @@ structures-from-scratch/
 | `swap`             | **O(1)**            | Exchanges two items using temporary memory.                            |
 
 ### Linked List Operations
-| Operation            | Time Complexity    | Notes                                                       |
-|----------------------|--------------------|-------------------------------------------------------------|
-| ll_insert            | **O(1)**           | Inserts a new node at the head of the list.                 |
-| ll_insert_tail       | **O(1)**           | Inserts a new node at the tail of the list.                 |
-| ll_insert_at         | **O(n)**           | Inserts a new node at a specific index.                     |
-| ll_remove            | **O(1)**           | Removes the head node of the list.                          |
-| ll_remove_tail       | **O(1)**           | Removes the tail node of the list.                          |
-| ll_remove_at         | **O(n)**           | Removes a node at a specific index.                         |
-| ll_get               | Optimized **O(n)** | Traverses to the index to retrieve the node's data.         |
-| ll_set               | Optimized **O(n)** | Traverses to the index to update the node's data.           |
-| ll_find              | **O(n)**           | Linear search through nodes using comparator function.      | 
-| ll_contains          | **O(n)**           | Checks for existence of an item using comparator function.  |
-| ll_clear             | **O(n)**           | Frees all nodes but retains list structure.                 |
-| ll_copy              | **O(n)**           | Deep copies the entire list and its nodes.                  |
-| ll_reverse           | **O(n)**           | Reverses the order of nodes in the list.                    |
-| ll_bsort             | **O(n²)**          | Bubble sort implementation; comparator determines ordering. |
-| swap_nodes           | **O(1)**           | Swaps data between two nodes.                               |
-| ll_size              | **O(1)**           | Returns the number of nodes in the list.                    |
-| ll_is_empty          | **O(1)**           | Checks if the list has no nodes.                            |
-| ll_discard_node      | **O(1)**           | Frees a single node.                                        |
-| ll_discard_all_nodes | **O(n)**      | Frees all nodes but retains list structure.                      |
-| ll_discard           | **O(n)**           | Frees all nodes and the list structure.                     |
+| Operation              | Time Complexity    | Notes                                                       |
+|------------------------|--------------------|-------------------------------------------------------------|
+| `ll_insert`            | **O(1)**           | Inserts a new node at the head of the list.                 |
+| `ll_insert_tail`       | **O(1)**           | Inserts a new node at the tail of the list.                 |
+| `ll_insert_at`         | **O(n)**           | Inserts a new node at a specific index.                     |
+| `ll_remove`            | **O(1)**           | Removes the head node of the list.                          |
+| `ll_remove_tail`       | **O(1)**           | Removes the tail node of the list.                          |
+| `ll_remove_at`         | **O(n)**           | Removes a node at a specific index.                         |
+| `ll_get`               | Optimized **O(n)** | Traverses to the index to retrieve the node's data.         |
+| `ll_set`               | Optimized **O(n)** | Traverses to the index to update the node's data.           |
+| `ll_find`              | **O(n)**           | Linear search through nodes using comparator function.      | 
+| `ll_contains`          | **O(n)**           | Checks for existence of an item using comparator function.  |
+| `ll_clear`             | **O(n)**           | Frees all nodes but retains list structure.                 |
+| `ll_copy`              | **O(n)**           | Deep copies the entire list and its nodes.                  |
+| `ll_reverse`           | **O(n)**           | Reverses the order of nodes in the list.                    |
+| `ll_bsort`             | **O(n²)**          | Bubble sort implementation; comparator determines ordering. |
+| `swap_nodes`           | **O(1)**           | Swaps data between two nodes.                               |
+| `ll_size`              | **O(1)**           | Returns the number of nodes in the list.                    |
+| `ll_is_empty`          | **O(1)**           | Checks if the list has no nodes.                            |
+| `ll_discard_node`      | **O(1)**           | Frees a single node.                                        |
+| `ll_discard_all_nodes` | **O(n)**           | Frees all nodes but retains list structure.                 |
+| `ll_discard`           | **O(n)**           | Frees all nodes and the list structure.                     |
 
 ### Stack Operations
 | Operation         | Time Complexity | Notes                                                          |
@@ -254,23 +254,62 @@ structures-from-scratch/
 | `bst_clear`       |
 | `bst_discard`     |
 
+
+## Heap Operations
+| Operation         | Time Complexity       | Notes                                                     |
+|-------------------|-----------------------|-----------------------------------------------------------|
+| `heap_create`     |
+
 ---
 
-## Run the Code
+## Run the Code 
 
-### Generic Array
-1. Navigate to the generic_array directory:
+### GenericArray
 ```bash
-cd arrays-from-scratch/generic_array
+cd structures-from-scratch/tests
+clang ../generic_array/generic_array.c ./test_ga.c -o out
+./out
 ```
 
-2. Compile with all source files:
+### LinkedList
 ```bash
-clang generic_array.c utils.c main.c -o out
+cd structures-from-scratch/tests
+clang ../linked_list/linked_list.c ./test_ll.c -o out
+./out
 ```
 
-3. Run the executable:
+### Stack
 ```bash
+cd structures-from-scratch/tests
+clang ../stack/stack.c ./test_stack.c -o out
+./out
+```
+
+### Queue
+```bash
+cd structures-from-scratch/tests
+clang ../queue/queue.c ./test_queue.c -o out
+./out
+```
+
+### HashTable
+```bash
+cd structures-from-scratch/tests
+clang ../hash_table/hash_table.c ./test_ht.c -o out
+./out
+```
+
+### BinarySearchTree
+```bash
+cd structures-from-scratch/tests
+clang ../binarysearch_tree/binarysearch_tree.c ./test_bst.c -o out
+./out
+```
+
+### Heap
+```bash
+cd structures-from-scratch/tests
+clang ../heap/heap.c ./test_heap.c -o out
 ./out
 ```
 
@@ -283,27 +322,37 @@ clang generic_array.c utils.c main.c -o out
 #include "generic_array.h"
 
 // Create an array for integers
-struct GenericArray *ga = _init(sizeof(int));
+struct GenericArray *ga = ga_create(sizeof(int));
 
 // Add some elements
 int values[] = {42, 17, 89, 3};
 for (int i = 0; i < 4; i++) {
-    _append(ga, &values[i]);
+    ga_append(ga, &values[i]);
 }
 
-// Define a custom comparison function
-bool compare_int(void *a, void *b) {
-    return (*(int*)a == *(int*)b);
+// Define a comparison function
+int compare_int(void *a, void *b) {
+    int num1 = *(int*)a;
+    int num2 = *(int*)b;
+    return num1 - num2;
 }
 
 // Search for a value
 int target = 17;
-if (_contains(ga, compare_int, &target)) {
+if (ga_contains(ga, &target, compare_int)) {
     printf("Found %d in the array!\n", target);
 }
 
+// Define a print function
+void print_int(void *value) {
+    printf("[%d] ", *(int*)value);
+}
+
+// Print the array
+ga_print(ga, print_int);
+
 // Clean up
-_discard(ga);
+ga_discard(ga);
 ```
 
 ### Linked List
@@ -311,18 +360,17 @@ _discard(ga);
 #include "linked_list.h"
 
 // Create a new linked list
-struct LinkedList *list = ll_init();
+struct LinkedList *list = ll_create();
 
 // Add some integers
 int values[] = {10, 20, 30, 40};
 for (int i = 0; i < 4; i++) {
-    struct Node *node = ll_init_node(&values[i], sizeof(int));
-    ll_insert_tail(node, list);
+    ll_insert_tail(list, &values[i], sizeof(int));
 }
 
 // Define a comparison function
 bool compare_int(void *a, void *b) {
-    return (*(int*)a == *(int*)b);
+    return *(int*)a == *(int*)b;
 }
 
 // Search for a value
@@ -332,17 +380,87 @@ if (index != -1) {
     printf("Found %d at index %d\n", target, index);
 }
 
+// Check if list contains a value
+if (ll_contains(list, &target, compare_int)) {
+    printf("List contains %d\n", target);
+}
+
 // Access an element
 int value;
 if (ll_get(list, 2, &value)) {
     printf("Element at index 2: %d\n", value);
 }
 
+// Update an element
+int new_value = 3454;
+if (ll_set(list, 1, &new_value)) {
+    printf("Set the item at index 1 to: %d\n", new_value);
+}
+
+// Define a print function
+void print_int(void *value) {
+    printf("[%d] ", *(int*)value);
+}
+
+// Print the list
+ll_print(list, print_int);
+
 // Reverse the list
 ll_reverse(list);
 
+// Create a copy of the list
+struct LinkedList *copy = ll_copy(list);
+
 // Clean up
 ll_discard(list);
+ll_discard(copy);
 ```
+
+### Stack
+```c
+#include "stack.h"
+
+// Create a new stack
+struct Stack *stack = stack_create();
+
+// Check if empty
+printf("Stack is empty? %d\n", stack_is_empty(stack));
+
+// Push some integers
+int value = 100;
+for (int i = 0; i < 5; i++) {
+    stack_push(stack, &value, sizeof(int));
+}
+
+// Print stack size
+printf("Stack Size: %d\n", stack_size(stack));
+
+// Define a print function
+void print_int(void *value) {
+    printf("[%d] ", *(int*)value);
+}
+
+// Print the stack
+stack_print(stack, print_int);
+printf("\n");
+
+// Peek at the top element
+int peek_val;
+if (stack_peek(stack, &peek_val)) {
+    printf("Peek Value: %d\n", peek_val);
+}
+
+// Pop an element
+int pop_val;
+if (stack_pop(stack, &pop_val)) {
+    printf("Popped the value %d off the stack\n", pop_val);
+}
+
+printf("Stack Size after pop: %d\n", stack_size(stack));
+
+// Clean up
+stack_discard(stack);
+```
+
 
 ---
