@@ -103,6 +103,9 @@ int main() {
     // Get minumum value in the tree
     printf("The minumum value in the tree: %d\n", * (int *) bst_min(binarytree));
 
+    // Get maximum value in the tree
+    printf("The maximum value in the tree: %d\n", * (int *) bst_max(binarytree));
+
     // Get height of the tree
     printf("The height of the tree: %d\n", bst_height(binarytree));
 
