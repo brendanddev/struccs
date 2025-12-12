@@ -42,4 +42,7 @@ int heap_capacity(struct Heap *heap) {
     return heap->capacity;
 }
 
-bool heap_isempty(struct Heap *heap);
+// Checks whether the heap is empty
+bool heap_isempty(struct Heap *heap) {
+    return heap->length == 0;
+}
