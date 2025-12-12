@@ -55,6 +55,11 @@ int main() {
     printf("Current Heap - Capacity: %d, Length: %d, Is Empty: %d\n", heap_capacity(heap), heap_size(heap), heap_isempty(heap));
     
     heap_debug(heap, print_int);
+    printf("\n");
+
+    // Print the heap with tree structure
+    heap_print(heap, print_int);
+    printf("\n");
 
     // Peek at the root of the heap
     void *peek = heap_peek(heap);
