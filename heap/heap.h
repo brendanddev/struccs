@@ -30,9 +30,9 @@ bool heap_isempty(struct Heap *heap);
 void heap_clear(struct Heap *heap);
 void heap_discard(struct Heap *heap);
 void heap_debug(struct Heap *heap, void (* print_fn)(void*));
+void heap_print(struct Heap *heap, void (* print_fn)(void*));
 
 void heap_remove(struct Heap *heap, void *value, size_t vsize);
-void heap_print(struct Heap *heap);
 
 
 #endif

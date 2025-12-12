@@ -11,6 +11,7 @@
 
 // Prototypes
 static void heap_swap(void *a, void *b, size_t element_size);
+static void heap_print_rec(struct Heap *heap, void (* print_fn)(void*), int index, int depth);
 
 
 // Creates a new max heap
@@ -120,6 +121,26 @@ void heap_debug(struct Heap *heap, void (* print_fn)(void*)) {
     }
 }
 
+// Public interface for printing the contents of the heap in a tree-like structure
+void heap_print(struct Heap *heap, void (* print_fn)(void*)) { 
+    if (heap_isempty(heap)) return;
+    heap_print_rec(heap, print_fn, 0, 0);
+}
+
+// Recursive helper for printing the contents of the heap in a tree-like structure
+static void heap_print_rec(struct Heap *heap, void (* print_fn)(void*), int index, int depth) { 
+
+    // Base case - if the index exceeds the length of the heap
+    if (index >= heap->length) return;
+
+    // Print indentation for current level of the heap and print the current element
+    for (int i = 0; i < depth; i++) printf("    ");
+    print_fn((char *) heap->elements + index * heap->element_size);
+
+    // Recurse further down the left and right side of the heap
+    heap_print_rec(heap, print_fn, 2 * index + 1, depth + 1);
+    heap_print_rec(heap, print_fn, 2 * index + 2, depth + 1);
+}
 
 // Private helper functions, linkage limited to this file
 
