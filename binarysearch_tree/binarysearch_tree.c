@@ -24,7 +24,7 @@ static struct Node* bst_insert_rec(struct Node *root, void *value, size_t value_
 static struct Node* bst_remove_rec(struct Node *root, void *value, int (*compare)(void*, void*), bool *found);
 static bool bst_contains_rec(struct Node *root, void *value, int (*compare)(void*, void*));
 static struct Node* bst_search_rec(struct Node *root, void *value, int (*compare)(void*, void*));
-static void* bst_min_rec(struct Node *root, int (*compare)(void*, void*));
+static void* bst_min_rec(struct Node *root);
 static int bst_height_rec(struct Node *root);
 static void bst_print_rec(struct Node *root, void (* print_fn)(void*), int depth);  
 static void bst_inorder_rec(struct Node *root, void (* print_fn)(void*));
@@ -214,18 +214,17 @@ static struct Node* bst_search_rec(struct Node *root, void *value, int (*compare
 }
 
 // Public interface for finding the minumum value in the binary search tree
-void* bst_min(struct BinarySearchTree *tree, int (*compare)(void*, void*)) {
+void* bst_min(struct BinarySearchTree *tree) {
     if (bst_isempty(tree)) return NULL;
-    return bst_min_rec(tree->root, compare);
+    return bst_min_rec(tree->root);
 }
 
 // Recursive helper for finding the minumum value in the binary search tree
-static void* bst_min_rec(struct Node *root, int (*compare)(void*, void*)) {
+static void* bst_min_rec(struct Node *root) {
 
-    // Base case - reached an empty node
-    if (root == NULL) {
-
-    }
+    // Base case - reached an empty node in the left subtree
+    if (root->left == NULL) return root->value;
+    return bst_min_rec(root->left);
 }
 
 

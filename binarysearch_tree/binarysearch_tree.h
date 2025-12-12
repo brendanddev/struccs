@@ -29,8 +29,7 @@ void bst_insert(struct BinarySearchTree *tree, void *value, size_t value_size, i
 void bst_remove(struct BinarySearchTree *tree, void *value, int (*compare)(void*, void*));
 bool bst_contains(struct BinarySearchTree *tree, void *value, int (*compare)(void*, void*));
 struct Node* bst_search(struct BinarySearchTree *tree, void *value, int (*compare)(void*, void*));
-
-void* bst_min(struct BinarySearchTree *tree, int (*compare)(void*, void*));
+void* bst_min(struct BinarySearchTree *tree);
 
 void* bst_max(struct BinarySearchTree *tree, int (*compare)(void*, void*));
 
