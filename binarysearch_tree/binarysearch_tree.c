@@ -24,6 +24,7 @@ static struct Node* bst_insert_rec(struct Node *root, void *value, size_t value_
 static struct Node* bst_remove_rec(struct Node *root, void *value, int (*compare)(void*, void*), bool *found);
 static bool bst_contains_rec(struct Node *root, void *value, int (*compare)(void*, void*));
 static struct Node* bst_search_rec(struct Node *root, void *value, int (*compare)(void*, void*));
+static int bst_height_rec(struct Node *root);
 static void bst_print_rec(struct Node *root, void (* print_fn)(void*));   
 static struct Node* bst_get_successor(struct Node *root); 
 static struct Node* bst_create_node(void *value, size_t value_size);
@@ -226,6 +227,28 @@ static struct Node* bst_search_rec(struct Node *root, void *value, int (*compare
     }
 }
 
+// Public interface for finding the height of the binary search tree
+int bst_height(struct BinarySearchTree *tree) {
+    if (bst_isempty(tree)) return 0;
+    return bst_height_rec(tree->root);
+}
+
+// Recursive helper for finding the height of the binary search tree, which is the length of the longest path from the root down
+// to the deepest leaf node
+static int bst_height_rec(struct Node *root) {
+
+    // Base case - we reached an empty node
+    if (root == NULL) return 0;
+
+    // Recurse down the left and right side of the tree to get height of both paths
+    int left_height = bst_height_rec(root->left);
+    int right_height = bst_height_rec(root->right);
+
+    // Each non-NULL node adds 1 to the height as recursion unwinds
+    // Return the taller path plus 1 for the current node
+    if (left_height > right_height) return left_height + 1;
+    return right_height + 1;
+}
 
 // Returns the number of nodes in the binary search tree
 int bst_size(struct BinarySearchTree *tree) {
