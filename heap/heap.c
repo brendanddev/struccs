@@ -99,7 +99,7 @@ void heap_remove(struct Heap *heap, int index, int (*compare)(void*, void*)) {
 
     // Check if the removal index is not the root and if 
     // the current value is larger than the parent
-    if (index > 0 && compare(current, parent > 0)) {
+    if (index > 0 && compare(current, parent) > 0) {
 
         // Need to walk up the heap to make sure max-heap property is maintained
         while (index > 0) {
@@ -119,15 +119,43 @@ void heap_remove(struct Heap *heap, int index, int (*compare)(void*, void*)) {
     // Otherwise walk down the heap to ensure max-heap property is maintained
     } else {
 
-        while (index < heap->length - 1) {
+        // Compute the index of the left child of the current element and
+        // loop while there is atleast a left child
+        int left_idx = 2 * index + 1;
+        while (left_idx < heap->length) {
 
             // Find children, compare larger child with current, if current is smaller, swap, update idx to child idx
+            void *left_child = (char *) heap->elements + left_idx * heap->element_size;
 
+            int right_idx = 2 * index + 2;
+            bool has_right = right_idx < heap->length;
+
+            void *right_child = (char *) heap->elements + right_idx * heap->element_size;
+
+            // Check if the left childs value is larger than the right childs
+            if (compare(left_child, right_child) > 0) {
+
+                // Check if the current value is smaller than the left childs value
+                if (compare(left_child, current) > 0) {
+
+                    // If left_child > current, we need to swap
+                    heap_swap(current, left_child, heap->element_size);
+                    index = left_idx;
+                }
             
-            // Compute the index and pointer of the current parent
-            int currparent_index = (index - 1) / 2;
-            void *currparent = (char *) heap->elements + currparent_index * heap->element_size;
+            // Right childs value is larger
+            } else {
 
+                // Check if right child exists
+                if (has_right) {
+                    // Check if the current value is smaller than the right childs value
+                    if (compare(right_child, current) > 0) {
+
+                        heap_swap(current, right_child, heap->element_size);
+                        index = right_idx;
+                    }
+                }
+            }
         }
     }
 }
