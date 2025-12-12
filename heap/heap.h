@@ -21,7 +21,9 @@ typedef struct Heap {
 } Heap;
 
 
-struct Heap* heap_create();
+struct Heap* heap_create(size_t element_size);
+
+
 void heap_insert(struct Heap *heap, void *value, size_t vsize);
 void heap_remove(struct Heap *heap, void *value, size_t vsize);
 void* heap_peek(struct Heap *heap);
