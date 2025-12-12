@@ -25,7 +25,7 @@ static struct Node* bst_remove_rec(struct Node *root, void *value, int (*compare
 static bool bst_contains_rec(struct Node *root, void *value, int (*compare)(void*, void*));
 static struct Node* bst_search_rec(struct Node *root, void *value, int (*compare)(void*, void*));
 static int bst_height_rec(struct Node *root);
-static void bst_print_rec(struct Node *root, void (* print_fn)(void*));   
+static void bst_print_rec(struct Node *root, void (* print_fn)(void*), int depth);   
 static struct Node* bst_get_successor(struct Node *root); 
 static struct Node* bst_create_node(void *value, size_t value_size);
 static void bst_discard_node(struct Node *node);
@@ -156,24 +156,6 @@ static Node* bst_remove_rec(struct Node *root, void *value, int (*compare)(void*
     }
 }
 
-// Public interface for printing the contents of the binary search tree
-void bst_print(struct BinarySearchTree *tree, void (* print_fn)(void*)) {
-    bst_print_rec(tree->root, print_fn);
-}
-
-// Recursive helper function for printing the contents of the binary search tree in order traversal
-static void bst_print_rec(struct Node *root, void (* print_fn)(void*)) {
-
-    // Base case - if we hit a empty node, weve hit the end of the branch
-    if (root == NULL) return;
-
-    // Recursively traverse the left subtree, print the current node, then traverse the 
-    // right subtree
-    bst_print_rec(root->left, print_fn);
-    print_fn(root->value);
-    bst_print_rec(root->right, print_fn);
-}
-
 // Public interface for checking if the binary search tree contains a value
 bool bst_contains(struct BinarySearchTree *tree, void *value, int (*compare)(void*, void*)) {
     if (bst_isempty(tree)) return false;
@@ -248,6 +230,29 @@ static int bst_height_rec(struct Node *root) {
     // Return the taller path plus 1 for the current node
     if (left_height > right_height) return left_height + 1;
     return right_height + 1;
+}
+
+// Public interface for printing the contents of the binary search tree
+void bst_print(struct BinarySearchTree *tree, void (* print_fn)(void*)) {
+    bst_print_rec(tree->root, print_fn, 0);
+}
+
+// Recursive helper function for printing the contents of the binary search tree in order traversal
+static void bst_print_rec(struct Node *root, void (* print_fn)(void*), int depth) {
+
+    // Base case - if we hit a empty node, weve hit the end of the branch
+    if (root == NULL) return;
+
+    // Print right subtree
+    bst_print_rec(root->left, print_fn, depth + 1);
+
+    // Print current node with indentation
+    for (int i = 0; i < depth; i++) printf("    ");
+    print_fn(root->value);
+    printf("\n");
+
+    // Print left subtree
+    bst_print_rec(root->right, print_fn, depth + 1);
 }
 
 // Returns the number of nodes in the binary search tree
