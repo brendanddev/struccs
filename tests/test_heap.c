@@ -33,8 +33,15 @@ int main() {
     struct Heap *heap = heap_create(sizeof(int));
     printf("Created Heap - Capacity: %d, Length: %d, Is Empty: %d\n", heap_capacity(heap), heap_size(heap), heap_isempty(heap));
 
-    for (int i = 0; i < 5; i++) heap_insert(heap, &i, sizeof(int), compare_int);
-    
+    // Insert elements into the heap
+    for (int i = 0; i < 8; i++) {
+        int num = i;
+        heap_insert(heap, &num, sizeof(int), compare_int);
+    }
+
+    // Peek at the root value in the heap
+    printf("Peeked value: %d\n", *(int*) heap->elements);
+
     // Print contents of heap
     heap_debug(heap, print_int);
 
