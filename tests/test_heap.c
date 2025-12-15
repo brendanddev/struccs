@@ -60,6 +60,16 @@ int main() {
     heap_debug(heap, print_int);
     heap_print(heap, print_int);
 
+    if (heap_remove(heap, &value, compare_int)) {
+        printf("Removed the value: %d from the heap\n", value);
+    } else {
+        printf("Failed to remove the value from the heap\n");
+    }
+
+    // Print after removal
+    heap_debug(heap, print_int);
+    heap_print(heap, print_int);
+
     // Free the heap
     heap_discard(heap);
     heap = NULL;
