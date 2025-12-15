@@ -33,5 +33,12 @@ int main() {
     struct Heap *heap = heap_create(sizeof(int));
     printf("Created Heap - Capacity: %d, Length: %d, Is Empty: %d\n", heap_capacity(heap), heap_size(heap), heap_isempty(heap));
 
+    // Print contents of heap
+    heap_debug(heap, print_int);
+
+    // Free the heap
+    heap_discard(heap);
+    heap = NULL;
+
     return 0;
 }
