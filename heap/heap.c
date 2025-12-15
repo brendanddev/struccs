@@ -38,3 +38,36 @@ struct Heap* heap_create(size_t element_size) {
 
     return heap;
 }
+
+bool heap_insert(struct Heap *heap, void *value, size_t vsize, int (*compare)(void*, void*)) {
+    return false;
+}
+
+void heap_remove(struct Heap *heap, int index, int (*compare)(void*, void*)) {
+    return NULL;
+}
+
+// Returns the value stored at the root of the heap (index=0)
+void* heap_peek(struct Heap *heap) {
+    return NULL;
+}
+
+// Returns the size (length) of the heap
+int heap_size(struct Heap *heap) {
+    return heap->length;
+}
+
+// Returns the current capacity of the heap
+int heap_capacity(struct Heap *heap) {
+    return heap->capacity;
+}
+
+// Checks whether the heap is empty or not
+bool heap_isempty(struct Heap *heap) {
+    return heap->length == 0;
+}
+
+// Clears the contents of the heap (meory remains allocated to be overwritten)
+void heap_clear(struct Heap *heap) {
+    heap->length = 0;
+}
