@@ -99,7 +99,7 @@ void heap_discard(struct Heap *heap) {
 void heap_debug(struct Heap *heap, void (* print_fn)(void*)) {
     if (heap_isempty(heap)) return;
 
-    for (int i = 0; i < heap->length - 1; i++) {
+    for (int i = 0; i < heap->length; i++) {
         print_fn((char*) heap->elements + i * heap->element_size);
     }
 }
@@ -113,13 +113,23 @@ void heap_print(struct Heap *heap, void (* print_fn)(void*)) {
 // Recursive helper for printing the contents of the heap in a tree-like structure
 static void heap_print_rec(struct Heap *heap, void (* print_fn)(void*), int index, int depth) {
 
-    if (index == heap->length - 1) return;
-    heap_print_rec(heap, print_fn, index + 1, depth + 1);
-    for (int i = 0; i < depth; i++) printf("    ");
-    print_fn((char*) heap->elements + index * heap->element_size);
-    heap_print_rec(heap, print_fn, index + 1, depth + 1);
-}
+    // Base case - stop if current index is out of bounds
+    if (index >= heap->length) return;
 
+    // Compute right child index and recurse down on the right side
+    int right_idx = 2 * index + 2;
+    heap_print_rec(heap, print_fn, right_idx, depth + 1); 
+
+    // Print current node with indentation
+    for (int i = 0; i < depth; i++) printf("    ");
+    void *current_element = (char*) heap->elements + index * heap->element_size;
+    print_fn(current_element); 
+    printf("\n");
+
+    // Compute left child index and recurse down on left side
+    int left_child = 2 * index + 1;
+    heap_print_rec(heap, print_fn, left_child, depth + 1); 
+}
 
 // Private helper functions, linkage limited to this file
 
