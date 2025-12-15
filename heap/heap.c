@@ -44,7 +44,6 @@ bool heap_insert(struct Heap *heap, void *value, size_t vsize, int (*compare)(vo
 }
 
 void heap_remove(struct Heap *heap, int index, int (*compare)(void*, void*)) {
-    return NULL;
 }
 
 // Returns the value stored at the root of the heap (index=0)
@@ -70,4 +69,21 @@ bool heap_isempty(struct Heap *heap) {
 // Clears the contents of the heap (meory remains allocated to be overwritten)
 void heap_clear(struct Heap *heap) {
     heap->length = 0;
+}
+
+// Frees the memory block previously allocated for the heap
+void heap_discard(struct Heap *heap) {
+    if (heap != NULL) {
+        free(heap->elements);
+        free(heap);
+    }
+}
+
+// Prints the contents of the heap
+void heap_debug(struct Heap *heap, void (* print_fn)(void*)) {
+    if (heap_isempty(heap)) return;
+    
+    for (int i = 0; i < heap->length - 1; i++) {
+        print_fn((char*) heap->elements + i * heap->capacity);
+    }
 }
