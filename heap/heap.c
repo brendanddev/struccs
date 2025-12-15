@@ -44,7 +44,7 @@ struct Heap* heap_create(size_t element_size) {
 // Inserts a new element at the next available position in the last level of the heaps underlying tree
 bool heap_insert(struct Heap *heap, void *value, size_t vsize, int (*compare)(void*, void*)) {
 
-    // Check if the heaps capacity has been reached - would resize here
+    // Check if the heaps capacity has been reached - would resize here (TODO)
     if (heap->length >= heap->capacity) {
         return false;
     }
@@ -64,7 +64,7 @@ void heap_remove(struct Heap *heap, int index, int (*compare)(void*, void*)) {
 
 // Returns the value stored at the root of the heap (index=0)
 void* heap_peek(struct Heap *heap) {
-    return NULL;
+    return heap->elements;
 }
 
 // Returns the size (length) of the heap
@@ -108,6 +108,25 @@ void heap_debug(struct Heap *heap, void (* print_fn)(void*)) {
 // Private helper functions, linkage limited to this file
 
 
+// Swaps the raw bytes between two memory locations to swap the values stored in two variables
+static void heap_swap(void *a, void *b, size_t element_size) {
+
+    // Allocate memory to temporarily store the memory of the value being swapped
+    // and copy value into it
+    void *temp = malloc(element_size);
+    memcpy(temp, a, element_size);
+
+    // Copy contents from `b` into `a`
+    memcpy(a, b, element_size); 
+
+    // Copy contents from `temp` into `b`
+    memcpy(b, temp, element_size);
+
+    // Free memory used by the memory allocated for the temporary
+    free(temp);
+    temp = NULL;
+}
+
 // Repeatedly compares the element at the provided index with its parent, swapping if the parent is smaller to maintain
 // the max heap property
 static void heapify_up(struct Heap *heap, int current_idx, int (*compare)(void*, void*)) {
@@ -128,25 +147,8 @@ static void heapify_up(struct Heap *heap, int current_idx, int (*compare)(void*,
             heap_swap(current, parent, heap->element_size);
             current_idx = parent_idx;
             current = parent;
+        } else {
+            break;
         }
     }
-}
-
-// Swaps the raw bytes between two memory locations to swap the values stored in two variables
-static void heap_swap(void *a, void *b, size_t element_size) {
-
-    // Allocate memory to temporarily store the memory of the value being swapped
-    // and copy value into it
-    void *temp = malloc(element_size);
-    memcpy(temp, a, element_size);
-
-    // Copy contents from `b` into `a`
-    memcpy(a, b, element_size); 
-
-    // Copy contents from `temp` into `b`
-    memcpy(b, temp, element_size);
-
-    // Free memory used by the memory allocated for the temporary
-    free(temp);
-    temp = NULL;
 }
