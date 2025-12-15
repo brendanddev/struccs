@@ -74,7 +74,7 @@ bool heap_remove(struct Heap *heap, void *out, int (*compare)(void*, void*)) {
     heap->length--;
 
     // Heapify down to maintain the max-heap property
-    heapify_down(heap, heap->elements, compare);
+    heapify_down(heap, 0, compare);
     return true;
 }
 
@@ -237,7 +237,8 @@ static void heapify_down(struct Heap *heap, int current_idx, int (*compare)(void
 
             // Swap the current and max child and 
             // set current index to max child index to walk further down the heap
-            heap_swap(heap, current_idx, max_child_idx);
+            heap_swap(current, max_child, heap->element_size);
+            current_idx = max_child_idx;
         } else {
             // If child is not larger, max-heap property satisfied and we can exit
             break;
