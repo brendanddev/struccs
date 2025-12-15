@@ -195,11 +195,12 @@ static void heapify_up(struct Heap *heap, int current_idx, int (*compare)(void*,
     }
 }
 
-// Repeatedly...
+// Repeatedly compares the element at the provided index with its children, swapping with the larger child if it exists
+// to maintain the max-heap property
 static void heapify_down(struct Heap *heap, int current_idx, int (*compare)(void*, void*)) {
 
     // Declared to hold the larger index between the left and right children
-    int max_child;
+    int max_child_idx;
 
     // Continue looping while there is atleast a left child (if no left child, there will be no right)
     // If the calculated index for the left child is less than the total length of the array, the left childs index points
@@ -211,29 +212,36 @@ static void heapify_down(struct Heap *heap, int current_idx, int (*compare)(void
         int left_idx = 2 * current_idx + 1;
         int right_idx = 2 * current_idx + 2;
 
-        // Compute left and right child pointers
-        void *left_child = (char *) heap->elements + left_idx * heap->element_size;
-        void *right_child = (char *) heap->elements + right_idx * heap->element_size;
-        void *current = (char *) heap->elements + current_idx * heap->element_size;
+        // Set max child index to left child by default since we know it exists
+        max_child_idx = left_idx;
 
-        // Check if the left child is larger
-        if (compare(left_child, right_child) > 0) {
+        // Check if the right child exists based on whether the calculated index is within valid bounds of the array
+        if (right_idx < heap->length) {
 
-            // Check if the current node is smaller than the larger child (left)
-            if (compare(left_child, current) > 0) {
-                // Would swap current node and left child here...
+            // Compute left and right child pointers now that we know both exist
+            void *left_child = (char *) heap->elements + left_idx * heap->element_size;
+            void *right_child = (char *) heap->elements + right_idx * heap->element_size;
+            
+            // Check if the right child is larger
+            if (compare(right_child, left_child) > 0) {
+                max_child_idx = right_idx;
             }
-
-        // Right child is larger
-        } else {
-
-            if (compare(right_child, current) > 0) {
-
-                // Would swap current node and right child here
-
         }
 
+        // Compute pointer to the current element and larger child element in memory
+        void *current = (char *) heap->elements + current_idx * heap->element_size;
+        void *max_child = (char *) heap->elements + max_child_idx * heap->element_size;
 
+        // Check if the child is larger than the current element
+        if (compare(max_child, current) > 0) {
+
+            // Swap the current and max child and 
+            // set current index to max child index to walk further down the heap
+            heap_swap(heap, current_idx, max_child_idx);
+        } else {
+            // If child is not larger, max-heap property satisfied and we can exit
+            break;
+        }
     }
 }
 
