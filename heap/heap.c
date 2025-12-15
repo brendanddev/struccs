@@ -12,9 +12,8 @@
 // Prototypes
 static void heap_swap(void *a, void *b, size_t element_size);
 static void heapify_up(struct Heap *heap, int current_idx, int (*compare)(void*, void*));
-static void heapify_down(int index);
+static void heapify_down(struct Heap *heap, int current_idx, int (*compare)(void*, void*));
 static void heap_print_rec(struct Heap *heap, void (* print_fn)(void*), int index, int depth);
-
 
 
 // Creates a new empty heap storing elements of the provided size
@@ -59,7 +58,32 @@ bool heap_insert(struct Heap *heap, void *value, size_t vsize, int (*compare)(vo
     return true;
 }
 
-void heap_remove(struct Heap *heap, int index, int (*compare)(void*, void*)) {
+// Removes and returns the element currently located at the root (index=0)
+bool heap_remove(struct Heap *heap, void *out, int (*compare)(void*, void*)) {
+    if (heap_isempty(heap)) return false;
+
+    // Copy the value currently at the root into temporarily allocated memory
+    void *temp = malloc(heap->element_size);
+    memcpy(temp, heap->elements, heap->element_size);
+
+    // Compute index and pointer to the last element in memory
+    int last_idx = heap->length - 1;
+    void *last = heap->elements + last_idx * heap->element_size;
+
+    // Replace the root element with the last element in the heap
+    memcpy(heap->elements, last, heap->element_size);
+    heap->length--;
+
+    // Heapify down to maintain the max-heap property
+    heapify_down(heap, heap->elements, compare);
+
+    // Copy the removed value from the memory temporary allocated into
+    // the output pointer, and free the memory
+    memcpy(out, temp, heap->element_size);
+    free(temp);
+    temp = NULL;
+
+    return true;
 }
 
 // Returns the value stored at the root of the heap (index=0)
@@ -178,3 +202,11 @@ static void heapify_up(struct Heap *heap, int current_idx, int (*compare)(void*,
         }
     }
 }
+
+static void heapify_down(struct Heap *heap, int current_idx,int (*compare)(void*, void*)) {
+
+
+}
+
+
+//     Heapify-down: The element now at the root may violate the Max-Heap property, so perform heapify starting from the root to restore the heap property.
