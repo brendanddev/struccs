@@ -33,45 +33,5 @@ int main() {
     struct Heap *heap = heap_create(sizeof(int));
     printf("Created Heap - Capacity: %d, Length: %d, Is Empty: %d\n", heap_capacity(heap), heap_size(heap), heap_isempty(heap));
 
-    // Insert into the heap
-    int val = 100;
-    heap_insert(heap, &val, sizeof(int), compare_int);
-
-    // Print the heap in debug mode
-    heap_debug(heap, print_int);
-
-    val = 200;
-    heap_insert(heap, &val, sizeof(int), compare_int);
-    printf("Current Heap - Capacity: %d, Length: %d, Is Empty: %d\n", heap_capacity(heap), heap_size(heap), heap_isempty(heap));
-
-    val = 400;
-    heap_insert(heap, &val, sizeof(int), compare_int);
-    printf("Current Heap - Capacity: %d, Length: %d, Is Empty: %d\n", heap_capacity(heap), heap_size(heap), heap_isempty(heap));
-    
-    heap_debug(heap, print_int);
-
-    val = 20;
-    heap_insert(heap, &val, sizeof(int), compare_int);
-    printf("Current Heap - Capacity: %d, Length: %d, Is Empty: %d\n", heap_capacity(heap), heap_size(heap), heap_isempty(heap));
-    
-    heap_debug(heap, print_int);
-    printf("\n");
-
-    // Print the heap with tree structure
-    heap_print(heap, print_int);
-    printf("\n");
-
-    // Peek at the root of the heap
-    void *peek = heap_peek(heap);
-    printf("Peeked value: %d\n", * (int *) peek);
-
-    // Clear the heap
-    heap_clear(heap);
-    printf("Cleared Heap - Capacity: %d, Length: %d, Is Empty: %d\n", heap_capacity(heap), heap_size(heap), heap_isempty(heap));
-
-    // Free the heap
-    heap_discard(heap);
-    heap = NULL;
-
     return 0;
 }
