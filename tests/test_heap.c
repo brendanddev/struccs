@@ -45,6 +45,9 @@ int main() {
     // Print contents of heap
     heap_debug(heap, print_int);
 
+    
+    heap_print(heap, print_int);
+
     // Free the heap
     heap_discard(heap);
     heap = NULL;

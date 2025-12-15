@@ -95,13 +95,29 @@ void heap_discard(struct Heap *heap) {
     }
 }
 
-// Prints the contents of the heap
+// Prints the contents of the heap with no visualization
 void heap_debug(struct Heap *heap, void (* print_fn)(void*)) {
     if (heap_isempty(heap)) return;
 
     for (int i = 0; i < heap->length - 1; i++) {
         print_fn((char*) heap->elements + i * heap->element_size);
     }
+}
+
+// Public interface for printing the contents of the heap in tree-like structure
+void heap_print(struct Heap *heap, void (* print_fn)(void*)) {
+    if (heap_isempty(heap)) return;
+    heap_print_rec(heap, print_fn, 0, 0);
+}
+
+// Recursive helper for printing the contents of the heap in a tree-like structure
+static void heap_print_rec(struct Heap *heap, void (* print_fn)(void*), int index, int depth) {
+
+    if (index == heap->length - 1) return;
+    heap_print_rec(heap, print_fn, index + 1, depth + 1);
+    for (int i = 0; i < depth; i++) printf("    ");
+    print_fn((char*) heap->elements + index * heap->element_size);
+    heap_print_rec(heap, print_fn, index + 1, depth + 1);
 }
 
 
