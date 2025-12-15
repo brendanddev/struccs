@@ -76,14 +76,18 @@ bool heap_insert(struct Heap *heap, void *value, size_t vsize, int (*compare)(vo
     // Compute parent index and pointer to the parent element in memory
     int parent_idx = (heap->length - 1) / 2;
     void *parent = (char*) heap->elements + parent_idx * heap->element_size;
-    
-    // Compare the newly added element with parent to see if parent is smaller
-    if (compare(current, parent) > 0) {
 
-        // If parent is smaller, swap the current value with parent to maintain max heap property
-        // and set the current index to the parent to continue heapifying up
-        heap_swap(current, parent, heap->element_size);
-        current_idx = parent_idx;
+    // Continue moving up the heap until we reach the root
+    while (current_idx > 0) {
+
+        // Compare the newly added element with parent to see if parent is smaller
+        if (compare(current, parent) > 0) {
+
+            // If parent is smaller, swap the current value with parent to maintain max heap property
+            // and set the current index to the parent to continue heapifying up
+            heap_swap(current, parent, heap->element_size);
+            current_idx = parent_idx;
+        }
     }
 
     return true;
@@ -132,4 +136,27 @@ void heap_debug(struct Heap *heap, void (* print_fn)(void*)) {
     for (int i = 0; i < heap->length - 1; i++) {
         print_fn((char*) heap->elements + i * heap->capacity);
     }
+}
+
+
+// Private helper functions, linkage limited to this file
+
+
+// Swaps the raw bytes between two memory locations to swap the values stored in two variables
+static void heap_swap(void *a, void *b, size_t element_size) {
+
+    // Allocate memory to temporarily store the memory of the value being swapped
+    // and copy value into it
+    void *temp = malloc(element_size);
+    memcpy(temp, a, element_size);
+
+    // Copy contents from `b` into `a`
+    memcpy(a, b, element_size); 
+
+    // Copy contents from `temp` into `b`
+    memcpy(b, temp, element_size);
+
+    // Free memory used by the memory allocated for the temporary
+    free(temp);
+    temp = NULL;
 }
