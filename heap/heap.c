@@ -62,9 +62,8 @@ bool heap_insert(struct Heap *heap, void *value, size_t vsize, int (*compare)(vo
 bool heap_remove(struct Heap *heap, void *out, int (*compare)(void*, void*)) {
     if (heap_isempty(heap)) return false;
 
-    // Copy the value currently at the root into temporarily allocated memory
-    void *temp = malloc(heap->element_size);
-    memcpy(temp, heap->elements, heap->element_size);
+    // Copy the value being removed into the output pointer before removal
+    memcpy(out, heap->elements, heap->element_size);
 
     // Compute index and pointer to the last element in memory
     int last_idx = heap->length - 1;
@@ -76,13 +75,6 @@ bool heap_remove(struct Heap *heap, void *out, int (*compare)(void*, void*)) {
 
     // Heapify down to maintain the max-heap property
     heapify_down(heap, heap->elements, compare);
-
-    // Copy the removed value from the memory temporary allocated into
-    // the output pointer, and free the memory
-    memcpy(out, temp, heap->element_size);
-    free(temp);
-    temp = NULL;
-
     return true;
 }
 
@@ -203,10 +195,46 @@ static void heapify_up(struct Heap *heap, int current_idx, int (*compare)(void*,
     }
 }
 
-static void heapify_down(struct Heap *heap, int current_idx,int (*compare)(void*, void*)) {
+// Repeatedly...
+static void heapify_down(struct Heap *heap, int current_idx, int (*compare)(void*, void*)) {
+
+    // Declared to hold the larger index between the left and right children
+    int max_child;
+
+    // Continue looping while there is atleast a left child (if no left child, there will be no right)
+    // If the calculated index for the left child is less than the total length of the array, the left childs index points
+    // to a valid memory slot inside the arrays boundaries that is currently occupied by a valid element, so the left child exists.
+    // Otherwise the left index falls outside of the arrays bounds, and does not exist.
+    while (2 * current_idx + 1 < heap->length) {
+
+        // Compute left and right child indexes
+        int left_idx = 2 * current_idx + 1;
+        int right_idx = 2 * current_idx + 2;
+
+        // Compute left and right child pointers
+        void *left_child = (char *) heap->elements + left_idx * heap->element_size;
+        void *right_child = (char *) heap->elements + right_idx * heap->element_size;
+        void *current = (char *) heap->elements + current_idx * heap->element_size;
+
+        // Check if the left child is larger
+        if (compare(left_child, right_child) > 0) {
+
+            // Check if the current node is smaller than the larger child (left)
+            if (compare(left_child, current) > 0) {
+                // Would swap current node and left child here...
+            }
+
+        // Right child is larger
+        } else {
+
+            if (compare(right_child, current) > 0) {
+
+                // Would swap current node and right child here
+
+        }
 
 
+    }
 }
 
 
-//     Heapify-down: The element now at the root may violate the Max-Heap property, so perform heapify starting from the root to restore the heap property.
