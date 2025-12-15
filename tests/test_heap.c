@@ -45,7 +45,19 @@ int main() {
     // Print contents of heap
     heap_debug(heap, print_int);
 
-    
+    // Print contents of the heap in a tree-like structure
+    heap_print(heap, print_int);
+
+    // Remove the largest value/root from the heap
+    int value;
+    if (heap_remove(heap, &value, compare_int)) {
+        printf("Removed the value: %d from the heap\n", value);
+    } else {
+        printf("Failed to remove the value from the heap\n");
+    }
+
+    // Print after removal
+    heap_debug(heap, print_int);
     heap_print(heap, print_int);
 
     // Free the heap
