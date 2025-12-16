@@ -46,7 +46,7 @@ bool heap_insert(struct Heap *heap, void *value, size_t vsize, int (*compare)(vo
 
     // Check if the heaps capacity has been reached, if it has, need to resize
     if (heap->length >= heap->capacity) {
-        heap_resize(heap);
+        if (!heap_resize(heap)) return false;
     }
 
     // Copy the value into the array and increment length to insert the element
@@ -147,6 +147,7 @@ static void heap_print_rec(struct Heap *heap, void (* print_fn)(void*), int inde
     int left_child = 2 * index + 1;
     heap_print_rec(heap, print_fn, left_child, depth + 1); 
 }
+
 
 // Private helper functions, linkage limited to this file
 

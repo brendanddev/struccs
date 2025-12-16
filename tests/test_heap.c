@@ -34,10 +34,11 @@ int main() {
     printf("Created Heap - Capacity: %d, Length: %d, Is Empty: %d\n", heap_capacity(heap), heap_size(heap), heap_isempty(heap));
 
     // Insert elements into the heap
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 25; i++) {
         int num = i;
         heap_insert(heap, &num, sizeof(int), compare_int);
     }
+    printf("Current Heap - Capacity: %d, Length: %d, Is Empty: %d\n", heap_capacity(heap), heap_size(heap), heap_isempty(heap));
 
     // Peek at the root value in the heap
     printf("Peeked value: %d\n", *(int*) heap->elements);
@@ -55,6 +56,8 @@ int main() {
     } else {
         printf("Failed to remove the value from the heap\n");
     }
+
+    printf("Current Heap - Capacity: %d, Length: %d, Is Empty: %d\n", heap_capacity(heap), heap_size(heap), heap_isempty(heap));
 
     // Print after removal
     heap_debug(heap, print_int);
