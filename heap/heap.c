@@ -10,6 +10,7 @@
 
 
 // Prototypes
+static bool heap_resize(struct Heap *heap);
 static void heap_swap(void *a, void *b, size_t element_size);
 static void heapify_up(struct Heap *heap, int current_idx, int (*compare)(void*, void*));
 static void heapify_down(struct Heap *heap, int current_idx, int (*compare)(void*, void*));
@@ -43,9 +44,9 @@ struct Heap* heap_create(size_t element_size) {
 // Inserts a new element at the next available position in the last level of the heaps underlying tree
 bool heap_insert(struct Heap *heap, void *value, size_t vsize, int (*compare)(void*, void*)) {
 
-    // Check if the heaps capacity has been reached - would resize here (TODO)
+    // Check if the heaps capacity has been reached, if it has, need to resize
     if (heap->length >= heap->capacity) {
-        return false;
+        heap_resize(heap);
     }
 
     // Copy the value into the array and increment length to insert the element
@@ -67,7 +68,7 @@ bool heap_remove(struct Heap *heap, void *out, int (*compare)(void*, void*)) {
 
     // Compute index and pointer to the last element in memory
     int last_idx = heap->length - 1;
-    void *last = heap->elements + last_idx * heap->element_size;
+    void *last = (char *) heap->elements + last_idx * heap->element_size;
 
     // Replace the root element with the last element in the heap
     memcpy(heap->elements, last, heap->element_size);
@@ -98,7 +99,7 @@ bool heap_isempty(struct Heap *heap) {
     return heap->length == 0;
 }
 
-// Clears the contents of the heap (meory remains allocated to be overwritten)
+// Clears the contents of the heap (memory remains allocated to be overwritten)
 void heap_clear(struct Heap *heap) {
     heap->length = 0;
 }
@@ -149,6 +150,20 @@ static void heap_print_rec(struct Heap *heap, void (* print_fn)(void*), int inde
 
 // Private helper functions, linkage limited to this file
 
+
+// Resizes the heaps internal array
+static bool heap_resize(struct Heap *heap) {
+
+    // Compute new capacity, reallocate more memory for the larger array, and
+    // handle allocation failure
+    int new_capacity = heap->capacity * 2;
+    void *new_elements = realloc(heap->elements, new_capacity * heap->element_size);
+    if (new_elements == NULL) return false;
+
+    heap->capacity = new_capacity;
+    heap->elements = new_elements;
+    return true;
+}
 
 // Swaps the raw bytes between two memory locations to swap the values stored in two variables
 static void heap_swap(void *a, void *b, size_t element_size) {
