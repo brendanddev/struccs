@@ -1,5 +1,5 @@
 
-# Structures From Scratch (In C)    v3.5
+# Structures From Scratch (In C)    v3.6
 
 A collection of fundamental data structures implemented from scratch in C for learning and practice. This project demonstrates low-level understanding of memory management, pointer arithmetic, and algorithmic thinking without relying on standard library implementations.
 
@@ -13,11 +13,11 @@ This project began as a simple **integer array** and has evolved into a comprehe
 
 - **GenericArray**: A type-agnostic, dynamically resizing array that can store any data type using `void*` pointers and function pointers for custom operations.
 
-- **LinkedList**: A fully functional doubly linked list with generic type support, bidirectional traversal optimization, and comprehensive manipulation operations.
+- **LinkedList**: A fully functional doubly linked list with *generic* type support, bidirectional traversal optimization, and comprehensive manipulation operations.
 
-- **Stack**: A LIFO data structure backed by linked nodes with generic type support for storing any data type.
+- **Stack**: A LIFO data structure backed by linked nodes with *generic* type support for storing any data type.
 
-- **Queue**: A FIFO data structure backed by linked nodes with generic type support for storing any data type.
+- **Queue**: A FIFO data structure backed by linked nodes with *generic* type support for storing any data type.
 
 - **HashTable**: A *generic*, dynamically resizing hash table using separate chaining to handle collisions.
 
@@ -28,8 +28,7 @@ This project began as a simple **integer array** and has evolved into a comprehe
 
 ### Planned Implementations
 
-- **Priority Queue**
-- More advanced structures as the project evolves
+- Graph
 
 ---
 
@@ -259,6 +258,15 @@ structures-from-scratch/
 | Operation         | Time Complexity       | Notes                                                     |
 |-------------------|-----------------------|-----------------------------------------------------------|
 | `heap_create`     |
+| `heap_insert`     |
+| `heap_remove`     |
+| `heap_peek`       |
+| `heap_size`       |
+| `heap_capacity`   |
+| `heap_isempty`    |
+| `heap_clear`      |
+| `heap_discard`    |
+
 
 ---
 
