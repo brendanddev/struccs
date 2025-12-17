@@ -1,0 +1,36 @@
+
+/// binary_tree.h
+/// Header for a generic complete binary tree implementation backed by an array
+/// Brendan Dileo - December 16 2025
+
+
+#ifndef BINARY_TREE_H
+#define BINARY_TREE_H
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+
+// Defines the BinaryTree struct type
+typedef struct BinaryTree {
+    int length;             // Number of elements in the tree
+    int capacity;           // Capacity of the trees underlying array
+    void *elements;         // Pointer to the memory where the elements are stored
+    size_t element_size;    // Size of the elements stored in the tree
+} BinaryTree;
+
+
+struct BinaryTree* bt_create(size_t element_size);
+void bt_insert(struct BinaryTree *tree, void *value);
+void bt_remove(struct BinaryTree *tree, int index);
+void bt_contains(struct BinaryTree *tree, void *value);
+bool bt_isempty(struct BinaryTree *tree);
+int bt_size(struct BinaryTree *tree);
+int bt_capacity(struct BinaryTree *tree);
+void bt_clear(struct BinaryTree *tree);
+void bt_print(struct BinaryTree *tree);
+void bt_discard(struct BinaryTree *tree);
+
+
+#endif
