@@ -11,9 +11,11 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-
-
-
+// Defines the Graph struct type
+typedef struct Graph {
+    // struct LinkedList **adjacency_list;      // Pointer to an array of pointers to linked lists representing the list of adjacent vertices
+    int num_vertices;                           // Number of vertices in the graph
+} Graph;
 
 
 #endif
