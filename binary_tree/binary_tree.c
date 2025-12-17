@@ -57,6 +57,18 @@ void bt_print(struct BinaryTree *tree, void (*print_fn)(void*)) {
 
 // Recursive helper for printing the contents of the binary tree in a tree-like structure
 static void print_recursive(struct BinaryTree *tree, int index, int depth, void (*print_fn)(void*)) {
+    // Base case - we reached a empty slot
+    // Get pointer to the element at the provided index
+    void *curr = (char*) tree->elements + index * tree->element_size;
+    if (curr == NULL) return;
+
+    // Recurse down the right side of the tree first
+    // then print the current element with indentation
+    // then recurse down the left side of the tree
+    print_recursive(tree, right_child_index(index), depth + 1, print_fn);
+    for (int i = 0; i < depth; i++) printf("        ");
+    print_fn(curr);
+    print_recursive(tree, left_child_index(index), depth + 1, print_fn);
 }
 
 // Returns the current size (length) of the binary tree
