@@ -33,6 +33,14 @@ int main() {
     struct BinaryTree *tree = bt_create(sizeof(int));
     printf(">>> Created BinaryTree - Length: %d, Capacity: %d Is Empty: %d\n", bt_size(tree), bt_capacity(tree), bt_isempty(tree));
 
+    // Insert values into the tree
+    printf(">>> Inserting 100 into the tree...\n");
+    int value = 100;
+    for (int i = 0; i < 3; i++) bt_insert(tree, &value);
+    printf(">>> Current BinaryTree - Length: %d, Capacity: %d Is Empty: %d\n", bt_size(tree), bt_capacity(tree), bt_isempty(tree));
+
+    bt_print(tree, print_int);
+
     // Free the binary tree
     printf(">>> Discarding the BinaryTree...\n");
     bt_discard(tree);

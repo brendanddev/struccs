@@ -29,7 +29,7 @@ bool bt_isempty(struct BinaryTree *tree);
 int bt_size(struct BinaryTree *tree);
 int bt_capacity(struct BinaryTree *tree);
 void bt_clear(struct BinaryTree *tree);
-void bt_print(struct BinaryTree *tree);
+void bt_print(struct BinaryTree *tree, void (*print_fn)(void*));
 void bt_discard(struct BinaryTree *tree);
 
 
