@@ -57,8 +57,19 @@ int main() {
     if (bt_get(tree, 1, &val)) {
         printf(">>> [GET] Found value=%d at index=1\n", val);
     } else {
-        printf("[GET] Could not access the value in the tree\n");
+        printf(" >>> [GET] Could not access the value in the tree\n");
     }
+
+    // Set a value in the tree
+    int set = 10;
+    if (bt_set(tree, 1, &set)) {
+        printf(">>> Set value=%d at index=2\n", set);
+    } else {
+        printf(" >>> Could not set the value in the tree\n");
+    }
+
+    printf(">>> Printing the BinaryTree: \n");
+    bt_print(tree, print_int);
 
     // Check if the tree contains a value
     int value = 102;
@@ -73,6 +84,23 @@ int main() {
         printf(">>> [CONTAINS] Found value=%d\n", value);
     } else {
         printf(" >>> [CONTAINS] Could not access the value in the tree\n");
+    }
+    
+    // Find the index of a value in the tree
+    value = 103;
+    int idx = bt_find(tree, &value, compare_int);
+    if (idx != -1) {
+        printf(">>> [FIND] Found value=%d at index=%d\n", value, idx);
+    } else {
+        printf(" >>> [FIND] Could not find the value in the tree\n");
+    }
+
+    value = 3000;
+    idx = bt_find(tree, &value, compare_int);
+    if (idx != -1) {
+        printf(">>> [FIND] Found value=%d at index=%d\n", value, idx);
+    } else {
+        printf(" >>> [FIND] Could not find the value in the tree\n");
     }
 
 
