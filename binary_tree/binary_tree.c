@@ -12,6 +12,7 @@
 
 // Prototypes
 static void print_recursive(struct BinaryTree *tree, int index, int depth, void (*print_fn)(void*));
+static bool resize(struct BinaryTree *tree);
 static void swap(void *a, void *b, size_t element_size);
 static int parent_index(int index);
 static int left_child_index(int index);
@@ -43,6 +44,10 @@ struct BinaryTree* bt_create(size_t element_size) {
 // Inserts the provided value at the next available position in the tree
 void bt_insert(struct BinaryTree *tree, void *value) {
 
+    // Check if a resize is needed
+    if (tree->length >= tree->capacity) {
+        resize(tree);
+    }
     // Get the pointer to the next available position in the tree
     // then copy the value into the trees array
     void *curr = (char*) tree->elements + tree->length * tree->element_size;
@@ -107,7 +112,6 @@ int bt_find(struct BinaryTree *tree, void *value, int (*comparator)(void*, void*
     return -1;
 }
 
-
 // Public interface for printing the contents of the binary tree
 void bt_print(struct BinaryTree *tree, void (*print_fn)(void*)) {
     if (bt_isempty(tree)) return;
@@ -163,6 +167,23 @@ void bt_discard(struct BinaryTree *tree) {
 
 // Private helper functions, linkage limited to this file
 
+
+// Resizes the binary trees internal array to twice the current capacity
+static bool resize(struct BinaryTree *tree) {
+
+    // Calculate new capacity
+    int new_capacity = tree->capacity * 2;
+
+    // Reallocate more memory for the new larger array and handle allocation failure
+    void *temp = realloc(tree->elements, new_capacity * tree->element_size);
+    if (temp == NULL) return false;
+
+    // If reallocation succeeds, update the pointer to point to the new larger memory block
+    // and set the new capacity of the binary tree
+    tree->elements = temp;
+    tree->capacity = new_capacity;
+    return true;
+}
 
 // Swaps the raw bytes at the two memory locations pointed to by the provided pointers
 static void swap(void *a, void *b, size_t element_size) {

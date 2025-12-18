@@ -35,7 +35,7 @@ int main() {
 
     // Insert values into the tree
     printf(">>> Inserting 100 into the tree...\n");
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < 15; i++) {
         int value = 100 + i;
         bt_insert(tree, &value);
     }
