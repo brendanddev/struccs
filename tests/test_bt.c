@@ -56,8 +56,14 @@ int main() {
     bt_clear(tree);
     printf(">>> Cleared BinaryTree - Length: %d, Capacity: %d Is Empty: %d\n", bt_size(tree), bt_capacity(tree), bt_isempty(tree));
 
+    // Get a value in the tree
     int val;
-    
+    if (bt_get(tree, 1, &val)) {
+        printf(">>> Found value=%d at index=1\n", val);
+    } else {
+        printf("Could not access the value in the tree\n");
+    }
+
 
     // Free the binary tree
     printf(">>> Discarding the BinaryTree...\n");
