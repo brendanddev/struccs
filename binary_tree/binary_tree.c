@@ -12,6 +12,7 @@
 
 // Prototypes
 static void print_recursive(struct BinaryTree *tree, int index, int depth, void (*print_fn)(void*));
+static void swap(void *a, void *b, int capacity, size_t element_size);
 static int parent_index(int index);
 static int left_child_index(int index);
 static int right_child_index(int index);
@@ -47,6 +48,23 @@ void bt_insert(struct BinaryTree *tree, void *value) {
     void *curr = (char*) tree->elements + tree->length * tree->element_size;
     memcpy(curr, value, tree->element_size);
     tree->length++;
+}
+
+// Removes the element at the provided index in the binary tree
+void bt_remove(struct BinaryTree *tree, int index) {
+    if (index < 0 || index >= tree->length) return;
+
+    // Get pointer to the element being removed and
+    // the last element in the tree
+    void *curr = (char*) tree->elements + index * tree->element_size;
+    void *last = (char*) tree->elements + tree->length * tree->element_size;
+
+    // Would need to then swap these elements so the element being removed 
+    // is at the end of the array,
+
+    // would then decrement length || would free last node? no cause no nodes, array
+
+    tree->length--;
 }
 
 // Public interface for printing the contents of the binary tree
@@ -99,6 +117,19 @@ void bt_discard(struct BinaryTree *tree) {
 
 // Private helper functions, linkage limited to this file
 
+
+// Swaps the raw bytes at the two memory locations pointed to by the provided pointers
+static void swap(void *a, void *b, int capacity, size_t element_size) {
+
+    void *temp = malloc(capacity * element_size);
+    if (temp == NULL) return;
+
+    memcpy(temp, a, element_size);
+    memcpy(a, b, element_size);
+    memcpy(b, temp, element_size);
+
+    free(temp);
+}
 
 // Returns the array index of the parent of the element at index `index` in the tree
 static int parent_index(int index) {
