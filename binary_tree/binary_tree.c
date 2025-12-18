@@ -75,6 +75,16 @@ bool bt_get(struct BinaryTree *tree, int index, void *out) {
     return true;
 }
 
+// Sets the value of the element at the provided index to the provided value
+bool bt_set(struct BinaryTree *tree, int index, void *value) {
+    if (index < 0 || index >= tree->length) return false;
+
+    void *current = (char*) tree->elements + index * tree->element_size;
+    memcpy(current, value, tree->element_size);
+    return true;
+}
+
+
 // Checks if the binary tree contains the provided value
 bool bt_contains(struct BinaryTree *tree, void *value, int (*comparator)(void*, void*)) {
     for (int i = 0; i < tree->length; i++) {
@@ -85,6 +95,18 @@ bool bt_contains(struct BinaryTree *tree, void *value, int (*comparator)(void*, 
     }
     return false;
 }
+
+// Finds and returns the index of the provided value in the tree
+int bt_find(struct BinaryTree *tree, void *value, int (*comparator)(void*, void*)) {
+    for (int i = 0; i < tree->length; i++) {
+        void *current = (char*) tree->elements + i * tree->element_size;
+        if (comparator(current, value) == 0) {
+            return i;
+        }
+    }
+    return -1;
+}
+
 
 // Public interface for printing the contents of the binary tree
 void bt_print(struct BinaryTree *tree, void (*print_fn)(void*)) {
