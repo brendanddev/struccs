@@ -65,13 +65,18 @@ void bt_remove(struct BinaryTree *tree, int index) {
 }
 
 // Returns a pointer to the element at the provided index in the tree
-void* bt_get(struct BinaryTree *tree, int index) {
-    return NULL;
+bool bt_get(struct BinaryTree *tree, int index, void *out) {
+    if (index < 0 || index >= tree->length) return false;
 
+    // Get pointer to the element at the provided index, and
+    // copy raw bytes between memory locations to return the value to user
+    void *current = (char*) tree->elements + index * tree->element_size;
+    memcpy(out, current, tree->element_size);
+    return true;
 }
 
 // Checks if the binary tree contains the provided value
-bool bt_contains(struct BinaryTree *tree, void *value) {
+bool bt_contains(struct BinaryTree *tree, void *value, bool (*comparator)(void*, void*)) {
     return false;
 
 }

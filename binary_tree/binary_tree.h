@@ -24,8 +24,8 @@ typedef struct BinaryTree {
 struct BinaryTree* bt_create(size_t element_size);
 void bt_insert(struct BinaryTree *tree, void *value);
 void bt_remove(struct BinaryTree *tree, int index);
-void* bt_get(struct BinaryTree *tree, int index);
-bool bt_contains(struct BinaryTree *tree, void *value);
+bool bt_get(struct BinaryTree *tree, int index, void *out);
+bool bt_contains(struct BinaryTree *tree, void *value, bool (*comparator)(void*, void*));
 bool bt_isempty(struct BinaryTree *tree);
 int bt_size(struct BinaryTree *tree);
 int bt_capacity(struct BinaryTree *tree);
