@@ -23,6 +23,8 @@ This project began as a simple **integer array** and has evolved into a comprehe
 
 - **BinarySearchTree**: A *generic* binary search tree supporting any data type through `void*` pointers and `memcpy`.
 
+- **BinaryTree**: In progress...
+
 - **Heap**: In progress...
 
 
@@ -79,6 +81,8 @@ This project began as a simple **integer array** and has evolved into a comprehe
   - Automatic resizing when load factor exceeds *0.75*, doubling capacity and *rehashing* entries
   - Proper *memory management* ensures that all keys, values, and nodes are deep-copied and *freed* correctly
   - Supports insert/update, remove, get, contains, and utility operations like clear and print
+
+- **BinaryTree**: In Progress...
 
 - **BinarySearchTree**: 
   - Generic type support using `void*` pointers and `memcpy`
