@@ -64,6 +64,9 @@ void bt_remove(struct BinaryTree *tree, int index) {
     tree->length--;
 }
 
+void* bt_get(struct BinaryTree *tree, int index);
+void bt_contains(struct BinaryTree *tree, void *value);
+
 // Public interface for printing the contents of the binary tree
 void bt_print(struct BinaryTree *tree, void (*print_fn)(void*)) {
     if (bt_isempty(tree)) return;
@@ -86,6 +89,11 @@ static void print_recursive(struct BinaryTree *tree, int index, int depth, void 
     for (int i = 0; i < depth; i++) printf("        ");
     print_fn(curr);
     print_recursive(tree, left_child_index(index), depth + 1, print_fn);
+}
+
+// Clears the contents of the binary tree
+void bt_clear(struct BinaryTree *tree) {
+    tree->length = 0;
 }
 
 // Returns the current size (length) of the binary tree
