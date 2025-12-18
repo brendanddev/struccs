@@ -64,8 +64,17 @@ void bt_remove(struct BinaryTree *tree, int index) {
     tree->length--;
 }
 
-void* bt_get(struct BinaryTree *tree, int index);
-void bt_contains(struct BinaryTree *tree, void *value);
+// Returns a pointer to the element at the provided index in the tree
+void* bt_get(struct BinaryTree *tree, int index) {
+    return NULL;
+
+}
+
+// Checks if the binary tree contains the provided value
+bool bt_contains(struct BinaryTree *tree, void *value) {
+    return false;
+
+}
 
 // Public interface for printing the contents of the binary tree
 void bt_print(struct BinaryTree *tree, void (*print_fn)(void*)) {

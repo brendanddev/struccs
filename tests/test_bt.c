@@ -52,6 +52,9 @@ int main() {
         bt_print(tree, print_int);
     }
     
+    // Clear the binary tree
+    bt_clear(tree);
+    printf(">>> Cleared BinaryTree - Length: %d, Capacity: %d Is Empty: %d\n", bt_size(tree), bt_capacity(tree), bt_isempty(tree));
 
     // Free the binary tree
     printf(">>> Discarding the BinaryTree...\n");
