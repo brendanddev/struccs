@@ -116,6 +116,10 @@ structures-from-scratch/
 │   ├── hash_table.h
 │   └── hash_table.c
 │ 
+├── binary_tree/          # BinaryTree library
+│   ├── binary_tree.h
+│   └── binary_tree.c
+│
 ├── binarysearch_tree/          # BinarySearchTree library
 │   ├── binarysearch_tree.h
 │   └── binarysearch_tree.c
@@ -134,6 +138,7 @@ structures-from-scratch/
 │
 ├── tests/                      # Tests
 │   ├── test_ll.c
+│   ├── test_bt.c
 │   ├── test_bst.c
 │   ├── test_ga.c
 │   ├── test_ht.c

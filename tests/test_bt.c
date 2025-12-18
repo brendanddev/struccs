@@ -52,18 +52,33 @@ int main() {
         bt_print(tree, print_int);
     }
     
-    // Clear the binary tree
-    bt_clear(tree);
-    printf(">>> Cleared BinaryTree - Length: %d, Capacity: %d Is Empty: %d\n", bt_size(tree), bt_capacity(tree), bt_isempty(tree));
-
     // Get a value in the tree
     int val;
     if (bt_get(tree, 1, &val)) {
-        printf(">>> Found value=%d at index=1\n", val);
+        printf(">>> [GET] Found value=%d at index=1\n", val);
     } else {
-        printf("Could not access the value in the tree\n");
+        printf("[GET] Could not access the value in the tree\n");
     }
 
+    // Check if the tree contains a value
+    int value = 102;
+    if (bt_contains(tree, &value, compare_int)) {
+        printf(">>> [CONTAINS] Found value=%d\n", value);
+    } else {
+        printf(">>> [CONTAINS] Could not access the value in the tree\n");
+    }
+
+    value = 1000;
+    if (bt_contains(tree, &value, compare_int)) {
+        printf(">>> [CONTAINS] Found value=%d\n", value);
+    } else {
+        printf(" >>> [CONTAINS] Could not access the value in the tree\n");
+    }
+
+
+    // Clear the binary tree
+    bt_clear(tree);
+    printf(">>> Cleared BinaryTree - Length: %d, Capacity: %d Is Empty: %d\n", bt_size(tree), bt_capacity(tree), bt_isempty(tree));
 
     // Free the binary tree
     printf(">>> Discarding the BinaryTree...\n");

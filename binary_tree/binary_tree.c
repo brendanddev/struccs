@@ -76,9 +76,14 @@ bool bt_get(struct BinaryTree *tree, int index, void *out) {
 }
 
 // Checks if the binary tree contains the provided value
-bool bt_contains(struct BinaryTree *tree, void *value, bool (*comparator)(void*, void*)) {
+bool bt_contains(struct BinaryTree *tree, void *value, int (*comparator)(void*, void*)) {
+    for (int i = 0; i < tree->length; i++) {
+        void *current = (char*) tree->elements + i * tree->element_size;
+        if (comparator(current, value) == 0) {
+            return true;
+        }
+    }
     return false;
-
 }
 
 // Public interface for printing the contents of the binary tree
