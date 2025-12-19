@@ -36,6 +36,9 @@ int main() {
     // Get the height of the tree - should be -1 right now since its empty
     printf(">>> Height of tree: %d (-1 if empty)\n", bt_height(tree));
 
+    // Get number of leaves in the tree - should be 0 right now
+    printf(">>> Number of leaves in the tree: %d\n", bt_leaves(tree));
+
     // Insert values into the tree
     printf(">>> Inserting 100 into the tree...\n");
     for (int i = 0; i < 15; i++) {
@@ -44,6 +47,8 @@ int main() {
     }
     printf(">>> Current BinaryTree - Length: %d, Capacity: %d Is Empty: %d\n", bt_size(tree), bt_capacity(tree), bt_isempty(tree));
     printf(">>> Height of tree: %d (-1 if empty)\n", bt_height(tree));
+    printf(">>> Number of leaves in the tree: %d\n", bt_leaves(tree));
+
 
     // Print the contents of the tree
     printf(">>> Printing the BinaryTree: \n");
