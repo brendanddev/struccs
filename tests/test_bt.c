@@ -104,6 +104,10 @@ int main() {
     }
 
 
+    // Get height of the binary tree
+    int height = bt_height(tree);
+    printf("Height of tree: %d (-1 if empty)\n", height);
+    
     // Clear the binary tree
     bt_clear(tree);
     printf(">>> Cleared BinaryTree - Length: %d, Capacity: %d Is Empty: %d\n", bt_size(tree), bt_capacity(tree), bt_isempty(tree));
