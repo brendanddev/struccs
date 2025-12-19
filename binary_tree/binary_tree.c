@@ -114,9 +114,7 @@ int bt_find(struct BinaryTree *tree, void *value, int (*comparator)(void*, void*
 
 // Returns the height of the binary tree, which is the largest number of edges in a path from the root to a leaf node
 int bt_height(struct BinaryTree *tree) {
-    if (tree->length == 0) {
-        return -1;
-    }
+    if (bt_isempty(tree)) return -1;
 
     // Store the height of the tree and the last element in the tree
     int height = 0;
@@ -137,8 +135,28 @@ int bt_height(struct BinaryTree *tree) {
 
 // Returns the number of nodes with no children (leaf) in the binary tree
 int bt_leaves(struct BinaryTree *tree) {
+    if (bt_isempty(tree)) return 0;
 
+    // Track index of current element and number of leaves
+    int current = 0;
+    int leaves = 0;
 
+    // Continue looping starting from the root element to the last
+    while (current < tree->length) {
+
+        // Calculate left and right child index
+        int left_child = left_child_index(current);
+        int right_child = right_child_index(current);
+
+        // Check if neither have a child, if so, its a leaf
+        if (left_child >= tree->length && right_child >= tree->length) {
+            leaves++;
+        }
+
+        current++;
+    }
+    
+    return leaves;
 }
 
 // Returns the level of a node at the provided index in the binary tree
