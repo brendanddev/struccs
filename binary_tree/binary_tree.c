@@ -130,6 +130,7 @@ int bt_height(struct BinaryTree *tree) {
         height++;   // increment height, reached new level
         last = parent;  // reassign last (currently current) to the parent to keep moving up
     }
+    return height;
 }
 
 // Returns the number of nodes with no children (leaf) in the binary tree
