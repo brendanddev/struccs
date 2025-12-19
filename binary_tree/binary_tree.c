@@ -144,18 +144,15 @@ int bt_leaves(struct BinaryTree *tree) {
     // Continue looping starting from the root element to the last
     while (current < tree->length) {
 
-        // Calculate left and right child index
-        int left_child = left_child_index(current);
-        int right_child = right_child_index(current);
-
-        // Check if neither have a child, if so, its a leaf
-        if (left_child >= tree->length && right_child >= tree->length) {
+        // Calculate left child index and check if the child exists
+        // If it does, we know that the current node is not a leaf
+        // If it dosent, then we know the current node is a leaf, 
+        // since the complete binary tree cannot have a right node without a left
+        if (left_child_index(current) >= tree->length) {
             leaves++;
         }
-
         current++;
     }
-    
     return leaves;
 }
 
