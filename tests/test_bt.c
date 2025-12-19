@@ -33,6 +33,9 @@ int main() {
     struct BinaryTree *tree = bt_create(sizeof(int));
     printf(">>> Created BinaryTree - Length: %d, Capacity: %d Is Empty: %d\n", bt_size(tree), bt_capacity(tree), bt_isempty(tree));
 
+    // Get the height of the tree - should be -1 right now since its empty
+    printf(">>> Height of tree: %d (-1 if empty)\n", bt_height(tree));
+
     // Insert values into the tree
     printf(">>> Inserting 100 into the tree...\n");
     for (int i = 0; i < 15; i++) {
@@ -40,6 +43,7 @@ int main() {
         bt_insert(tree, &value);
     }
     printf(">>> Current BinaryTree - Length: %d, Capacity: %d Is Empty: %d\n", bt_size(tree), bt_capacity(tree), bt_isempty(tree));
+    printf(">>> Height of tree: %d (-1 if empty)\n", bt_height(tree));
 
     // Print the contents of the tree
     printf(">>> Printing the BinaryTree: \n");
@@ -103,11 +107,8 @@ int main() {
         printf(" >>> [FIND] Could not find the value in the tree\n");
     }
 
+    printf("Height of tree: %d (-1 if empty)\n", bt_height(tree));
 
-    // Get height of the binary tree
-    int height = bt_height(tree);
-    printf("Height of tree: %d (-1 if empty)\n", height);
-    
     // Clear the binary tree
     bt_clear(tree);
     printf(">>> Cleared BinaryTree - Length: %d, Capacity: %d Is Empty: %d\n", bt_size(tree), bt_capacity(tree), bt_isempty(tree));
