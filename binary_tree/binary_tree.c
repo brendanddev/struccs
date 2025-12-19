@@ -118,17 +118,19 @@ int bt_height(struct BinaryTree *tree) {
         return -1;
     }
 
-    // 
+    // Store the height of the tree and the last element in the tree
     int height = 0;
     int last = tree->length - 1;
 
-    // Continue while were not at root or reach root
-    while (last >= 0) {
+    // Loop starting from the last element, while the root is not reached,
+    // to count edges from the deepest leaf back to the root
+    while (last > 0) {
 
-        int parent = parent_index(last);    // calc parent to go up from the `last` nod
-
-        height++;   // increment height, reached new level
-        last = parent;  // reassign last (currently current) to the parent to keep moving up
+        // Calculate parent index from the current element and 
+        // reassign the current element to point to the parent to continue moving up the tree
+        int parent = parent_index(last);
+        height++;
+        last = parent;
     }
     return height;
 }
