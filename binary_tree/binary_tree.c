@@ -156,12 +156,6 @@ int bt_leaves(struct BinaryTree *tree) {
     return leaves;
 }
 
-// Returns the level of a node at the provided index in the binary tree
-int bt_levelof(struct BinaryTree *tree, int index) {
-
-}
-
-
 // Public interface for printing the contents of the binary tree
 void bt_print(struct BinaryTree *tree, void (*print_fn)(void*)) {
     if (bt_isempty(tree)) return;

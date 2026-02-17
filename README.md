@@ -1,13 +1,15 @@
 
-# Structures From Scratch (In C)    v3.6
-
-A collection of fundamental data structures implemented from scratch in C for learning and practice. This project demonstrates low-level understanding of memory management, pointer arithmetic, and algorithmic thinking without relying on standard library implementations.
+# structureslib-c   v3.6.0
+A lightweight, generic C library of fundamental data structures built from scratch with a focus on memory management, performance, and type-agnostic design.
 
 ---
 
 ## Overview
+A collection of generic, reusable data structures implemented in C using `void*` pointers, 
+function pointers, and manual memory management — no dependencies, no standard container 
+libraries.
 
-This project began as a simple **integer array** and has evolved into a comprehensive exploration of data structures in C. The focus is on building real, working implementations with proper memory management, performance considerations, and generic design patterns.
+---
 
 ### Currently Implemented
 
