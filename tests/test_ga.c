@@ -13,8 +13,7 @@ void print_int(void *value) {
     printf("[%d] ", * (int *) value);
 }
 
-int main() {
+int main(void) {
 
-    struct GenericArray *generic_array = create_int_ga();
-    ga_print(generic_array, print_int);
+    return 0;
 }
