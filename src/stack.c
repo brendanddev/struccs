@@ -1,16 +1,18 @@
+/**
+ * stack.c
+ * A generic implementation of a stack backed by linked nodes.
+ * Brendan Dileo - 2025
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
 #include "stack.h"
 
-
-/// stack.c
-/// A generic implementation of a stack backed by linked nodes
-/// Brendan Dileo - November 21 2025
-
-
-// Defines the Node struct type
+/**
+ * Defines the Node struct type stored in the stack.
+ */
 typedef struct Node {
     void *value;            // Pointer to the memory holding the value stored in this node
     size_t item_size;       // Size of the item stored in the node
@@ -22,8 +24,9 @@ static struct Node* stack_create_node(void *val, size_t size);
 static void stack_discard_node(struct Node *node);
 static void stack_discard_all_nodes(struct Stack *stack);
 
-
-// Creates a new stack
+/**
+ * Creates a new stack
+ */
 struct Stack* stack_create() { 
 
     // Allocate memory for the stack struct and 
@@ -39,7 +42,9 @@ struct Stack* stack_create() {
     return stack;
 }
 
-// Pushes an item to the top of the stack
+/**
+ * Pushes an item to the top of the stack.
+ */
 bool stack_push(struct Stack *stack, void *value, size_t size) {
 
     struct Node *node = stack_create_node(value, size);
@@ -61,14 +66,18 @@ bool stack_push(struct Stack *stack, void *value, size_t size) {
     }
 }
 
-// Returns the value stored in the node at the top of the stack without removing the node
+/**
+ * Returns the value stored in the node at the top of the stack without removing the node.
+ */
 bool stack_peek(struct Stack *stack, void *out) {
     if (stack_is_empty(stack)) return false;
     memcpy(out, stack->top->value, stack->top->item_size);
     return true;
 }
 
-// Pops the node stored at the top of the stack
+/**
+ * Pops the node stored at the top of the stack.
+ */
 bool stack_pop(struct Stack *stack, void *out) {
     if (stack_is_empty(stack)) return false;
 
@@ -83,32 +92,42 @@ bool stack_pop(struct Stack *stack, void *out) {
     return true;
 }
 
-// Clears the contents of the stack but keeps the stack itself
+/**
+ * Clears the contents of the stack but keeps the stack itself.
+ */
 void stack_clear(struct Stack *stack) { 
     stack_discard_all_nodes(stack);
     stack->top = NULL;
     stack->length = 0;
 }
 
-// Returns a boolean value indicating whether the stack is empty or not
+/**
+ * Returns a boolean value indicating whether the stack is empty or not.
+ */
 bool stack_is_empty(struct Stack *stack) {
     if (stack->top == NULL) return true;
     return false;
 }
 
-// Returns the current size of the stack (length)
+/**
+ * Returns the current size of the stack (length).
+ */
 int stack_size(struct Stack *stack) {
     return stack->length;
 }
 
-// Prints the contents of the stack from top to bottom
+/**
+ * Prints the contents of the stack from top to bottom.
+ */
 void stack_print(struct Stack *stack, void (* print_fn)(void*)) {
     for (struct Node *current = stack->top; current != NULL; current = current->next) {
         print_fn(current->value);
     }
 }
 
-// Frees the memory occupied by the stack
+/**
+ * Frees the memory occupied by the stack.
+ */
 void stack_discard(struct Stack *stack) {
     if (stack != NULL) {
         stack_discard_all_nodes(stack);
@@ -117,7 +136,7 @@ void stack_discard(struct Stack *stack) {
 }
 
 
-// Private helper functions, linkage limited to this file
+// Private helper functions - linkage limited to this file
 
 
 // Creates a new node to be stored in the stack

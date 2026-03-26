@@ -1,13 +1,13 @@
+/**
+ * test_ga.c
+ * The test suite for the GenericArray implementation.
+ * Brendan Dileo - 2025
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "../generic_array/generic_array.h"
-
-
-/// test_ga.c
-/// The test suite for the GenericArray implementation
-/// Brendan Dileo, November 20 2025
-
+#include "generic_array.h"
 
 void print_int(void *value) {
     printf("[%d] ", * (int *) value);

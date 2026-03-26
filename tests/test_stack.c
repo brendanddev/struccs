@@ -1,13 +1,13 @@
+/**
+ * test_stack.c
+ * The test suite for the Stack implementation.
+ * Brendan Dileo - 2025
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "../stack/stack.h"
-
-
-/// test_stack.c
-/// The test suite for the Stack implementation
-/// Brendan Dileo, November 21 2025
-
+#include "stack.h"
 
 void print_int(void *value) {
     printf("[%d] ", * (int *) value);

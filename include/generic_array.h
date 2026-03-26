@@ -1,7 +1,8 @@
-
-/// generic_array.h
-/// Brendan Dileo - November 3 2025
-
+/**
+ * generic_array.h 
+ * Header for the generic array implementation.
+ * Brendan Dileo - 2025
+ */
 
 #ifndef GENERIC_ARRAY_H
 #define GENERIC_ARRAY_H
@@ -11,7 +12,9 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-// Defines the GenericArray struct type
+/**
+ * Defines the GenericArray struct type.
+ */
 typedef struct GenericArray {
     void *ptrData;                  // Pointer to the memory where the array elements will be stored
     size_t item_size;               // The size of items stored in the array

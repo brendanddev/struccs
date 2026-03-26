@@ -1,16 +1,18 @@
+/**
+ * queue.c
+ * A generic implementation of a queue backed by linked nodes.
+ * Brendan Dileo - 2025
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
 #include "queue.h"
 
-
-/// queue.c
-/// A generic implementation of a queue backed by linked nodes
-/// Brendan Dileo - November 24 2025
-
-
-// Defines the Node struct type
+/**
+ * Defines the Node struct type stored in the queue.
+ */
 typedef struct Node {
     void *value;            // Pointer to the value stored in the node
     size_t item_size;       // The size of the item stored in this node
@@ -22,8 +24,9 @@ static struct Node* queue_create_node(void *val, size_t size);
 static void queue_discard_node(struct Node *node);
 static void queue_discard_all_nodes(struct Queue *queue);
 
-
-// Creates a new queue
+/**
+ * Creates a new queue
+ */
 struct Queue* queue_create() {
     // Allocate memory for the queue itself and handle allocation failure
     struct Queue *queue = malloc(sizeof(struct Queue));
@@ -36,7 +39,9 @@ struct Queue* queue_create() {
     return queue;
 }
 
-// Adds an item to the tail of the queue
+/**
+ * Adds an item to the tail of the queue
+ */
 void queue_enqueue(struct Queue *queue, void *val, size_t item_size) {
     
     struct Node *node = queue_create_node(val, item_size);
@@ -54,14 +59,18 @@ void queue_enqueue(struct Queue *queue, void *val, size_t item_size) {
     }
 }
 
-// Returns the value stored in the head node of the queue but does not remove it
+/**
+ * Returns the value stored in the head node of the queue but does not remove it
+ */
 bool queue_peek(struct Queue *queue, void *out) {
     if (queue_is_empty(queue)) return false;
     memcpy(out, queue->head->value, queue->head->item_size);
     return true;
 }
 
-// Removes and returns the node at the head of the queue
+/**
+ * Removes and returns the node at the head of the queue
+ */
 bool queue_dequeue(struct Queue *queue, void *out) {
     if (queue_is_empty(queue)) return false;
 
@@ -78,18 +87,24 @@ bool queue_dequeue(struct Queue *queue, void *out) {
     return true;
 }
 
-// Returns a boolean value indicating whether the queue is empty or not
+/**
+ * Returns a boolean value indicating whether the queue is empty or not.
+ */
 bool queue_is_empty(struct Queue *queue) {
     if (queue->head == NULL) return true;
     return false;
 }
 
-// Returns the length of the queue
+/**
+ * Returns the length of the queue.
+ */
 int queue_length(struct Queue *queue) {
     return queue->length;
 }
 
-// Clears the contents of the queue
+/**
+ * Clears the contents of the queue
+ */
 void queue_clear(struct Queue *queue) {
     if (queue_is_empty(queue)) return;
     queue_discard_all_nodes(queue);
@@ -98,7 +113,9 @@ void queue_clear(struct Queue *queue) {
     queue->length = 0;
 }
 
-// Prints the contents of the queue
+/**
+ * Prints the contents of the queue
+ */
 void queue_print(struct Queue *queue, void (* print_fn)(void*)) {
     struct Node *current = queue->head;
     while (current != NULL) {
@@ -108,13 +125,17 @@ void queue_print(struct Queue *queue, void (* print_fn)(void*)) {
     printf("\n");
 }
 
-// Prints the links between the nodes stored in the queue
+/**
+ * Prints the links between the nodes stored in the queue
+ */
 void queue_debug(struct Queue *queue) {
     if (queue_is_empty(queue)) return;
     printf("Queue: Length: %d, Head: %p, Head Next: %p, Tail: %p, Tail Next: %p\n", queue_length(queue), queue->head, queue->head->next, queue->tail, queue->tail->next);
 }
 
-// Frees the memory occupied by the queue
+/**
+ * Frees the memory occupied by the queue.
+ */
 void queue_discard(struct Queue *queue) {
     if (queue != NULL) {
         queue_discard_all_nodes(queue);
@@ -123,7 +144,7 @@ void queue_discard(struct Queue *queue) {
 }
 
 
-// Private helper functions, linkage limited to this file
+// Private helper functions - linkage limited to this file
 
 
 // Creates a new node to be stored in the queue

@@ -1,8 +1,8 @@
-
-/// heap.h
-/// Header for the generic heap implementation backed by an array
-/// Brendan Dileo - December 12 2025
-
+/**
+ * heap.h
+ * Header for the generic heap implementation backed by an array.
+ * Brendan Dileo - 2025
+ */
 
 #ifndef HEAP_H
 #define HEAP_H
@@ -11,8 +11,9 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-
-// Defines the Heap (max heap) struct type
+/**
+ * Defines the Heap (max) struct type.
+ */
 typedef struct Heap {
     void *elements;             // Pointer to an array in memory where the heaps elements will be stored
     size_t element_size;        // The size in bytes of each element stored in the heap
@@ -32,6 +33,5 @@ void heap_clear(struct Heap *heap);
 void heap_discard(struct Heap *heap);
 void heap_debug(struct Heap *heap, void (* print_fn)(void*));
 void heap_print(struct Heap *heap, void (* print_fn)(void*));
-
 
 #endif

@@ -1,13 +1,13 @@
+/**
+ * test_bt.c
+ * The test suite for the BinarySearchTree implementation.
+ * Brendan Dileo - 2025
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "../binarysearch_tree/binarysearch_tree.h"
-
-
-/// test_bt.c
-/// The test suite for the BinaryTree implementation
-/// Brendan Dileo, December 8 2025
-
+#include "binarysearch_tree.h"
 
 void print_int(void *value) {
     printf("%d\n", * (int *) value);

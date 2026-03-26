@@ -1,14 +1,14 @@
+/**
+ * binary_tree.c
+ * A generic implementation of a complete binary tree.
+ * Brendan Dileo - 2025
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
 #include "binary_tree.h"
-
-
-/// binary_tree.c
-/// A generic implementation of a complete binary tree
-/// Brendan Dileo - December 17 2025
-
 
 // Prototypes
 static void print_recursive(struct BinaryTree *tree, int index, int depth, void (*print_fn)(void*));
@@ -18,8 +18,9 @@ static int parent_index(int index);
 static int left_child_index(int index);
 static int right_child_index(int index);
 
-
-// Creates a new binary tree storing elements of the provided size
+/**
+ * Creates a new binary tree, storing elements of the provided size.
+ */
 struct BinaryTree* bt_create(size_t element_size) {
 
     // Allocate memory for the binary tree struct itself and handle allocation failure
@@ -41,7 +42,9 @@ struct BinaryTree* bt_create(size_t element_size) {
     return tree;
 }
 
-// Inserts the provided value at the next available position in the tree
+/**
+ * Inserts a value at the next available position in the tree.
+ */
 void bt_insert(struct BinaryTree *tree, void *value) {
 
     // Check if a resize is needed
@@ -55,7 +58,9 @@ void bt_insert(struct BinaryTree *tree, void *value) {
     tree->length++;
 }
 
-// Removes the element at the provided index in the binary tree
+/**
+ * Removes the element at the provided index in the binary tree
+ */
 void bt_remove(struct BinaryTree *tree, int index) {
     if (index < 0 || index >= tree->length) return;
 
@@ -69,7 +74,9 @@ void bt_remove(struct BinaryTree *tree, int index) {
     tree->length--;
 }
 
-// Returns a pointer to the element at the provided index in the tree
+/**
+ * Returns a pointer to the element at the provided index in the tree
+ */
 bool bt_get(struct BinaryTree *tree, int index, void *out) {
     if (index < 0 || index >= tree->length) return false;
 
@@ -80,7 +87,9 @@ bool bt_get(struct BinaryTree *tree, int index, void *out) {
     return true;
 }
 
-// Sets the value of the element at the provided index to the provided value
+/**
+ * Sets the value of the element at the provided index to the provided value
+ */
 bool bt_set(struct BinaryTree *tree, int index, void *value) {
     if (index < 0 || index >= tree->length) return false;
 
@@ -89,8 +98,9 @@ bool bt_set(struct BinaryTree *tree, int index, void *value) {
     return true;
 }
 
-
-// Checks if the binary tree contains the provided value
+/**
+ * Checks if the binary tree contains the provided value
+ */
 bool bt_contains(struct BinaryTree *tree, void *value, int (*comparator)(void*, void*)) {
     for (int i = 0; i < tree->length; i++) {
         void *current = (char*) tree->elements + i * tree->element_size;
@@ -101,7 +111,10 @@ bool bt_contains(struct BinaryTree *tree, void *value, int (*comparator)(void*, 
     return false;
 }
 
-// Finds and returns the index of the provided value in the tree
+/**
+ * Finds and returns the index of the provided value in the tree
+ * If not found, returns -1
+ */
 int bt_find(struct BinaryTree *tree, void *value, int (*comparator)(void*, void*)) {
     for (int i = 0; i < tree->length; i++) {
         void *current = (char*) tree->elements + i * tree->element_size;
@@ -112,7 +125,10 @@ int bt_find(struct BinaryTree *tree, void *value, int (*comparator)(void*, void*
     return -1;
 }
 
-// Returns the height of the binary tree, which is the largest number of edges in a path from the root to a leaf node
+/**
+ * Returns the height of the binary tree, which is the largest number of edges in a path from 
+ * the root to a leaf node
+ */
 int bt_height(struct BinaryTree *tree) {
     if (bt_isempty(tree)) return -1;
 
@@ -133,7 +149,9 @@ int bt_height(struct BinaryTree *tree) {
     return height;
 }
 
-// Returns the number of nodes with no children (leaf) in the binary tree
+/**
+ * Returns the number of nodes with no children (leaf) in the binary tree
+ */
 int bt_leaves(struct BinaryTree *tree) {
     if (bt_isempty(tree)) return 0;
 
@@ -156,13 +174,17 @@ int bt_leaves(struct BinaryTree *tree) {
     return leaves;
 }
 
-// Public interface for printing the contents of the binary tree
+/**
+ * Public interface for printing the contents of the binary tree
+ */
 void bt_print(struct BinaryTree *tree, void (*print_fn)(void*)) {
     if (bt_isempty(tree)) return;
     print_recursive(tree, 0, 0, print_fn);
 }
 
-// Recursive helper for printing the contents of the binary tree in a tree-like structure
+/**
+ * Recursive helper for printing the contents of the binary tree in a tree-like structure
+ */
 static void print_recursive(struct BinaryTree *tree, int index, int depth, void (*print_fn)(void*)) {
 
     // Base case - we reached an index outside of the arrays bounds
@@ -180,27 +202,37 @@ static void print_recursive(struct BinaryTree *tree, int index, int depth, void 
     print_recursive(tree, left_child_index(index), depth + 1, print_fn);
 }
 
-// Clears the contents of the binary tree
+/**
+ * Clears the contents of the binary tree
+ */
 void bt_clear(struct BinaryTree *tree) {
     tree->length = 0;
 }
 
-// Returns the current size (length) of the binary tree
+/**
+ * Returns the current size (length) of the binary tree
+ */
 int bt_size(struct BinaryTree *tree) {
     return tree->length;
 }
 
-// Returns the current capacity of the tree's underlying array
+/**
+ * Returns the current capacity of the tree's underlying array
+ */
 int bt_capacity(struct BinaryTree *tree) {
     return tree->capacity;
 }
 
-// Checks if the binary tree is empty
+/**
+ * Checks if the binary tree is empty
+ */
 bool bt_isempty(struct BinaryTree *tree) {
     return tree->length == 0;
 }
 
-// Frees the memory previously allocated for the binary tree
+/**
+ * Frees the memory previously allocated for the binary tree
+ */
 void bt_discard(struct BinaryTree *tree) {
     if (tree != NULL) {
         free(tree->elements);
@@ -209,7 +241,7 @@ void bt_discard(struct BinaryTree *tree) {
 }
 
 
-// Private helper functions, linkage limited to this file
+// Private helper functions - linkage limited to this file
 
 
 // Resizes the binary trees internal array to twice the current capacity
@@ -256,3 +288,4 @@ static int left_child_index(int index) {
 static int right_child_index(int index) {
     return 2 * index + 2;
 }
+

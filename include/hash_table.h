@@ -1,8 +1,8 @@
-
-/// hash_table.h
-/// Header for the generic hash table implementation using seperate chaining to handle collisions
-/// Brendan Dileo - November 24 2025
-
+/**
+ * hash_table.h
+ * Header for the generic hash table implementation using seperate chaining to handle collisions.
+ * Brendan Dileo - 2025
+ */
 
 #ifndef HASH_TABLE_H
 #define HASH_TABLE_H
@@ -11,12 +11,12 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-
 // Forward declaration of the struct Node stored in the buckets of the hash table
 struct Node;
 
-
-// Defines the HashTable struct type
+/**
+ * Defines the HashTable struct type
+ */
 typedef struct HashTable {
     struct Node **buckets;         // Pointer to an array of node pointers, where each node pointer represents a bucket
     int capacity;                  // Number of buckets in the hash table

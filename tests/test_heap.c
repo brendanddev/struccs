@@ -1,13 +1,13 @@
+/**
+ * test_heap.c
+ * The test suite for the Heap implementation
+ * Brendan Dileo - 2025
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "../heap/heap.h"
-
-
-/// test_heap.c
-/// The test suite for the Heap implementation
-/// Brendan Dileo, December 12 2025
-
+#include "heap.h"
 
 void print_int(void *value) {
     printf("%d\n", * (int *) value);

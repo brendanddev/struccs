@@ -1,8 +1,8 @@
-
-/// stack.h
-/// Header for the generic stack implementation backed by linked nodes
-/// Brendan Dileo - November 21 2025
-
+/**
+ * stack.h
+ * Header for the generic stack implementation backed by linked nodes.
+ * Brendan Dileo - 2025
+ */
 
 #ifndef STACK_H
 #define STACK_H
@@ -11,17 +11,16 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-
 // Forward declaration of the struct Node stored in the stack
 struct Node;
 
-
-// Defines the Stack struct type
+/**
+ * Defines the Stack struct type
+ */
 typedef struct Stack {
     struct Node *top;       // Pointer to the top node in the stack
     int length;             // current length of the stack
 } Stack;
-
 
 struct Stack* stack_create();
 bool stack_push(struct Stack *stack, void *value, size_t size);

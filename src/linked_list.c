@@ -1,16 +1,18 @@
+/**
+ * linked_list.c
+ * A generic implementation of a double linked list.
+ * Brendan Dileo - 2025
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
 #include "linked_list.h"
 
-
-/// linked_list.c
-/// A generic implementation of a doubly linked list
-/// Brendan Dileo - November 14 2025
-
-
-// Defines the doubly Node struct type
+/**
+ * Defines the doubly Node struct type
+ */
 typedef struct Node {
     void *value;                        // Pointer to the value stored in this node
     size_t item_size;                   // The size of the item stored in the node
@@ -25,8 +27,9 @@ static void ll_discard_all_nodes(struct LinkedList *list);
 static void swap_node_positions(struct LinkedList *list, struct Node *a, struct Node *b);
 static void swap_nodes(struct Node *a, struct Node *b);
 
-
-// Creates a new linked list
+/**
+ * Creates a new linked list
+ */
 struct LinkedList * ll_create() {
     // Allocate mmeory for the linked list itself
     struct LinkedList *linked_list = malloc(sizeof(struct LinkedList));
@@ -44,7 +47,9 @@ struct LinkedList * ll_create() {
     return linked_list;
 }
 
-// Inserts a node at the head of the linked list
+/**
+ * Inserts a node at the head of the linked list
+ */
 void ll_insert(struct LinkedList *list, void *value, size_t item_size) {
 
     // Create node to insert
@@ -73,7 +78,9 @@ void ll_insert(struct LinkedList *list, void *value, size_t item_size) {
     list->length++;
 }
 
-// Inserts a node at the tail of the linked list
+/**
+ * Inserts a node at the tail of the linked list
+ */
 void ll_insert_tail(struct LinkedList *list, void *value, size_t item_size) {
 
     // Create node to insert
@@ -103,7 +110,9 @@ void ll_insert_tail(struct LinkedList *list, void *value, size_t item_size) {
     }
 }
 
-// Inserts a node at the specified location in the linked list
+/**
+ * Inserts a node at the specified location in the linked list
+ */
 void ll_insert_at(struct LinkedList *list, void *value, size_t item_size, int index) {
 
     // Create node to insert
@@ -152,7 +161,9 @@ void ll_insert_at(struct LinkedList *list, void *value, size_t item_size, int in
     }
 }
 
-// Removes the node at the head of the linked list
+/**
+ * Removes the node at the head of the linked list
+ */
 void ll_remove(struct LinkedList *list) {
     if (list->head == NULL) return;
 
@@ -174,7 +185,9 @@ void ll_remove(struct LinkedList *list) {
     list->length--;
 }
 
-// Removes the node at the tail of the linked list
+/**
+ * Removes the node at the tail of the linked list
+ */
 void ll_remove_tail(struct LinkedList *list) {
     if (list->head == NULL) return;
 
@@ -207,7 +220,9 @@ void ll_remove_tail(struct LinkedList *list) {
     }
 }
 
-// Removes a node at a specified location in the linked list
+/**
+ * Removes a node at a specified location in the linked list
+ */
 void ll_remove_at(struct LinkedList *list, int index) {
     if (index < 0 || index >= list->length) return;
 
@@ -253,7 +268,9 @@ void ll_remove_at(struct LinkedList *list, int index) {
     }
 }
 
-// Retrieves the value stored in the node at the location specified
+/**
+ * Retrieves the value stored in the node at the location specified
+ */
 bool ll_get(struct LinkedList *list, int index, void *out) {
     if (index < 0 || index >= list->length) return false;
 
@@ -288,7 +305,9 @@ bool ll_get(struct LinkedList *list, int index, void *out) {
     return false;
 }
 
-// Sets the value of the node at the specified location (index) in the linked list
+/**
+ * Sets the value of the node at the specified location (index) in the linked list
+ */
 bool ll_set(struct LinkedList *list, int index, void *in) {
     if (index < 0 || index >= list->length) return false;
 
@@ -323,8 +342,10 @@ bool ll_set(struct LinkedList *list, int index, void *in) {
     return false;
 }
 
-// Finds the node with the specified value and returns the location (index) of the node, or -1 if not found
-// Relies on a caller defined comparator function to determine how to compare items of the type stored
+/**
+ * Finds the node with the specified value and returns the location (index) of the node, or -1 if not found.
+ * Relies on a caller defined comparator function to determine how to compare items of the type stored
+ */
 int ll_find(struct LinkedList *list, void *item, bool (* comparator)(void*, void*)) {
     if (list->head == NULL) return -1;
 
@@ -341,7 +362,9 @@ int ll_find(struct LinkedList *list, void *item, bool (* comparator)(void*, void
     return -1;
 }
 
-// Returns a boolean value indicating whether the linked list contains the value specified or not
+/**
+ * Returns a boolean value indicating whether the linked list contains the value specified or not
+ */
 bool ll_contains(struct LinkedList *list, void *item, bool (* comparator)(void*, void*)) {
     if (list->head == NULL) return false;
 
@@ -355,7 +378,9 @@ bool ll_contains(struct LinkedList *list, void *item, bool (* comparator)(void*,
     return false;
 }
 
-// Clears each node in the linked list
+/**
+ * Clears each node in the linked list
+ */
 void ll_clear(struct LinkedList *list) {
     if (list->head == NULL) return;
 
@@ -365,7 +390,9 @@ void ll_clear(struct LinkedList *list) {
     list->length = 0;
 }
 
-// Creates and returns a deep copy of a linked list
+/**
+ * Creates and returns a deep copy of a linked list
+ */
 struct LinkedList* ll_copy(struct LinkedList *orig) {
     struct LinkedList *copy = ll_create();
 
@@ -379,7 +406,9 @@ struct LinkedList* ll_copy(struct LinkedList *orig) {
     return copy;
 }
 
-// Reverses the contents of the linked list in place
+/**
+ * Reverses the contents of the linked list in place
+ */
 void ll_reverse(struct LinkedList *list) {
     if (list->head == NULL) return;
 
@@ -410,18 +439,24 @@ void ll_reverse(struct LinkedList *list) {
     list->head = last;
 }
 
-// Returns whether the linked list is empty or not
+/**
+ * Returns whether the linked list is empty or not
+ */
 bool ll_is_empty(struct LinkedList *list) {
     if (list->head == NULL) return true;
     return false;
 }
 
-// Returns the size (length) of the linked list
+/**
+ * Returns the size (length) of the linked list
+ */
 int ll_size(struct LinkedList *list) {
     return list->length;
 }
 
-// Frees all memory associated with a linked list
+/**
+ * Frees all memory associated with a linked list
+ */
 void ll_discard(struct LinkedList *list) {
     if (list != NULL) {
         ll_discard_all_nodes(list);
@@ -429,7 +464,10 @@ void ll_discard(struct LinkedList *list) {
     }
 }
 
-// Prints all items stored in the linked list, requiring a caller defined print function that knows how to print each value
+/**
+ * Prints all items stored in the linked list, requiring a caller defined print function 
+ * that knows how to print each value
+ */
 void ll_print(struct LinkedList *list, void (* print_fn)(void*)) {
     for (struct Node *current = list->head; current != NULL; current = current->next) {
         print_fn(current->value);
@@ -437,7 +475,9 @@ void ll_print(struct LinkedList *list, void (* print_fn)(void*)) {
     printf("\n");
 }
 
-// Prints each node in the linked list with its address, value, and next/prev pointers for debugging
+/**
+ * Prints each node in the linked list with its address, value, and next/prev pointers for debugging
+ */
 void ll_debug(struct LinkedList *list) {
     struct Node *curr = list->head;
     while (curr != NULL) {
@@ -450,7 +490,10 @@ void ll_debug(struct LinkedList *list) {
     }
 }
 
-// Sorts a linked list using a Bubble Sort implementation and relying on a caller defined comparator to know how to order items
+/**
+ * Sorts a linked list using a Bubble Sort implementation and relying on a caller defined comparator to 
+ * know how to order items
+ */
 void ll_bsort(struct LinkedList *list, bool (* comparator)(void*, void*)) { 
     if (list->head == NULL) return;
 
@@ -471,7 +514,7 @@ void ll_bsort(struct LinkedList *list, bool (* comparator)(void*, void*)) {
 }
 
 
-// Private helper functions, linkage limited to this file
+// Private helper functions - linkage limited to this file
 
 
 // Creates a new node

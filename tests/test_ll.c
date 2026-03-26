@@ -1,13 +1,13 @@
+/**
+ * test_ll.c
+ * The test suite for the LinkedList implementation.
+ * Brendan Dileo - 2025
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "../linked_list/linked_list.h"
-
-
-/// test_ll.c
-/// The test suite for the LinkedList implementation
-/// Brendan Dileo, November 17 2025
-
+#include "linked_list.h"
 
 void print_int(void *value) {
     printf("[%d] ", * (int *) value);
@@ -24,8 +24,6 @@ bool compare_int(void *a, void *b) {
 void test_get_set(struct LinkedList *list);
 void test_find_contains(struct LinkedList *list);
 void test_copy(struct LinkedList *list);
-// void test_swapping();
-void test_sorting(struct LinkedList *list);
 
 int main() {
 
@@ -53,8 +51,6 @@ int main() {
 
     return 0;
 }
-
-
 
 // Test get and set functions
 void test_get_set(struct LinkedList *list) {

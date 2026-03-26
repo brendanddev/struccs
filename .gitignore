@@ -1,9 +1,28 @@
 
-# Compiled object files
+
+## Executables
+out
+*.exe
+
+## Compiled object files
 *.o
 *.obj
 
-# Compiled static libraries
+## Build directories
+build/
+bin/
+
+## IDE files
+*~
+*.swp
+*.swo
+*.tmp
+*.bak
+
+## OS-specific 
+.DS_Store
+
+## Compiled static libraries
 *.a
 
 # Compiled dynamic/shared libraries
@@ -11,28 +30,7 @@
 *.dll
 *.dylib
 
-# Executables
-out
-*.exe
-
 # Debug files
 *.dSYM/
 *.dmp
 *.stackdump
-
-# Temporary files created by editors
-*~
-*.swp
-*.swo
-*.tmp
-*.bak
-
-# macOS specific
-.DS_Store
-
-# Build directories
-build/
-bin/
-
-# Instructions
-instructions.txt

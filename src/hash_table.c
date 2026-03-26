@@ -1,19 +1,21 @@
+/**
+ * hash_table.c
+ * A generic implementation of a hash table
+ * Brendan Dileo - 2025
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
 #include "hash_table.h"
 
-/// hash_table.c
-/// A generic implementation of a hash table
-/// Brendan Dileo - November 24 2025
-
-
 // Defines the maximum load factor allowed before the hash table should resize
 #define LOAD_THRESHOLD 0.75
 
-
-// Defines the Node struct type
+/**
+ * Defines the Node struct type to be stored in the hash table
+ */
 typedef struct Node {
     void *key;              // Pointer to the memory where the key data is stored
     size_t key_size;        // The number of bytes the key will occupy in the memory pointed to for the key
@@ -22,7 +24,6 @@ typedef struct Node {
     struct Node *next;      // Pointer to the next node in a bucket
 } Node;
 
-
 // Prototypes
 static struct Node* ht_create_node(void *key, size_t ksize, void *value, size_t vsize);
 static int ht_hash(void *key, size_t key_size, int capacity);
@@ -30,8 +31,9 @@ static void ht_resize(struct HashTable *hashtable);
 static void ht_discard_node(struct Node *node);
 static void ht_discard_all_nodes(struct HashTable *hashtable);
 
-
-// Creates a new hash table
+/**
+ * Creates a new hash table
+ */
 struct HashTable* ht_create() { 
 
     // Allocate memory for the hash table itself and handle allocation failure
@@ -54,8 +56,10 @@ struct HashTable* ht_create() {
     return hashtable;
 }
 
-
-// Inserts a new node into a bucket in the hash table based on the nodes key, updating the value of the node if it already exists
+/**
+ * Inserts a new node into a bucket in the hash table based on the nodes key, updating the value of the 
+ * node if it already exists
+ */
 bool ht_insert(struct HashTable *hashtable, void *key, size_t ksize, void *value, size_t vsize) {
 
     // Check if resize is needed
@@ -109,11 +113,12 @@ bool ht_insert(struct HashTable *hashtable, void *key, size_t ksize, void *value
         hashtable->length++;
         return true;
     }
-
     return false;
 }
 
-// Removes a node from a bucket in the hash table based on the keys hash
+/**
+ * Removes a node from a bucket in the hash table based on the keys hash
+ */
 bool ht_remove(struct HashTable *hashtable, void *key, size_t ksize) {
 
     if (ht_is_empty(hashtable)) return false;
@@ -126,7 +131,8 @@ bool ht_remove(struct HashTable *hashtable, void *key, size_t ksize) {
     struct Node *current = hashtable->buckets[hash];
     struct Node *previous = NULL;
 
-    // Traverse the linked nodes inside the current bucket to search for the key, starting from head of link
+    // Traverse the linked nodes inside the current bucket to search for the key, 
+    // starting from head of link
     while (current != NULL) {
 
         // Compare raw memory pointed to by the current nodes key and the key to search for
@@ -165,7 +171,9 @@ bool ht_remove(struct HashTable *hashtable, void *key, size_t ksize) {
     return false;
 }
 
-// Retrieves the value associated with a key if found
+/**
+ * Retrieves the value associated with a key if found, false if not found.
+ */
 bool ht_get(struct HashTable *hashtable, void *key, size_t ksize, void *out) {
     if (ht_is_empty(hashtable)) return false;
 
@@ -188,11 +196,12 @@ bool ht_get(struct HashTable *hashtable, void *key, size_t ksize, void *out) {
         }
         current = current->next;
     }
-
     return false;
 }
 
-// Checks if the hash table contains a given key
+/**
+ * Checks if the hash table contains a given key
+ */
 bool ht_contains(struct HashTable *hashtable, void *key, size_t ksize) {
     if (ht_is_empty(hashtable)) return false;
 
@@ -208,7 +217,9 @@ bool ht_contains(struct HashTable *hashtable, void *key, size_t ksize) {
     return false;
 }
 
-// Clears the entire contents of the hash table, including everything stored inside its buckets
+/**
+ * Clears the entire contents of the hash table, including everything stored inside its buckets
+ */
 void ht_clear(struct HashTable *hashtable) {
     if (ht_is_empty(hashtable)) return;
 
@@ -225,7 +236,9 @@ void ht_clear(struct HashTable *hashtable) {
     if (hashtable->buckets == NULL) return;
 }
 
-// Prints the contents of the hash table, visiting each bucket and printing its contents
+/**
+ * Prints the contents of the hash table, visiting each bucket and printing its contents
+ */
 void ht_print(struct HashTable *hashtable, void (* print_fn)(void*, void*)) {
     
     // Loop through each bucket in the hash table
@@ -252,7 +265,9 @@ void ht_print(struct HashTable *hashtable, void (* print_fn)(void*, void*)) {
     }
 }
 
-// Frees the memory previously allocated by the hash table
+/**
+ * Frees the memory previously allocated by the hash table
+ */
 void ht_discard(struct HashTable *hashtable) {
     if (hashtable != NULL) {
         ht_discard_all_nodes(hashtable);
@@ -261,28 +276,36 @@ void ht_discard(struct HashTable *hashtable) {
     }
 }
 
-// Checks whether the hash table is empty or not
+/**
+ * Checks whether the hash table is empty or not
+ */
 bool ht_is_empty(struct HashTable *hashtable) {
     return hashtable->length == 0;
 }
 
-// Returns the number of key/value pairs (nodes) in the hash table
+/**
+ * Returns the number of key/value pairs (nodes) in the hash table
+ */
 int ht_size(struct HashTable *hashtable) {
     return hashtable->length;
 }
 
-// Returns the number of buckets in the hash table
+/**
+ * Returns the number of buckets in the hash table
+ */
 int ht_capacity(struct HashTable *hashtable) {
     return hashtable->capacity;
 }
 
-// Returns the load factor for the hash table, showing how full the hash table is
+/**
+ * Returns the load factor for the hash table, showing how full the hash table is
+ */
 float ht_load_factor(struct HashTable *hashtable) {
     return (float) hashtable->length / hashtable->capacity;
 }
 
 
-// Private helper functions, linkage limited to this file
+// Private helper functions - linkage limited to this file
 
 
 // Creates a new node

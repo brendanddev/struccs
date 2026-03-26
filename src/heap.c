@@ -1,13 +1,14 @@
+/**
+ * heap.c
+ * A generic implementation of a heap backed by an array
+ * Brendan Dileo - 2025
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
 #include "heap.h"
-
-/// heap.c
-/// A generic implementation of a heap backed by an array
-/// Brendan Dileo - December 12 2025
-
 
 // Prototypes
 static bool heap_resize(struct Heap *heap);
@@ -16,8 +17,9 @@ static void heapify_up(struct Heap *heap, int current_idx, int (*compare)(void*,
 static void heapify_down(struct Heap *heap, int current_idx, int (*compare)(void*, void*));
 static void heap_print_rec(struct Heap *heap, void (* print_fn)(void*), int index, int depth);
 
-
-// Creates a new empty heap storing elements of the provided size
+/**
+ * Creates a new empty heap storing elements of the provided size
+ */
 struct Heap* heap_create(size_t element_size) {
 
     // Initialize a pointer to the address of the memory allocated for the heap struct
@@ -41,7 +43,9 @@ struct Heap* heap_create(size_t element_size) {
     return heap;
 }
 
-// Inserts a new element at the next available position in the last level of the heaps underlying tree
+/**
+ * Inserts a new element at the next available position in the last level of the heaps underlying tree
+ */
 bool heap_insert(struct Heap *heap, void *value, size_t vsize, int (*compare)(void*, void*)) {
 
     // Check if the heaps capacity has been reached, if it has, need to resize
@@ -59,7 +63,9 @@ bool heap_insert(struct Heap *heap, void *value, size_t vsize, int (*compare)(vo
     return true;
 }
 
-// Removes and returns the element currently located at the root (index=0)
+/**
+ * Removes and returns the element currently located at the root (index=0)
+ */
 bool heap_remove(struct Heap *heap, void *out, int (*compare)(void*, void*)) {
     if (heap_isempty(heap)) return false;
 
@@ -79,32 +85,44 @@ bool heap_remove(struct Heap *heap, void *out, int (*compare)(void*, void*)) {
     return true;
 }
 
-// Returns the value stored at the root of the heap (index=0)
+/**
+ * Returns the value stored at the root of the heap (index=0)
+ */
 void* heap_peek(struct Heap *heap) {
     return heap->elements;
 }
 
-// Returns the size (length) of the heap
+/**
+ * Returns the size (length) of the heap
+ */
 int heap_size(struct Heap *heap) {
     return heap->length;
 }
 
-// Returns the current capacity of the heap
+/**
+ * Returns the current capacity of the heap
+ */
 int heap_capacity(struct Heap *heap) {
     return heap->capacity;
 }
 
-// Checks whether the heap is empty or not
+/**
+ * Checks whether the heap is empty or not
+ */
 bool heap_isempty(struct Heap *heap) {
     return heap->length == 0;
 }
 
-// Clears the contents of the heap (memory remains allocated to be overwritten)
+/**
+ * Clears the contents of the heap (memory remains allocated to be overwritten)
+ */
 void heap_clear(struct Heap *heap) {
     heap->length = 0;
 }
 
-// Frees the memory block previously allocated for the heap
+/**
+ * Frees the memory block previously allocated for the heap
+ */
 void heap_discard(struct Heap *heap) {
     if (heap != NULL) {
         free(heap->elements);
@@ -112,7 +130,9 @@ void heap_discard(struct Heap *heap) {
     }
 }
 
-// Prints the contents of the heap with no visualization
+/**
+ * Prints the contents of the heap with no visualization
+ */
 void heap_debug(struct Heap *heap, void (* print_fn)(void*)) {
     if (heap_isempty(heap)) return;
 
@@ -121,11 +141,17 @@ void heap_debug(struct Heap *heap, void (* print_fn)(void*)) {
     }
 }
 
-// Public interface for printing the contents of the heap in tree-like structure
+/**
+ * Public interface for printing the contents of the heap in tree-like structure
+ */
 void heap_print(struct Heap *heap, void (* print_fn)(void*)) {
     if (heap_isempty(heap)) return;
     heap_print_rec(heap, print_fn, 0, 0);
 }
+
+
+// Private helper functions - linkage limited to this file
+
 
 // Recursive helper for printing the contents of the heap in a tree-like structure
 static void heap_print_rec(struct Heap *heap, void (* print_fn)(void*), int index, int depth) {
@@ -147,10 +173,6 @@ static void heap_print_rec(struct Heap *heap, void (* print_fn)(void*), int inde
     int left_child = 2 * index + 1;
     heap_print_rec(heap, print_fn, left_child, depth + 1); 
 }
-
-
-// Private helper functions, linkage limited to this file
-
 
 // Resizes the heaps internal array
 static bool heap_resize(struct Heap *heap) {
@@ -185,8 +207,8 @@ static void heap_swap(void *a, void *b, size_t element_size) {
     temp = NULL;
 }
 
-// Repeatedly compares the element at the provided index with its parent, swapping if the parent is smaller to maintain
-// the max heap property
+// Repeatedly compares the element at the provided index with its parent, swapping if the parent 
+// is smaller to maintain the max heap property
 static void heapify_up(struct Heap *heap, int current_idx, int (*compare)(void*, void*)) {
     
     // Continue moving up the heap until we reach the root
@@ -211,8 +233,8 @@ static void heapify_up(struct Heap *heap, int current_idx, int (*compare)(void*,
     }
 }
 
-// Repeatedly compares the element at the provided index with its children, swapping with the larger child if it exists
-// to maintain the max-heap property
+// Repeatedly compares the element at the provided index with its children, swapping with the larger 
+// child if it exists to maintain the max-heap property
 static void heapify_down(struct Heap *heap, int current_idx, int (*compare)(void*, void*)) {
 
     // Declared to hold the larger index between the left and right children

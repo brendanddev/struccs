@@ -1,13 +1,13 @@
+/**
+ * test_ht.c
+ * The test suite for the HashTable implementation.
+ * Brendan Dileo - 2025
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "../hash_table/hash_table.h"
-
-
-/// test_ht.c
-/// The test suite for the hash table implementation
-/// Brendan Dileo, November 25 2025
-
+#include "hash_table.h"
 
 void print_int_key_value(void *key, void *value) {
     int *k = (int*)key;

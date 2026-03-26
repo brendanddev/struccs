@@ -1,8 +1,8 @@
-
-/// linked_list.h
-/// Header for the generic doubly linked list implementation
-/// Brendan Dileo - November 14 2025
-
+/**
+ * linked_list.h
+ * Header for the generic doubly linked list implementation
+ * Brendan Dileo - 2025
+ */
 
 #ifndef LINKED_LIST_H
 #define LINKED_LIST_H
@@ -11,18 +11,17 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-
 // Forward declaration of the struct Node stored in the linked list
 struct Node;
 
-
-// Defines the LinkedList struct type
+/**
+ * Defines the LinkedList (doubly) struct type
+ */
 typedef struct LinkedList {
     int length;
     struct Node *head;                  // Pointer to the head node (first element)
     struct Node *tail;                  // Pointer to the tail node (last element)
 } LinkedList;
-
 
 struct LinkedList* ll_create();
 void ll_insert(struct LinkedList *list, void *value, size_t item_size);
@@ -43,7 +42,6 @@ bool ll_is_empty(struct LinkedList *list);
 void ll_discard(struct LinkedList *list);
 void ll_print(struct LinkedList *list, void (* print_fn)(void*));
 void ll_debug(struct LinkedList *list);
-
 void ll_bsort(struct LinkedList *list, bool (* comparator)(void*, void*));
 
 #endif
