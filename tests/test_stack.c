@@ -3,7 +3,6 @@
  * The test suite for the Stack implementation.
  * Brendan Dileo - 2025
  */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -14,7 +13,6 @@ void print_int(void *value) {
 }
 
 int main() {
-
     int value = 100;
     struct Stack *stack = stack_create();
 
@@ -37,9 +35,9 @@ int main() {
         printf("Peek Value: %d\n", peekval);
     }
     
-    printf("Stack Size: %d\n", stack_size(stack));    // should still be 5
+    // should still be 5
+    printf("Stack Size: %d\n", stack_size(stack));
 
-    // stack_clear(stack);
     int popval;
     if (stack_pop(stack, &popval)) {
         printf("Popped the value %d off the stack\n", popval);

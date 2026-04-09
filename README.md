@@ -1,6 +1,8 @@
 # struccs
 A lightweight, generic C library of fundamental data structures built from scratch with a focus on memory management, performance, and type-agnostic design.
 
+> Version 0.9.4
+
 ---
 
 ## Overview
@@ -12,7 +14,7 @@ libraries.
 
 ## Structures
 | Structure | Description |
-|---|---|---|
+|---|---|
 | GenericArray | Type-agnostic dynamically resizing array |
 | LinkedList | Doubly linked list with bidirectional traversal |
 | Stack | LIFO structure backed by linked nodes |
@@ -98,7 +100,7 @@ make clean
 Include the umbrella header to get everything:
  
 ```c
-#include "strucc.h"
+#include "struccs.h"
 ```
  
 Or include individual headers:
@@ -120,9 +122,9 @@ See [docs/usage.md](docs/usage.md) for full code examples for each structure.
 
 ## Docs
  
-- [Usage Examples](docs/usage.md)
-- [API Reference](docs/api.md)
-- [Performance](docs/performance.md)
+- [Usage Examples](docs/USAGE.md)
+- [API Reference](docs/API.md)
+- [Performance](docs/PERFORMANCE.md)
 
 ---
 

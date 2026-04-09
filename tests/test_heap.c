@@ -3,7 +3,6 @@
  * The test suite for the Heap implementation
  * Brendan Dileo - 2025
  */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -26,30 +25,19 @@ int compare_int(void *a, void *b) {
     }
 }
 
-
 int main() {
-
-    // Create new heap to store integers
     struct Heap *heap = heap_create(sizeof(int));
     printf("Created Heap - Capacity: %d, Length: %d, Is Empty: %d\n", heap_capacity(heap), heap_size(heap), heap_isempty(heap));
 
-    // Insert elements into the heap
     for (int i = 0; i < 25; i++) {
         int num = i;
         heap_insert(heap, &num, sizeof(int), compare_int);
     }
     printf("Current Heap - Capacity: %d, Length: %d, Is Empty: %d\n", heap_capacity(heap), heap_size(heap), heap_isempty(heap));
-
-    // Peek at the root value in the heap
     printf("Peeked value: %d\n", *(int*) heap->elements);
-
-    // Print contents of heap
     heap_debug(heap, print_int);
-
-    // Print contents of the heap in a tree-like structure
     heap_print(heap, print_int);
 
-    // Remove the largest value/root from the heap
     int value;
     if (heap_remove(heap, &value, compare_int)) {
         printf("Removed the value: %d from the heap\n", value);
@@ -59,7 +47,6 @@ int main() {
 
     printf("Current Heap - Capacity: %d, Length: %d, Is Empty: %d\n", heap_capacity(heap), heap_size(heap), heap_isempty(heap));
 
-    // Print after removal
     heap_debug(heap, print_int);
     heap_print(heap, print_int);
 
@@ -69,13 +56,10 @@ int main() {
         printf("Failed to remove the value from the heap\n");
     }
 
-    // Print after removal
     heap_debug(heap, print_int);
     heap_print(heap, print_int);
 
-    // Free the heap
     heap_discard(heap);
     heap = NULL;
-
     return 0;
 }

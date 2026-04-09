@@ -3,7 +3,6 @@
  * The test suite for the Queue implementation.
  * Brendan Dileo - 2025
  */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -14,8 +13,6 @@ void print_int(void *value) {
 }
 
 int main() {
-
-
     struct Queue *queue = queue_create();
     printf("Initial State of Queue: Length: %d, Head: %p, Tail: %p\n", queue->length, queue->head, queue->tail);
 
@@ -45,10 +42,8 @@ int main() {
     } else {
         printf("Could not peek the queue\n");
     }
-
     queue_print(queue, print_int);
     queue_debug(queue);
-
 
     int dequeue;
     if (queue_dequeue(queue, &dequeue)) {
@@ -57,7 +52,6 @@ int main() {
         printf("Could not dequeue from the queue\n");
     }
     queue_print(queue, print_int);
-
 
     int dequeue2;
     if (queue_dequeue(queue, &dequeue2)) {
@@ -72,10 +66,7 @@ int main() {
     printf("Queue Size: %d\n", queue_length(queue));
     queue_debug(queue);
 
-
-
     queue_discard(queue);
     queue = NULL;
-
     return 0;
 }

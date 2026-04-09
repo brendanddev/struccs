@@ -106,6 +106,51 @@ Time complexity reference for all operations across each structure.
 
 ---
 
+## Binary Tree
+
+| Operation | Time Complexity | Notes |
+|---|---|---|
+| `bt_create` | **O(1)** | Initializes a new empty binary tree |
+| `bt_insert` | **O(1)** amortized | Inserts at next available position, occasionally triggers resize |
+| `bt_remove` | **O(1)** | Swaps with last element and decrements length |
+| `bt_get` | **O(1)** | Direct index access into underlying array |
+| `bt_set` | **O(1)** | Overwrites element at index |
+| `bt_contains` | **O(n)** | Linear scan using comparator |
+| `bt_find` | **O(n)** | Linear scan, returns index or -1 |
+| `bt_height` | **O(log n)** | Walks from last node to root via parent indices |
+| `bt_leaves` | **O(n)** | Scans all nodes checking for missing left child |
+| `bt_size` | **O(1)** | Returns current number of elements |
+| `bt_capacity` | **O(1)** | Returns total allocated slots |
+| `bt_isempty` | **O(1)** | Checks if tree has no elements |
+| `bt_clear` | **O(1)** | Sets length to 0 without freeing memory |
+| `bt_print` | **O(n)** | Recursive tree-like print of all nodes |
+| `bt_discard` | **O(1)** | Frees underlying array and tree struct |
+| `resize` | **O(n)** | Doubles capacity, reallocates and copies elements |
+| `swap` | **O(1)** | Swaps raw bytes between two memory locations |
+
+---
+
+## Heap
+
+| Operation | Time Complexity | Notes |
+|---|---|---|
+| `heap_create` | **O(1)** | Initializes a new empty heap |
+| `heap_insert` | **O(log n)** | Inserts at end then heapifies up to restore max-heap |
+| `heap_remove` | **O(log n)** | Replaces root with last element then heapifies down |
+| `heap_peek` | **O(1)** | Returns pointer to root element without removing it |
+| `heap_size` | **O(1)** | Returns current number of elements |
+| `heap_capacity` | **O(1)** | Returns total allocated slots |
+| `heap_isempty` | **O(1)** | Checks if heap has no elements |
+| `heap_clear` | **O(1)** | Sets length to 0 without freeing memory |
+| `heap_print` | **O(n)** | Recursive tree-like print of all nodes |
+| `heap_debug` | **O(n)** | Prints all elements in raw array order |
+| `heap_discard` | **O(1)** | Frees underlying array and heap struct |
+| `heap_resize` | **O(n)** | Doubles capacity, reallocates and copies elements |
+| `heapify_up` | **O(log n)** | Walks up tree swapping with parent until heap property restored |
+| `heapify_down` | **O(log n)** | Walks down tree swapping with larger child until heap property restored |
+
+---
+
 ## Binary Search Tree
 
 | Operation | Time Complexity | Notes |

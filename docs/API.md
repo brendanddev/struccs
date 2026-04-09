@@ -425,3 +425,141 @@ Frees all nodes but retains the tree structure.
 void bst_discard(struct BinarySearchTree *bst);
 ```
 Frees all nodes and the tree structure.
+
+---
+
+## Binary Tree
+
+```c
+struct BinaryTree* bt_create(size_t element_size);
+```
+Creates and returns a new empty binary tree for elements of the given size. Returns `NULL` on failure.
+
+```c
+void bt_insert(struct BinaryTree *tree, void *value);
+```
+Inserts a value at the next available position. Resizes automatically if needed.
+
+```c
+void bt_remove(struct BinaryTree *tree, int index);
+```
+Removes the element at the given index by swapping it with the last element and decrementing length.
+
+```c
+bool bt_get(struct BinaryTree *tree, int index, void *out);
+```
+Copies the element at the given index into `out`. Returns `false` if out of bounds.
+
+```c
+bool bt_set(struct BinaryTree *tree, int index, void *value);
+```
+Overwrites the element at the given index. Returns `false` if out of bounds.
+
+```c
+bool bt_contains(struct BinaryTree *tree, void *value, int (*comparator)(void*, void*));
+```
+Returns `true` if the tree contains the given value using the comparator.
+
+```c
+int bt_find(struct BinaryTree *tree, void *value, int (*comparator)(void*, void*));
+```
+Returns the index of the first matching element, or `-1` if not found.
+
+```c
+int bt_height(struct BinaryTree *tree);
+```
+Returns the height of the tree — the number of edges from the root to the deepest leaf.
+
+```c
+int bt_leaves(struct BinaryTree *tree);
+```
+Returns the number of leaf nodes (nodes with no children).
+
+```c
+int bt_size(struct BinaryTree *tree);
+```
+Returns the current number of elements.
+
+```c
+int bt_capacity(struct BinaryTree *tree);
+```
+Returns the total number of allocated slots.
+
+```c
+bool bt_isempty(struct BinaryTree *tree);
+```
+Returns `true` if the tree has no elements.
+
+```c
+void bt_clear(struct BinaryTree *tree);
+```
+Sets length to 0 without freeing memory.
+
+```c
+void bt_print(struct BinaryTree *tree, void (*print_fn)(void*));
+```
+Prints the tree in a tree-like structure using the provided print function.
+
+```c
+void bt_discard(struct BinaryTree *tree);
+```
+Frees all memory associated with the binary tree.
+
+---
+
+## Heap
+
+```c
+struct Heap* heap_create(size_t element_size);
+```
+Creates and returns a new empty max-heap for elements of the given size. Returns `NULL` on failure.
+
+```c
+bool heap_insert(struct Heap *heap, void *value, size_t vsize, int (*compare)(void*, void*));
+```
+Inserts a value into the heap and heapifies up to restore the max-heap property.
+
+```c
+bool heap_remove(struct Heap *heap, void *out, int (*compare)(void*, void*));
+```
+Removes the root (maximum) element, copies it into `out`, and heapifies down to restore the max-heap property.
+
+```c
+void* heap_peek(struct Heap *heap);
+```
+Returns a pointer to the root element without removing it.
+
+```c
+int heap_size(struct Heap *heap);
+```
+Returns the current number of elements.
+
+```c
+int heap_capacity(struct Heap *heap);
+```
+Returns the total number of allocated slots.
+
+```c
+bool heap_isempty(struct Heap *heap);
+```
+Returns `true` if the heap has no elements.
+
+```c
+void heap_clear(struct Heap *heap);
+```
+Sets length to 0 without freeing memory.
+
+```c
+void heap_print(struct Heap *heap, void (*print_fn)(void*));
+```
+Prints the heap in a tree-like structure using the provided print function.
+
+```c
+void heap_debug(struct Heap *heap, void (*print_fn)(void*));
+```
+Prints all elements in raw array order with no tree visualization.
+
+```c
+void heap_discard(struct Heap *heap);
+```
+Frees all memory associated with the heap.

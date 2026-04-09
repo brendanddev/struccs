@@ -3,7 +3,6 @@
  * The test suite for the HashTable implementation.
  * Brendan Dileo - 2025
  */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -16,24 +15,16 @@ void print_int_key_value(void *key, void *value) {
 }
 
 int main() {
-
-    // Create a new hash table and print initial capacity, length and load factor
     struct HashTable *hashtable = ht_create();
     printf("Capacity: %d, Length: %d, Load Factor: %.2f\n", hashtable->capacity, hashtable->length, ht_load_factor(hashtable));
-
-    // Check if empty
     printf("HashTable is empty: %d\n", ht_is_empty(hashtable));
 
-
-    // Insert new key/value pairs into the hash table
     for (int i = 0; i < 8; i++) {
         int k = i;
         int v = i * 15;
         ht_insert(hashtable, &k, sizeof(int), &v, sizeof(int));
         printf("Current Capacity: %d\n", ht_capacity(hashtable));
     }
-
-    // Print contents of the hash table
     ht_print(hashtable, print_int_key_value);
 
     // Should trigger resize
@@ -46,15 +37,6 @@ int main() {
     }
     ht_print(hashtable, print_int_key_value);
 
-
-
-
-
-
-
-
-
-    // // Remove key value pairs from the hash table
     // printf("Removing key/value pairs: \n");
 
     // printf("Removing key=1: \n");
@@ -77,8 +59,6 @@ int main() {
     // ht_remove(hashtable, &rk4, sizeof(int));
     // ht_print(hashtable, print_int_key_value);
 
-
-    // // Get a node by key
     // int key = 6;
     // int get_value;
     // if (ht_get(hashtable, &key, sizeof(int), &get_value)) {
@@ -87,7 +67,6 @@ int main() {
     //     printf("Failed to retrieve the value!\n");
     // }
 
-    // // Check if the hash table contains a key
     // int keycontains = 10;
     // if (ht_contains(hashtable, &keycontains, sizeof(int))) {
     //     printf("The hash table has key=%d\n", keycontains);
@@ -109,14 +88,10 @@ int main() {
     //     printf("Could not find key=%d in the table\n", keycontains);
     // }
 
-    // // Clear the hash table
     // ht_clear(hashtable);
     // printf("Capacity: %d, Length: %d, Load Factor: %.2f\n", hashtable->capacity, hashtable->length, ht_load_factor(hashtable));
     // printf("HashTable is empty: %d\n", ht_is_empty(hashtable));
 
-
-
-    // Free memory allocated by the hash table
     ht_discard(hashtable);
     hashtable = NULL;
 

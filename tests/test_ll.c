@@ -3,7 +3,6 @@
  * The test suite for the LinkedList implementation.
  * Brendan Dileo - 2025
  */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -26,7 +25,6 @@ void test_find_contains(struct LinkedList *list);
 void test_copy(struct LinkedList *list);
 
 int main() {
-
     struct LinkedList *linked_list = create_int_list();
     ll_print(linked_list, print_int);
 
@@ -41,48 +39,43 @@ int main() {
     test_sorting(linked_list);
     test_copy(linked_list);
    
-    // Free memory allocated by the int linked list
     ll_discard(linked_list);
     linked_list = NULL;
-
-    // Free memory allocated by the char linked list
     ll_discard(linked_list_chr);
     linked_list_chr = NULL;
-
     return 0;
 }
 
-// Test get and set functions
 void test_get_set(struct LinkedList *list) {
     int num;
-    if (ll_get(list, 1, &num)) {    // should work
+    if (ll_get(list, 1, &num)) {
         printf("Value at index 1: %d\n", num);
     } else {
         printf("Could not get the item\n");
     }
 
-    if (ll_get(list, list->length + 1, &num)) { // should fail
+    // should fail
+    if (ll_get(list, list->length + 1, &num)) {
         printf("Value at index %d: %d\n", list->length + 1, num);
     } else {
         printf("Could not get the item\n");
     }
 
-    
     int value = 3454;
-    if (ll_set(list, 1, &value)) {      // should work
+    if (ll_set(list, 1, &value)) {
         printf("Set the item at index 1 to: %d\n", value);
     } else {
         printf("Failed to set the item\n");
     }
 
-    if (ll_set(list, -1, &value)) {      // should fail
+    // should fail
+    if (ll_set(list, -1, &value)) { 
         printf("Set the item at index 1 to: %d\n", value);
     } else {
         printf("Failed to set the item\n");
     }
 }
 
-// Test find and contains functions
 void test_find_contains(struct LinkedList *list) {
     int num = 100;
     int found = ll_find(list, &num, compare_int);
@@ -100,7 +93,6 @@ void test_find_contains(struct LinkedList *list) {
     }
 }
 
-// Tests the copy function
 void test_copy(struct LinkedList *list) {
     struct LinkedList *copy = ll_copy(list);
     printf("Copied List: \n");
