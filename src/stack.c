@@ -3,7 +3,6 @@
  * A generic implementation of a stack backed by linked nodes.
  * Brendan Dileo - 2025
  */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>

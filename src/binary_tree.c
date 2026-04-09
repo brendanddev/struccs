@@ -3,7 +3,6 @@
  * A generic implementation of a complete binary tree.
  * Brendan Dileo - 2025
  */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>

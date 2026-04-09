@@ -275,3 +275,9 @@ bst_remove(bst, &remove_val, compare_int);
 // Clean up
 bst_discard(bst);
 ```
+
+---
+
+## Heap
+
+> TODO!
