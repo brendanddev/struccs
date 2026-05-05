@@ -1,7 +1,7 @@
 # struccs
 A lightweight, generic C library of fundamental data structures built from scratch with a focus on memory management, performance, and type-agnostic design.
 
-> Version 0.9.4
+> Version 0.9.5
 
 ---
 
@@ -23,6 +23,7 @@ libraries.
 | BinarySearchTree | Generic BST with recursive operations |
 | BinaryTree | Complete binary tree backed by flat array |
 | Heap | Min/max heap |
+| Set | In progres... |
 
 ---
 
@@ -33,6 +34,7 @@ struccs/
 ├── include/                    # Public headers
 │   ├── generic_array.h
 │   ├── linked_list.h
+|   ├── set.h
 │   ├── stack.h
 │   ├── queue.h
 │   ├── hash_table.h
@@ -42,6 +44,7 @@ struccs/
 ├── src/                        # Implementations
 │   ├── generic_array.c
 │   ├── linked_list.c
+│   ├── set.c
 │   ├── stack.c
 │   ├── queue.c
 │   ├── hash_table.c
