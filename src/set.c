@@ -9,6 +9,8 @@
 #include <string.h>
 #include "set.h"
 
+static const char SET_DUMMY = 1;
+
 /**
  * Creates and returns a new Set.
  */
@@ -18,7 +20,7 @@ Set* set_create(size_t element_size) {
 
     set->element_size = element_size;
     set->table = ht_create();
-    
+
     if (set->table == NULL) {
         free(set);
         return NULL;
@@ -34,9 +36,7 @@ Set* set_create(size_t element_size) {
  */
 bool set_add(Set *set, void *value) {
     if (!ht_contains(set->table, value, set->element_size)) {
-        int garbage_value = 0;
-        void *ptr = &garbage_value;
-        ht_insert(set->table, value, set->element_size, ptr, sizeof(int));
+        ht_insert(set->table, value, set->element_size, (void*) &SET_DUMMY, sizeof(char));
         return true;
     }
     return false;
@@ -64,7 +64,7 @@ bool set_contains(Set *set, void *value) {
  * Returns the size (length) of the set.
  */
 int set_size(Set *set) {
-    return set->table->length;
+    return ht_size(set->table);
 }
 
 /**
