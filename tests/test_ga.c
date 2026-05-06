@@ -6,133 +6,258 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <assert.h>
 #include "generic_array.h"
 
-void print_int(void *value) {
-    printf("[%d] ", * (int *) value);
-}
-
-void print_info(GenericArray *ga) {
-    if (ga != NULL) {
-        printf(">>> Length: %d\n", ga_size(ga));
-        printf(">>> Capacity: %d\n", ga_capacity(ga));
-        printf(">>> Usage: %f\n", ga_usage(ga));
-        ga_print(ga, print_int);
-        printf("\n");
-    }
-}
+// Prototypes
+void test_ga_init(void);
+void test_ga_add(void);
+void test_ga_get(void);
+void test_ga_get_invalid_index(void);
+void test_ga_set(void);
+void test_ga_set_invalid_index(void);
+void test_ga_find(void);
+void test_ga_find_missing(void);
+void test_ga_remove_last(void);
+void test_ga_remove_at(void);
+void test_ga_remove_at_invalid(void);
+void test_ga_contains(void);
+void test_ga_contains_missing(void);
+void test_ga_clear(void);
+void test_ga_large_operations(void);
 
 bool compare_int(void *a, void *b) {
-    int num1 = * (int *)a;
-    int num2 = * (int *)b;
-
-    if (num1 == num2) {
-        return true;
-    } else {
-        return false;
-    }
+    return (*(int *)a == *(int *)b);
 }
 
 int main(void) {
+    test_ga_init();
+    test_ga_add();
+    test_ga_get();
+    test_ga_get_invalid_index();
+    test_ga_set();
+    test_ga_set_invalid_index();
+    test_ga_find();
+    test_ga_find_missing();
+    test_ga_remove_last();
+    test_ga_remove_at();
+    test_ga_remove_at_invalid();
+    test_ga_contains();
+    test_ga_contains_missing();
+    test_ga_clear();
+    test_ga_large_operations();
+
+    printf("All GenericArray tests passed.\n");
+    return 0;
+}
+
+void test_ga_init(void) {
     GenericArray *ga = ga_init(sizeof(int));
-    if (ga == NULL) return -1;
-    print_info(ga);
 
-    printf(">>> Adding values to the GenericArray...\n");
-    for (int i = 0; i < 16; i++) {
-        int num = i * 5;
-        ga_add(ga, i, &num);
-        printf(">>> Usage: %f\n", ga_usage(ga));
-    }
-    print_info(ga);
-
-    void *val;
-    if (ga_get(ga, 1, val)) {
-        printf(">>> [GET] Found value=%d\n", *(int *)val);
-    } else {
-        printf(">>> [GET] Could not get the value at the specified index.\n");
-    }
-
-    // Should fail
-    if (ga_get(ga, 1000, val)) {
-        printf(">>> [GET] Found value=%d\n", *(int *)val);
-    } else {
-        printf(">>> [GET] Could not get the value at the specified index.\n");
-    }
-
-    int num = 222;
-    if (ga_set(ga, 0, &num)) {
-        printf(">>> [SET] Set value=%d\n", num);
-    } else {
-        printf(">>> [SET] Could not set the value at the specified index.\n");
-    }
-
-    // Should fail
-    if (ga_set(ga, 888, &num)) {
-        printf(">>> [SET] Set value=%d\n", num);
-    } else {
-        printf(">>> [SET] Could not set the value at the specified index.\n");
-    }
-    print_info(ga);
-
-    num = 50;
-    int idx = ga_find(ga, &num, compare_int);
-    if (idx == -1) {
-        printf(">>> [FIND] Could not find the value '%d'.\n", num);
-    } else {
-        printf(">>> [FIND] Found value at index=%d\n", idx);
-    }
-
-    // Should fail
-    num = 5051;
-    idx = ga_find(ga, &num, compare_int);
-    if (idx == -1) {
-        printf(">>> [FIND] Could not find the value '%d'.\n", num);
-    } else {
-        printf(">>> [FIND] Found value at index=%d\n", idx);
-    }
-
-    if (ga_remove_last(ga)) {
-        printf(">>> [REMOVE_LAST] Removed the last value in the array.\n");
-    } else {
-        printf(">>> [REMOVE_LAST] Failed to remove the last value in the array.\n");
-    }
-    print_info(ga);
-
-    if (ga_remove_at(ga, 1)) {
-        printf(">>> [REMOVE_AT] Removed the value at index '1' in the array.\n");
-    } else {
-        printf(">>> [REMOVE_AT] Failed to remove the value at index '1' in the array.\n");
-    }
-    print_info(ga);
-
-    // Should fail
-    if (ga_remove_at(ga, 999)) {
-        printf(">>> [REMOVE_AT] Removed the value at index '999' in the array.\n");
-    } else {
-        printf(">>> [REMOVE_AT] Failed to remove the value at index '999' in the array.\n");
-    }
-    print_info(ga);
-
-    num = 5;
-    if (ga_contains(ga, compare_int, &num)) {
-        printf(">>> [CONTAINS] Found value=%d\n", num);
-    } else {
-        printf(">>> [CONTAINS] Could not access the '%d' value in the array.\n", num);
-    }
-
-    // Should fail
-    num = 999;
-    if (ga_contains(ga, compare_int, &num)) {
-        printf(">>> [CONTAINS] Found value=%d\n", num);
-    } else {
-        printf(">>> [CONTAINS] Could not access the '%d' value in the array.\n", num);
-    }
-
-    ga_clear(ga);
-    print_info(ga);
+    assert(ga != NULL);
+    assert(ga_size(ga) == 0);
+    assert(ga_capacity(ga) > 0);
 
     ga_discard(ga);
-    ga = NULL;
-    return 0;
+}
+
+void test_ga_add(void) {
+    GenericArray *ga = ga_init(sizeof(int));
+
+    int a = 10, b = 20;
+
+    ga_add(ga, 0, &a);
+    assert(ga_size(ga) == 1);
+
+    ga_add(ga, 1, &b);
+    assert(ga_size(ga) == 2);
+
+    ga_discard(ga);
+}
+
+void test_ga_get(void) {
+    GenericArray *ga = ga_init(sizeof(int));
+
+    int a = 42;
+    ga_add(ga, 0, &a);
+
+    int *out = malloc(sizeof(int));
+
+    assert(ga_get(ga, 0, out) == true);
+    assert(*out == 42);
+
+    free(out);
+    ga_discard(ga);
+}
+
+void test_ga_get_invalid_index(void) {
+    GenericArray *ga = ga_init(sizeof(int));
+
+    int a = 10;
+    ga_add(ga, 0, &a);
+
+    int *out = malloc(sizeof(int));
+
+    assert(ga_get(ga, 999, out) == false);
+
+    free(out);
+    ga_discard(ga);
+}
+
+void test_ga_set(void) {
+    GenericArray *ga = ga_init(sizeof(int));
+
+    int a = 10;
+    int replacement = 99;
+
+    ga_add(ga, 0, &a);
+
+    assert(ga_set(ga, 0, &replacement) == true);
+
+    int *out = malloc(sizeof(int));
+    ga_get(ga, 0, out);
+
+    assert(*out == 99);
+
+    free(out);
+    ga_discard(ga);
+}
+
+void test_ga_set_invalid_index(void) {
+    GenericArray *ga = ga_init(sizeof(int));
+
+    int a = 5;
+
+    assert(ga_set(ga, 0, &a) == false);
+    assert(ga_set(ga, 999, &a) == false);
+
+    ga_discard(ga);
+}
+
+void test_ga_find(void) {
+    GenericArray *ga = ga_init(sizeof(int));
+
+    int a = 10, b = 20, c = 30;
+
+    ga_add(ga, 0, &a);
+    ga_add(ga, 1, &b);
+    ga_add(ga, 2, &c);
+
+    assert(ga_find(ga, &a, compare_int) == 0);
+    assert(ga_find(ga, &b, compare_int) == 1);
+    assert(ga_find(ga, &c, compare_int) == 2);
+
+    ga_discard(ga);
+}
+
+void test_ga_find_missing(void) {
+    GenericArray *ga = ga_init(sizeof(int));
+
+    int a = 10;
+    ga_add(ga, 0, &a);
+
+    int missing = 999;
+
+    assert(ga_find(ga, &missing, compare_int) == -1);
+
+    ga_discard(ga);
+}
+
+void test_ga_remove_last(void) {
+    GenericArray *ga = ga_init(sizeof(int));
+
+    int a = 1, b = 2;
+
+    ga_add(ga, 0, &a);
+    ga_add(ga, 1, &b);
+
+    assert(ga_remove_last(ga) == true);
+    assert(ga_size(ga) == 1);
+
+    ga_discard(ga);
+}
+
+void test_ga_remove_at(void) {
+    GenericArray *ga = ga_init(sizeof(int));
+
+    int a = 1, b = 2, c = 3;
+
+    ga_add(ga, 0, &a);
+    ga_add(ga, 1, &b);
+    ga_add(ga, 2, &c);
+
+    assert(ga_remove_at(ga, 1) == true);
+    assert(ga_size(ga) == 2);
+
+    ga_discard(ga);
+}
+
+void test_ga_remove_at_invalid(void) {
+    GenericArray *ga = ga_init(sizeof(int));
+
+    int a = 1;
+    ga_add(ga, 0, &a);
+
+    assert(ga_remove_at(ga, 999) == false);
+
+    ga_discard(ga);
+}
+
+void test_ga_contains(void) {
+    GenericArray *ga = ga_init(sizeof(int));
+
+    int a = 5;
+
+    ga_add(ga, 0, &a);
+
+    assert(ga_contains(ga, compare_int, &a) == true);
+
+    ga_discard(ga);
+}
+
+void test_ga_contains_missing(void) {
+    GenericArray *ga = ga_init(sizeof(int));
+
+    int a = 5;
+    int missing = 999;
+
+    ga_add(ga, 0, &a);
+
+    assert(ga_contains(ga, compare_int, &missing) == false);
+
+    ga_discard(ga);
+}
+
+void test_ga_clear(void) {
+    GenericArray *ga = ga_init(sizeof(int));
+
+    int a = 1, b = 2;
+
+    ga_add(ga, 0, &a);
+    ga_add(ga, 1, &b);
+
+    ga_clear(ga);
+
+    assert(ga_size(ga) == 0);
+
+    ga_discard(ga);
+}
+
+void test_ga_large_operations(void) {
+    GenericArray *ga = ga_init(sizeof(int));
+
+    for (int i = 0; i < 1000; i++) {
+        ga_add(ga, i, &i);
+    }
+
+    assert(ga_size(ga) == 1000);
+
+    for (int i = 0; i < 1000; i++) {
+        int *out = malloc(sizeof(int));
+        ga_get(ga, i, out);
+        assert(*out == i);
+        free(out);
+    }
+
+    ga_discard(ga);
 }
