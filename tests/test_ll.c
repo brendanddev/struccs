@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 #include <assert.h>
 #include "linked_list.h"
 
@@ -51,10 +52,18 @@ int main(void) {
     test_linkedlist_set_invalid_index();
     test_linkedlist_find();
     test_linkedlist_contains();
+    test_linkedlist_reverse();
+    test_linkedlist_size_consistency();
+    test_linkedlist_reuse_after_empty();
+    test_linkedlist_copy();
+    test_linkedlist_struct_type();
+    test_linkedlist_string_pointer();
+    test_linkedlist_large_operations();
 
     printf("All LinkedList tests passed.\n");
     return 0;
 }
+
 void test_linkedlist_create(void) {
     struct LinkedList *list = ll_create();
 
@@ -371,93 +380,174 @@ void test_linkedlist_contains(void) {
     ll_discard(list);
 }
 
-// void print_int(void *value) {
-//     printf("[%d] ", * (int *) value);
-// }
+void test_linkedlist_reverse(void) {
+    struct LinkedList *list = ll_create();
 
-// void print_chr(void *value) {
-//     printf("[%c] ", * (char *) value);
-// }
+    int a = 1, b = 2, c = 3;
 
-// bool compare_int(void *a, void *b) {
-//     return * (int *) a == * (int *) b;
-// }
+    ll_insert_tail(list, &a, sizeof(int));
+    ll_insert_tail(list, &b, sizeof(int));
+    ll_insert_tail(list, &c, sizeof(int));
 
-// void test_get_set(struct LinkedList *list);
-// void test_find_contains(struct LinkedList *list);
-// void test_copy(struct LinkedList *list);
+    ll_reverse(list);
 
-// int main() {
-//     struct LinkedList *linked_list = create_int_list();
-//     ll_print(linked_list, print_int);
+    int out;
 
-//     struct LinkedList *linked_list_chr = create_chr_list();
-//     ll_print(linked_list_chr, print_chr);
+    ll_get(list, 0, &out);
+    assert(out == 3);
 
-//     ll_reverse(linked_list);
-//     ll_print(linked_list, print_int);
+    ll_get(list, 1, &out);
+    assert(out == 2);
 
-//     test_get_set(linked_list);
-//     test_find_contains(linked_list);
-//     test_sorting(linked_list);
-//     test_copy(linked_list);
-   
-//     ll_discard(linked_list);
-//     linked_list = NULL;
-//     ll_discard(linked_list_chr);
-//     linked_list_chr = NULL;
-//     return 0;
-// }
+    ll_get(list, 2, &out);
+    assert(out == 1);
 
-// void test_get_set(struct LinkedList *list) {
-//     int num;
-//     if (ll_get(list, 1, &num)) {
-//         printf("Value at index 1: %d\n", num);
-//     } else {
-//         printf("Could not get the item\n");
-//     }
+    ll_discard(list);
+}
 
-//     // should fail
-//     if (ll_get(list, list->length + 1, &num)) {
-//         printf("Value at index %d: %d\n", list->length + 1, num);
-//     } else {
-//         printf("Could not get the item\n");
-//     }
+void test_linkedlist_size_consistency(void) {
+    struct LinkedList *list = ll_create();
 
-//     int value = 3454;
-//     if (ll_set(list, 1, &value)) {
-//         printf("Set the item at index 1 to: %d\n", value);
-//     } else {
-//         printf("Failed to set the item\n");
-//     }
+    int a = 1, b = 2, c = 3;
+    int out;
 
-//     // should fail
-//     if (ll_set(list, -1, &value)) { 
-//         printf("Set the item at index 1 to: %d\n", value);
-//     } else {
-//         printf("Failed to set the item\n");
-//     }
-// }
+    ll_insert(list, &a, sizeof(int));
+    assert(ll_size(list) == 1);
 
-// void test_find_contains(struct LinkedList *list) {
-//     int num = 100;
-//     int found = ll_find(list, &num, compare_int);
-//     if (found != -1) {
-//         printf("Found %d at index: %d\n", num, found);
-//     } else {
-//         printf("Could not find the item\n");
-//     }
+    ll_insert_tail(list, &b, sizeof(int));
+    assert(ll_size(list) == 2);
 
-//     int value = 709;
-//     if (ll_contains(list, &value, compare_int)) {
-//         printf("Found the item %d\n", value);
-//     } else {
-//         printf("The list does not contain %d\n", value);
-//     }
-// }
+    ll_insert_tail(list, &c, sizeof(int));
+    assert(ll_size(list) == 3);
 
-// void test_copy(struct LinkedList *list) {
-//     struct LinkedList *copy = ll_copy(list);
-//     printf("Copied List: \n");
-//     ll_print(copy, print_int);
-// }
+    ll_remove_at(list, 1);
+    assert(ll_size(list) == 2);
+
+    ll_remove(list);
+    assert(ll_size(list) == 1);
+
+    ll_remove_tail(list);
+    assert(ll_size(list) == 0);
+
+    assert(ll_is_empty(list));
+
+    ll_discard(list);
+}
+
+void test_linkedlist_reuse_after_empty(void) {
+    struct LinkedList *list = ll_create();
+
+    int a = 10, b = 20;
+    int out;
+
+    ll_insert(list, &a, sizeof(int));
+    ll_clear(list);
+
+    assert(ll_is_empty(list));
+    assert(ll_size(list) == 0);
+
+    ll_insert_tail(list, &b, sizeof(int));
+
+    assert(ll_get(list, 0, &out) == true);
+    assert(out == 20);
+
+    ll_discard(list);
+}
+
+void test_linkedlist_copy(void) {
+    struct LinkedList *list = ll_create();
+
+    int a = 1, b = 2, c = 3;
+
+    ll_insert_tail(list, &a, sizeof(int));
+    ll_insert_tail(list, &b, sizeof(int));
+    ll_insert_tail(list, &c, sizeof(int));
+
+    struct LinkedList *copy = ll_copy(list);
+
+    assert(ll_size(copy) == ll_size(list));
+
+    int out1, out2;
+
+    ll_get(list, 0, &out1);
+    ll_get(copy, 0, &out2);
+    assert(out1 == out2);
+
+    ll_get(list, 2, &out1);
+    ll_get(copy, 2, &out2);
+    assert(out1 == out2);
+
+    ll_discard(list);
+    ll_discard(copy);
+}
+
+typedef struct {
+    int x;
+    int y;
+} Point;
+
+void test_linkedlist_struct_type(void) {
+    struct LinkedList *list = ll_create();
+
+    Point a = {1, 2};
+    Point b = {3, 4};
+
+    ll_insert_tail(list, &a, sizeof(Point));
+    ll_insert_tail(list, &b, sizeof(Point));
+
+    Point out;
+
+    ll_get(list, 0, &out);
+    assert(out.x == 1 && out.y == 2);
+
+    ll_get(list, 1, &out);
+    assert(out.x == 3 && out.y == 4);
+
+    ll_discard(list);
+}
+
+void test_linkedlist_string_pointer(void) {
+    struct LinkedList *list = ll_create();
+
+    char *a = "hello";
+    char *b = "world";
+
+    ll_insert_tail(list, &a, sizeof(char*));
+    ll_insert_tail(list, &b, sizeof(char*));
+
+    char *out;
+
+    ll_get(list, 0, &out);
+    assert(strcmp(out, "hello") == 0);
+
+    ll_get(list, 1, &out);
+    assert(strcmp(out, "world") == 0);
+
+    ll_discard(list);
+}
+
+void test_linkedlist_large_operations(void) {
+    struct LinkedList *list = ll_create();
+
+    for (int i = 0; i < 1000; i++) {
+        ll_insert_tail(list, &i, sizeof(int));
+    }
+
+    assert(ll_size(list) == 1000);
+
+    int out;
+
+    for (int i = 0; i < 1000; i++) {
+        ll_get(list, i, &out);
+        assert(out == i);
+    }
+
+    ll_reverse(list);
+
+    for (int i = 0; i < 1000; i++) {
+        ll_get(list, i, &out);
+        assert(out == 999 - i);
+    }
+
+    ll_discard(list);
+}
