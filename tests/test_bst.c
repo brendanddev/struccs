@@ -6,7 +6,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <assert.h>
 #include "binarysearch_tree.h"
+
+// Prototypes
+void test_bst_init(void);
+void test_bst_insert(void);
+void test_bst_remove(void);
+void test_bst_contains(void);
+void test_bst_search(void);
+void test_bst_clear(void);
+void test_bst_size(void);
+void test_bst_is_empty(void);
+void test_bst_min(void);
+void test_bst_max(void);
+void test_bst_height(void);
 
 void print_int(void *value) {
     printf("%d\n", * (int *) value);
@@ -26,100 +40,182 @@ int compare_int(void *a, void *b) {
 }
 
 int main() {
-    struct BinarySearchTree *binarytree = bst_create();
-    printf("Root Node: %p, Length: %d\n", binarytree->root, binarytree->length);
-    printf("Length: %d\n", bst_size(binarytree));
-    printf("Is empty? %d\n", bst_isempty(binarytree));
+    test_bst_init();
+    test_bst_insert();
+    test_bst_remove();
+    test_bst_contains();
+    test_bst_search();
+    test_bst_clear();
+    test_bst_size();
+    test_bst_is_empty();
+    test_bst_min();
+    test_bst_max();
+    test_bst_height();
 
+    return 0;
+}
+
+void test_bst_init(void) {
+    struct BinarySearchTree *bst = bst_create();
+
+    assert(bst != NULL);
+    assert(bst_size(bst) == 0);
+    assert(bst_height(bst) == 0);
+
+    bst_discard(bst);
+    bst = NULL;
+}
+
+void test_bst_insert(void) {
+    struct BinarySearchTree *bst = bst_create();
+    
     int nums[4] = { 100, 20, 300, 40 };
     for (int i = 0; i < 4; i++) {
-        bst_insert(binarytree, &nums[i], sizeof(int), compare_int);
-    }
-    printf("Length: %d, Is empty? %d\n", bst_size(binarytree), bst_isempty(binarytree));
-
-    bst_print(binarytree, print_int);
-    bst_inorder(binarytree, print_int);
-    printf("\n");
-    bst_postorder(binarytree, print_int);
-    printf("\n");
-    bst_preorder(binarytree, print_int);
-
-    int val = 100;
-    if (bst_contains(binarytree, &val, compare_int)) {
-        printf("[CONTAINS] Found the value %d in the tree\n", val);
-    } else {
-        printf("[CONTAINS] Did not find the value %d in the tree\n", val);
+        bst_insert(bst, &nums[i], sizeof(int), compare_int);
     }
 
-    if (bst_search(binarytree, &val, compare_int) != NULL) {
-        printf("[SEARCH] Found the value %d in the tree\n", val);
-    } else {
-        printf("[SEARCH] Did not find the value %d in the tree\n", val);
-    }
+    assert(bst_size(bst) == 4);
+    assert(!bst_isempty(bst));
+    assert(*(int *) bst_min(bst) == 20);
+    assert(*(int *) bst_max(bst) == 300);
 
-    val = 20;
-    if (bst_contains(binarytree, &val, compare_int)) {
-        printf("Found the value %d in the tree\n", val);
-    } else {
-        printf("Did not find the value %d in the tree\n", val);
-    }
+    bst_discard(bst);
+    bst = NULL;
+}
 
-    if (bst_search(binarytree, &val, compare_int) != NULL) {
-        printf("[SEARCH] Found the value %d in the tree\n", val);
-    } else {
-        printf("[SEARCH] Did not find the value %d in the tree\n", val);
-    }
-
-    // Should not find this value
-    val = 1000;
-    if (bst_contains(binarytree, &val, compare_int)) {
-        printf("Found the value %d in the tree\n", val);
-    } else {
-        printf("Did not find the value %d in the tree\n", val);
-    }
-
-    if (bst_search(binarytree, &val, compare_int) != NULL) {
-        printf("[SEARCH] Found the value %d in the tree\n", val);
-    } else {
-        printf("[SEARCH] Did not find the value %d in the tree\n", val);
-    }
+void test_bst_remove(void) {
+    struct BinarySearchTree *bst = bst_create();
     
-    printf("The minumum value in the tree: %d\n", * (int *) bst_min(binarytree));
-    printf("The maximum value in the tree: %d\n", * (int *) bst_max(binarytree));
-    printf("The height of the tree: %d\n", bst_height(binarytree));
+    int nums[4] = { 100, 20, 300, 40 };
+    for (int i = 0; i < 4; i++) {
+        bst_insert(bst, &nums[i], sizeof(int), compare_int);
+    }
 
-    int num = 100;
-    bst_remove(binarytree, &num, compare_int);
-    bst_print(binarytree, print_int);
-    printf("\n");
+    assert(*(int *) bst_min(bst) == 20);
+    assert(*(int *) bst_max(bst) == 300);
 
-    num = 20;
-    bst_remove(binarytree, &num, compare_int);
-    bst_print(binarytree, print_int);
-    printf("\n");
+    int num = 300;
+    bst_remove(bst, &num, compare_int);
 
-    // Not in the tree
-    num = 1220;
-    bst_remove(binarytree, &num, compare_int);
-    bst_print(binarytree, print_int);
-    printf("\n");
+    assert(bst_size(bst) == 3);
+    assert(*(int *) bst_min(bst) == 20);
+    assert(*(int *) bst_max(bst) == 100);
 
-    num = 300;
-    bst_remove(binarytree, &num, compare_int);
-    bst_print(binarytree, print_int);
-    printf("\n");
+    bst_discard(bst);
+    bst = NULL;
+}
 
-    num = 40;
-    bst_remove(binarytree, &num, compare_int);
-    bst_print(binarytree, print_int);
-    printf("\n");
+void test_bst_contains(void) {
+    struct BinarySearchTree *bst = bst_create();
+    
+    int nums[4] = { 50, 520, 30, 602 };
+    for (int i = 0; i < 4; i++) {
+        bst_insert(bst, &nums[i], sizeof(int), compare_int);
+    }
 
-    printf("The height of the tree: %d\n", bst_height(binarytree));
+    int num = 602;
+    assert(bst_contains(bst, &num, compare_int) == true);
 
-    bst_clear(binarytree);
-    printf("Length: %d, Is empty? %d\n", bst_size(binarytree), bst_isempty(binarytree));
+    bst_discard(bst);
+    bst = NULL;
+}
 
-    bst_discard(binarytree);
-    binarytree = NULL;
-    return 0;
+void test_bst_search(void) {
+    struct BinarySearchTree *bst = bst_create();
+    
+    int nums[4] = { 50, 520, 30, 602 };
+    for (int i = 0; i < 4; i++) {
+        bst_insert(bst, &nums[i], sizeof(int), compare_int);
+    }
+
+    int num = 520;
+    assert(bst_search(bst, &num, compare_int) != NULL);
+
+    bst_discard(bst);
+    bst = NULL;
+}
+
+void test_bst_clear(void) {
+    struct BinarySearchTree *bst = bst_create();
+
+    int a = 1, b = 2;
+    bst_insert(bst, &a, sizeof(int), compare_int);
+    bst_insert(bst, &b, sizeof(int), compare_int);
+
+    bst_clear(bst);
+    assert(bst_size(bst) == 0);
+
+    bst_discard(bst);
+    bst = NULL;
+}
+
+void test_bst_size(void) {
+    struct BinarySearchTree *bst = bst_create();
+
+    int a = 1;
+    bst_insert(bst, &a, sizeof(int), compare_int);
+    assert(bst_size(bst) == 1);
+
+    int b = 1000;
+    bst_insert(bst, &b, sizeof(int), compare_int);
+    assert(bst_size(bst) == 2);
+
+    bst_discard(bst);
+    bst = NULL;
+}
+
+void test_bst_is_empty(void) {
+    struct BinarySearchTree *bst = bst_create();
+    assert(bst_isempty(bst) == true);
+
+    int a = 1;
+    bst_insert(bst, &a, sizeof(int), compare_int);
+    assert(bst_isempty(bst) == false);
+
+    bst_discard(bst);
+    bst = NULL;
+}
+
+void test_bst_min(void) {
+    struct BinarySearchTree *bst = bst_create();
+    
+    int nums[4] = { 100, 20, 300, 40 };
+    for (int i = 0; i < 4; i++) {
+        bst_insert(bst, &nums[i], sizeof(int), compare_int);
+    }
+
+    assert(*(int *) bst_min(bst) == 20);
+
+    bst_discard(bst);
+    bst = NULL;
+}
+
+void test_bst_max(void) {
+    struct BinarySearchTree *bst = bst_create();
+    
+    int nums[4] = { 100, 20, 300, 40 };
+    for (int i = 0; i < 4; i++) {
+        bst_insert(bst, &nums[i], sizeof(int), compare_int);
+    }
+
+    assert(*(int *) bst_max(bst) == 300);
+
+    bst_discard(bst);
+    bst = NULL;
+}
+
+void test_bst_height(void) {
+    struct BinarySearchTree *bst = bst_create();
+
+    assert(bst_height(bst) == 0);
+    
+    int nums[4] = { 100, 20, 300, 40 };
+    for (int i = 0; i < 4; i++) {
+        bst_insert(bst, &nums[i], sizeof(int), compare_int);
+    }
+
+    assert(bst_height(bst) == 3);
+
+    bst_discard(bst);
+    bst = NULL;
 }

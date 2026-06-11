@@ -29,6 +29,8 @@ int main() {
     test_hashtable_remove();
     test_hashtable_get();
     test_hashtable_contains();
+    test_hashtable_capacity();
+    test_hashtable_load_factor();
 
     printf("All HashTable tests passed.\n");
     return 0;
@@ -62,7 +64,8 @@ void test_hashtable_clear(void) {
     assert(ht_size(hashtable) == 0);
     assert(ht_is_empty(hashtable) == true);
 
-    ht_clear(hashtable);    // clear again should be safe
+    // clear again should be safe
+    ht_clear(hashtable);
 
     assert(ht_size(hashtable) == 0);
 
@@ -167,86 +170,63 @@ void test_hashtable_contains(void) {
     hashtable = NULL;
 }
 
-// int main() {
-//     struct HashTable *hashtable = ht_create();
-//     printf("Capacity: %d, Length: %d, Load Factor: %.2f\n", hashtable->capacity, hashtable->length, ht_load_factor(hashtable));
-//     printf("HashTable is empty: %d\n", ht_is_empty(hashtable));
+void test_hashtable_size(void) {
+    struct HashTable *hashtable = ht_create();
+    assert(ht_size(hashtable) == 0);
 
-//     for (int i = 0; i < 8; i++) {
-//         int k = i;
-//         int v = i * 15;
-//         ht_insert(hashtable, &k, sizeof(int), &v, sizeof(int));
-//         printf("Current Capacity: %d\n", ht_capacity(hashtable));
-//     }
-//     ht_print(hashtable, print_int_key_value);
+    int a = 100, b = 1;
+    ht_insert(hashtable, &a, sizeof(int), &b, sizeof(int));
+    
+    assert(ht_size(hashtable) == 1);
 
-//     // Should trigger resize
-//     for (int i = 0; i < 16; i++) {
-//         int rd_num = rand() % 100;
-//         int k = rd_num;
-//         int v = i * 3;
-//         ht_insert(hashtable, &k, sizeof(int), &v, sizeof(int));
-//         printf("Current Capacity: %d\n", ht_capacity(hashtable));
-//     }
-//     ht_print(hashtable, print_int_key_value);
+    int foo = 250, bar = 50;
+    ht_insert(hashtable, &foo, sizeof(int), &bar, sizeof(int));
 
-//     // printf("Removing key/value pairs: \n");
+    assert(ht_size(hashtable) == 2);
 
-//     // printf("Removing key=1: \n");
-//     // int rk1 = 1;
-//     // ht_remove(hashtable, &rk1, sizeof(int));
-//     // ht_print(hashtable, print_int_key_value);
+    ht_discard(hashtable);
+    hashtable = NULL;
+}
 
-//     // printf("Removing key=2: \n");
-//     // int rk2 = 2;
-//     // ht_remove(hashtable, &rk2, sizeof(int));
-//     // ht_print(hashtable, print_int_key_value);
+void test_hashtable_capacity(void) {
+    struct HashTable *hashtable = ht_create();
+    assert(ht_capacity(hashtable) == 8);
 
-//     // printf("Removing key=3: \n");
-//     // int rk3 = 3;
-//     // ht_remove(hashtable, &rk3, sizeof(int));
-//     // ht_print(hashtable, print_int_key_value);
+    for (int i = 0; i < 8; i++) {
+        int k = i, v = i * 2;
+        ht_insert(hashtable, &k, sizeof(int), &v, sizeof(int));
+    }
 
-//     // printf("Removing key=4: \n");
-//     // int rk4 = 4;
-//     // ht_remove(hashtable, &rk4, sizeof(int));
-//     // ht_print(hashtable, print_int_key_value);
+    assert(ht_capacity(hashtable) == 16);
 
-//     // int key = 6;
-//     // int get_value;
-//     // if (ht_get(hashtable, &key, sizeof(int), &get_value)) {
-//     //     printf("Value associated with key=%d: %d\n", key, get_value);
-//     // } else {
-//     //     printf("Failed to retrieve the value!\n");
-//     // }
+    for (int i = 0; i < 12; i++) {
+        int k = i * 3, v = i * 4;
+        ht_insert(hashtable, &k, sizeof(int), &v, sizeof(int));
+    }
 
-//     // int keycontains = 10;
-//     // if (ht_contains(hashtable, &keycontains, sizeof(int))) {
-//     //     printf("The hash table has key=%d\n", keycontains);
-//     // } else {
-//     //     printf("Could not find key=%d in the table\n", keycontains);
-//     // }
+    assert(ht_capacity(hashtable) == 32);
 
-//     // keycontains = 11;
-//     // if (ht_contains(hashtable, &keycontains, sizeof(int))) {
-//     //     printf("The hash table has key=%d\n", keycontains);
-//     // } else {
-//     //     printf("Could not find key=%d in the table\n", keycontains);
-//     // }
+    ht_discard(hashtable);
+    hashtable = NULL;
+}
 
-//     // keycontains = 900;
-//     // if (ht_contains(hashtable, &keycontains, sizeof(int))) {
-//     //     printf("The hash table has key=%d\n", keycontains);
-//     // } else {
-//     //     printf("Could not find key=%d in the table\n", keycontains);
-//     // }
+void test_hashtable_load_factor(void) {
+    struct HashTable *hashtable = ht_create();
+    assert(ht_load_factor(hashtable) == 0);
 
-//     // ht_clear(hashtable);
-//     // printf("Capacity: %d, Length: %d, Load Factor: %.2f\n", hashtable->capacity, hashtable->length, ht_load_factor(hashtable));
-//     // printf("HashTable is empty: %d\n", ht_is_empty(hashtable));
+    for (int i = 0; i < 7; i++) {
+        int k = i, v = i * 2;
+        ht_insert(hashtable, &k, sizeof(int), &v, sizeof(int));
+    }
 
-//     ht_discard(hashtable);
-//     hashtable = NULL;
+    // Resize happens after the threshold is exceeded by an insertion, not before
+    assert(ht_load_factor(hashtable) > 0.75);
 
-//     return 0;
-// }
+    int a = 100, b = 1;
+    ht_insert(hashtable, &a, sizeof(int), &b, sizeof(int));
+
+    assert(ht_load_factor(hashtable) == 0.5);
+
+    ht_discard(hashtable);
+    hashtable = NULL;
+}
