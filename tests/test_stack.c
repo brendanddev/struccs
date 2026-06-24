@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
-#include <assert.h>
+#include "test_utils.h"
 #include "stack.h"
 
 // Prototypes
@@ -27,31 +27,30 @@ void test_stack_struct_type(void);
 void test_stack_string_pointer(void);
 
 int main(void) {
-    test_stack_create();
-    test_stack_push();
-    test_stack_peek();
-    test_stack_pop();
-    test_stack_lifo_order();
-    test_stack_empty_behavior();
-    test_stack_pop_until_empty();
-    test_stack_peek_after_pop();
-    test_stack_mixed_operations();
-    test_stack_large_push();
-    test_stack_reuse_after_empty();
-    test_stack_multiple_underflow();
-    test_stack_struct_type();
-    test_stack_string_pointer();
+    TEST(test_stack_create);
+    TEST(test_stack_push);
+    TEST(test_stack_peek);
+    TEST(test_stack_pop);
+    TEST(test_stack_lifo_order);
+    TEST(test_stack_empty_behavior);
+    TEST(test_stack_pop_until_empty);
+    TEST(test_stack_peek_after_pop);
+    TEST(test_stack_mixed_operations);
+    TEST(test_stack_large_push);
+    TEST(test_stack_reuse_after_empty);
+    TEST(test_stack_multiple_underflow);
+    TEST(test_stack_struct_type);
+    TEST(test_stack_string_pointer);
 
-    printf("All Stack tests passed.\n");
     return 0;
 }
 
 void test_stack_create(void) {
     struct Stack *stack = stack_create();
 
-    assert(stack != NULL);
-    assert(stack_is_empty(stack) == true);
-    assert(stack_size(stack) == 0);
+    ASSERT_NOT_NULL(stack);
+    ASSERT_TRUE(stack_is_empty(stack));
+    ASSERT_EQ(stack_size(stack), 0);
 
     stack_discard(stack);
 }
@@ -63,10 +62,10 @@ void test_stack_push(void) {
     int b = 20;
 
     stack_push(stack, &a, sizeof(int));
-    assert(stack_size(stack) == 1);
+    ASSERT_EQ(stack_size(stack), 1);
 
     stack_push(stack, &b, sizeof(int));
-    assert(stack_size(stack) == 2);
+    ASSERT_EQ(stack_size(stack), 2);
 
     stack_discard(stack);
 }
@@ -78,11 +77,11 @@ void test_stack_peek(void) {
     stack_push(stack, &a, sizeof(int));
 
     int out = 0;
-    assert(stack_peek(stack, &out) == true);
-    assert(out == 42);
+    ASSERT_TRUE(stack_peek(stack, &out));
+    ASSERT_EQ(out, 42);
 
     // should not remove element
-    assert(stack_size(stack) == 1);
+    ASSERT_EQ(stack_size(stack), 1);
 
     stack_discard(stack);
 }
@@ -94,13 +93,13 @@ void test_stack_pop(void) {
     stack_push(stack, &a, sizeof(int));
 
     int out = 0;
-    assert(stack_pop(stack, &out) == true);
-    assert(out == 5);
+    ASSERT_TRUE(stack_pop(stack, &out));
+    ASSERT_EQ(out, 5);
 
-    assert(stack_size(stack) == 0);
+    ASSERT_EQ(stack_size(stack), 0);
 
     // popping empty stack should fail
-    assert(stack_pop(stack, &out) == false);
+    ASSERT_FALSE(stack_pop(stack, &out));
 
     stack_discard(stack);
 }
@@ -117,13 +116,13 @@ void test_stack_lifo_order(void) {
     int out;
 
     stack_pop(stack, &out);
-    assert(out == 3);
+    ASSERT_EQ(out, 3);
 
     stack_pop(stack, &out);
-    assert(out == 2);
+    ASSERT_EQ(out, 2);
 
     stack_pop(stack, &out);
-    assert(out == 1);
+    ASSERT_EQ(out, 1);
 
     stack_discard(stack);
 }
@@ -133,9 +132,9 @@ void test_stack_empty_behavior(void) {
 
     int out;
 
-    assert(stack_peek(stack, &out) == false);
-    assert(stack_pop(stack, &out) == false);
-    assert(stack_is_empty(stack) == true);
+    ASSERT_FALSE(stack_peek(stack, &out));
+    ASSERT_FALSE(stack_pop(stack, &out));
+    ASSERT_TRUE(stack_is_empty(stack));
 
     stack_discard(stack);
 }
@@ -150,15 +149,15 @@ void test_stack_pop_until_empty(void) {
 
     int out;
 
-    assert(stack_pop(stack, &out) == true);
-    assert(stack_pop(stack, &out) == true);
+    ASSERT_TRUE(stack_pop(stack, &out));
+    ASSERT_TRUE(stack_pop(stack, &out));
 
     // now truly empty
-    assert(stack_is_empty(stack) == true);
-    assert(stack_size(stack) == 0);
+    ASSERT_TRUE(stack_is_empty(stack));
+    ASSERT_EQ(stack_size(stack), 0);
 
     // further pop should fail consistently
-    assert(stack_pop(stack, &out) == false);
+    ASSERT_FALSE(stack_pop(stack, &out));
 
     stack_discard(stack);
 }
@@ -175,8 +174,8 @@ void test_stack_peek_after_pop(void) {
 
     stack_pop(stack, &out); // removes 20
 
-    assert(stack_peek(stack, &out) == true);
-    assert(out == 10);
+    ASSERT_TRUE(stack_peek(stack, &out));
+    ASSERT_EQ(out, 10);
 
     stack_discard(stack);
 }
@@ -192,17 +191,17 @@ void test_stack_mixed_operations(void) {
     int out;
 
     stack_pop(stack, &out);
-    assert(out == 2);
+    ASSERT_EQ(out, 2);
 
     stack_push(stack, &c, sizeof(int));
 
     stack_pop(stack, &out);
-    assert(out == 3);
+    ASSERT_EQ(out, 3);
 
     stack_pop(stack, &out);
-    assert(out == 1);
+    ASSERT_EQ(out, 1);
 
-    assert(stack_is_empty(stack));
+    ASSERT_TRUE(stack_is_empty(stack));
 
     stack_discard(stack);
 }
@@ -214,15 +213,15 @@ void test_stack_large_push(void) {
         stack_push(stack, &i, sizeof(int));
     }
 
-    assert(stack_size(stack) == 1000);
+    ASSERT_EQ(stack_size(stack), 1000);
 
     for (int i = 999; i >= 0; i--) {
         int out;
         stack_pop(stack, &out);
-        assert(out == i);
+        ASSERT_EQ(out, i);
     }
 
-    assert(stack_is_empty(stack));
+    ASSERT_TRUE(stack_is_empty(stack));
 
     stack_discard(stack);
 }
@@ -235,13 +234,13 @@ void test_stack_reuse_after_empty(void) {
     stack_push(stack, &a, sizeof(int));
     stack_pop(stack, &a);
 
-    assert(stack_is_empty(stack));
+    ASSERT_TRUE(stack_is_empty(stack));
 
     stack_push(stack, &b, sizeof(int));
 
     int out;
-    assert(stack_peek(stack, &out) == true);
-    assert(out == 2);
+    ASSERT_TRUE(stack_peek(stack, &out));
+    ASSERT_EQ(out, 2);
 
     stack_discard(stack);
 }
@@ -251,12 +250,12 @@ void test_stack_multiple_underflow(void) {
 
     int out;
 
-    assert(stack_pop(stack, &out) == false);
-    assert(stack_pop(stack, &out) == false);
-    assert(stack_pop(stack, &out) == false);
+    ASSERT_FALSE(stack_pop(stack, &out));
+    ASSERT_FALSE(stack_pop(stack, &out));
+    ASSERT_FALSE(stack_pop(stack, &out));
 
-    assert(stack_peek(stack, &out) == false);
-    assert(stack_peek(stack, &out) == false);
+    ASSERT_FALSE(stack_peek(stack, &out));
+    ASSERT_FALSE(stack_peek(stack, &out));
 
     stack_discard(stack);
 }
@@ -278,10 +277,10 @@ void test_stack_struct_type(void) {
     Point out;
 
     stack_pop(stack, &out);
-    assert(out.x == 3 && out.y == 4);
+    ASSERT_TRUE(out.x == 3 && out.y == 4);
 
     stack_pop(stack, &out);
-    assert(out.x == 1 && out.y == 2);
+    ASSERT_TRUE(out.x == 1 && out.y == 2);
 
     stack_discard(stack);
 }
@@ -298,10 +297,10 @@ void test_stack_string_pointer(void) {
     char *out;
 
     stack_pop(stack, &out);
-    assert(strcmp(out, "world") == 0);
+    ASSERT_EQ(strcmp(out, "world"), 0);
 
     stack_pop(stack, &out);
-    assert(strcmp(out, "hello") == 0);
+    ASSERT_EQ(strcmp(out, "hello"), 0);
 
     stack_discard(stack);
 }

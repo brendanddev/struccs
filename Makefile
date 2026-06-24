@@ -4,6 +4,7 @@ PROJECT = struccs
 # Compiler and flags
 CC = clang
 CFLAGS = -Wall -Wextra -I include
+TESTFLAGS = $(CFLAGS) -I tests
 
 # Directories
 SRC_DIR = src
@@ -31,43 +32,43 @@ $(LIB): $(SRCS) | $(BUILD_DIR)
 
 # Test targets
 test_bt: $(BUILD_DIR)
-	$(CC) $(CFLAGS) $(SRC_DIR)/binary_tree.c $(TEST_DIR)/test_bt.c -o $(BUILD_DIR)/test_bt
+	$(CC) $(TESTFLAGS) $(SRC_DIR)/binary_tree.c $(TEST_DIR)/test_bt.c -o $(BUILD_DIR)/test_bt
 	./$(BUILD_DIR)/test_bt
 
 test_bst: $(BUILD_DIR)
-	$(CC) $(CFLAGS) $(SRC_DIR)/binarysearch_tree.c $(TEST_DIR)/test_bst.c -o $(BUILD_DIR)/test_bst
+	$(CC) $(TESTFLAGS) $(SRC_DIR)/binarysearch_tree.c $(TEST_DIR)/test_bst.c -o $(BUILD_DIR)/test_bst
 	./$(BUILD_DIR)/test_bst
 
 test_ga: $(BUILD_DIR)
-	$(CC) $(CFLAGS) $(SRC_DIR)/generic_array.c $(TEST_DIR)/test_ga.c -o $(BUILD_DIR)/test_ga
+	$(CC) $(TESTFLAGS) $(SRC_DIR)/generic_array.c $(TEST_DIR)/test_ga.c -o $(BUILD_DIR)/test_ga
 	./$(BUILD_DIR)/test_ga
 
 test_ll: $(BUILD_DIR)
-	$(CC) $(CFLAGS) $(SRC_DIR)/linked_list.c $(TEST_DIR)/test_ll.c -o $(BUILD_DIR)/test_ll
+	$(CC) $(TESTFLAGS) $(SRC_DIR)/linked_list.c $(TEST_DIR)/test_ll.c -o $(BUILD_DIR)/test_ll
 	./$(BUILD_DIR)/test_ll
 
 test_ht: $(BUILD_DIR)
-	$(CC) $(CFLAGS) $(SRC_DIR)/hash_table.c $(TEST_DIR)/test_ht.c -o $(BUILD_DIR)/test_ht
+	$(CC) $(TESTFLAGS) $(SRC_DIR)/hash_table.c $(TEST_DIR)/test_ht.c -o $(BUILD_DIR)/test_ht
 	./$(BUILD_DIR)/test_ht
 
 test_stack: $(BUILD_DIR)
-	$(CC) $(CFLAGS) $(SRC_DIR)/stack.c $(TEST_DIR)/test_stack.c -o $(BUILD_DIR)/test_stack
+	$(CC) $(TESTFLAGS) $(SRC_DIR)/stack.c $(TEST_DIR)/test_stack.c -o $(BUILD_DIR)/test_stack
 	./$(BUILD_DIR)/test_stack
 
 test_queue: $(BUILD_DIR)
-	$(CC) $(CFLAGS) $(SRC_DIR)/queue.c $(TEST_DIR)/test_queue.c -o $(BUILD_DIR)/test_queue
+	$(CC) $(TESTFLAGS) $(SRC_DIR)/queue.c $(TEST_DIR)/test_queue.c -o $(BUILD_DIR)/test_queue
 	./$(BUILD_DIR)/test_queue
 
 test_heap: $(BUILD_DIR)
-	$(CC) $(CFLAGS) $(SRC_DIR)/heap.c $(TEST_DIR)/test_heap.c -o $(BUILD_DIR)/test_heap
+	$(CC) $(TESTFLAGS) $(SRC_DIR)/heap.c $(TEST_DIR)/test_heap.c -o $(BUILD_DIR)/test_heap
 	./$(BUILD_DIR)/test_heap
 
 test_set: $(BUILD_DIR)
-	$(CC) $(CFLAGS) $(SRC_DIR)/set.c $(SRC_DIR)/hash_table.c $(TEST_DIR)/test_set.c -o $(BUILD_DIR)/test_set
+	$(CC) $(TESTFLAGS) $(SRC_DIR)/set.c $(SRC_DIR)/hash_table.c $(TEST_DIR)/test_set.c -o $(BUILD_DIR)/test_set
 	./$(BUILD_DIR)/test_set
 
 # Run all tests
-test_all: test_bt test_bst test_ga test_ll test_ht test_stack test_queue test_heap
+test_all: test_bt test_bst test_ga test_ll test_ht test_stack test_queue test_heap test_set
 
 sandbox: $(LIB)
 	$(CC) $(CFLAGS) sandbox/scratch.c \

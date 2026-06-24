@@ -2,7 +2,7 @@
 
 A lightweight, generic C library of fundamental data structures — built from scratch with a focus on memory management, performance, and type-agnostic design.
 
-> Version 0.9.8
+> Version 0.10.8
 
 No dependencies. No standard container libraries. Just `void*`, function pointers, and manual memory management.
 
