@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <assert.h>
+#include "test_utils.h"
 #include "generic_array.h"
 
 // Prototypes
@@ -31,32 +31,31 @@ bool compare_int(void *a, void *b) {
 }
 
 int main(void) {
-    test_ga_init();
-    test_ga_add();
-    test_ga_get();
-    test_ga_get_invalid_index();
-    test_ga_set();
-    test_ga_set_invalid_index();
-    test_ga_find();
-    test_ga_find_missing();
-    test_ga_remove_last();
-    test_ga_remove_at();
-    test_ga_remove_at_invalid();
-    test_ga_contains();
-    test_ga_contains_missing();
-    test_ga_clear();
-    test_ga_large_operations();
+    TEST(test_ga_init);
+    TEST(test_ga_add);
+    TEST(test_ga_get);
+    TEST(test_ga_get_invalid_index);
+    TEST(test_ga_set);
+    TEST(test_ga_set_invalid_index);
+    TEST(test_ga_find);
+    TEST(test_ga_find_missing);
+    TEST(test_ga_remove_last);
+    TEST(test_ga_remove_at);
+    TEST(test_ga_remove_at_invalid);
+    TEST(test_ga_contains);
+    TEST(test_ga_contains_missing);
+    TEST(test_ga_clear);
+    TEST(test_ga_large_operations);
 
-    printf("All GenericArray tests passed.\n");
     return 0;
 }
 
 void test_ga_init(void) {
     GenericArray *ga = ga_init(sizeof(int));
 
-    assert(ga != NULL);
-    assert(ga_size(ga) == 0);
-    assert(ga_capacity(ga) > 0);
+    ASSERT_NOT_NULL(ga);
+    ASSERT_EQ(ga_size(ga), 0);
+    ASSERT_TRUE(ga_capacity(ga) > 0);
 
     ga_discard(ga);
 }
@@ -67,10 +66,10 @@ void test_ga_add(void) {
     int a = 10, b = 20;
 
     ga_add(ga, 0, &a);
-    assert(ga_size(ga) == 1);
+    ASSERT_EQ(ga_size(ga), 1);
 
     ga_add(ga, 1, &b);
-    assert(ga_size(ga) == 2);
+    ASSERT_EQ(ga_size(ga), 2);
 
     ga_discard(ga);
 }
@@ -83,8 +82,8 @@ void test_ga_get(void) {
 
     int *out = malloc(sizeof(int));
 
-    assert(ga_get(ga, 0, out) == true);
-    assert(*out == 42);
+    ASSERT_TRUE(ga_get(ga, 0, out));
+    ASSERT_EQ(*out, 42);
 
     free(out);
     ga_discard(ga);
@@ -98,7 +97,7 @@ void test_ga_get_invalid_index(void) {
 
     int *out = malloc(sizeof(int));
 
-    assert(ga_get(ga, 999, out) == false);
+    ASSERT_FALSE(ga_get(ga, 999, out));
 
     free(out);
     ga_discard(ga);
@@ -112,12 +111,12 @@ void test_ga_set(void) {
 
     ga_add(ga, 0, &a);
 
-    assert(ga_set(ga, 0, &replacement) == true);
+    ASSERT_TRUE(ga_set(ga, 0, &replacement));
 
     int *out = malloc(sizeof(int));
     ga_get(ga, 0, out);
 
-    assert(*out == 99);
+    ASSERT_EQ(*out, 99);
 
     free(out);
     ga_discard(ga);
@@ -128,8 +127,8 @@ void test_ga_set_invalid_index(void) {
 
     int a = 5;
 
-    assert(ga_set(ga, 0, &a) == false);
-    assert(ga_set(ga, 999, &a) == false);
+    ASSERT_FALSE(ga_set(ga, 0, &a));
+    ASSERT_FALSE(ga_set(ga, 999, &a));
 
     ga_discard(ga);
 }
@@ -143,9 +142,9 @@ void test_ga_find(void) {
     ga_add(ga, 1, &b);
     ga_add(ga, 2, &c);
 
-    assert(ga_find(ga, &a, compare_int) == 0);
-    assert(ga_find(ga, &b, compare_int) == 1);
-    assert(ga_find(ga, &c, compare_int) == 2);
+    ASSERT_EQ(ga_find(ga, &a, compare_int), 0);
+    ASSERT_EQ(ga_find(ga, &b, compare_int), 1);
+    ASSERT_EQ(ga_find(ga, &c, compare_int), 2);
 
     ga_discard(ga);
 }
@@ -158,7 +157,7 @@ void test_ga_find_missing(void) {
 
     int missing = 999;
 
-    assert(ga_find(ga, &missing, compare_int) == -1);
+    ASSERT_EQ(ga_find(ga, &missing, compare_int), -1);
 
     ga_discard(ga);
 }
@@ -171,8 +170,8 @@ void test_ga_remove_last(void) {
     ga_add(ga, 0, &a);
     ga_add(ga, 1, &b);
 
-    assert(ga_remove_last(ga) == true);
-    assert(ga_size(ga) == 1);
+    ASSERT_TRUE(ga_remove_last(ga));
+    ASSERT_EQ(ga_size(ga), 1);
 
     ga_discard(ga);
 }
@@ -186,8 +185,8 @@ void test_ga_remove_at(void) {
     ga_add(ga, 1, &b);
     ga_add(ga, 2, &c);
 
-    assert(ga_remove_at(ga, 1) == true);
-    assert(ga_size(ga) == 2);
+    ASSERT_TRUE(ga_remove_at(ga, 1));
+    ASSERT_EQ(ga_size(ga), 2);
 
     ga_discard(ga);
 }
@@ -198,7 +197,7 @@ void test_ga_remove_at_invalid(void) {
     int a = 1;
     ga_add(ga, 0, &a);
 
-    assert(ga_remove_at(ga, 999) == false);
+    ASSERT_FALSE(ga_remove_at(ga, 999));
 
     ga_discard(ga);
 }
@@ -210,7 +209,7 @@ void test_ga_contains(void) {
 
     ga_add(ga, 0, &a);
 
-    assert(ga_contains(ga, compare_int, &a) == true);
+    ASSERT_TRUE(ga_contains(ga, compare_int, &a));
 
     ga_discard(ga);
 }
@@ -223,7 +222,7 @@ void test_ga_contains_missing(void) {
 
     ga_add(ga, 0, &a);
 
-    assert(ga_contains(ga, compare_int, &missing) == false);
+    ASSERT_FALSE(ga_contains(ga, compare_int, &missing));
 
     ga_discard(ga);
 }
@@ -238,7 +237,7 @@ void test_ga_clear(void) {
 
     ga_clear(ga);
 
-    assert(ga_size(ga) == 0);
+    ASSERT_EQ(ga_size(ga), 0);
 
     ga_discard(ga);
 }
@@ -250,12 +249,12 @@ void test_ga_large_operations(void) {
         ga_add(ga, i, &i);
     }
 
-    assert(ga_size(ga) == 1000);
+    ASSERT_EQ(ga_size(ga), 1000);
 
     for (int i = 0; i < 1000; i++) {
         int *out = malloc(sizeof(int));
         ga_get(ga, i, out);
-        assert(*out == i);
+        ASSERT_EQ(*out, i);
         free(out);
     }
 

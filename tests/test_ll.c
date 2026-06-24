@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
-#include <assert.h>
+#include "test_utils.h"
 #include "linked_list.h"
 
 // Prototypes
@@ -36,40 +36,39 @@ void test_linkedlist_string_pointer(void);
 void test_linkedlist_large_operations(void);
 
 int main(void) {
-    test_linkedlist_create();
-    test_linkedlist_clear();
-    test_linkedlist_is_empty();
-    test_linkedlist_insert();
-    test_linkedlist_insert_tail();
-    test_linkedlist_insert_at();
-    test_linkedlist_remove();
-    test_linkedlist_remove_tail();
-    test_linkedlist_remove_at();
-    test_linkedlist_remove_single_element();
-    test_linkedlist_get();
-    test_linkedlist_get_invalid_index();
-    test_linkedlist_set();
-    test_linkedlist_set_invalid_index();
-    test_linkedlist_find();
-    test_linkedlist_contains();
-    test_linkedlist_reverse();
-    test_linkedlist_size_consistency();
-    test_linkedlist_reuse_after_empty();
-    test_linkedlist_copy();
-    test_linkedlist_struct_type();
-    test_linkedlist_string_pointer();
-    test_linkedlist_large_operations();
+    TEST(test_linkedlist_create);
+    TEST(test_linkedlist_clear);
+    TEST(test_linkedlist_is_empty);
+    TEST(test_linkedlist_insert);
+    TEST(test_linkedlist_insert_tail);
+    TEST(test_linkedlist_insert_at);
+    TEST(test_linkedlist_remove);
+    TEST(test_linkedlist_remove_tail);
+    TEST(test_linkedlist_remove_at);
+    TEST(test_linkedlist_remove_single_element);
+    TEST(test_linkedlist_get);
+    TEST(test_linkedlist_get_invalid_index);
+    TEST(test_linkedlist_set);
+    TEST(test_linkedlist_set_invalid_index);
+    TEST(test_linkedlist_find);
+    TEST(test_linkedlist_contains);
+    TEST(test_linkedlist_reverse);
+    TEST(test_linkedlist_size_consistency);
+    TEST(test_linkedlist_reuse_after_empty);
+    TEST(test_linkedlist_copy);
+    TEST(test_linkedlist_struct_type);
+    TEST(test_linkedlist_string_pointer);
+    TEST(test_linkedlist_large_operations);
 
-    printf("All LinkedList tests passed.\n");
     return 0;
 }
 
 void test_linkedlist_create(void) {
     struct LinkedList *list = ll_create();
 
-    assert(list != NULL);
-    assert(ll_size(list) == 0);
-    assert(ll_is_empty(list) == true);
+    ASSERT_NOT_NULL(list);
+    ASSERT_EQ(ll_size(list), 0);
+    ASSERT_TRUE(ll_is_empty(list));
 
     ll_discard(list);
 }
@@ -83,17 +82,17 @@ void test_linkedlist_clear(void) {
     ll_insert_tail(list, &b, sizeof(int));
     ll_insert_tail(list, &c, sizeof(int));
 
-    assert(ll_size(list) == 3);
+    ASSERT_EQ(ll_size(list), 3);
 
     ll_clear(list);
 
-    assert(ll_size(list) == 0);
-    assert(ll_is_empty(list) == true);
+    ASSERT_EQ(ll_size(list), 0);
+    ASSERT_TRUE(ll_is_empty(list));
 
     // clearing again should be safe
     ll_clear(list);
 
-    assert(ll_size(list) == 0);
+    ASSERT_EQ(ll_size(list), 0);
 
     ll_discard(list);
 }
@@ -101,16 +100,16 @@ void test_linkedlist_clear(void) {
 void test_linkedlist_is_empty(void) {
     struct LinkedList *list = ll_create();
 
-    assert(ll_is_empty(list) == true);
+    ASSERT_TRUE(ll_is_empty(list));
 
     int a = 10;
     ll_insert(list, &a, sizeof(int));
 
-    assert(ll_is_empty(list) == false);
+    ASSERT_FALSE(ll_is_empty(list));
 
     ll_remove(list);
 
-    assert(ll_is_empty(list) == true);
+    ASSERT_TRUE(ll_is_empty(list));
 
     ll_discard(list);
 }
@@ -122,19 +121,19 @@ void test_linkedlist_insert(void) {
     int b = 2;
 
     ll_insert(list, &a, sizeof(int));
-    assert(ll_size(list) == 1);
+    ASSERT_EQ(ll_size(list), 1);
 
     ll_insert(list, &b, sizeof(int));
-    assert(ll_size(list) == 2);
+    ASSERT_EQ(ll_size(list), 2);
 
     int out;
 
     // insert adds to head
     ll_get(list, 0, &out);
-    assert(out == 2);
+    ASSERT_EQ(out, 2);
 
     ll_get(list, 1, &out);
-    assert(out == 1);
+    ASSERT_EQ(out, 1);
 
     ll_discard(list);
 }
@@ -148,15 +147,15 @@ void test_linkedlist_insert_tail(void) {
     ll_insert_tail(list, &a, sizeof(int));
     ll_insert_tail(list, &b, sizeof(int));
 
-    assert(ll_size(list) == 2);
+    ASSERT_EQ(ll_size(list), 2);
 
     int out;
 
     ll_get(list, 0, &out);
-    assert(out == 1);
+    ASSERT_EQ(out, 1);
 
     ll_get(list, 1, &out);
-    assert(out == 2);
+    ASSERT_EQ(out, 2);
 
     ll_discard(list);
 }
@@ -174,18 +173,18 @@ void test_linkedlist_insert_at(void) {
     // insert in middle
     ll_insert_at(list, &c, sizeof(int), 1);
 
-    assert(ll_size(list) == 3);
+    ASSERT_EQ(ll_size(list), 3);
 
     int out;
 
     ll_get(list, 0, &out);
-    assert(out == 1);
+    ASSERT_EQ(out, 1);
 
     ll_get(list, 1, &out);
-    assert(out == 2);
+    ASSERT_EQ(out, 2);
 
     ll_get(list, 2, &out);
-    assert(out == 3);
+    ASSERT_EQ(out, 3);
 
     ll_discard(list);
 }
@@ -199,17 +198,17 @@ void test_linkedlist_remove(void) {
     ll_insert(list, &a, sizeof(int));
     ll_insert(list, &b, sizeof(int));
 
-    assert(ll_size(list) == 2);
+    ASSERT_EQ(ll_size(list), 2);
 
     ll_remove(list);
 
-    assert(ll_size(list) == 1);
+    ASSERT_EQ(ll_size(list), 1);
 
     int out;
     ll_get(list, 0, &out);
 
     // b was removed from head
-    assert(out == 1);
+    ASSERT_EQ(out, 1);
 
     ll_discard(list);
 }
@@ -225,12 +224,12 @@ void test_linkedlist_remove_tail(void) {
 
     ll_remove_tail(list);
 
-    assert(ll_size(list) == 1);
+    ASSERT_EQ(ll_size(list), 1);
 
     int out;
     ll_get(list, 0, &out);
 
-    assert(out == 1);
+    ASSERT_EQ(out, 1);
 
     ll_discard(list);
 }
@@ -247,15 +246,15 @@ void test_linkedlist_remove_at(void) {
     // remove middle element
     ll_remove_at(list, 1);
 
-    assert(ll_size(list) == 2);
+    ASSERT_EQ(ll_size(list), 2);
 
     int out;
 
     ll_get(list, 0, &out);
-    assert(out == 1);
+    ASSERT_EQ(out, 1);
 
     ll_get(list, 1, &out);
-    assert(out == 3);
+    ASSERT_EQ(out, 3);
 
     ll_discard(list);
 }
@@ -267,12 +266,12 @@ void test_linkedlist_remove_single_element(void) {
 
     ll_insert(list, &a, sizeof(int));
 
-    assert(ll_size(list) == 1);
+    ASSERT_EQ(ll_size(list), 1);
 
     ll_remove(list);
 
-    assert(ll_size(list) == 0);
-    assert(ll_is_empty(list) == true);
+    ASSERT_EQ(ll_size(list), 0);
+    ASSERT_TRUE(ll_is_empty(list));
 
     ll_discard(list);
 }
@@ -288,14 +287,14 @@ void test_linkedlist_get(void) {
 
     int out;
 
-    assert(ll_get(list, 0, &out) == true);
-    assert(out == 10);
+    ASSERT_TRUE(ll_get(list, 0, &out));
+    ASSERT_EQ(out, 10);
 
-    assert(ll_get(list, 1, &out) == true);
-    assert(out == 20);
+    ASSERT_TRUE(ll_get(list, 1, &out));
+    ASSERT_EQ(out, 20);
 
-    assert(ll_get(list, 2, &out) == true);
-    assert(out == 30);
+    ASSERT_TRUE(ll_get(list, 2, &out));
+    ASSERT_EQ(out, 30);
 
     ll_discard(list);
 }
@@ -308,8 +307,8 @@ void test_linkedlist_get_invalid_index(void) {
 
     int out;
 
-    assert(ll_get(list, -1, &out) == false);
-    assert(ll_get(list, 99, &out) == false);
+    ASSERT_FALSE(ll_get(list, -1, &out));
+    ASSERT_FALSE(ll_get(list, 99, &out));
 
     ll_discard(list);
 }
@@ -322,12 +321,12 @@ void test_linkedlist_set(void) {
 
     ll_insert(list, &a, sizeof(int));
 
-    assert(ll_set(list, 0, &replacement) == true);
+    ASSERT_TRUE(ll_set(list, 0, &replacement));
 
     int out;
     ll_get(list, 0, &out);
 
-    assert(out == 50);
+    ASSERT_EQ(out, 50);
 
     ll_discard(list);
 }
@@ -337,8 +336,8 @@ void test_linkedlist_set_invalid_index(void) {
 
     int value = 100;
 
-    assert(ll_set(list, 0, &value) == false);
-    assert(ll_set(list, -1, &value) == false);
+    ASSERT_FALSE(ll_set(list, 0, &value));
+    ASSERT_FALSE(ll_set(list, -1, &value));
 
     ll_discard(list);
 }
@@ -356,12 +355,12 @@ void test_linkedlist_find(void) {
     ll_insert_tail(list, &b, sizeof(int));
     ll_insert_tail(list, &c, sizeof(int));
 
-    assert(ll_find(list, &a, int_equals) == 0);
-    assert(ll_find(list, &b, int_equals) == 1);
-    assert(ll_find(list, &c, int_equals) == 2);
+    ASSERT_EQ(ll_find(list, &a, int_equals), 0);
+    ASSERT_EQ(ll_find(list, &b, int_equals), 1);
+    ASSERT_EQ(ll_find(list, &c, int_equals), 2);
 
     int missing = 99;
-    assert(ll_find(list, &missing, int_equals) == -1);
+    ASSERT_EQ(ll_find(list, &missing, int_equals), -1);
 
     ll_discard(list);
 }
@@ -374,8 +373,8 @@ void test_linkedlist_contains(void) {
 
     ll_insert(list, &a, sizeof(int));
 
-    assert(ll_contains(list, &a, int_equals) == true);
-    assert(ll_contains(list, &b, int_equals) == false);
+    ASSERT_TRUE(ll_contains(list, &a, int_equals));
+    ASSERT_FALSE(ll_contains(list, &b, int_equals));
 
     ll_discard(list);
 }
@@ -394,13 +393,13 @@ void test_linkedlist_reverse(void) {
     int out;
 
     ll_get(list, 0, &out);
-    assert(out == 3);
+    ASSERT_EQ(out, 3);
 
     ll_get(list, 1, &out);
-    assert(out == 2);
+    ASSERT_EQ(out, 2);
 
     ll_get(list, 2, &out);
-    assert(out == 1);
+    ASSERT_EQ(out, 1);
 
     ll_discard(list);
 }
@@ -412,24 +411,24 @@ void test_linkedlist_size_consistency(void) {
     int out;
 
     ll_insert(list, &a, sizeof(int));
-    assert(ll_size(list) == 1);
+    ASSERT_EQ(ll_size(list), 1);
 
     ll_insert_tail(list, &b, sizeof(int));
-    assert(ll_size(list) == 2);
+    ASSERT_EQ(ll_size(list), 2);
 
     ll_insert_tail(list, &c, sizeof(int));
-    assert(ll_size(list) == 3);
+    ASSERT_EQ(ll_size(list), 3);
 
     ll_remove_at(list, 1);
-    assert(ll_size(list) == 2);
+    ASSERT_EQ(ll_size(list), 2);
 
     ll_remove(list);
-    assert(ll_size(list) == 1);
+    ASSERT_EQ(ll_size(list), 1);
 
     ll_remove_tail(list);
-    assert(ll_size(list) == 0);
+    ASSERT_EQ(ll_size(list), 0);
 
-    assert(ll_is_empty(list));
+    ASSERT_TRUE(ll_is_empty(list));
 
     ll_discard(list);
 }
@@ -443,13 +442,13 @@ void test_linkedlist_reuse_after_empty(void) {
     ll_insert(list, &a, sizeof(int));
     ll_clear(list);
 
-    assert(ll_is_empty(list));
-    assert(ll_size(list) == 0);
+    ASSERT_TRUE(ll_is_empty(list));
+    ASSERT_EQ(ll_size(list), 0);
 
     ll_insert_tail(list, &b, sizeof(int));
 
-    assert(ll_get(list, 0, &out) == true);
-    assert(out == 20);
+    ASSERT_TRUE(ll_get(list, 0, &out));
+    ASSERT_EQ(out, 20);
 
     ll_discard(list);
 }
@@ -465,17 +464,17 @@ void test_linkedlist_copy(void) {
 
     struct LinkedList *copy = ll_copy(list);
 
-    assert(ll_size(copy) == ll_size(list));
+    ASSERT_EQ(ll_size(copy), ll_size(list));
 
     int out1, out2;
 
     ll_get(list, 0, &out1);
     ll_get(copy, 0, &out2);
-    assert(out1 == out2);
+    ASSERT_EQ(out1, out2);
 
     ll_get(list, 2, &out1);
     ll_get(copy, 2, &out2);
-    assert(out1 == out2);
+    ASSERT_EQ(out1, out2);
 
     ll_discard(list);
     ll_discard(copy);
@@ -498,10 +497,10 @@ void test_linkedlist_struct_type(void) {
     Point out;
 
     ll_get(list, 0, &out);
-    assert(out.x == 1 && out.y == 2);
+    ASSERT_TRUE(out.x == 1 && out.y == 2);
 
     ll_get(list, 1, &out);
-    assert(out.x == 3 && out.y == 4);
+    ASSERT_TRUE(out.x == 3 && out.y == 4);
 
     ll_discard(list);
 }
@@ -518,10 +517,10 @@ void test_linkedlist_string_pointer(void) {
     char *out;
 
     ll_get(list, 0, &out);
-    assert(strcmp(out, "hello") == 0);
+    ASSERT_EQ(strcmp(out, "hello"), 0);
 
     ll_get(list, 1, &out);
-    assert(strcmp(out, "world") == 0);
+    ASSERT_EQ(strcmp(out, "world"), 0);
 
     ll_discard(list);
 }
@@ -533,20 +532,20 @@ void test_linkedlist_large_operations(void) {
         ll_insert_tail(list, &i, sizeof(int));
     }
 
-    assert(ll_size(list) == 1000);
+    ASSERT_EQ(ll_size(list), 1000);
 
     int out;
 
     for (int i = 0; i < 1000; i++) {
         ll_get(list, i, &out);
-        assert(out == i);
+        ASSERT_EQ(out, i);
     }
 
     ll_reverse(list);
 
     for (int i = 0; i < 1000; i++) {
         ll_get(list, i, &out);
-        assert(out == 999 - i);
+        ASSERT_EQ(out, 999 - i);
     }
 
     ll_discard(list);

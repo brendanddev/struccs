@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <assert.h>
+#include "test_utils.h"
 #include "heap.h"
 
 // Prototypes
@@ -40,33 +40,32 @@ int compare_int(void *a, void *b) {
 }
 
 int main(void) {
-    test_heap_create();
-    test_heap_insert();
-    test_heap_peek();
-    test_heap_remove();
-    test_heap_max_heap_property();
-    test_heap_empty_behavior();
-    test_heap_reuse_after_remove();
-    test_heap_large_insert();
-    test_heap_remove_until_empty();
-    test_heap_single_element();
-    test_heap_mixed_operations();
-    test_heap_resize();
-    test_heap_extract_sorted();
-    test_heap_duplicates();
-    test_heap_stress_mix();
+    TEST(test_heap_create);
+    TEST(test_heap_insert);
+    TEST(test_heap_peek);
+    TEST(test_heap_remove);
+    TEST(test_heap_max_heap_property);
+    TEST(test_heap_empty_behavior);
+    TEST(test_heap_reuse_after_remove);
+    TEST(test_heap_large_insert);
+    TEST(test_heap_remove_until_empty);
+    TEST(test_heap_single_element);
+    TEST(test_heap_mixed_operations);
+    TEST(test_heap_resize);
+    TEST(test_heap_extract_sorted);
+    TEST(test_heap_duplicates);
+    TEST(test_heap_stress_mix);
 
-    printf("All Heap tests passed.\n");
     return 0;
 }
 
 void test_heap_create(void) {
     struct Heap *heap = heap_create(sizeof(int));
 
-    assert(heap != NULL);
-    assert(heap_size(heap) == 0);
-    assert(heap_capacity(heap) > 0);
-    assert(heap_isempty(heap) == true);
+    ASSERT_NOT_NULL(heap);
+    ASSERT_EQ(heap_size(heap), 0);
+    ASSERT_TRUE(heap_capacity(heap) > 0);
+    ASSERT_TRUE(heap_isempty(heap));
 
     heap_discard(heap);
 }
@@ -76,11 +75,11 @@ void test_heap_insert(void) {
 
     int a = 10, b = 20;
 
-    assert(heap_insert(heap, &a, sizeof(int), compare_int) == true);
-    assert(heap_size(heap) == 1);
+    ASSERT_TRUE(heap_insert(heap, &a, sizeof(int), compare_int));
+    ASSERT_EQ(heap_size(heap), 1);
 
-    assert(heap_insert(heap, &b, sizeof(int), compare_int) == true);
-    assert(heap_size(heap) == 2);
+    ASSERT_TRUE(heap_insert(heap, &b, sizeof(int), compare_int));
+    ASSERT_EQ(heap_size(heap), 2);
 
     heap_discard(heap);
 }
@@ -93,7 +92,7 @@ void test_heap_peek(void) {
 
     int *root = (int *)heap_peek(heap);
 
-    assert(*root == 42);
+    ASSERT_EQ(*root, 42);
 
     heap_discard(heap);
 }
@@ -105,9 +104,9 @@ void test_heap_remove(void) {
     heap_insert(heap, &a, sizeof(int), compare_int);
 
     int out;
-    assert(heap_remove(heap, &out, compare_int) == true);
-    assert(out == 100);
-    assert(heap_size(heap) == 0);
+    ASSERT_TRUE(heap_remove(heap, &out, compare_int));
+    ASSERT_EQ(out, 100);
+    ASSERT_EQ(heap_size(heap), 0);
 
     heap_discard(heap);
 }
@@ -124,7 +123,7 @@ void test_heap_max_heap_property(void) {
     int root = *(int *)heap_peek(heap);
 
     // max element must be at root
-    assert(root == 50);
+    ASSERT_EQ(root, 50);
 
     heap_discard(heap);
 }
@@ -134,8 +133,8 @@ void test_heap_empty_behavior(void) {
 
     int out;
 
-    assert(heap_remove(heap, &out, compare_int) == false);
-    assert(heap_isempty(heap) == true);
+    ASSERT_FALSE(heap_remove(heap, &out, compare_int));
+    ASSERT_TRUE(heap_isempty(heap));
 
     heap_discard(heap);
 }
@@ -148,11 +147,11 @@ void test_heap_reuse_after_remove(void) {
     heap_insert(heap, &a, sizeof(int), compare_int);
     heap_remove(heap, &a, compare_int);
 
-    assert(heap_isempty(heap));
+    ASSERT_TRUE(heap_isempty(heap));
 
     heap_insert(heap, &b, sizeof(int), compare_int);
 
-    assert(*(int *)heap_peek(heap) == 20);
+    ASSERT_EQ(*(int *)heap_peek(heap), 20);
 
     heap_discard(heap);
 }
@@ -164,10 +163,10 @@ void test_heap_large_insert(void) {
         heap_insert(heap, &i, sizeof(int), compare_int);
     }
 
-    assert(heap_size(heap) == 1000);
+    ASSERT_EQ(heap_size(heap), 1000);
 
     int root = *(int *)heap_peek(heap);
-    assert(root == 999);
+    ASSERT_EQ(root, 999);
 
     heap_discard(heap);
 }
@@ -183,11 +182,11 @@ void test_heap_remove_until_empty(void) {
 
     int out;
 
-    assert(heap_remove(heap, &out, compare_int) == true);
-    assert(heap_remove(heap, &out, compare_int) == true);
-    assert(heap_remove(heap, &out, compare_int) == true);
+    ASSERT_TRUE(heap_remove(heap, &out, compare_int));
+    ASSERT_TRUE(heap_remove(heap, &out, compare_int));
+    ASSERT_TRUE(heap_remove(heap, &out, compare_int));
 
-    assert(heap_isempty(heap) == true);
+    ASSERT_TRUE(heap_isempty(heap));
 
     heap_discard(heap);
 }
@@ -199,14 +198,14 @@ void test_heap_single_element(void) {
 
     heap_insert(heap, &a, sizeof(int), compare_int);
 
-    assert(heap_size(heap) == 1);
-    assert(*(int *)heap_peek(heap) == 42);
+    ASSERT_EQ(heap_size(heap), 1);
+    ASSERT_EQ(*(int *)heap_peek(heap), 42);
 
     int out;
-    assert(heap_remove(heap, &out, compare_int) == true);
-    assert(out == 42);
+    ASSERT_TRUE(heap_remove(heap, &out, compare_int));
+    ASSERT_EQ(out, 42);
 
-    assert(heap_isempty(heap));
+    ASSERT_TRUE(heap_isempty(heap));
 
     heap_discard(heap);
 }
@@ -225,12 +224,12 @@ void test_heap_mixed_operations(void) {
     heap_insert(heap, &c, sizeof(int), compare_int);
     heap_insert(heap, &d, sizeof(int), compare_int);
 
-    assert(heap_size(heap) == 3);
+    ASSERT_EQ(heap_size(heap), 3);
 
     // Root must be >= children (max heap property)
     int root = *(int *)heap_peek(heap);
-    assert(root >= 30);
-    assert(root >= 10);
+    ASSERT_TRUE(root >= 30);
+    ASSERT_TRUE(root >= 10);
 
     heap_discard(heap);
 }
@@ -242,8 +241,8 @@ void test_heap_resize(void) {
         heap_insert(heap, &i, sizeof(int), compare_int);
     }
 
-    assert(heap_size(heap) == 100);
-    assert(heap_capacity(heap) >= 100);
+    ASSERT_EQ(heap_size(heap), 100);
+    ASSERT_TRUE(heap_capacity(heap) >= 100);
 
     heap_discard(heap);
 }
@@ -262,7 +261,7 @@ void test_heap_extract_sorted(void) {
 
     while (!heap_isempty(heap)) {
         heap_remove(heap, &out, compare_int);
-        assert(out <= prev);
+        ASSERT_TRUE(out <= prev);
         prev = out;
     }
 
@@ -278,17 +277,17 @@ void test_heap_duplicates(void) {
     heap_insert(heap, &b, sizeof(int), compare_int);
     heap_insert(heap, &c, sizeof(int), compare_int);
 
-    assert(heap_size(heap) == 3);
+    ASSERT_EQ(heap_size(heap), 3);
 
     int out;
     heap_remove(heap, &out, compare_int);
-    assert(out == 10);
+    ASSERT_EQ(out, 10);
 
     heap_remove(heap, &out, compare_int);
-    assert(out == 10);
+    ASSERT_EQ(out, 10);
 
     heap_remove(heap, &out, compare_int);
-    assert(out == 10);
+    ASSERT_EQ(out, 10);
 
     heap_discard(heap);
 }
@@ -306,7 +305,7 @@ void test_heap_stress_mix(void) {
         }
     }
 
-    assert(heap_size(heap) >= 0);
+    ASSERT_TRUE(heap_size(heap) >= 0);
 
     heap_discard(heap);
 }
