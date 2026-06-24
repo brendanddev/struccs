@@ -69,6 +69,13 @@ test_set: $(BUILD_DIR)
 # Run all tests
 test_all: test_bt test_bst test_ga test_ll test_ht test_stack test_queue test_heap
 
+sandbox: $(LIB)
+	$(CC) $(CFLAGS) sandbox/scratch.c \
+		-L./build \
+		-lstruccs \
+		-g -fsanitize=address \
+		-o $(BUILD_DIR)/sandbox && ./$(BUILD_DIR)/sandbox
+
 # Clean build artifacts
 clean:
 	rm -rf $(BUILD_DIR)
