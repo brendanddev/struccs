@@ -15,5 +15,6 @@
 #include "binary_tree.h"
 #include "binarysearch_tree.h"
 #include "heap.h"
+#include "memory_pool.h"
 
 #endif

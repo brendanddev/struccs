@@ -2,7 +2,7 @@
 
 A lightweight, generic C library of fundamental data structures — built from scratch with a focus on memory management, performance, and type-agnostic design.
 
-> Version 0.10.8
+> Version 0.11.8
 
 No dependencies. No standard container libraries. Just `void*`, function pointers, and manual memory management.
 
@@ -65,6 +65,12 @@ For full examples per structure, see [docs/USAGE.md](docs/USAGE.md).
 
 Each structure ships with its own header and source file, and can be used independently or together via the umbrella header.
 
+## Memory Management
+
+| Component      | Description                                                 | Header           |
+|----------------|-------------------------------------------------------------|------------------|
+| `MemoryPool`   | Fixed-size block allocator backed by a pre-allocated buffer | `memory_pool.h`  |
+
 ---
 
 ## Usage
@@ -118,6 +124,16 @@ struccs/
 - [Usage Examples](docs/USAGE.md) — code examples for every structure
 - [API Reference](docs/API.md) — full function signatures and behavior
 - [Performance](docs/PERFORMANCE.md) — benchmarks and complexity analysis
+
+---
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for full guidelines on:
+- Project design principles (no dependencies, generic by design, memory-conscious)
+- Code style and structure conventions
+- Testing requirements
+- Pull request process
 
 ---
 
