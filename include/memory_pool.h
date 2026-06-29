@@ -33,9 +33,10 @@ struct MemoryPool {
     int block_size;
 };
 
-void mp_create(struct MemoryPool *pool);
+struct MemoryPool *mp_create(int num_blocks, int block_size);
 void *mp_alloc(struct MemoryPool *pool);
 void mp_free(struct MemoryPool *pool, void *ptr);
-void mp_stats(struct MemoryPool *pool);
+void mp_print(struct MemoryPool *pool);
+void mp_discard(struct MemoryPool *pool);
 
 #endif

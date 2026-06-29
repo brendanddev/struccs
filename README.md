@@ -1,8 +1,8 @@
 # struccs
 
-A lightweight, generic C library of fundamental data structures — built from scratch with a focus on memory management, performance, and type-agnostic design.
+A lightweight, generic C library of data structures and low-level memory management tools — built from scratch with a focus on memory management, performance, and type-agnostic design.
 
-> Version 0.11.8
+> Version 0.12.8
 
 No dependencies. No standard container libraries. Just `void*`, function pointers, and manual memory management.
 

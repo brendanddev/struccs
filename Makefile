@@ -67,6 +67,10 @@ test_set: $(BUILD_DIR)
 	$(CC) $(TESTFLAGS) $(SRC_DIR)/set.c $(SRC_DIR)/hash_table.c $(TEST_DIR)/test_set.c -o $(BUILD_DIR)/test_set
 	./$(BUILD_DIR)/test_set
 
+test_mp: $(BUILD_DIR)
+	$(CC) $(TESTFLAGS) $(SRC_DIR)/memory_pool.c $(TEST_DIR)/test_mp.c -o $(BUILD_DIR)/test_mp
+	./$(BUILD_DIR)/test_mp
+
 # Run all tests
 test_all: test_bt test_bst test_ga test_ll test_ht test_stack test_queue test_heap test_set
 
