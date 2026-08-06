@@ -25,8 +25,14 @@ String* str_create(const char *initial);
 bool str_append(String *str, const char *data);
 bool str_contains(String *str, const char *substr);
 int str_compare(String *a, String *b);
+bool str_equals(String *a, String *b);
+String* str_concat(String *str, String *substr);
 String* str_copy(String *src);
+String* str_to_upper(String *str);
+String* str_to_lower(String *str);
+String *str_trim(String *str);
 size_t str_length(const char *src);
+size_t str_len(String *str);
 void str_print(String *str);
 void str_discard(String *str);
 

@@ -4,9 +4,13 @@
 
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "str.h"
 
+// Prototypes
+static bool resize(String *str, size_t size);
 
+// Creates a new String
 String* str_create(const char *initial) {
     String *str = malloc(sizeof(String));
     if (str == NULL) return NULL;
@@ -15,7 +19,7 @@ String* str_create(const char *initial) {
     str->capacity = INITIAL_CAPACITY;
 
     if (initial == NULL) {
-        str->data = malloc(sizeof(char) * str->initial_capacity);
+        str->data = malloc(sizeof(char) * (str->initial_capacity + 1));
         if (str->data == NULL) {
             free(str);
             return NULL;
@@ -27,41 +31,91 @@ String* str_create(const char *initial) {
 
     } else {
         size_t length = str_length(initial);
-        resize(str, length);
 
+        str->data = malloc(sizeof(char) * (str->initial_capacity + 1));
+        if (str->data == NULL) {
+            free(str);
+            return NULL;
+        }
 
+        if (resize(str, length)) {
+            memcpy(str->data, initial, length + 1); 
+            str->length = length;
+        } else {
+            free(str);
+            return NULL;
+        }
     }
 
     return str;
 }
 
-//     // Otherwsie need to copy the string passed in, going to the address of where the string points to,
-//     // and copy it over using memcpy
-//     } else {
-//         char *current = initial;
-//         int num = 0;
-//         while (*current != '\0') {
-//             current++;
-//             num++;
-//         }
+// Adds more characters to the end of an existing String
+bool str_append(String *str, const char *data) {
+    size_t append_length = str_length(data);
+    size_t new_length = str->length + append_length;
 
-//         // If the size of the string passed in is larger than initial capacity,
-//         // need to resize
-//         if (num + 1 > INITIAL_CAPACITY) {
-//             resize(str);
-//             memcpy(str->data, initial, num + 1);            
+    if (resize(str, new_length)) {
+        char *buffer_end = str->data + str->length;
+        memcpy(buffer_end, data, append_length + 1);
+        str->length = new_length;
+        return true;
+    } else {
+        return false;
+    }
+}
 
-//         // Otherwise just copy in
-//         } else {
-//             memcpy(str->data, initial, num + 1);            
-//         }
-//     }
+// Checks if a string contains a given substring
+bool str_contains(String *str, const char *substr) { 
+    char *curr_str = str->data;
+    char *curr_substr = substr;
 
-//     return str;
-// }
+    while (*curr_str != '\0' && *curr_substr != '\0') {
+        curr_substr = substr;
+        while (*curr_str == *curr_substr) {
+            curr_str++;
+            curr_substr++;
+            if (*curr_substr == '\0') {
+                return true;
+            }
+        }
+        curr_str++;
+    }
+    return false;
+}
 
+// Compares two strings lexicographically
+// Returns 0 if equal, 1 if a > b, -1 if a < b, 
+// or the character difference if lengths differ
+int str_compare(String *a, String *b) {
+    char *curr_a = a->data;
+    char *curr_b = b->data;
 
+    while (*curr_a != '\0' && *curr_b != '\0') {
+        if (*curr_a > *curr_b) {
+            return 1;
+        } else if (*curr_a < *curr_b) {
+            return -1;
+        } else {
+            curr_a++;
+            curr_b++;
+        }
+    }
+    // return 0;
+    return *curr_a - *curr_b;
+}
 
+// Returns a copy of the provided string
+String* str_copy(String *src) {
+    if (src == NULL) return NULL;
+    String *new_str = str_create(src->data);
+    return new_str;
+}
+
+// Checks if two strings are equal
+bool str_equals(String *a, String *b) {
+    return str_compare(a, b) == 0;
+}
 
 // Returns the length of the string
 size_t str_length(const char *src) {
@@ -76,26 +130,45 @@ size_t str_length(const char *src) {
     return length;
 }
 
+// Returns the length of string based on length member
+size_t str_len(String *str) {
+    return str->length;
+}
 
-// bool str_append(String *str, const char *data);
-// bool str_contains(String *str, const char *substr);
-// int str_compare(String *a, String *b);
-// String* str_copy(String *src);
-// int str_length(String *src);
-// void str_print(String *str);
-// void str_discard(String *str);
+// Prints the contents of the String
+void str_print(String *str) {
+    char *current = str->data;
+    while (*current != '\0') {
+        printf("%c", *current);
+        current++;
+    }
+}
 
+// Releases the String buffer and the String struct memory
+void str_discard(String *str) {
+    if (str != NULL) {
+        free(str->data);
+        free(str);
+    }
+}
 
-// Resizes the internal buffer when capacity is reached
-static void resize(String *str, size_t size) {
+// Ensures the internal buffer has enough capacity for the requested number of characters
+static bool resize(String *str, size_t size) {
+    if (size <= str->capacity) {
+        return true;
+    }
+
     size_t new_capacity = str->capacity * 2;
-    
     while (size > new_capacity) {
         new_capacity = new_capacity * 2;
     }
 
     char *tmp = realloc(str->data, (new_capacity + 1) * sizeof(char));
+    if (tmp == NULL) {
+        return false;
+    }
 
     str->capacity = new_capacity;
     str->data = tmp;
+    return true;
 }
