@@ -70,9 +70,11 @@ bool str_append(String *str, const char *data) {
 bool str_contains(String *str, const char *substr) { 
     char *curr_str = str->data;
     char *curr_substr = substr;
+    char *match_start = NULL;
 
     while (*curr_str != '\0' && *curr_substr != '\0') {
         curr_substr = substr;
+        match_start = curr_str + 1;
         while (*curr_str == *curr_substr) {
             curr_str++;
             curr_substr++;
@@ -80,7 +82,7 @@ bool str_contains(String *str, const char *substr) {
                 return true;
             }
         }
-        curr_str++;
+        curr_str = match_start;
     }
     return false;
 }
