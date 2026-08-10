@@ -2,15 +2,13 @@
 
 A lightweight, generic C library, built from scratch, providing data structures, common types, and low-level memory tools. No dependencies, no standard container libraries. Just `void*`, function pointers, and manual memory management.
 
-> Version 0.13.2
+> Version 0.14.0
 
 ---
 
 ## Why struccs?
 
-C gives you the building blocks but none of the infrastructure. struccs fills that gap — 
-generic data structures, common types, and memory tools, all handwritten, all 
-dependency-free, all designed to work together.
+C gives you the building blocks but none of the infrastructure. struccs fills that gap — generic data structures, common types, and memory tools, all handwritten, all dependency-free, all designed to work together.
 
 ---
 
@@ -67,6 +65,7 @@ Each structure ships with its own header and source file, and can be used indepe
 
 | Type      | Description              | Header   |
 |-----------|--------------------------|----------|
+| `Result`  | Operation result wrapping a value and error state | `result.h` |
 | `String`  | Dynamic string type      | `str.h`  |
 
 ## Memory Management

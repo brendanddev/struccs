@@ -1,22 +1,23 @@
-/**
- * binarysearch_tree.c
- * A generic implementation of a binary search tree
- * Brendan Dileo - 2025
- */
+// binarysearch_tree.c
+// A generic implementation of a binary search tree
+// Brendan Dileo - 2025
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
 #include "binarysearch_tree.h"
 
-/**
- * Defines the Node struct type
- */
+// Defines the Node struct type
+// `value` is a pointer to the memory where the value is stored
+// `value_size` is the number of bytes the value will occupy in memory\
+// `left` is a pointer to the current nodes left child
+// `right` is a pointer to the current nodes right child
 typedef struct Node {
-    void *value;                // Pointer to the memory where the value is stored
-    size_t value_size;          // Number of bytes the value will occupy in memory pointed to for the value
-    struct Node *left;          // Pointer to the current nodes left child in the tree
-    struct Node *right;         // Pointer to the current nodes right child in the tree
+    void *value;
+    size_t value_size;
+    struct Node *left;
+    struct Node *right;
 } Node;
 
 
@@ -38,70 +39,47 @@ static void bst_discard_node(struct Node *node);
 static void bst_discard_all_nodes(struct BinarySearchTree *tree);
 static void bst_discard_all_nodes_rec(struct Node *root);
 
-/**
- * Creates a new binary search tree
- */
-struct BinarySearchTree* bst_create() {
 
-    // Allocate memory for the tree itself and handle allocation failure
+// Creates a new binary search tree
+struct BinarySearchTree* bst_create() {
     struct BinarySearchTree *tree = malloc(sizeof(struct BinarySearchTree));
     if (tree == NULL) return NULL;
 
-    // Set the initial root pointer and length of the tree
     tree->root = NULL;
     tree->length = 0;
-    
     return tree;
 }
 
-/**
- * Public interface for inserting a new value into the binary search tree
- */
+// Public interface for inserting a new value into the binary search tree
 void bst_insert(struct BinarySearchTree *tree, void *value, size_t value_size, int (*compare)(void*, void*)) {
     tree->root = bst_insert_rec(tree->root, value, value_size, compare);
     tree->length++;
 }
 
-/**
- * Recursive helper function for inserting a value into the binary search tree
- */
+// Recursive helper for inserting a value into the binary search tree
 static struct Node* bst_insert_rec(struct Node *root, void *value, size_t value_size, int (*compare)(void*, void*)) {
-    
     // Base case - if the root node is empty, return it to insert
     if (root == NULL) {
         return bst_create_node(value, value_size);
-
-    // Compare memory blocks pointed to by the value being inserted and the current node value
-    // to see if we need to recurse left in the tree
     } else if (compare(value, root->value) < 0) {
-
-        // Recurse to the left of the tree to insert the value, then assign the returned
-        // subtree back to the root nodes left child to maintain the connection, and return
-        // root so the caller can update their pointer to this subtree
         root->left = bst_insert_rec(root->left, value, value_size, compare);
         return root;
-    // Otherwise recurse right in the tree
     } else {
         root->right = bst_insert_rec(root->right, value, value_size, compare);
         return root;
     }
 }
 
-/**
- * Public interface for removing a value from the binary search tree
- */
+// Public interface for removing a value from the binary search tree
 void bst_remove(struct BinarySearchTree *tree, void *value, int (*compare)(void*, void*)) { 
     bool found = false;
     tree->root = bst_remove_rec(tree->root, value, compare, &found);
     if (found) tree->length--;
 }
 
-/**
- * Recursive helper for removing a value from the binary search tree
- */
+// Recursive helper for removing a value from the binary search tree
 static Node* bst_remove_rec(struct Node *root, void *value, int (*compare)(void*, void*), bool *found) { 
-
-    // Base case - we found an empty node
+    // Base case: we found an empty node
     if (root == NULL) {
         *found = false;
         return root;
@@ -142,7 +120,6 @@ static Node* bst_remove_rec(struct Node *root, void *value, int (*compare)(void*
 
         // Otherwise node has two children
         } else {
-
             // Find the successor node
             struct Node *successor = bst_get_successor(root->right);
 
@@ -155,35 +132,27 @@ static Node* bst_remove_rec(struct Node *root, void *value, int (*compare)(void*
 
     // Didnt find the value to remove, need to recurse the tree further
     } else {
-
         // Check if we need to recurse to the left in the tree
         if (compare(value, root->value) < 0) {
-
             root->left = bst_remove_rec(root->left, value, compare, found);
             return root;
 
         // Otherwise recurse to the right
         } else {
-
             root->right = bst_remove_rec(root->right, value, compare, found);
             return root;
         }
     }
 }
 
-/**
- * Public interface for checking if the binary search tree contains a value
- */
+// Public interface for checking if the binary search tree contains a value
 bool bst_contains(struct BinarySearchTree *tree, void *value, int (*compare)(void*, void*)) {
     if (bst_isempty(tree)) return false;
     return bst_contains_rec(tree->root, value, compare);
 }
 
-/**
- * Recursive helper for checking if the tree contains a given value
- */
+//  Recursive helper for checking if the tree contains a given value
 static bool bst_contains_rec(struct Node *root, void *value, int (*compare)(void*, void*)) { 
-
     // Base case - if we have reached an empty node without finding value its not in the tree
     if (root == NULL) return false;
 
@@ -201,17 +170,13 @@ static bool bst_contains_rec(struct Node *root, void *value, int (*compare)(void
     }
 }
 
-/**
- * Public interface for searching the binary search tree for a value
- */
+// Public interface for searching the binary search tree for a value
 struct Node* bst_search(struct BinarySearchTree *tree, void *value, int (*compare)(void*, void*)) {
     if (bst_isempty(tree)) return NULL;
     return bst_search_rec(tree->root, value, compare);
 }
 
-/**
- * Recursive helper for searching for a value in the tree
- */
+// Recursive helper for searching for a value in the tree
 static struct Node* bst_search_rec(struct Node *root, void *value, int (*compare)(void*, void*)) {
 
     // Base case - if we have reached an empty node without finding value, its not in the tree
@@ -232,54 +197,40 @@ static struct Node* bst_search_rec(struct Node *root, void *value, int (*compare
     }
 }
 
-/**
- * Public interface for finding the minumum value in the binary search tree
- */
+// Public interface for finding the minumum value in the binary search tree
 void* bst_min(struct BinarySearchTree *tree) {
     if (bst_isempty(tree)) return NULL;
     return bst_min_rec(tree->root);
 }
 
-/**
- * Recursive helper for finding the minumum value in the binary search tree
- */
+// Recursive helper for finding the minumum value in the binary search tree
 static void* bst_min_rec(struct Node *root) {
-
     // Base case - reached an empty node in the left subtree
     if (root->left == NULL) return root->value;
     return bst_min_rec(root->left);
 }
 
-/**
- * Public interface for finding the maximum value in the binary search tree
- */
+// Public interface for finding the maximum value in the binary search tree
 void* bst_max(struct BinarySearchTree *tree) {
     if (bst_isempty(tree)) return NULL;
     return bst_max_rec(tree->root);
 }
 
-/**
- * Recursive helper for finding the maximum value in the binary search tree
- */
+// Recursive helper for finding the maximum value in the binary search tree
 static void* bst_max_rec(struct Node *root) {
     if (root->right == NULL) return root->value;
     return bst_max_rec(root->right);
 }
 
-/**
- * Public interface for finding the height of the binary search tree
- */
+// Public interface for finding the height of the binary search tree
 int bst_height(struct BinarySearchTree *tree) {
     if (bst_isempty(tree)) return 0;
     return bst_height_rec(tree->root);
 }
 
-/**
- * Recursive helper for finding the height of the binary search tree, which is the length of the 
- * longest path from the root down to the deepest leaf node
- */
+// Recursive helper for finding the height of the binary search tree 
+// (length of longest path from root down to deepest leaf node)
 static int bst_height_rec(struct Node *root) {
-
     // Base case - we reached an empty node
     if (root == NULL) return 0;
 
@@ -293,18 +244,13 @@ static int bst_height_rec(struct Node *root) {
     return right_height + 1;
 }
 
-/**
- * Public interface for printing the contents of the binary search tree
- */
+// Public interface for printing the contents of the binary search tree
 void bst_print(struct BinarySearchTree *tree, void (* print_fn)(void*)) {
     bst_print_rec(tree->root, print_fn, 0);
 }
 
-/**
- * Recursive helper function for printing the contents of the binary search tree in order traversal
- */
+// Recursive helper function for printing the contents of the binary search tree in order traversal
 static void bst_print_rec(struct Node *root, void (* print_fn)(void*), int depth) {
-
     // Base case - if we hit a empty node, weve hit the end of the branch
     if (root == NULL) return;
 
@@ -320,110 +266,81 @@ static void bst_print_rec(struct Node *root, void (* print_fn)(void*), int depth
     bst_print_rec(root->right, print_fn, depth + 1);
 }
 
-/**
- * Public interface for traversing and printing the contents of the tree in-order
- */
+// Public interface for traversing and printing the contents of the tree in-order
 void bst_inorder(struct BinarySearchTree *tree, void (* print_fn)(void*)) {
     if (bst_isempty(tree)) return;
     bst_inorder_rec(tree->root, print_fn);
 }
 
-/**
- * Recursive helper for traversing and printing the contents of the tree in-order
- */
+// Recursive helper for traversing and printing the contents of the tree in-order
 static void bst_inorder_rec(struct Node *root, void (* print_fn)(void*)) {
-
     // Base case - hit an empty node
     if (root == NULL) return;
 
-    // Traverse the tree, first traversing the left side of the tree,
-    // the root node, then the right
+    // Traverse the tree, first left side, then root, then right
     bst_inorder_rec(root->left, print_fn);
     print_fn(root->value);
     bst_inorder_rec(root->right, print_fn);
 }
 
-/**
- * Public interface for traversing and printing the contents of the tree post-order
- */
+// Public interface for traversing and printing the contents of the tree post-order
 void bst_postorder(struct BinarySearchTree *tree, void (* print_fn)(void*)) {
     if (bst_isempty(tree)) return;
     bst_postorder_rec(tree->root, print_fn);
 }
 
-/**
- * Recursive helper for traversing and printing the contents of the tree post-order
- */
+// Recursive helper for traversing and printing the contents of the tree post-order
 static void bst_postorder_rec(struct Node *root, void (* print_fn)(void*)) {
-
     // Base case - hit an empty node
     if (root == NULL) return;
 
-    // Traverse the left side of the tree first, then the right side,
-    // then print the root
+    // Traverse left, then right, then print root
     bst_postorder_rec(root->left, print_fn);
     bst_postorder_rec(root->right, print_fn);
     print_fn(root->value);
 }
 
-/**
- * Public interface for traversing and printing the contents of the tree pre-order
- */
+// Public interface for traversing and printing the contents of the tree pre-order
 void bst_preorder(struct BinarySearchTree *tree, void (* print_fn)(void*)) {
     if (bst_isempty(tree)) return;
     bst_preorder_rec(tree->root, print_fn);
 }
 
-/**
- * Recursive helper for traversing and printing the contents of the tree pre-order
- */
+// Recursive helper for traversing and printing the contents of the tree pre-order
 static void bst_preorder_rec(struct Node *root, void (* print_fn)(void*)) {
-
     // Base case - hit an empty node
     if (root == NULL) return;
 
-    // Print the root node first, then recurse the left side of tree,
-    // then right side
+    // Print root node first, then left, then right
     print_fn(root->value);
     bst_preorder_rec(root->left, print_fn);
     bst_preorder_rec(root->right, print_fn);
 }
 
-/**
- * Returns the number of nodes in the binary search tree
- */
+// Returns the number of nodes in the binary search tree
 int bst_size(struct BinarySearchTree *tree) {
     return tree->length;
 }
 
-/**
- * Checks whether the binary search tree is empty
- */
+// Checks whether the binary search tree is empty
 bool bst_isempty(struct BinarySearchTree *tree) {
     return tree->length == 0;
 }
 
-/**
- * Clears the contents of the binary search tree
- */
+// Clears the contents of the binary search tree
 void bst_clear(struct BinarySearchTree *tree) { 
     bst_discard_all_nodes(tree);
     tree->root = NULL;
     tree->length = 0;
 }
 
-/**
- * Frees the memory previously allocated by all nodes in the tree and the tree itself
- */
+// Frees the memory previously allocated by all nodes in the tree and the tree itself
 void bst_discard(struct BinarySearchTree *tree) {
     if (tree != NULL) {
         bst_discard_all_nodes(tree);
         free(tree);
     }
 }
-
-
-// Private helper functions - linkage limited to this file
 
 
 // Finds the minumum node in the tree, which when passed a node on the right subtree, returns the 
@@ -435,28 +352,20 @@ static struct Node* bst_get_successor(struct Node *root) {
 
 // Creates a new node to be stored in the tree
 static struct Node* bst_create_node(void *value, size_t value_size) {
-    
-    // Allocate memory for the node itself and handle allocation failure
     struct Node *node = malloc(sizeof(struct Node));
     if (node == NULL) return NULL;
 
-    // Set size of value to be stored in the node and
-    // initial left/right child pointers
     node->value_size = value_size;
     node->left = NULL;
     node->right = NULL;
 
-    // Allocate memory for the value itself stored in the node, store pointer to the address, and
-    // handle allocation failure
     node->value = malloc(node->value_size);
     if (node->value == NULL) {
         free(node);
         return NULL;
     }
 
-    // Copy the raw memory pointed to by the parameter into the memory pointed to by the nodes member
     memcpy(node->value, value, node->value_size);
-
     return node;
 }
 
@@ -475,8 +384,6 @@ static void bst_discard_all_nodes(struct BinarySearchTree *tree) {
 
 // Recursive helper function for freeing the memory allocated by each node in the tree
 static void bst_discard_all_nodes_rec(struct Node *root) {
-
-    // Base case - hit an empty node
     if (root == NULL) return;
 
     // Free left and right child branches of the root node and

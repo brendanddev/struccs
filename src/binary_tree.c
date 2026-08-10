@@ -1,8 +1,7 @@
-/**
- * binary_tree.c
- * A generic implementation of a complete binary tree.
- * Brendan Dileo - 2025
- */
+// binary_tree.c
+// A generic implementation of a complete binary tree.
+// Brendan Dileo - 2025
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -17,22 +16,16 @@ static int parent_index(int index);
 static int left_child_index(int index);
 static int right_child_index(int index);
 
-/**
- * Creates a new binary tree, storing elements of the provided size.
- */
+// Creates a new binary tree
 struct BinaryTree* bt_create(size_t element_size) {
-
-    // Allocate memory for the binary tree struct itself and handle allocation failure
     struct BinaryTree *tree = malloc(sizeof(struct BinaryTree));
     if (tree == NULL) return NULL;
 
-    // Set initial capacity, length and size of elements stored in the tree
     tree->capacity = 12;
     tree->length = 0;
     tree->element_size = element_size;
 
-    // Allocate memory for the underlying array that will hold the tree elements
-    // and handle allocation failure
+    // Allocate memory for the underlying array used to hold elements in the tree
     tree->elements = malloc(tree->capacity * tree->element_size);
     if (tree->elements == NULL) {
         free(tree);
@@ -41,30 +34,23 @@ struct BinaryTree* bt_create(size_t element_size) {
     return tree;
 }
 
-/**
- * Inserts a value at the next available position in the tree.
- */
+// Insert a value into the trees next available position
 void bt_insert(struct BinaryTree *tree, void *value) {
-
-    // Check if a resize is needed
     if (tree->length >= tree->capacity) {
         resize(tree);
     }
-    // Get the pointer to the next available position in the tree
-    // then copy the value into the trees array
+
+    // Grab pointer to next available position in the tree, and copy value into it
     void *curr = (char*) tree->elements + tree->length * tree->element_size;
     memcpy(curr, value, tree->element_size);
     tree->length++;
 }
 
-/**
- * Removes the element at the provided index in the binary tree
- */
+// Removes the element at the provided index in the binary tree
 void bt_remove(struct BinaryTree *tree, int index) {
     if (index < 0 || index >= tree->length) return;
 
-    // Get pointer to the element being removed and
-    // the last element in the tree
+    // Grab pointer to element being removed and last element in tree
     void *curr = (char*) tree->elements + index * tree->element_size;
     void *last = (char*) tree->elements + (tree->length - 1) * tree->element_size;
      
@@ -73,22 +59,17 @@ void bt_remove(struct BinaryTree *tree, int index) {
     tree->length--;
 }
 
-/**
- * Returns a pointer to the element at the provided index in the tree
- */
+// Returns a pointer to the element at the provided index in the tree
 bool bt_get(struct BinaryTree *tree, int index, void *out) {
     if (index < 0 || index >= tree->length) return false;
 
-    // Get pointer to the element at the provided index, and
-    // copy raw bytes between memory locations to return the value to user
+    // Grab pointer to element at provided index, copy raw bytes between memory locations
     void *current = (char*) tree->elements + index * tree->element_size;
     memcpy(out, current, tree->element_size);
     return true;
 }
 
-/**
- * Sets the value of the element at the provided index to the provided value
- */
+// Sets the value of the element at the provided index to the provided value
 bool bt_set(struct BinaryTree *tree, int index, void *value) {
     if (index < 0 || index >= tree->length) return false;
 
@@ -97,9 +78,7 @@ bool bt_set(struct BinaryTree *tree, int index, void *value) {
     return true;
 }
 
-/**
- * Checks if the binary tree contains the provided value
- */
+// Checks if the binary tree contains the provided value
 bool bt_contains(struct BinaryTree *tree, void *value, int (*comparator)(void*, void*)) {
     for (int i = 0; i < tree->length; i++) {
         void *current = (char*) tree->elements + i * tree->element_size;
@@ -110,10 +89,8 @@ bool bt_contains(struct BinaryTree *tree, void *value, int (*comparator)(void*, 
     return false;
 }
 
-/**
- * Finds and returns the index of the provided value in the tree
- * If not found, returns -1
- */
+// Attempts to find and return the index of the provided value in the tree,
+// If not found, returns -1
 int bt_find(struct BinaryTree *tree, void *value, int (*comparator)(void*, void*)) {
     for (int i = 0; i < tree->length; i++) {
         void *current = (char*) tree->elements + i * tree->element_size;
@@ -124,23 +101,17 @@ int bt_find(struct BinaryTree *tree, void *value, int (*comparator)(void*, void*
     return -1;
 }
 
-/**
- * Returns the height of the binary tree, which is the largest number of edges in a path from 
- * the root to a leaf node
- */
+// Returns the height of the tree (largest number of edges in a path from root to a leaf node)
 int bt_height(struct BinaryTree *tree) {
     if (bt_isempty(tree)) return -1;
 
-    // Store the height of the tree and the last element in the tree
+    // Store the height and last element in the tree
     int height = 0;
     int last = tree->length - 1;
 
-    // Loop starting from the last element, while the root is not reached,
-    // to count edges from the deepest leaf back to the root
+    // Start loop from last element, while root is not reached, count edges
+    // from deepest leaf back to root
     while (last > 0) {
-
-        // Calculate parent index from the current element and 
-        // reassign the current element to point to the parent to continue moving up the tree
         int parent = parent_index(last);
         height++;
         last = parent;
@@ -148,19 +119,15 @@ int bt_height(struct BinaryTree *tree) {
     return height;
 }
 
-/**
- * Returns the number of nodes with no children (leaf) in the binary tree
- */
+// Returns the number of nodes with no children (leaf) in the binary tree
 int bt_leaves(struct BinaryTree *tree) {
     if (bt_isempty(tree)) return 0;
 
-    // Track index of current element and number of leaves
     int current = 0;
     int leaves = 0;
 
     // Continue looping starting from the root element to the last
     while (current < tree->length) {
-
         // Calculate left child index and check if the child exists
         // If it does, we know that the current node is not a leaf
         // If it dosent, then we know the current node is a leaf, 
@@ -173,20 +140,15 @@ int bt_leaves(struct BinaryTree *tree) {
     return leaves;
 }
 
-/**
- * Public interface for printing the contents of the binary tree
- */
+// Public interface for printing the contents of the binary tree
 void bt_print(struct BinaryTree *tree, void (*print_fn)(void*)) {
     if (bt_isempty(tree)) return;
     print_recursive(tree, 0, 0, print_fn);
 }
 
-/**
- * Recursive helper for printing the contents of the binary tree in a tree-like structure
- */
+// Recursive helper for printing the contents of the binary tree in a tree-like structure
 static void print_recursive(struct BinaryTree *tree, int index, int depth, void (*print_fn)(void*)) {
-
-    // Base case - we reached an index outside of the arrays bounds
+    // Base case
     if (index >= tree->length) return;
     
     // Get pointer to the element at the provided index
@@ -201,46 +163,33 @@ static void print_recursive(struct BinaryTree *tree, int index, int depth, void 
     print_recursive(tree, left_child_index(index), depth + 1, print_fn);
 }
 
-/**
- * Clears the contents of the binary tree
- */
+// Clears the contents of the binary tree
 void bt_clear(struct BinaryTree *tree) {
     tree->length = 0;
 }
 
-/**
- * Returns the current size (length) of the binary tree
- */
+// Returns the current size (length) of the binary tree
 int bt_size(struct BinaryTree *tree) {
     return tree->length;
 }
 
-/**
- * Returns the current capacity of the tree's underlying array
- */
+// Returns the current capacity of the tree's underlying array
 int bt_capacity(struct BinaryTree *tree) {
     return tree->capacity;
 }
 
-/**
- * Checks if the binary tree is empty
- */
+// Checks if the binary tree is empty
 bool bt_isempty(struct BinaryTree *tree) {
     return tree->length == 0;
 }
 
-/**
- * Frees the memory previously allocated for the binary tree
- */
+// Frees memory previously allocated for the binary tree
 void bt_discard(struct BinaryTree *tree) {
     if (tree != NULL) {
         free(tree->elements);
         free(tree);
     }
 }
-
-
-// Private helper functions - linkage limited to this file
 
 
 // Resizes the binary trees internal array to twice the current capacity
@@ -262,9 +211,6 @@ static bool resize(struct BinaryTree *tree) {
 
 // Swaps the raw bytes at the two memory locations pointed to by the provided pointers
 static void swap(void *a, void *b, size_t element_size) {
-
-    // Create a variable length array to hold element_size bytes
-    // on the stack
     char temp[element_size];
 
     // Copy the raw bytes between the memory locations to swap values
@@ -287,4 +233,3 @@ static int left_child_index(int index) {
 static int right_child_index(int index) {
     return 2 * index + 2;
 }
-
