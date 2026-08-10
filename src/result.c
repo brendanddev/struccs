@@ -27,11 +27,14 @@ bool result_is_err(const Result *res) {
 }
 
 void *result_value(const Result *res) {
-    return result_is_err(res) ? res->error : NULL;
+    return result_is_ok(res) ? res->value : NULL;
 }
 
 const char *result_error(const Result *res) {
-    return result_is_err(res) ? res->error : NULL;
+    if (res == NULL) {
+        return NULL;
+    }
+    return res->error;
 }
 
 void *result_unwrap_or(const Result *res, void *default_value) {
