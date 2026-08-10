@@ -8,8 +8,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-// Result is only valid when error == NULL
-// NULL means success
+// error == NULL indicates success, non-NULL indicates failure
 typedef struct Result {
     void *value;
     const char *error;

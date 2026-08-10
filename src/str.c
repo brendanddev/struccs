@@ -9,6 +9,7 @@
 
 // Prototypes
 static bool resize(String *str, size_t size);
+static bool is_whitespace(char c);
 
 // Creates a new String
 String* str_create(const char *initial) {
@@ -117,6 +118,83 @@ bool str_equals(String *a, String *b) {
     return str_compare(a, b) == 0;
 }
 
+// Concatenates two strings, and returns a copy
+String* str_concat(String *str, String *substr) {
+    if (str == NULL) {
+        return NULL;
+    }
+    String *concat_str = str_create(str->data);
+    if (str_append(concat_str, substr->data)) {
+        return concat_str;
+    } else {
+        str_discard(concat_str);
+        return NULL;
+    }
+}
+
+// Converts a string to uppercase, and returns a copy of that string
+String* str_to_upper(String *str) {
+    if (str == NULL) {
+        return NULL;
+    }
+
+    String *str_upper = str_create(str->data);
+    char *current = str_upper->data;
+    while (*current != '\0') {
+        if (*current >= 'a' && *current <= 'z') {
+            *current = *current - 32;
+        }
+        current++;
+    }
+    return str_upper;
+}
+
+// Converts a string to lowercase, and returns a copy of that string
+String* str_to_lower(String *str) {
+    if (str == NULL) {
+        return NULL;
+    }
+
+    String *str_lower = str_create(str->data);
+    char *current = str_lower->data;
+    while (*current != '\0') {
+        if (*current >= 'A' && *current <= 'Z') {
+            *current = *current + 32;
+        }
+        current++;
+    }
+    return str_lower;
+}
+
+// Trims whitespace from the start and end of a string, returns a copy
+String *str_trim(String *str) {
+    if (str == NULL) {
+        return NULL;
+    }
+
+    char *start = str->data;
+    char *end = str->data + str_len(str) - 1;
+
+    while (is_whitespace(*start) && *start != '\0') {
+        start++;
+    }
+
+    while (is_whitespace(*end) && end > start) {
+        end--;
+    }
+
+    char *tempbuff = malloc(end - start + 2);
+    if (tempbuff == NULL) {
+        return NULL;
+    }
+    memcpy(tempbuff, start, end - start + 1);
+    tempbuff[end - start + 1] = '\0';
+    
+    String *trimmed_str = str_create(tempbuff);
+    free(tempbuff);
+    return trimmed_str;
+}
+
 // Returns the length of the string
 size_t str_length(const char *src) {
     const char *current = src;
@@ -126,7 +204,6 @@ size_t str_length(const char *src) {
         current++;
         length++;
     }
-
     return length;
 }
 
@@ -171,4 +248,9 @@ static bool resize(String *str, size_t size) {
     str->capacity = new_capacity;
     str->data = tmp;
     return true;
+}
+
+// Returns true if char is whitespace, otherwise false
+static bool is_whitespace(char c) {
+    return c == ' ' || c == '\t' || c == '\n' || c == '\r';
 }
