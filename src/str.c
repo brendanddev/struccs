@@ -11,7 +11,6 @@
 static bool resize(String *str, size_t size);
 static bool is_whitespace(char c);
 
-// Creates a new String
 String* str_create(const char *initial) {
     String *str = malloc(sizeof(String));
     if (str == NULL) return NULL;
@@ -26,13 +25,11 @@ String* str_create(const char *initial) {
             return NULL;
         }
 
-        // Dereference to set the first character stored in the buffer to null terminator
         *str->data = '\0';
         str->length = 0;
 
     } else {
         size_t length = str_length(initial);
-
         str->data = malloc(sizeof(char) * (str->initial_capacity + 1));
         if (str->data == NULL) {
             free(str);
@@ -40,18 +37,16 @@ String* str_create(const char *initial) {
         }
 
         if (resize(str, length)) {
-            memcpy(str->data, initial, length + 1); 
+            memcpy(str->data, initial, length + 1);
             str->length = length;
         } else {
             free(str);
             return NULL;
         }
     }
-
     return str;
 }
 
-// Adds more characters to the end of an existing String
 bool str_append(String *str, const char *data) {
     size_t append_length = str_length(data);
     size_t new_length = str->length + append_length;
@@ -66,12 +61,13 @@ bool str_append(String *str, const char *data) {
     }
 }
 
-// Checks if a string contains a given substring
-bool str_contains(String *str, const char *substr) { 
+bool str_contains(String *str, const char *substr) {
     char *curr_str = str->data;
     char *curr_substr = substr;
     char *match_start = NULL;
 
+    // Naive search: retry the match one character further along str after every
+    // failed attempt.
     while (*curr_str != '\0' && *curr_substr != '\0') {
         curr_substr = substr;
         match_start = curr_str + 1;
@@ -87,9 +83,6 @@ bool str_contains(String *str, const char *substr) {
     return false;
 }
 
-// Compares two strings lexicographically
-// Returns 0 if equal, 1 if a > b, -1 if a < b, 
-// or the character difference if lengths differ
 int str_compare(String *a, String *b) {
     char *curr_a = a->data;
     char *curr_b = b->data;
@@ -104,23 +97,21 @@ int str_compare(String *a, String *b) {
             curr_b++;
         }
     }
-    // return 0;
+    // Loop ended because a string ran out: 0 if both did, else the signed value
+    // of the leftover character (not necessarily +/-1).
     return *curr_a - *curr_b;
 }
 
-// Returns a copy of the provided string
 String* str_copy(String *src) {
     if (src == NULL) return NULL;
     String *new_str = str_create(src->data);
     return new_str;
 }
 
-// Checks if two strings are equal
 bool str_equals(String *a, String *b) {
     return str_compare(a, b) == 0;
 }
 
-// Concatenates two strings, and returns a copy
 String* str_concat(String *str, String *substr) {
     if (str == NULL) {
         return NULL;
@@ -134,7 +125,6 @@ String* str_concat(String *str, String *substr) {
     }
 }
 
-// Converts a string to uppercase, and returns a copy of that string
 String* str_to_upper(String *str) {
     if (str == NULL) {
         return NULL;
@@ -151,7 +141,6 @@ String* str_to_upper(String *str) {
     return str_upper;
 }
 
-// Converts a string to lowercase, and returns a copy of that string
 String* str_to_lower(String *str) {
     if (str == NULL) {
         return NULL;
@@ -168,13 +157,14 @@ String* str_to_lower(String *str) {
     return str_lower;
 }
 
-// Trims whitespace from the start and end of a string, returns a copy
 String *str_trim(String *str) {
     if (str == NULL) {
         return NULL;
     }
 
     char *start = str->data;
+    // NOTE: assumes str is non-empty. For a zero-length String this is data - 1,
+    // and the trailing-whitespace loop below then reads before the buffer.
     char *end = str->data + str_len(str) - 1;
 
     while (is_whitespace(*start) && *start != '\0') {
@@ -191,13 +181,12 @@ String *str_trim(String *str) {
     }
     memcpy(tempbuff, start, end - start + 1);
     tempbuff[end - start + 1] = '\0';
-    
+
     String *trimmed_str = str_create(tempbuff);
     free(tempbuff);
     return trimmed_str;
 }
 
-// Returns the length of the string
 size_t str_length(const char *src) {
     const char *current = src;
     size_t length = 0;
@@ -209,12 +198,10 @@ size_t str_length(const char *src) {
     return length;
 }
 
-// Returns the length of string based on length member
 size_t str_len(String *str) {
     return str->length;
 }
 
-// Prints the contents of the String
 void str_print(String *str) {
     char *current = str->data;
     while (*current != '\0') {
@@ -223,7 +210,6 @@ void str_print(String *str) {
     }
 }
 
-// Releases the String buffer and the String struct memory
 void str_discard(String *str) {
     if (str != NULL) {
         free(str->data);
@@ -231,7 +217,8 @@ void str_discard(String *str) {
     }
 }
 
-// Ensures the internal buffer has enough capacity for the requested number of characters
+// Grows data so it can hold at least `size` characters plus the '\0', doubling
+// capacity until it fits. No-op when the buffer already fits; false if realloc fails.
 static bool resize(String *str, size_t size) {
     if (size <= str->capacity) {
         return true;
@@ -252,7 +239,6 @@ static bool resize(String *str, size_t size) {
     return true;
 }
 
-// Returns true if char is whitespace, otherwise false
 static bool is_whitespace(char c) {
     return c == ' ' || c == '\t' || c == '\n' || c == '\r';
 }
