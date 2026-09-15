@@ -63,10 +63,11 @@ Each structure ships with its own header and source file, and can be used indepe
 
 ## Types
 
-| Type      | Description              | Header   |
-|-----------|--------------------------|----------|
-| `Result`  | Operation result wrapping a value and error state | `result.h` |
-| `String`  | Dynamic string type      | `str.h`  |
+| Type      | Description                                | Header     |
+|-----------|--------------------------------------------|------------|
+| `Result`  | Operation result wrapping a value or error | `result.h` |
+| `Option`  | Wrapper representing an optional value     | `option.h` |
+| `String`  | Dynamic, resizable string type             | `str.h`    |
 
 ## Memory Management
 
