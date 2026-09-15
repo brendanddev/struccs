@@ -1,4 +1,6 @@
+// test_utils.h
 // Lightweight test macros for struccs test suites
+// Brendan Dileo - 2026
 
 #define ASSERT_EQ(actual, expected) \
     if ((actual) != (expected)) { \

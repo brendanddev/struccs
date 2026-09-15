@@ -1,8 +1,6 @@
-/**
- * test_ht.c
- * The test suite for the HashTable implementation.
- * Brendan Dileo - 2025
- */
+// test_ht.c
+// The test suite for the HashTable implementation.
+// Brendan Dileo - 2025
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>

@@ -1,18 +1,14 @@
 # struccs
 
-A lightweight, generic C library of fundamental data structures — built from scratch with a focus on memory management, performance, and type-agnostic design.
+A lightweight, generic C library, built from scratch, providing data structures, common types, and low-level memory tools. No dependencies, no standard container libraries. Just `void*`, function pointers, and manual memory management.
 
-> Version 0.10.8
-
-No dependencies. No standard container libraries. Just `void*`, function pointers, and manual memory management.
+> Version 0.14.0
 
 ---
 
 ## Why struccs?
 
-Most C developers end up rewriting the same data structures over and over, a linked list here, a hash table there, each tied to one specific type. **struccs** gives you a set of generic, reusable structures that work with *any* data type via `void*` pointers and user-supplied function pointers (for comparison, hashing, freeing, etc.), so you write the logic once and reuse it everywhere.
-
-It's also a deep dive into how these structures work under the hood, useful if you're learning C, data structures, or memory management.
+C gives you the building blocks but none of the infrastructure. struccs fills that gap — generic data structures, common types, and memory tools, all handwritten, all dependency-free, all designed to work together.
 
 ---
 
@@ -65,6 +61,20 @@ For full examples per structure, see [docs/USAGE.md](docs/USAGE.md).
 
 Each structure ships with its own header and source file, and can be used independently or together via the umbrella header.
 
+## Types
+
+| Type      | Description                                | Header     |
+|-----------|--------------------------------------------|------------|
+| `Result`  | Operation result wrapping a value or error | `result.h` |
+| `Option`  | Wrapper representing an optional value     | `option.h` |
+| `String`  | Dynamic, resizable string type             | `str.h`    |
+
+## Memory Management
+
+| Component      | Description                                                 | Header           |
+|----------------|-------------------------------------------------------------|------------------|
+| `MemoryPool`   | Fixed-size block allocator backed by a pre-allocated buffer | `memory_pool.h`  |
+
 ---
 
 ## Usage
@@ -100,12 +110,12 @@ Each structure has its own test target (`test_ll`, `test_bt`, `test_hash`, etc.)
 ## Project Structure
 
 struccs/
-├── include/        # Public headers
-├── src/            # Implementations
-├── tests/          # Test suites
-├── docs/           # Documentation
-│   ├── USAGE.md    # Usage examples for each structure
-│   ├── API.md      # Full API reference
+├── include/            # Public headers
+├── src/                # Implementations
+├── tests/              # Test suites
+├── docs/               # Documentation
+│   ├── USAGE.md        # Usage examples for each structure
+│   ├── API.md          # Full API reference
 │   └── PERFORMANCE.md  # Benchmarks & complexity notes
 ├── Makefile
 ├── LICENSE
@@ -118,6 +128,16 @@ struccs/
 - [Usage Examples](docs/USAGE.md) — code examples for every structure
 - [API Reference](docs/API.md) — full function signatures and behavior
 - [Performance](docs/PERFORMANCE.md) — benchmarks and complexity analysis
+
+---
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for full guidelines on:
+- Project design principles (no dependencies, generic by design, memory-conscious)
+- Code style and structure conventions
+- Testing requirements
+- Pull request process
 
 ---
 

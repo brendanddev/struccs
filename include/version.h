@@ -1,0 +1,9 @@
+#ifndef VERSION_H
+#define VERSION_H
+
+#define STRUCCS_VERSION_MAJOR 0
+#define STRUCCS_VERSION_MINOR 14
+#define STRUCCS_VERSION_PATCH 0
+#define STRUCCS_VERSION "0.14.0"
+
+#endif

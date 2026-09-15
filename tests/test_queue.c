@@ -1,8 +1,6 @@
-/**
- * test_queue.c
- * The test suite for the Queue implementation.
- * Brendan Dileo - 2025
- */
+// test_queue.c
+// The test suite for the Queue implementation.
+// Brendan Dileo - 2025
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
