@@ -1,17 +1,15 @@
-# Project
 PROJECT = struccs
 
 # Compiler and flags
 CC = clang
 CFLAGS = -Wall -Wextra -I include
 TESTFLAGS = $(CFLAGS) -I tests
+CFLAGS_ASAN = -Wall -Wextra -I include -fsanitize=address,undefined -g
 
-# Directories
+# Directories and source files
 SRC_DIR = src
 TEST_DIR = tests
 BUILD_DIR = build
-
-# Source files
 SRCS = $(wildcard $(SRC_DIR)/*.c)
 
 # Static library
@@ -79,7 +77,11 @@ test_result: $(BUILD_DIR)
 	$(CC) $(TESTFLAGS) $(SRC_DIR)/result.c $(TEST_DIR)/test_result.c -o $(BUILD_DIR)/test_result
 	./$(BUILD_DIR)/test_result
 
-test_all: test_bt test_bst test_ga test_ll test_ht test_stack test_queue test_heap test_set
+test_option: $(BUILD_DIR)
+	$(CC) $(TESTFLAGS) $(SRC_DIR)/option.c $(TEST_DIR)/test_option.c -o $(BUILD_DIR)/test_option
+	./$(BUILD_DIR)/test_option
+
+test_all: test_bt test_bst test_ga test_ll test_ht test_stack test_queue test_heap test_set test_mp test_str test_result test_option
 
 sandbox: $(LIB)
 	$(CC) $(CFLAGS) sandbox/scratch.c \
@@ -87,6 +89,14 @@ sandbox: $(LIB)
 		-lstruccs \
 		-g -fsanitize=address \
 		-o $(BUILD_DIR)/sandbox && ./$(BUILD_DIR)/sandbox
+
+asan: $(BUILD_DIR)
+	@for src in $(TEST_DIR)/test_*.c; do \
+		name=$$(basename $$src .c); \
+		$(CC) $(CFLAGS_ASAN) $(SRCS) $$src -o $(BUILD_DIR)/$${name}_asan; \
+		echo "Running $${name}_asan..."; \
+		./$(BUILD_DIR)/$${name}_asan; \
+	done
 
 # Clean build artifacts
 clean:
