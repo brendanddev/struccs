@@ -31,6 +31,9 @@ jobs:
       - name: Run tests with Valgrind
         run: |
           for test in build/test_*; do
+            case "$test" in
+              *_asan) continue ;;
+            esac
             echo "Running valgrind on $test..."
             valgrind --leak-check=full --show-leak-kinds=all --error-exitcode=1 $test
           done
