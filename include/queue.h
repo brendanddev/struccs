@@ -1,8 +1,6 @@
-/**
- * queue.h
- * Header for the generic queue implementation backed by linked nodes.
- * Brendan Dileo - 2025
- */
+// queue.h
+// Header for the generic queue implementation backed by linked nodes.
+// Brendan Dileo - 2025
 
 #ifndef QUEUE_H
 #define QUEUE_H

@@ -1,8 +1,6 @@
-/**
- * test_mp.c
- * Test suite for the fixed-size MemoryPool allocator.
- * Brendan Dileo - 2026
- */
+// test_mp.c
+// Test suite for the fixed-size MemoryPool allocator.
+// Brendan Dileo - 2026
 
 #include <stdio.h>
 #include <stdlib.h>

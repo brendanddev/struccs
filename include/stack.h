@@ -1,8 +1,6 @@
-/**
- * stack.h
- * Header for the generic stack implementation backed by linked nodes.
- * Brendan Dileo - 2025
- */
+// stack.h
+// Header for the generic stack implementation backed by linked nodes.
+// Brendan Dileo - 2025
 
 #ifndef STACK_H
 #define STACK_H

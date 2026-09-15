@@ -1,8 +1,7 @@
-/**
- * hash_table.c
- * A generic implementation of a hash table
- * Brendan Dileo - 2025
- */
+// hash_table.c
+// A generic implementation of a hash table
+// Brendan Dileo - 2025
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>

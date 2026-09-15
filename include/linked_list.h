@@ -1,8 +1,6 @@
-/**
- * linked_list.h
- * Header for the generic doubly linked list implementation
- * Brendan Dileo - 2025
- */
+// linked_list.h
+// Header for the generic doubly linked list implementation
+// Brendan Dileo - 2025
 
 #ifndef LINKED_LIST_H
 #define LINKED_LIST_H

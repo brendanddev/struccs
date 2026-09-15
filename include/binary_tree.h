@@ -1,8 +1,6 @@
-/**
- * binary_tree.h
- * Header for the generic complete binary tree implementation, backed by an array.
- * Brendan Dileo - 2025
- */
+// binary_tree.h
+// Header for the generic complete binary tree implementation, backed by an array.
+// Brendan Dileo - 2025
 
 #ifndef BINARY_TREE_H
 #define BINARY_TREE_H
@@ -11,10 +9,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-/**
- * Elements are stored in a flat array, parent/child links are derived from
- * array indices (left = 2i+1, right = 2i+2), so the tree is always complete.
- */
+// Elements are stored in a flat array, parent/child links are derived from
+// array indices (left = 2i+1, right = 2i+2), so the tree is always complete.
 typedef struct BinaryTree {
     int length;             // number of elements in use
     int capacity;           // slots allocated in the backing array

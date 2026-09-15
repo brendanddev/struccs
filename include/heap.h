@@ -1,8 +1,6 @@
-/**
- * heap.h
- * Header for the generic heap implementation backed by an array.
- * Brendan Dileo - 2025
- */
+// heap.h
+// Header for the generic heap implementation backed by an array.
+// Brendan Dileo - 2025
 
 #ifndef HEAP_H
 #define HEAP_H
@@ -11,10 +9,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-/**
- * Array-backed binary heap. Ordering is whatever the compare callback passed to
- * insert/remove defines, pass a max-first comparator for a max-heap.
- */
+// Array-backed binary heap. Ordering is whatever the compare callback passed to
+// insert/remove defines, pass a max-first comparator for a max-heap.
 typedef struct Heap {
     void *elements;
     size_t element_size;

@@ -1,8 +1,6 @@
-/**
- * test_heap.c
- * The test suite for the Heap implementation
- * Brendan Dileo - 2025
- */
+// test_heap.c
+// The test suite for the Heap implementation
+// Brendan Dileo - 2025
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>

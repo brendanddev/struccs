@@ -1,8 +1,6 @@
-/**
- * set.h
- * Header for the generic set implementation, backed by a hash table.
- * Brendan Dileo - 2026
- */
+// set.h
+// Header for the generic set implementation, backed by a hash table.
+// Brendan Dileo - 2026
 
 #ifndef SET_H
 #define SET_H
@@ -12,10 +10,8 @@
 #include <stdbool.h>
 #include "hash_table.h"
 
-/**
- * Thin wrapper over HashTable: stores each element as a key mapped to a dummy
- * value. element_size is the byte width of every element.
- */
+// Thin wrapper over HashTable: stores each element as a key mapped to a dummy
+// value. element_size is the byte width of every element.
 typedef struct Set {
     size_t element_size;
     HashTable *table;

@@ -1,8 +1,6 @@
-/**
- * memory_pool.c
- * Implementation of a fixed-size memory pool allocator backed by a free list.
- * Brendan Dileo - 2026
- */
+// memory_pool.c
+// Implementation of a fixed-size memory pool allocator backed by a free list.
+// Brendan Dileo - 2026
 
 #include <stdio.h>
 #include <stdlib.h>

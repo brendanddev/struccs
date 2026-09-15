@@ -1,8 +1,6 @@
-/**
- * binarysearch_tree.h
- * Header for the generic binary search tree implementation with linked nodes.
- * Brendan Dileo - 2025
- */
+// binarysearch_tree.h
+// Header for the generic binary search tree implementation with linked nodes.
+// Brendan Dileo - 2025
 
 #ifndef BINARYSEARCH_TREE_H
 #define BINARYSEARCH_TREE_H

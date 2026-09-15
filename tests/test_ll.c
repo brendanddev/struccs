@@ -1,8 +1,6 @@
-/**
- * test_ll.c
- * The test suite for the LinkedList implementation.
- * Brendan Dileo - 2025
- */
+// test_ll.c
+// The test suite for the LinkedList implementation.
+// Brendan Dileo - 2025
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>

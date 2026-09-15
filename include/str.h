@@ -10,12 +10,10 @@
 // Starting capacity of a String's buffer, in characters (excluding the '\0').
 #define INITIAL_CAPACITY 8
 
-/**
- * Growable, always NUL-terminated string.
- *   data     - heap buffer, capacity + 1 bytes (room for the '\0')
- *   length   - characters stored, not counting the '\0'
- *   capacity - characters the buffer can hold before it must grow
- */
+// Growable, always NUL-terminated string.
+//   data     - heap buffer, capacity + 1 bytes (room for the '\0')
+//   length   - characters stored, not counting the '\0'
+//   capacity - characters the buffer can hold before it must grow
 typedef struct String {
     char *data;
     size_t length;

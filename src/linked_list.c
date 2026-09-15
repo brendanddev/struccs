@@ -1,8 +1,7 @@
-/**
- * linked_list.c
- * A generic implementation of a double linked list.
- * Brendan Dileo - 2025
- */
+// linked_list.c
+// A generic implementation of a double linked list.
+// Brendan Dileo - 2025
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>

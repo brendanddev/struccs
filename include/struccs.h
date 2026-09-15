@@ -1,8 +1,6 @@
-/**
- * struccs.h
- * Umbrella header for the struccs library.
- * Brendan Dileo - 2026
- */
+// struccs.h
+// Umbrella header for the struccs library.
+// Brendan Dileo - 2026
 
 #ifndef STRUCCS_H
 #define STRUCCS_H

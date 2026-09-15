@@ -1,8 +1,6 @@
-/**
- * test_set.c
- * The test suite for the Set implementation backed by a hash table.
- * Brendan Dileo - 2026
- */
+// test_set.c
+// The test suite for the Set implementation backed by a hash table.
+// Brendan Dileo - 2026
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>

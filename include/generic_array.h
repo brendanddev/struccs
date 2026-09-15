@@ -1,8 +1,6 @@
-/**
- * generic_array.h
- * Header for the generic array implementation.
- * Brendan Dileo - 2025
- */
+// generic_array.h
+// Header for the generic array implementation.
+// Brendan Dileo - 2025
 
 #ifndef GENERIC_ARRAY_H
 #define GENERIC_ARRAY_H

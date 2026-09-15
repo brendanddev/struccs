@@ -1,8 +1,6 @@
-/**
- * test_stack.c
- * The test suite for the Stack implementation.
- * Brendan Dileo - 2025
- */
+// test_stack.c
+// The test suite for the Stack implementation.
+// Brendan Dileo - 2025
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>

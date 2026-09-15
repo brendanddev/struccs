@@ -1,8 +1,6 @@
-/**
- * memory_pool.h
- * Header for the generic memory pool implementation.
- * Brendan Dileo - 2026
- */
+// memory_pool.h
+// Header for the generic memory pool implementation.
+// Brendan Dileo - 2026
 
 #ifndef MEMORY_POOL_H
 #define MEMORY_POOL_H
@@ -14,18 +12,14 @@
 // Total bytes for nblocks blocks: each block carries a header plus bsize usable bytes.
 #define MEMORY_SIZE(bsize, nblocks) ((bsize) + sizeof(struct MemoryBlockHeader)) * (nblocks)
 
-/**
- * Header prefixed to every block. While a block is free, next links it into the
- * pool's free list; while it is handed out, the bytes after the header are the
- * caller's to use.
- */
+// Header prefixed to every block. While a block is free, next links it into the
+// pool's free list; while it is handed out, the bytes after the header are the
+// caller's to use.
 struct MemoryBlockHeader {
     struct MemoryBlockHeader *next;
 };
 
-/**
- * Fixed-size block allocator over one pre-allocated buffer.
- */
+// Fixed-size block allocator over one pre-allocated buffer.
 struct MemoryPool {
     char *memory;                           // the single backing allocation
     struct MemoryBlockHeader *first_free;   // head of the free list
