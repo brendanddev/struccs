@@ -9,8 +9,8 @@
 #include "generic_array.h"
 
 // Prototypes
-static void resize(struct GenericArray *ga);
-static void shrink(struct GenericArray *ga);
+static bool resize(struct GenericArray *ga);
+static bool shrink(struct GenericArray *ga);
 static void shift_right(struct GenericArray *ga, int index);
 static void shift_left(struct GenericArray *ga, int index);
 static void swap(struct GenericArray *ga, void *val1, void *val2);
@@ -38,7 +38,9 @@ struct GenericArray * ga_init(size_t item_size) {
 
 bool ga_append(struct GenericArray *ga, void *itemPtr) {
     if (ga->length == ga->capacity) {
-        resize(ga);
+        if (!resize(ga)) {
+            return false;
+        }
     }
 
     void *dest = (char *)ga->ptrData + ga->length * ga->item_size;
@@ -51,7 +53,9 @@ bool ga_add(struct GenericArray *ga, int index, void *in_ptr) {
     if (index < 0 || index > ga->length) return false;
 
     if (ga->length == ga->capacity) {
-        resize(ga);
+        if (!resize(ga)) {
+            return false;
+        }
     }
 
     shift_right(ga, index);
@@ -94,7 +98,7 @@ bool ga_remove_last(struct GenericArray *ga) {
     ga->length--;
 
     if (ga_usage(ga) < SHRINK_THRESHOLD) {
-        shrink(ga);
+        (void)shrink(ga);
     }
     return true;
 }
@@ -104,7 +108,7 @@ bool ga_remove_at(struct GenericArray *ga, int index) {
     ga->length--;
 
     if (ga_usage(ga) < SHRINK_THRESHOLD) {
-        shrink(ga);
+        (void)shrink(ga);
     }
 
     shift_left(ga, index);
@@ -187,9 +191,17 @@ void ga_reverse(struct GenericArray *ga) {
 struct GenericArray* ga_copy(struct GenericArray *ga) {
     struct GenericArray *ga_copy = NULL;
     ga_copy = malloc(sizeof(struct GenericArray));
+    if (ga_copy == NULL) {
+        return NULL;
+    }
 
     void *new_ga_ptrData = NULL;
     new_ga_ptrData = malloc(ga->item_size * ga->capacity);
+    if (new_ga_ptrData == NULL) {
+        free(ga_copy);
+        ga_copy = NULL;
+        return NULL;
+    }
 
     memcpy(ga_copy, ga, sizeof(struct GenericArray));
     memcpy(new_ga_ptrData, ga->ptrData, ga->item_size * ga->length);
@@ -221,24 +233,24 @@ bool ga_binary_find(struct GenericArray *ga, void *item_ptr, int (* comparator)(
 }
 
 
-// Doubles the backing array; exits the process on allocation failure.
-static void resize(struct GenericArray *ga) {
+// Doubles the backing array. Returns false on allocation failure.
+static bool resize(struct GenericArray *ga) {
     int new_capacity = ga->capacity * 2;
 
     void *tmp_ptr = NULL;
     tmp_ptr = realloc(ga->ptrData, new_capacity * ga->item_size);
     if (tmp_ptr == NULL) {
-        fprintf(stderr, "Memory allocation failed during resizing!\n");
-        exit(EXIT_FAILURE);
+        return false;
     }
 
     ga->capacity = new_capacity;
     ga->ptrData = tmp_ptr;
+    return true;
 }
 
 // Shrinks an underused array: to 2.5x the live count, or 1.5x initial_capacity
-// once the count drops that low. Exits the process on allocation failure.
-static void shrink(struct GenericArray *ga) {
+// once the count drops that low. Returns false on allocation failure.
+static bool shrink(struct GenericArray *ga) {
     int new_capacity;
     if (ga->length > ga->initial_capacity) {
         new_capacity = (int)(ga->length * 2.5);
@@ -249,11 +261,11 @@ static void shrink(struct GenericArray *ga) {
     void *tmp = NULL;
     tmp = realloc(ga->ptrData, new_capacity * ga->item_size);
     if (tmp == NULL) {
-        fprintf(stderr, "Memory allocation failed during shrinking!\n");
-        exit(EXIT_FAILURE);
+        return false;
     }
     ga->capacity = new_capacity;
     ga->ptrData = tmp;
+    return true;
 }
 
 // Walks from the tail so each slot is copied forward before it is overwritten.

@@ -21,6 +21,7 @@ void test_ga_remove_at(void);
 void test_ga_remove_at_invalid(void);
 void test_ga_contains(void);
 void test_ga_contains_missing(void);
+void test_ga_copy(void);
 void test_ga_clear(void);
 void test_ga_large_operations(void);
 
@@ -42,6 +43,7 @@ int main(void) {
     TEST(test_ga_remove_at_invalid);
     TEST(test_ga_contains);
     TEST(test_ga_contains_missing);
+    TEST(test_ga_copy);
     TEST(test_ga_clear);
     TEST(test_ga_large_operations);
 
@@ -223,6 +225,34 @@ void test_ga_contains_missing(void) {
     ASSERT_FALSE(ga_contains(ga, compare_int, &missing));
 
     ga_discard(ga);
+}
+
+void test_ga_copy(void) {
+    GenericArray *ga = ga_init(sizeof(int));
+
+    int a = 1, b = 2, c = 3;
+
+    ga_add(ga, 0, &a);
+    ga_add(ga, 1, &b);
+    ga_add(ga, 2, &c);
+
+    GenericArray *copy = ga_copy(ga);
+
+    ASSERT_NOT_NULL(copy);
+    ASSERT_EQ(ga_size(copy), ga_size(ga));
+
+    int out_orig, out_copy;
+
+    ga_get(ga, 0, &out_orig);
+    ga_get(copy, 0, &out_copy);
+    ASSERT_EQ(out_orig, out_copy);
+
+    ga_get(ga, 2, &out_orig);
+    ga_get(copy, 2, &out_copy);
+    ASSERT_EQ(out_orig, out_copy);
+
+    ga_discard(ga);
+    ga_discard(copy);
 }
 
 void test_ga_clear(void) {
