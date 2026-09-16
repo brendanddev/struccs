@@ -63,7 +63,7 @@ bool str_append(String *str, const char *data) {
 
 bool str_contains(String *str, const char *substr) {
     char *curr_str = str->data;
-    char *curr_substr = substr;
+    const char *curr_substr = substr;
     char *match_start = NULL;
 
     // Naive search: retry the match one character further along str after every

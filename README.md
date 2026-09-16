@@ -2,7 +2,7 @@
 
 A lightweight, generic C library, built from scratch, providing data structures, common types, and low-level memory tools. No dependencies, no standard container libraries. Just `void*`, function pointers, and manual memory management.
 
-> Version 0.14.6
+> Version 0.14.7
 
 ---
 

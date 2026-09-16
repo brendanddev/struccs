@@ -98,6 +98,11 @@ asan: $(BUILD_DIR)
 		./$(BUILD_DIR)/$${name}_asan; \
 	done
 
+constcheck:
+	@for f in $(SRCS); do \
+		$(CC) $(CFLAGS) -Wcast-qual -Wwrite-strings -c $$f -o /dev/null; \
+	done
+
 # Clean build artifacts
 clean:
 	rm -rf $(BUILD_DIR)

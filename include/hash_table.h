@@ -23,7 +23,7 @@ typedef struct HashTable {
 struct HashTable* ht_create();
 // Inserts a copy of the key (ksize bytes) and value (vsize bytes), or overwrites
 // the value in place if the key is already present. Returns true.
-bool ht_insert(struct HashTable *hashtable, void *key, size_t ksize, void *value, size_t vsize);
+bool ht_insert(struct HashTable *hashtable, void *key, size_t ksize, const void *value, size_t vsize);
 // Removes the entry for key. Returns false if the key is absent.
 bool ht_remove(struct HashTable *hashtable, void *key, size_t ksize);
 // Copies the value for key into out. Returns false if the key is absent.

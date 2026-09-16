@@ -28,7 +28,7 @@ Set* set_create(size_t element_size) {
 
 bool set_add(Set *set, void *value) {
     if (!ht_contains(set->table, value, set->element_size)) {
-        ht_insert(set->table, value, set->element_size, (void*) &SET_DUMMY, sizeof(char));
+        ht_insert(set->table, value, set->element_size, (const void*) &SET_DUMMY, sizeof(char));
         return true;
     }
     return false;

@@ -22,7 +22,7 @@ typedef struct Node {
 } Node;
 
 // Prototypes
-static struct Node* ht_create_node(void *key, size_t ksize, void *value, size_t vsize);
+static struct Node* ht_create_node(void *key, size_t ksize, const void *value, size_t vsize);
 static int ht_hash(void *key, size_t key_size, int capacity);
 static void ht_resize(struct HashTable *hashtable);
 static void ht_discard_node(struct Node *node);
@@ -45,7 +45,7 @@ struct HashTable* ht_create() {
     return hashtable;
 }
 
-bool ht_insert(struct HashTable *hashtable, void *key, size_t ksize, void *value, size_t vsize) {
+bool ht_insert(struct HashTable *hashtable, void *key, size_t ksize, const void *value, size_t vsize) {
     if (ht_load_factor(hashtable) > LOAD_THRESHOLD) {
         printf("Resizing internal array...\n");
         ht_resize(hashtable);
@@ -208,11 +208,8 @@ float ht_load_factor(struct HashTable *hashtable) {
 }
 
 
-// Private helper functions - linkage limited to this file
-
-
 // Deep-copies key (ksize bytes) and value (vsize bytes); the node owns both.
-static struct Node* ht_create_node(void *key, size_t ksize, void *value, size_t vsize) {
+static struct Node* ht_create_node(void *key, size_t ksize, const void *value, size_t vsize) {
     struct Node *node = malloc(sizeof(struct Node));
     if (node == NULL) {
         return NULL;
@@ -246,7 +243,7 @@ static int ht_hash(void *key, size_t key_size, int capacity) {
     unsigned char *bytes = (unsigned char *) key;
     int hash_value = 0;
 
-    for (int i = 0; i < key_size; i++) {
+    for (size_t i = 0; i < key_size; i++) {
         hash_value += *(bytes + i);
     }
 

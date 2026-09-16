@@ -247,12 +247,10 @@ int ll_find(struct LinkedList *list, void *item, bool (* comparator)(void*, void
 bool ll_contains(struct LinkedList *list, void *item, bool (* comparator)(void*, void*)) {
     if (list->head == NULL) return false;
 
-    int idx = 0;
     for (struct Node *current = list->head; current != NULL; current = current->next) {
         if (comparator(current->value, item)) {
             return true;
         }
-        idx++;
     }
     return false;
 }
