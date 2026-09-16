@@ -19,8 +19,7 @@ struct GenericArray * ga_init(size_t item_size) {
     struct GenericArray *ga = NULL;
     ga = malloc(sizeof(struct GenericArray));
     if (ga == NULL) {
-        fprintf(stderr, "Memory allocation failed during initialization.\n");
-        exit(EXIT_FAILURE);
+        return NULL;
     }
 
     ga->initial_capacity = 4;
@@ -30,9 +29,8 @@ struct GenericArray * ga_init(size_t item_size) {
 
     void *pTmp = malloc(item_size * ga->capacity);
     if (pTmp == NULL) {
-        fprintf(stderr, "Memory allocation failed for internal array.\n");
         free(ga);
-        exit(EXIT_FAILURE);
+        return NULL;
     }
     ga->ptrData = pTmp;
     return ga;
@@ -96,7 +94,6 @@ bool ga_remove_last(struct GenericArray *ga) {
     ga->length--;
 
     if (ga_usage(ga) < SHRINK_THRESHOLD) {
-        printf("SHRINKING...\n");
         shrink(ga);
     }
     return true;
@@ -107,7 +104,6 @@ bool ga_remove_at(struct GenericArray *ga, int index) {
     ga->length--;
 
     if (ga_usage(ga) < SHRINK_THRESHOLD) {
-        printf("SHRINKING...\n");
         shrink(ga);
     }
 
@@ -118,7 +114,6 @@ bool ga_remove_at(struct GenericArray *ga, int index) {
 bool ga_contains(struct GenericArray *ga, bool (*funcptr)(void*, void*), void *trgtptr) {
     for (int i = 0; i < ga->length; i++) {
         void *curr = (char *) ga->ptrData + i * ga->item_size;
-
         if (funcptr(curr, trgtptr)) {
             return true;
         }
@@ -175,7 +170,6 @@ void ga_sort(struct GenericArray *ga, bool (* comparator)(void*, void*)) {
                 is_swapped = true;
             }
         }
-
         if (is_swapped == false) {
             break;
         }
