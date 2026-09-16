@@ -268,12 +268,12 @@ void ll_clear(struct LinkedList *list) {
 
 struct LinkedList* ll_copy(struct LinkedList *orig) {
     struct LinkedList *copy = ll_create();
+    if (copy == NULL) {
+        return NULL;
+    }
 
     for (struct Node *current = orig->head; current != NULL; current = current->next) {
-        struct Node *cnode = ll_create_node(current->value, current->item_size);
-        // FIXME: ll_insert_tail makes its own copy of the value, so cnode
-        // (node struct + value buffer) is never linked in and never freed.
-        ll_insert_tail(copy, cnode->value, cnode->item_size);
+        ll_insert_tail(copy, current->value, current->item_size);
     }
     return copy;
 }
