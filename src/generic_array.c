@@ -15,7 +15,7 @@ static void shift_right(struct GenericArray *ga, int index);
 static void shift_left(struct GenericArray *ga, int index);
 static void swap(struct GenericArray *ga, void *val1, void *val2);
 
-struct GenericArray * ga_init(size_t item_size) {
+struct GenericArray * ga_create(size_t item_size) {
     struct GenericArray *ga = NULL;
     ga = malloc(sizeof(struct GenericArray));
     if (ga == NULL) {

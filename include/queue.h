@@ -29,7 +29,7 @@ bool queue_dequeue(struct Queue *queue, void *out);
 // Returns true if the queue has no nodes.
 bool queue_is_empty(struct Queue *queue);
 // Returns the number of nodes in the queue.
-int queue_length(struct Queue *queue);
+int queue_size(struct Queue *queue);
 // Frees every node but keeps the queue struct for reuse.
 void queue_clear(struct Queue *queue);
 // Frees every node and the queue struct.

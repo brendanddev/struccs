@@ -68,7 +68,7 @@ bool queue_is_empty(struct Queue *queue) {
     return false;
 }
 
-int queue_length(struct Queue *queue) {
+int queue_size(struct Queue *queue) {
     return queue->length;
 }
 
@@ -91,7 +91,7 @@ void queue_print(struct Queue *queue, void (* print_fn)(void*)) {
 
 void queue_debug(struct Queue *queue) {
     if (queue_is_empty(queue)) return;
-    printf("Queue: Length: %d, Head: %p, Head Next: %p, Tail: %p, Tail Next: %p\n", queue_length(queue), queue->head, queue->head->next, queue->tail, queue->tail->next);
+    printf("Queue: Length: %d, Head: %p, Head Next: %p, Tail: %p, Tail Next: %p\n", queue_size(queue), queue->head, queue->head->next, queue->tail, queue->tail->next);
 }
 
 void queue_discard(struct Queue *queue) {

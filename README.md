@@ -2,7 +2,7 @@
 
 A lightweight, generic C library, built from scratch, providing data structures, common types, and low-level memory tools. No dependencies, no standard container libraries. Just `void*`, function pointers, and manual memory management.
 
-> Version 0.14.2
+> Version 0.14.6
 
 ---
 
@@ -26,11 +26,11 @@ This builds `build/libstruccs.a`. Then in your project:
 #include "struccs.h"
 
 int main(void) {
-    GenericArray *arr = generic_array_create(sizeof(int), 4);
+    GenericArray *arr = ga_create(sizeof(int), 4);
     int value = 42;
-    generic_array_push(arr, &value);
+    ga_push(arr, &value);
     // ...
-    generic_array_destroy(arr);
+    ga_discard(arr);
     return 0;
 }
 ```

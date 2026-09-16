@@ -43,7 +43,7 @@ void test_queue_create(void) {
     struct Queue *q = queue_create();
 
     ASSERT_NOT_NULL(q);
-    ASSERT_EQ(queue_length(q), 0);
+    ASSERT_EQ(queue_size(q), 0);
 
     queue_discard(q);
 }
@@ -55,10 +55,10 @@ void test_queue_enqueue(void) {
     int b = 20;
 
     queue_enqueue(q, &a, sizeof(int));
-    ASSERT_EQ(queue_length(q), 1);
+    ASSERT_EQ(queue_size(q), 1);
 
     queue_enqueue(q, &b, sizeof(int));
-    ASSERT_EQ(queue_length(q), 2);
+    ASSERT_EQ(queue_size(q), 2);
 
     queue_discard(q);
 }
@@ -73,7 +73,7 @@ void test_queue_dequeue(void) {
     ASSERT_TRUE(queue_dequeue(q, &out));
     ASSERT_EQ(out, 42);
 
-    ASSERT_EQ(queue_length(q), 0);
+    ASSERT_EQ(queue_size(q), 0);
 
     queue_discard(q);
 }
@@ -88,7 +88,7 @@ void test_queue_peek(void) {
     ASSERT_TRUE(queue_peek(q, &out));
     ASSERT_EQ(out, 99);
 
-    ASSERT_EQ(queue_length(q), 1);
+    ASSERT_EQ(queue_size(q), 1);
 
     queue_discard(q);
 }
@@ -123,7 +123,7 @@ void test_queue_empty_behavior(void) {
 
     ASSERT_FALSE(queue_dequeue(q, &out));
     ASSERT_FALSE(queue_peek(q, &out));
-    ASSERT_EQ(queue_length(q), 0);
+    ASSERT_EQ(queue_size(q), 0);
 
     queue_discard(q);
 }
@@ -148,7 +148,7 @@ void test_queue_reuse_after_empty(void) {
     queue_enqueue(q, &a, sizeof(int));
     queue_dequeue(q, &out);
 
-    ASSERT_EQ(queue_length(q), 0);
+    ASSERT_EQ(queue_size(q), 0);
 
     queue_enqueue(q, &b, sizeof(int));
     ASSERT_TRUE(queue_peek(q, &out));
@@ -165,13 +165,13 @@ void test_queue_size_consistency(void) {
     queue_enqueue(q, &a, sizeof(int));
     queue_enqueue(q, &b, sizeof(int));
 
-    ASSERT_EQ(queue_length(q), 2);
+    ASSERT_EQ(queue_size(q), 2);
 
     queue_dequeue(q, &out);
-    ASSERT_EQ(queue_length(q), 1);
+    ASSERT_EQ(queue_size(q), 1);
 
     queue_dequeue(q, &out);
-    ASSERT_EQ(queue_length(q), 0);
+    ASSERT_EQ(queue_size(q), 0);
 
     queue_discard(q);
 }
@@ -183,7 +183,7 @@ void test_queue_large_operations(void) {
         queue_enqueue(q, &i, sizeof(int));
     }
 
-    ASSERT_EQ(queue_length(q), 1000);
+    ASSERT_EQ(queue_size(q), 1000);
 
     for (int i = 0; i < 1000; i++) {
         int out;
@@ -191,7 +191,7 @@ void test_queue_large_operations(void) {
         ASSERT_EQ(out, i);
     }
 
-    ASSERT_EQ(queue_length(q), 0);
+    ASSERT_EQ(queue_size(q), 0);
 
     queue_discard(q);
 }

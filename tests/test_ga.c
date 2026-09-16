@@ -8,7 +8,7 @@
 #include "generic_array.h"
 
 // Prototypes
-void test_ga_init(void);
+void test_ga_create(void);
 void test_ga_add(void);
 void test_ga_get(void);
 void test_ga_get_invalid_index(void);
@@ -30,7 +30,7 @@ bool compare_int(void *a, void *b) {
 }
 
 int main(void) {
-    TEST(test_ga_init);
+    TEST(test_ga_create);
     TEST(test_ga_add);
     TEST(test_ga_get);
     TEST(test_ga_get_invalid_index);
@@ -50,8 +50,8 @@ int main(void) {
     return 0;
 }
 
-void test_ga_init(void) {
-    GenericArray *ga = ga_init(sizeof(int));
+void test_ga_create(void) {
+    GenericArray *ga = ga_create(sizeof(int));
 
     ASSERT_NOT_NULL(ga);
     ASSERT_EQ(ga_size(ga), 0);
@@ -61,7 +61,7 @@ void test_ga_init(void) {
 }
 
 void test_ga_add(void) {
-    GenericArray *ga = ga_init(sizeof(int));
+    GenericArray *ga = ga_create(sizeof(int));
 
     int a = 10, b = 20;
 
@@ -75,7 +75,7 @@ void test_ga_add(void) {
 }
 
 void test_ga_get(void) {
-    GenericArray *ga = ga_init(sizeof(int));
+    GenericArray *ga = ga_create(sizeof(int));
 
     int a = 42;
     ga_add(ga, 0, &a);
@@ -90,7 +90,7 @@ void test_ga_get(void) {
 }
 
 void test_ga_get_invalid_index(void) {
-    GenericArray *ga = ga_init(sizeof(int));
+    GenericArray *ga = ga_create(sizeof(int));
 
     int a = 10;
     ga_add(ga, 0, &a);
@@ -104,7 +104,7 @@ void test_ga_get_invalid_index(void) {
 }
 
 void test_ga_set(void) {
-    GenericArray *ga = ga_init(sizeof(int));
+    GenericArray *ga = ga_create(sizeof(int));
 
     int a = 10;
     int replacement = 99;
@@ -123,7 +123,7 @@ void test_ga_set(void) {
 }
 
 void test_ga_set_invalid_index(void) {
-    GenericArray *ga = ga_init(sizeof(int));
+    GenericArray *ga = ga_create(sizeof(int));
 
     int a = 5;
 
@@ -134,7 +134,7 @@ void test_ga_set_invalid_index(void) {
 }
 
 void test_ga_find(void) {
-    GenericArray *ga = ga_init(sizeof(int));
+    GenericArray *ga = ga_create(sizeof(int));
 
     int a = 10, b = 20, c = 30;
 
@@ -150,7 +150,7 @@ void test_ga_find(void) {
 }
 
 void test_ga_find_missing(void) {
-    GenericArray *ga = ga_init(sizeof(int));
+    GenericArray *ga = ga_create(sizeof(int));
 
     int a = 10;
     ga_add(ga, 0, &a);
@@ -163,7 +163,7 @@ void test_ga_find_missing(void) {
 }
 
 void test_ga_remove_last(void) {
-    GenericArray *ga = ga_init(sizeof(int));
+    GenericArray *ga = ga_create(sizeof(int));
 
     int a = 1, b = 2;
 
@@ -177,7 +177,7 @@ void test_ga_remove_last(void) {
 }
 
 void test_ga_remove_at(void) {
-    GenericArray *ga = ga_init(sizeof(int));
+    GenericArray *ga = ga_create(sizeof(int));
 
     int a = 1, b = 2, c = 3;
 
@@ -192,7 +192,7 @@ void test_ga_remove_at(void) {
 }
 
 void test_ga_remove_at_invalid(void) {
-    GenericArray *ga = ga_init(sizeof(int));
+    GenericArray *ga = ga_create(sizeof(int));
 
     int a = 1;
     ga_add(ga, 0, &a);
@@ -203,7 +203,7 @@ void test_ga_remove_at_invalid(void) {
 }
 
 void test_ga_contains(void) {
-    GenericArray *ga = ga_init(sizeof(int));
+    GenericArray *ga = ga_create(sizeof(int));
 
     int a = 5;
 
@@ -215,7 +215,7 @@ void test_ga_contains(void) {
 }
 
 void test_ga_contains_missing(void) {
-    GenericArray *ga = ga_init(sizeof(int));
+    GenericArray *ga = ga_create(sizeof(int));
 
     int a = 5;
     int missing = 999;
@@ -228,7 +228,7 @@ void test_ga_contains_missing(void) {
 }
 
 void test_ga_copy(void) {
-    GenericArray *ga = ga_init(sizeof(int));
+    GenericArray *ga = ga_create(sizeof(int));
 
     int a = 1, b = 2, c = 3;
 
@@ -256,7 +256,7 @@ void test_ga_copy(void) {
 }
 
 void test_ga_clear(void) {
-    GenericArray *ga = ga_init(sizeof(int));
+    GenericArray *ga = ga_create(sizeof(int));
 
     int a = 1, b = 2;
 
@@ -271,7 +271,7 @@ void test_ga_clear(void) {
 }
 
 void test_ga_large_operations(void) {
-    GenericArray *ga = ga_init(sizeof(int));
+    GenericArray *ga = ga_create(sizeof(int));
 
     for (int i = 0; i < 1000; i++) {
         ga_add(ga, i, &i);

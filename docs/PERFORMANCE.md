@@ -83,7 +83,7 @@ Time complexity reference for all operations across each structure.
 | `queue_peek` | **O(1)** | Returns front element without removing it |
 | `queue_dequeue` | **O(1)** | Removes and returns front element |
 | `queue_is_empty` | **O(1)** | Checks if queue is empty |
-| `queue_length` | **O(1)** | Returns number of elements |
+| `queue_size` | **O(1)** | Returns number of elements |
 | `queue_clear` | **O(n)** | Removes all elements |
 | `queue_discard` | **O(n)** | Frees all memory associated with the queue |
 

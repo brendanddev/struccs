@@ -21,8 +21,8 @@ typedef struct GenericArray {
 
 
 // Allocates an empty array for items of item_size bytes. Caller frees with
-// ga_discard. Exits the process on allocation failure.
-struct GenericArray* ga_init(size_t item_size);
+// ga_discard. Returns NULL on allocation failure.
+struct GenericArray* ga_create(size_t item_size);
 // Copies item_size bytes from item_ptr onto the end, growing if full. Returns true.
 bool ga_append(struct GenericArray *ga, void *item_ptr);
 // Inserts a copy of in_ptr at index (0..length), shifting later items right.

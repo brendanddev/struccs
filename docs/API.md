@@ -269,7 +269,7 @@ bool queue_is_empty(struct Queue *queue);
 Returns `true` if the queue has no elements.
 
 ```c
-int queue_length(struct Queue *queue);
+int queue_size(struct Queue *queue);
 ```
 Returns the number of elements.
 
