@@ -46,11 +46,11 @@ bool ga_contains(struct GenericArray *ga, bool (*funcptr)(void*, void*), void *t
 // Resets length to 0; the backing array and its bytes are left in place.
 bool ga_clear(struct GenericArray *ga);
 // Returns the number of items stored.
-int ga_size(struct GenericArray *ga);
+int ga_size(const struct GenericArray *ga);
 // Returns the current capacity of the backing array.
-int ga_capacity(struct GenericArray *ga);
+int ga_capacity(const struct GenericArray *ga);
 // Returns how full the array is, as a percentage (length / capacity * 100).
-double ga_usage(struct GenericArray *ga);
+double ga_usage(const struct GenericArray *ga);
 // Frees the backing array and the struct.
 void ga_discard(struct GenericArray *ga);
 // Applies print_fn to each item in order.

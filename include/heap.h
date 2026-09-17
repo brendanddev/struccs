@@ -32,11 +32,11 @@ bool heap_remove(struct Heap *heap, void *out, int (*compare)(void*, void*));
 // on an empty heap).
 void* heap_peek(struct Heap *heap);
 // Returns the number of elements in the heap.
-int heap_size(struct Heap *heap);
+int heap_size(const struct Heap *heap);
 // Returns the current capacity of the backing array.
-int heap_capacity(struct Heap *heap);
+int heap_capacity(const struct Heap *heap);
 // Returns true if the heap has no elements.
-bool heap_isempty(struct Heap *heap);
+bool heap_isempty(const struct Heap *heap);
 // Resets length to 0; the backing array is kept.
 void heap_clear(struct Heap *heap);
 // Frees the backing array and the heap struct.

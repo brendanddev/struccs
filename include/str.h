@@ -48,7 +48,7 @@ String *str_trim(String *str);
 // Returns the length of a raw C string (like strlen).
 size_t str_length(const char *src);
 // Returns str->length (no scan).
-size_t str_len(String *str);
+size_t str_len(const String *str);
 // Writes the String's characters to stdout.
 void str_print(String *str);
 // Frees the buffer and the String struct.

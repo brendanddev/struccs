@@ -71,12 +71,12 @@ void stack_clear(struct Stack *stack) {
     stack->length = 0;
 }
 
-bool stack_is_empty(struct Stack *stack) {
+bool stack_is_empty(const struct Stack *stack) {
     if (stack->top == NULL) return true;
     return false;
 }
 
-int stack_size(struct Stack *stack) {
+int stack_size(const struct Stack *stack) {
     return stack->length;
 }
 

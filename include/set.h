@@ -27,7 +27,7 @@ bool set_remove(Set *set, void *value);
 // Returns true if value is in the set.
 bool set_contains(Set *set, void *value);
 // Returns the number of elements.
-int set_size(Set *set);
+int set_size(const Set *set);
 // Applies printfunc(element, dummy_value) to every element.
 void set_print(Set *set, void (*printfunc)(void*, void*));
 // Frees the backing table and the set struct.

@@ -252,11 +252,11 @@ static void bst_preorder_rec(struct Node *root, void (* print_fn)(void*)) {
     bst_preorder_rec(root->right, print_fn);
 }
 
-int bst_size(struct BinarySearchTree *tree) {
+int bst_size(const struct BinarySearchTree *tree) {
     return tree->length;
 }
 
-bool bst_isempty(struct BinarySearchTree *tree) {
+bool bst_isempty(const struct BinarySearchTree *tree) {
     return tree->length == 0;
 }
 

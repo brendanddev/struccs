@@ -27,9 +27,9 @@ bool queue_peek(struct Queue *queue, void *out);
 // Copies the head value into out and removes the head. False if the queue is empty.
 bool queue_dequeue(struct Queue *queue, void *out);
 // Returns true if the queue has no nodes.
-bool queue_is_empty(struct Queue *queue);
+bool queue_is_empty(const struct Queue *queue);
 // Returns the number of nodes in the queue.
-int queue_size(struct Queue *queue);
+int queue_size(const struct Queue *queue);
 // Frees every node but keeps the queue struct for reuse.
 void queue_clear(struct Queue *queue);
 // Frees every node and the queue struct.

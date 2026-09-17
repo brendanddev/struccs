@@ -33,13 +33,13 @@ bool ht_contains(struct HashTable *hashtable, void *key, size_t ksize);
 // Frees every entry and resets the table to its initial capacity.
 void ht_clear(struct HashTable *hashtable);
 // Returns true if no entries are stored.
-bool ht_is_empty(struct HashTable *hashtable);
+bool ht_is_empty(const struct HashTable *hashtable);
 // Returns the number of key/value pairs stored.
-int ht_size(struct HashTable *hashtable);
+int ht_size(const struct HashTable *hashtable);
 // Returns the number of buckets.
-int ht_capacity(struct HashTable *hashtable);
+int ht_capacity(const struct HashTable *hashtable);
 // Returns length / capacity.
-float ht_load_factor(struct HashTable *hashtable);
+float ht_load_factor(const struct HashTable *hashtable);
 // Applies print_fn(key, value) to every entry, bucket by bucket.
 void ht_print(struct HashTable *hashtable, void (* print_fn)(void*, void*));
 // Frees every entry, the bucket array, and the table struct.

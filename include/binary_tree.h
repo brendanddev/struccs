@@ -41,11 +41,11 @@ int bt_height(struct BinaryTree *tree);
 // Returns the number of leaf nodes (nodes with no left child).
 int bt_leaves(struct BinaryTree *tree);
 // Returns true if the tree holds no elements.
-bool bt_isempty(struct BinaryTree *tree);
+bool bt_isempty(const struct BinaryTree *tree);
 // Returns the number of elements in the tree.
-int bt_size(struct BinaryTree *tree);
+int bt_size(const struct BinaryTree *tree);
 // Returns the current capacity of the backing array.
-int bt_capacity(struct BinaryTree *tree);
+int bt_capacity(const struct BinaryTree *tree);
 // Resets length to 0; the backing array is kept and reused by later inserts.
 void bt_clear(struct BinaryTree *tree);
 // Prints the tree rotated 90 degrees (root at the left) using print_fn per element.

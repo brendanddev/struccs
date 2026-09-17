@@ -63,12 +63,12 @@ bool queue_dequeue(struct Queue *queue, void *out) {
     return true;
 }
 
-bool queue_is_empty(struct Queue *queue) {
+bool queue_is_empty(const struct Queue *queue) {
     if (queue->head == NULL) return true;
     return false;
 }
 
-int queue_size(struct Queue *queue) {
+int queue_size(const struct Queue *queue) {
     return queue->length;
 }
 

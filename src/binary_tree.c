@@ -143,15 +143,15 @@ void bt_clear(struct BinaryTree *tree) {
     tree->length = 0;
 }
 
-int bt_size(struct BinaryTree *tree) {
+int bt_size(const struct BinaryTree *tree) {
     return tree->length;
 }
 
-int bt_capacity(struct BinaryTree *tree) {
+int bt_capacity(const struct BinaryTree *tree) {
     return tree->capacity;
 }
 
-bool bt_isempty(struct BinaryTree *tree) {
+bool bt_isempty(const struct BinaryTree *tree) {
     return tree->length == 0;
 }
 

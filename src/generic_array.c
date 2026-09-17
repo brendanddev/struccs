@@ -133,15 +133,15 @@ bool ga_clear(struct GenericArray *ga) {
     return true;
 }
 
-int ga_size(struct GenericArray *ga) {
+int ga_size(const struct GenericArray *ga) {
     return ga->length;
 }
 
-int ga_capacity(struct GenericArray *ga) {
+int ga_capacity(const struct GenericArray *ga) {
     return ga->capacity;
 }
 
-double ga_usage(struct GenericArray *ga) {
+double ga_usage(const struct GenericArray *ga) {
     double usage = (double) ga->length / ga->capacity * 100;
     return usage;
 }

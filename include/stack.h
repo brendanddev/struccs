@@ -28,9 +28,9 @@ bool stack_pop(struct Stack *stack, void *out);
 // Frees every node but keeps the stack struct for reuse.
 void stack_clear(struct Stack *stack);
 // Returns true if the stack has no nodes.
-bool stack_is_empty(struct Stack *stack);
+bool stack_is_empty(const struct Stack *stack);
 // Returns the number of nodes on the stack.
-int stack_size(struct Stack *stack);
+int stack_size(const struct Stack *stack);
 // Applies print_fn to each value from top to bottom.
 void stack_print(struct Stack *stack, void (* print_fn)(void*));
 // Frees every node and the stack struct.

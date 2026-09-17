@@ -68,15 +68,15 @@ void* heap_peek(struct Heap *heap) {
     return heap->elements;
 }
 
-int heap_size(struct Heap *heap) {
+int heap_size(const struct Heap *heap) {
     return heap->length;
 }
 
-int heap_capacity(struct Heap *heap) {
+int heap_capacity(const struct Heap *heap) {
     return heap->capacity;
 }
 
-bool heap_isempty(struct Heap *heap) {
+bool heap_isempty(const struct Heap *heap) {
     return heap->length == 0;
 }
 

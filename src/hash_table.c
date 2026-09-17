@@ -191,19 +191,19 @@ void ht_discard(struct HashTable *hashtable) {
     }
 }
 
-bool ht_is_empty(struct HashTable *hashtable) {
+bool ht_is_empty(const struct HashTable *hashtable) {
     return hashtable->length == 0;
 }
 
-int ht_size(struct HashTable *hashtable) {
+int ht_size(const struct HashTable *hashtable) {
     return hashtable->length;
 }
 
-int ht_capacity(struct HashTable *hashtable) {
+int ht_capacity(const struct HashTable *hashtable) {
     return hashtable->capacity;
 }
 
-float ht_load_factor(struct HashTable *hashtable) {
+float ht_load_factor(const struct HashTable *hashtable) {
     return (float) hashtable->length / hashtable->capacity;
 }
 

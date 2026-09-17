@@ -45,9 +45,9 @@ void bst_postorder(struct BinarySearchTree *tree, void (* print_fn)(void*));
 // Applies print_fn to every value in pre-order (parent before children).
 void bst_preorder(struct BinarySearchTree *tree, void (* print_fn)(void*));
 // Returns the number of nodes in the tree.
-int bst_size(struct BinarySearchTree *tree);
+int bst_size(const struct BinarySearchTree *tree);
 // Returns true if the tree has no nodes.
-bool bst_isempty(struct BinarySearchTree *tree);
+bool bst_isempty(const struct BinarySearchTree *tree);
 // Frees every node but keeps the tree struct for reuse.
 void bst_clear(struct BinarySearchTree *tree);
 // Frees every node and the tree struct.

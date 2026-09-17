@@ -198,7 +198,7 @@ size_t str_length(const char *src) {
     return length;
 }
 
-size_t str_len(String *str) {
+size_t str_len(const String *str) {
     return str->length;
 }
 

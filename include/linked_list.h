@@ -48,9 +48,9 @@ struct LinkedList* ll_copy(struct LinkedList *orig);
 // Reverses the list in place (swapping each node's next/prev, then head/tail).
 void ll_reverse(struct LinkedList *list);
 // Returns the number of nodes.
-int ll_size(struct LinkedList *list);
+int ll_size(const struct LinkedList *list);
 // Returns true if the list has no nodes.
-bool ll_is_empty(struct LinkedList *list);
+bool ll_is_empty(const struct LinkedList *list);
 // Frees every node and the list struct.
 void ll_discard(struct LinkedList *list);
 // Applies print_fn to each value from head to tail.

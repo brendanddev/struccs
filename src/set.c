@@ -42,7 +42,7 @@ bool set_contains(Set *set, void *value) {
     return ht_contains(set->table, value, set->element_size);
 }
 
-int set_size(Set *set) {
+int set_size(const Set *set) {
     return ht_size(set->table);
 }
 
