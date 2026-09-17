@@ -10,7 +10,7 @@
 #include <stdbool.h>
 
 // Total bytes for nblocks blocks: each block carries a header plus bsize usable bytes.
-#define MEMORY_SIZE(bsize, nblocks) ((bsize) + sizeof(struct MemoryBlockHeader)) * (nblocks)
+#define MEMORY_SIZE(bsize, nblocks) (((bsize) + sizeof(struct MemoryBlockHeader)) * (nblocks))
 
 // Header prefixed to every block. While a block is free, next links it into the
 // pool's free list; while it is handed out, the bytes after the header are the
@@ -25,12 +25,12 @@ struct MemoryPool {
     struct MemoryBlockHeader *first_free;   // head of the free list
     int num_blocks;
     int num_free_blocks;
-    int block_size;                         // usable bytes per block, excluding the header
+    size_t block_size;                         // usable bytes per block, excluding the header
 };
 
 // Allocates a pool of num_blocks blocks, each with block_size usable bytes.
 // Caller frees it with mp_discard. Returns NULL on allocation failure.
-struct MemoryPool *mp_create(int num_blocks, int block_size);
+struct MemoryPool *mp_create(int num_blocks, size_t block_size);
 // Returns a pointer to a free block's usable region, or NULL if the pool is
 // exhausted. The memory belongs to the pool; return it with mp_free, never free().
 void *mp_alloc(struct MemoryPool *pool);

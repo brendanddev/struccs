@@ -78,7 +78,6 @@ void ll_insert_tail(struct LinkedList *list, void *value, size_t item_size) {
 
 void ll_insert_at(struct LinkedList *list, void *value, size_t item_size, int index) {
     if (index < 0 || index > list->length) return;
-    struct Node *node = ll_create_node(value, item_size);
 
     if (index == 0) {
         ll_insert(list, value, item_size);
@@ -89,6 +88,7 @@ void ll_insert_at(struct LinkedList *list, void *value, size_t item_size, int in
         return;
 
     } else {
+        struct Node *node = ll_create_node(value, item_size);
         int idx = 0;
         for (struct Node *current = list->head; current != NULL; current = current->next) {
             if (idx == index) {
@@ -296,12 +296,12 @@ void ll_reverse(struct LinkedList *list) {
     list->head = last;
 }
 
-bool ll_is_empty(struct LinkedList *list) {
+bool ll_is_empty(const struct LinkedList *list) {
     if (list->head == NULL) return true;
     return false;
 }
 
-int ll_size(struct LinkedList *list) {
+int ll_size(const struct LinkedList *list) {
     return list->length;
 }
 

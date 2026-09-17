@@ -8,7 +8,7 @@
 #include <string.h>
 #include "memory_pool.h"
 
-struct MemoryPool *mp_create(int num_blocks, int block_size) {
+struct MemoryPool *mp_create(int num_blocks, size_t block_size) {
     struct MemoryPool *pool = malloc(sizeof(struct MemoryPool));
     if (pool == NULL) return NULL;
 
