@@ -105,13 +105,13 @@ bool ga_remove_last(struct GenericArray *ga) {
 
 bool ga_remove_at(struct GenericArray *ga, int index) {
     if (index < 0 || index >= ga->length) return false;
+
+    shift_left(ga, index);
     ga->length--;
 
     if (ga_usage(ga) < SHRINK_THRESHOLD) {
         (void)shrink(ga);
     }
-
-    shift_left(ga, index);
     return true;
 }
 

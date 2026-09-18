@@ -207,7 +207,10 @@ void test_bt_capacity(void) {
     for (int i = 0; i < 12; i++) {
         bt_insert(bt, &i);
     }
+    ASSERT_EQ(bt_capacity(bt), 12);
 
+    int extra = 99;
+    bt_insert(bt, &extra);
     ASSERT_EQ(bt_capacity(bt), 24);
 
     bt_discard(bt);
