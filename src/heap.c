@@ -11,9 +11,9 @@
 // Prototypes
 static bool heap_resize(struct Heap *heap);
 static void heap_swap(void *a, void *b, size_t element_size);
-static void heapify_up(struct Heap *heap, int current_idx, int (*compare)(void*, void*));
-static void heapify_down(struct Heap *heap, int current_idx, int (*compare)(void*, void*));
-static void heap_print_rec(struct Heap *heap, void (* print_fn)(void*), int index, int depth);
+static void heapify_up(struct Heap *heap, int current_idx, int (*compare)(const void*, const void*));
+static void heapify_down(struct Heap *heap, int current_idx, int (*compare)(const void*, const void*));
+static void heap_print_rec(const struct Heap *heap, void (* print_fn)(const void*), int index, int depth);
 
 struct Heap* heap_create(size_t element_size) {
     struct Heap *heap = malloc(sizeof(struct Heap));
@@ -32,7 +32,7 @@ struct Heap* heap_create(size_t element_size) {
     return heap;
 }
 
-bool heap_insert(struct Heap *heap, void *value, size_t vsize, int (*compare)(void*, void*)) {
+bool heap_insert(struct Heap *heap, const void *value, size_t vsize, int (*compare)(const void*, const void*)) {
     if (heap->length >= heap->capacity) {
         if (!heap_resize(heap)) return false;
     }
@@ -47,7 +47,7 @@ bool heap_insert(struct Heap *heap, void *value, size_t vsize, int (*compare)(vo
     return true;
 }
 
-bool heap_remove(struct Heap *heap, void *out, int (*compare)(void*, void*)) {
+bool heap_remove(struct Heap *heap, void *out, int (*compare)(const void*, const void*)) {
     if (heap_isempty(heap)) return false;
 
     // Hand back the root before it is overwritten.
@@ -64,7 +64,7 @@ bool heap_remove(struct Heap *heap, void *out, int (*compare)(void*, void*)) {
     return true;
 }
 
-void* heap_peek(struct Heap *heap) {
+void* heap_peek(const struct Heap *heap) {
     return heap->elements;
 }
 
@@ -92,7 +92,7 @@ void heap_discard(struct Heap *heap) {
     }
 }
 
-void heap_debug(struct Heap *heap, void (* print_fn)(void*)) {
+void heap_debug(const struct Heap *heap, void (* print_fn)(const void*)) {
     if (heap_isempty(heap)) return;
 
     for (int i = 0; i < heap->length; i++) {
@@ -100,7 +100,7 @@ void heap_debug(struct Heap *heap, void (* print_fn)(void*)) {
     }
 }
 
-void heap_print(struct Heap *heap, void (* print_fn)(void*)) {
+void heap_print(const struct Heap *heap, void (* print_fn)(const void*)) {
     if (heap_isempty(heap)) return;
     heap_print_rec(heap, print_fn, 0, 0);
 }
@@ -109,7 +109,7 @@ void heap_print(struct Heap *heap, void (* print_fn)(void*)) {
 // Private helper functions - linkage limited to this file
 
 
-static void heap_print_rec(struct Heap *heap, void (* print_fn)(void*), int index, int depth) {
+static void heap_print_rec(const struct Heap *heap, void (* print_fn)(const void*), int index, int depth) {
     if (index >= heap->length) return;
 
     // Right subtree, then node, then left subtree: prints the heap on its side
@@ -150,7 +150,7 @@ static void heap_swap(void *a, void *b, size_t element_size) {
 
 // Sift up: while this element outranks its parent by compare(), swap them and
 // keep walking toward the root.
-static void heapify_up(struct Heap *heap, int current_idx, int (*compare)(void*, void*)) {
+static void heapify_up(struct Heap *heap, int current_idx, int (*compare)(const void*, const void*)) {
     while (current_idx > 0) {
         void *current = (char*) heap->elements + current_idx * heap->element_size;
         int parent_idx = (current_idx - 1) / 2;
@@ -168,7 +168,7 @@ static void heapify_up(struct Heap *heap, int current_idx, int (*compare)(void*,
 
 // Sift down: repeatedly swap with the higher-ranked child until neither child
 // outranks this element.
-static void heapify_down(struct Heap *heap, int current_idx, int (*compare)(void*, void*)) {
+static void heapify_down(struct Heap *heap, int current_idx, int (*compare)(const void*, const void*)) {
     int max_child_idx;
 
     // Loop as long as a left child is in bounds (no left child => no right child).

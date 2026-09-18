@@ -16,7 +16,7 @@ typedef struct Node {
 } Node;
 
 // Prototypes
-static struct Node* queue_create_node(void *val, size_t size);
+static struct Node* queue_create_node(const void *val, size_t size);
 static void queue_discard_node(struct Node *node);
 static void queue_discard_all_nodes(struct Queue *queue);
 
@@ -30,7 +30,7 @@ struct Queue* queue_create() {
     return queue;
 }
 
-void queue_enqueue(struct Queue *queue, void *val, size_t item_size) {
+void queue_enqueue(struct Queue *queue, const void *val, size_t item_size) {
     struct Node *node = queue_create_node(val, item_size);
     if (queue_is_empty(queue)) {
         // First node is both head and tail.
@@ -45,7 +45,7 @@ void queue_enqueue(struct Queue *queue, void *val, size_t item_size) {
     }
 }
 
-bool queue_peek(struct Queue *queue, void *out) {
+bool queue_peek(const struct Queue *queue, void *out) {
     if (queue_is_empty(queue)) return false;
     memcpy(out, queue->head->value, queue->head->item_size);
     return true;
@@ -80,7 +80,7 @@ void queue_clear(struct Queue *queue) {
     queue->length = 0;
 }
 
-void queue_print(struct Queue *queue, void (* print_fn)(void*)) {
+void queue_print(const struct Queue *queue, void (* print_fn)(const void*)) {
     struct Node *current = queue->head;
     while (current != NULL) {
         print_fn(current->value);
@@ -89,7 +89,7 @@ void queue_print(struct Queue *queue, void (* print_fn)(void*)) {
     printf("\n");
 }
 
-void queue_debug(struct Queue *queue) {
+void queue_debug(const struct Queue *queue) {
     if (queue_is_empty(queue)) return;
     printf("Queue: Length: %d, Head: %p, Head Next: %p, Tail: %p, Tail Next: %p\n", queue_size(queue), queue->head, queue->head->next, queue->tail, queue->tail->next);
 }
@@ -106,7 +106,7 @@ void queue_discard(struct Queue *queue) {
 
 
 // Deep-copies size bytes from val; the returned node owns the copy.
-static struct Node* queue_create_node(void *val, size_t size) {
+static struct Node* queue_create_node(const void *val, size_t size) {
     struct Node *node = malloc(sizeof(struct Node));
     if (node == NULL) return NULL;
 

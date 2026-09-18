@@ -16,7 +16,7 @@ typedef struct Node {
 } Node;
 
 // Prototypes
-static struct Node* stack_create_node(void *val, size_t size);
+static struct Node* stack_create_node(const void *val, size_t size);
 static void stack_discard_node(struct Node *node);
 static void stack_discard_all_nodes(struct Stack *stack);
 
@@ -30,7 +30,7 @@ struct Stack* stack_create() {
     return stack;
 }
 
-bool stack_push(struct Stack *stack, void *value, size_t size) {
+bool stack_push(struct Stack *stack, const void *value, size_t size) {
     struct Node *node = stack_create_node(value, size);
 
     if (stack_is_empty(stack)) {
@@ -48,7 +48,7 @@ bool stack_push(struct Stack *stack, void *value, size_t size) {
     }
 }
 
-bool stack_peek(struct Stack *stack, void *out) {
+bool stack_peek(const struct Stack *stack, void *out) {
     if (stack_is_empty(stack)) return false;
     memcpy(out, stack->top->value, stack->top->item_size);
     return true;
@@ -80,7 +80,7 @@ int stack_size(const struct Stack *stack) {
     return stack->length;
 }
 
-void stack_print(struct Stack *stack, void (* print_fn)(void*)) {
+void stack_print(const struct Stack *stack, void (* print_fn)(const void*)) {
     for (struct Node *current = stack->top; current != NULL; current = current->next) {
         print_fn(current->value);
     }
@@ -98,7 +98,7 @@ void stack_discard(struct Stack *stack) {
 
 
 // Deep-copies size bytes from val; the returned node owns the copy.
-static struct Node* stack_create_node(void *val, size_t size) {
+static struct Node* stack_create_node(const void *val, size_t size) {
     struct Node *node = malloc(sizeof(struct Node));
     if (node == NULL) return NULL;
 

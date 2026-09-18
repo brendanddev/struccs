@@ -36,7 +36,7 @@ struct GenericArray * ga_create(size_t item_size) {
     return ga;
 }
 
-bool ga_append(struct GenericArray *ga, void *itemPtr) {
+bool ga_append(struct GenericArray *ga, const void *itemPtr) {
     if (ga->length == ga->capacity) {
         if (!resize(ga)) {
             return false;
@@ -49,7 +49,7 @@ bool ga_append(struct GenericArray *ga, void *itemPtr) {
     return true;
 }
 
-bool ga_add(struct GenericArray *ga, int index, void *in_ptr) {
+bool ga_add(struct GenericArray *ga, int index, const void *in_ptr) {
     if (index < 0 || index > ga->length) return false;
 
     if (ga->length == ga->capacity) {
@@ -66,7 +66,7 @@ bool ga_add(struct GenericArray *ga, int index, void *in_ptr) {
     return true;
 }
 
-bool ga_get(struct GenericArray *ga, int index, void *out_ptr) {
+bool ga_get(const struct GenericArray *ga, int index, void *out_ptr) {
     if (index < 0 || index >= ga->length) return false;
 
     void *dest = (char *)ga->ptrData + index * ga->item_size;
@@ -74,7 +74,7 @@ bool ga_get(struct GenericArray *ga, int index, void *out_ptr) {
     return true;
 }
 
-bool ga_set(struct GenericArray *ga, int index, void *in_ptr) {
+bool ga_set(struct GenericArray *ga, int index, const void *in_ptr) {
     if (index < 0 || index >= ga->length) return false;
 
     void *dest = (char *) ga->ptrData + index * ga->item_size;
@@ -82,7 +82,7 @@ bool ga_set(struct GenericArray *ga, int index, void *in_ptr) {
     return true;
 }
 
-int ga_find(struct GenericArray *ga, void *item_ptr, bool (*comparator)(void*, void*)) {
+int ga_find(const struct GenericArray *ga, const void *item_ptr, bool (*comparator)(const void*, const void*)) {
     for (int i = 0; i < ga->length; i++) {
         void *curr = (char *) ga->ptrData + i * ga->item_size;
 
@@ -115,7 +115,7 @@ bool ga_remove_at(struct GenericArray *ga, int index) {
     return true;
 }
 
-bool ga_contains(struct GenericArray *ga, bool (*funcptr)(void*, void*), void *trgtptr) {
+bool ga_contains(const struct GenericArray *ga, bool (*funcptr)(const void*, const void*), const void *trgtptr) {
     for (int i = 0; i < ga->length; i++) {
         void *curr = (char *) ga->ptrData + i * ga->item_size;
         if (funcptr(curr, trgtptr)) {
@@ -153,7 +153,7 @@ void ga_discard(struct GenericArray *ga) {
     }
 }
 
-void ga_print(struct GenericArray *ga, void (* print_fn)(void*)) {
+void ga_print(const struct GenericArray *ga, void (* print_fn)(const void*)) {
     if (ga->length == 0) return;
     for (int i = 0; i < ga->length; i++) {
         void *curr = (char *) ga->ptrData + i * ga->item_size;
@@ -162,7 +162,7 @@ void ga_print(struct GenericArray *ga, void (* print_fn)(void*)) {
 }
 
 // Bubble sort, bailing out early on the first pass that makes no swaps.
-void ga_sort(struct GenericArray *ga, bool (* comparator)(void*, void*)) {
+void ga_sort(struct GenericArray *ga, bool (* comparator)(const void*, const void*)) {
     bool is_swapped;
     for (int i = 0; i < ga->length - 1; i++) {
         is_swapped = false;
@@ -188,7 +188,7 @@ void ga_reverse(struct GenericArray *ga) {
     }
 }
 
-struct GenericArray* ga_copy(struct GenericArray *ga) {
+struct GenericArray* ga_copy(const struct GenericArray *ga) {
     struct GenericArray *ga_copy = NULL;
     ga_copy = malloc(sizeof(struct GenericArray));
     if (ga_copy == NULL) {
@@ -209,7 +209,7 @@ struct GenericArray* ga_copy(struct GenericArray *ga) {
     return ga_copy;
 }
 
-bool ga_binary_find(struct GenericArray *ga, void *item_ptr, int (* comparator)(void*, void*)) {
+bool ga_binary_find(const struct GenericArray *ga, const void *item_ptr, int (* comparator)(const void*, const void*)) {
     int low = 0;
     int high = ga->length - 1;
 

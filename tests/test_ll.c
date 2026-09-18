@@ -340,8 +340,8 @@ void test_linkedlist_set_invalid_index(void) {
     ll_discard(list);
 }
 
-bool int_equals(void *a, void *b) {
-    return *(int *)a == *(int *)b;
+bool int_equals(const void *a, const void *b) {
+    return *(const int *)a == *(const int *)b;
 }
 
 void test_linkedlist_find(void) {

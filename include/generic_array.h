@@ -24,17 +24,17 @@ typedef struct GenericArray {
 // ga_discard. Returns NULL on allocation failure.
 struct GenericArray* ga_create(size_t item_size);
 // Copies item_size bytes from item_ptr onto the end, growing if full. Returns true.
-bool ga_append(struct GenericArray *ga, void *item_ptr);
+bool ga_append(struct GenericArray *ga, const void *item_ptr);
 // Inserts a copy of in_ptr at index (0..length), shifting later items right.
 // Returns false if index is out of range.
-bool ga_add(struct GenericArray *ga, int index, void *in_ptr);
+bool ga_add(struct GenericArray *ga, int index, const void *in_ptr);
 // Copies the item at index into out_ptr. Returns false if index is out of range.
-bool ga_get(struct GenericArray *ga, int index, void *out_ptr);
+bool ga_get(const struct GenericArray *ga, int index, void *out_ptr);
 // Overwrites the item at index with in_ptr. Returns false if index is out of range.
-bool ga_set(struct GenericArray *ga, int index, void *in_ptr);
+bool ga_set(struct GenericArray *ga, int index, const void *in_ptr);
 // Returns the index of the first item for which comparator(item_ptr, elem) is
 // true, or -1 if none.
-int ga_find(struct GenericArray *ga, void *item_ptr, bool (* comparator)(void*, void*));
+int ga_find(const struct GenericArray *ga, const void *item_ptr, bool (* comparator)(const void*, const void*));
 // Drops the last item, shrinking the backing array if it falls below
 // SHRINK_THRESHOLD. Returns false if already empty.
 bool ga_remove_last(struct GenericArray *ga);
@@ -42,7 +42,7 @@ bool ga_remove_last(struct GenericArray *ga);
 // is out of range.
 bool ga_remove_at(struct GenericArray *ga, int index);
 // Returns true if any item satisfies funcptr(elem, trgtptr).
-bool ga_contains(struct GenericArray *ga, bool (*funcptr)(void*, void*), void *trgtptr);
+bool ga_contains(const struct GenericArray *ga, bool (*funcptr)(const void*, const void*), const void *trgtptr);
 // Resets length to 0; the backing array and its bytes are left in place.
 bool ga_clear(struct GenericArray *ga);
 // Returns the number of items stored.
@@ -54,16 +54,16 @@ double ga_usage(const struct GenericArray *ga);
 // Frees the backing array and the struct.
 void ga_discard(struct GenericArray *ga);
 // Applies print_fn to each item in order.
-void ga_print(struct GenericArray *ga, void (* print_fn)(void*));
+void ga_print(const struct GenericArray *ga, void (* print_fn)(const void*));
 // In-place bubble sort; comparator returns true when its first arg should sort
 // after its second.
-void ga_sort(struct GenericArray *ga, bool (* comparator)(void*, void*));
+void ga_sort(struct GenericArray *ga, bool (* comparator)(const void*, const void*));
 // Reverses the items in place.
 void ga_reverse(struct GenericArray *ga);
 // Returns a newly allocated deep copy; caller frees it with ga_discard.
-struct GenericArray* ga_copy(struct GenericArray *ga);
+struct GenericArray* ga_copy(const struct GenericArray *ga);
 // Binary search over an already-sorted array. comparator must return a value
 // that is exactly -1, 0, or 1 (not just a sign). Returns true if found.
-bool ga_binary_find(struct GenericArray *ga, void *item_ptr, int (* comparator)(void*, void*));
+bool ga_binary_find(const struct GenericArray *ga, const void *item_ptr, int (* comparator)(const void*, const void*));
 
 #endif

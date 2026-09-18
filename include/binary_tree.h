@@ -24,18 +24,18 @@ typedef struct BinaryTree {
 struct BinaryTree* bt_create(size_t element_size);
 // Appends value at the next free slot, growing the backing array if full.
 // Copies element_size bytes from value.
-void bt_insert(struct BinaryTree *tree, void *value);
+void bt_insert(struct BinaryTree *tree, const void *value);
 // Removes the element at index by overwriting it with the last element, so
 // neither insertion order nor tree shape below index is preserved.
 void bt_remove(struct BinaryTree *tree, int index);
 // Copies the element at index into out. Returns false if index is out of range.
 bool bt_get(const struct BinaryTree *tree, int index, void *out);
 // Overwrites the element at index with value. Returns false if index is out of range.
-bool bt_set(struct BinaryTree *tree, int index, void *value);
+bool bt_set(struct BinaryTree *tree, int index, const void *value);
 // Returns true if any element compares equal (comparator returns 0) to value. O(n).
-bool bt_contains(const struct BinaryTree *tree, void *value, int (*comparator)(void*, void*));
+bool bt_contains(const struct BinaryTree *tree, const void *value, int (*comparator)(const void*, const void*));
 // Returns the index of the first element equal to value, or -1 if absent. O(n).
-int bt_find(const struct BinaryTree *tree, void *value, int (*comparator)(void*, void*));
+int bt_find(const struct BinaryTree *tree, const void *value, int (*comparator)(const void*, const void*));
 // Returns height in edges: root-only tree = 0, empty tree = -1.
 int bt_height(const struct BinaryTree *tree);
 // Returns the number of leaf nodes (nodes with no left child).
@@ -49,7 +49,7 @@ int bt_capacity(const struct BinaryTree *tree);
 // Resets length to 0; the backing array is kept and reused by later inserts.
 void bt_clear(struct BinaryTree *tree);
 // Prints the tree rotated 90 degrees (root at the left) using print_fn per element.
-void bt_print(const struct BinaryTree *tree, void (*print_fn)(void*));
+void bt_print(const struct BinaryTree *tree, void (*print_fn)(const void*));
 // Frees the backing array and the tree struct.
 void bt_discard(struct BinaryTree *tree);
 

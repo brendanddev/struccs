@@ -21,15 +21,15 @@ typedef struct Set {
 // set_discard. Returns NULL on allocation failure.
 Set* set_create(size_t element_size);
 // Adds a copy of value. Returns true if it was inserted, false if already present.
-bool set_add(Set *set, void *value);
+bool set_add(Set *set, const void *value);
 // Removes value. Returns true if it was present.
-bool set_remove(Set *set, void *value);
+bool set_remove(Set *set, const void *value);
 // Returns true if value is in the set.
-bool set_contains(Set *set, void *value);
+bool set_contains(const Set *set, const void *value);
 // Returns the number of elements.
 int set_size(const Set *set);
 // Applies printfunc(element, dummy_value) to every element.
-void set_print(Set *set, void (*printfunc)(void*, void*));
+void set_print(const Set *set, void (*printfunc)(const void*, const void*));
 // Frees the backing table and the set struct.
 void set_discard(Set *set);
 

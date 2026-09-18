@@ -22,28 +22,28 @@ typedef struct BinarySearchTree {
 struct BinarySearchTree* bst_create();
 // Inserts a copy of value_size bytes from value, ordered by compare. Duplicates
 // go to the right subtree. length is incremented unconditionally.
-void bst_insert(struct BinarySearchTree *tree, void *value, size_t value_size, int (*compare)(void*, void*));
+void bst_insert(struct BinarySearchTree *tree, const void *value, size_t value_size, int (*compare)(const void*, const void*));
 // Removes the first node equal to value (compare returns 0). No-op if absent.
-void bst_remove(struct BinarySearchTree *tree, void *value, int (*compare)(void*, void*));
+void bst_remove(struct BinarySearchTree *tree, const void *value, int (*compare)(const void*, const void*));
 // Returns true if a node equal to value exists.
-bool bst_contains(struct BinarySearchTree *tree, void *value, int (*compare)(void*, void*));
+bool bst_contains(const struct BinarySearchTree *tree, const void *value, int (*compare)(const void*, const void*));
 // Returns the node equal to value, or NULL if absent. The node is owned by the
 // tree - do not free it or hold it past a remove/discard.
-struct Node* bst_search(struct BinarySearchTree *tree, void *value, int (*compare)(void*, void*));
+const struct Node* bst_search(const struct BinarySearchTree *tree, const void *value, int (*compare)(const void*, const void*));
 // Returns a borrowed pointer to the smallest stored value, or NULL if empty.
-void* bst_min(struct BinarySearchTree *tree);
+void* bst_min(const struct BinarySearchTree *tree);
 // Returns a borrowed pointer to the largest stored value, or NULL if empty.
-void* bst_max(struct BinarySearchTree *tree);
+void* bst_max(const struct BinarySearchTree *tree);
 // Returns height in nodes: empty tree = 0, root-only tree = 1.
-int bst_height(struct BinarySearchTree *tree);
+int bst_height(const struct BinarySearchTree *tree);
 // Prints the tree rotated onto its side (ascending top-to-bottom).
-void bst_print(struct BinarySearchTree *tree, void (* print_fn)(void*));
+void bst_print(const struct BinarySearchTree *tree, void (* print_fn)(const void*));
 // Applies print_fn to every value in in-order (sorted) order.
-void bst_inorder(struct BinarySearchTree *tree, void (* print_fn)(void*));
+void bst_inorder(const struct BinarySearchTree *tree, void (* print_fn)(const void*));
 // Applies print_fn to every value in post-order (children before parent).
-void bst_postorder(struct BinarySearchTree *tree, void (* print_fn)(void*));
+void bst_postorder(const struct BinarySearchTree *tree, void (* print_fn)(const void*));
 // Applies print_fn to every value in pre-order (parent before children).
-void bst_preorder(struct BinarySearchTree *tree, void (* print_fn)(void*));
+void bst_preorder(const struct BinarySearchTree *tree, void (* print_fn)(const void*));
 // Returns the number of nodes in the tree.
 int bst_size(const struct BinarySearchTree *tree);
 // Returns true if the tree has no nodes.

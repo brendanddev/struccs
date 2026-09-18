@@ -17,7 +17,7 @@ typedef struct Node {
 } Node;
 
 // Prototypes
-static struct Node* ll_create_node(void *val, size_t size);
+static struct Node* ll_create_node(const void *val, size_t size);
 static void ll_discard_node(struct Node *node);
 static void ll_discard_all_nodes(struct LinkedList *list);
 static void swap_node_positions(struct LinkedList *list, struct Node *a, struct Node *b);
@@ -36,7 +36,7 @@ struct LinkedList * ll_create() {
     return linked_list;
 }
 
-void ll_insert(struct LinkedList *list, void *value, size_t item_size) {
+void ll_insert(struct LinkedList *list, const void *value, size_t item_size) {
     struct Node *node = ll_create_node(value, item_size);
 
     // Only the old head has a prev pointer to fix up; an empty list has none.
@@ -56,7 +56,7 @@ void ll_insert(struct LinkedList *list, void *value, size_t item_size) {
     list->length++;
 }
 
-void ll_insert_tail(struct LinkedList *list, void *value, size_t item_size) {
+void ll_insert_tail(struct LinkedList *list, const void *value, size_t item_size) {
     struct Node *node = ll_create_node(value, item_size);
 
     if (list->head == NULL) {
@@ -76,7 +76,7 @@ void ll_insert_tail(struct LinkedList *list, void *value, size_t item_size) {
     }
 }
 
-void ll_insert_at(struct LinkedList *list, void *value, size_t item_size, int index) {
+void ll_insert_at(struct LinkedList *list, const void *value, size_t item_size, int index) {
     if (index < 0 || index > list->length) return;
 
     if (index == 0) {
@@ -179,7 +179,7 @@ void ll_remove_at(struct LinkedList *list, int index) {
     }
 }
 
-bool ll_get(struct LinkedList *list, int index, void *out) {
+bool ll_get(const struct LinkedList *list, int index, void *out) {
     if (index < 0 || index >= list->length) return false;
 
     // Walk in from whichever end is closer to index.
@@ -205,7 +205,7 @@ bool ll_get(struct LinkedList *list, int index, void *out) {
     return false;
 }
 
-bool ll_set(struct LinkedList *list, int index, void *in) {
+bool ll_set(struct LinkedList *list, int index, const void *in) {
     if (index < 0 || index >= list->length) return false;
 
     // Walk in from whichever end is closer to index.
@@ -231,7 +231,7 @@ bool ll_set(struct LinkedList *list, int index, void *in) {
     return false;
 }
 
-int ll_find(struct LinkedList *list, void *item, bool (* comparator)(void*, void*)) {
+int ll_find(const struct LinkedList *list, const void *item, bool (* comparator)(const void*, const void*)) {
     if (list->head == NULL) return -1;
 
     int idx = 0;
@@ -244,7 +244,7 @@ int ll_find(struct LinkedList *list, void *item, bool (* comparator)(void*, void
     return -1;
 }
 
-bool ll_contains(struct LinkedList *list, void *item, bool (* comparator)(void*, void*)) {
+bool ll_contains(const struct LinkedList *list, const void *item, bool (* comparator)(const void*, const void*)) {
     if (list->head == NULL) return false;
 
     for (struct Node *current = list->head; current != NULL; current = current->next) {
@@ -264,7 +264,7 @@ void ll_clear(struct LinkedList *list) {
     list->length = 0;
 }
 
-struct LinkedList* ll_copy(struct LinkedList *orig) {
+struct LinkedList* ll_copy(const struct LinkedList *orig) {
     struct LinkedList *copy = ll_create();
     if (copy == NULL) {
         return NULL;
@@ -312,14 +312,14 @@ void ll_discard(struct LinkedList *list) {
     }
 }
 
-void ll_print(struct LinkedList *list, void (* print_fn)(void*)) {
+void ll_print(const struct LinkedList *list, void (* print_fn)(const void*)) {
     for (struct Node *current = list->head; current != NULL; current = current->next) {
         print_fn(current->value);
     }
     printf("\n");
 }
 
-void ll_debug(struct LinkedList *list) {
+void ll_debug(const struct LinkedList *list) {
     struct Node *curr = list->head;
     while (curr != NULL) {
         printf("Node %p | value=%d | prev=%p | next=%p\n",
@@ -331,7 +331,7 @@ void ll_debug(struct LinkedList *list) {
     }
 }
 
-void ll_bsort(struct LinkedList *list, bool (* comparator)(void*, void*)) {
+void ll_bsort(struct LinkedList *list, bool (* comparator)(const void*, const void*)) {
     if (list->head == NULL) return;
 
     bool swapped = true;
@@ -355,7 +355,7 @@ void ll_bsort(struct LinkedList *list, bool (* comparator)(void*, void*)) {
 
 
 // Deep-copies size bytes from val; the returned node owns the copy.
-struct Node * ll_create_node(void *val, size_t size) {
+static struct Node* ll_create_node(const void *val, size_t size) {
     struct Node *node = malloc(sizeof(struct Node));
     if (node == NULL) {
         return NULL;

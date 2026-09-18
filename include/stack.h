@@ -20,9 +20,9 @@ typedef struct Stack {
 // Allocates an empty stack. Caller frees with stack_discard. NULL on failure.
 struct Stack* stack_create();
 // Pushes a node holding a copy of size bytes from value. Returns true.
-bool stack_push(struct Stack *stack, void *value, size_t size);
+bool stack_push(struct Stack *stack, const void *value, size_t size);
 // Copies the top value into out without popping. False if the stack is empty.
-bool stack_peek(struct Stack *stack, void *out);
+bool stack_peek(const struct Stack *stack, void *out);
 // Copies the top value into out and pops it. False if the stack is empty.
 bool stack_pop(struct Stack *stack, void *out);
 // Frees every node but keeps the stack struct for reuse.
@@ -32,7 +32,7 @@ bool stack_is_empty(const struct Stack *stack);
 // Returns the number of nodes on the stack.
 int stack_size(const struct Stack *stack);
 // Applies print_fn to each value from top to bottom.
-void stack_print(struct Stack *stack, void (* print_fn)(void*));
+void stack_print(const struct Stack *stack, void (* print_fn)(const void*));
 // Frees every node and the stack struct.
 void stack_discard(struct Stack *stack);
 

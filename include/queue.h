@@ -21,9 +21,9 @@ typedef struct Queue {
 // Allocates an empty queue. Caller frees with queue_discard. NULL on failure.
 struct Queue* queue_create();
 // Appends a node holding a copy of item_size bytes from val (adds at the tail).
-void queue_enqueue(struct Queue *queue, void *val, size_t item_size);
+void queue_enqueue(struct Queue *queue, const void *val, size_t item_size);
 // Copies the head value into out without removing it. False if the queue is empty.
-bool queue_peek(struct Queue *queue, void *out);
+bool queue_peek(const struct Queue *queue, void *out);
 // Copies the head value into out and removes the head. False if the queue is empty.
 bool queue_dequeue(struct Queue *queue, void *out);
 // Returns true if the queue has no nodes.
@@ -35,8 +35,8 @@ void queue_clear(struct Queue *queue);
 // Frees every node and the queue struct.
 void queue_discard(struct Queue *queue);
 // Applies print_fn to each value from head to tail.
-void queue_print(struct Queue *queue, void (* print_fn)(void*));
+void queue_print(const struct Queue *queue, void (* print_fn)(const void*));
 // Prints the queue's length and its head/tail links for debugging.
-void queue_debug(struct Queue *queue);
+void queue_debug(const struct Queue *queue);
 
 #endif

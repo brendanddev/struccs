@@ -25,8 +25,8 @@ void test_ga_copy(void);
 void test_ga_clear(void);
 void test_ga_large_operations(void);
 
-bool compare_int(void *a, void *b) {
-    return (*(int *)a == *(int *)b);
+bool compare_int(const void *a, const void *b) {
+    return (*(const int *)a == *(const int *)b);
 }
 
 int main(void) {

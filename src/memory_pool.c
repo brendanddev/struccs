@@ -60,7 +60,7 @@ void mp_free(struct MemoryPool *pool, void *ptr) {
     }
 }
 
-void mp_print(struct MemoryPool *pool) {
+void mp_print(const struct MemoryPool *pool) {
     printf("Number of free blocks: %d\n", pool->num_free_blocks);
 
     struct MemoryBlockHeader *block = pool->first_free;

@@ -21,13 +21,9 @@ void test_bst_min(void);
 void test_bst_max(void);
 void test_bst_height(void);
 
-void print_int(void *value) {
-    printf("%d\n", * (int *) value);
-}
-
-int compare_int(void *a, void *b) {
-    int num1 = * (int *)a;
-    int num2 = * (int *)b;
+int compare_int(const void *a, const void *b) {
+    int num1 = * (const int *)a;
+    int num2 = * (const int *)b;
 
     if (num1 == num2) {
         return 0;

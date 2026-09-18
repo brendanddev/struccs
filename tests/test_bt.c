@@ -24,13 +24,9 @@ void test_bt_clear(void);
 void test_bt_height(void);
 void test_bt_leaves(void);
 
-void print_int(void *value) {
-    printf("%d\n", * (int *) value);
-}
-
-int compare_int(void *a, void *b) {
-    int num1 = * (int *)a;
-    int num2 = * (int *)b;
+int compare_int(const void *a, const void *b) {
+    int num1 = * (const int *)a;
+    int num2 = * (const int *)b;
 
     if (num1 == num2) {
         return 0;

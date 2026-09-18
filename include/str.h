@@ -28,29 +28,29 @@ String* str_create(const char *initial);
 // if a needed reallocation fails.
 bool str_append(String *str, const char *data);
 // Returns true if substr occurs in str (naive O(n*m) scan).
-bool str_contains(String *str, const char *substr);
+bool str_contains(const String *str, const char *substr);
 // Lexicographic compare: 0 if equal, +/-1 on an in-string mismatch, or the
 // signed char delta when one string is a prefix of the other.
-int str_compare(String *a, String *b);
+int str_compare(const String *a, const String *b);
 // Returns true if a and b compare equal.
-bool str_equals(String *a, String *b);
+bool str_equals(const String *a, const String *b);
 // Returns a newly allocated str followed by substr. Caller frees with str_discard.
-String* str_concat(String *str, String *substr);
+String* str_concat(const String *str, const String *substr);
 // Returns a newly allocated duplicate of src. Caller frees with str_discard.
-String* str_copy(String *src);
+String* str_copy(const String *src);
 // Returns a newly allocated upper-cased copy. Caller frees with str_discard.
-String* str_to_upper(String *str);
+String* str_to_upper(const String *str);
 // Returns a newly allocated lower-cased copy. Caller frees with str_discard.
-String* str_to_lower(String *str);
+String* str_to_lower(const String *str);
 // Returns a newly allocated copy with leading/trailing whitespace removed.
 // Caller frees with str_discard.
-String *str_trim(String *str);
+String *str_trim(const String *str);
 // Returns the length of a raw C string (like strlen).
 size_t str_length(const char *src);
 // Returns str->length (no scan).
 size_t str_len(const String *str);
 // Writes the String's characters to stdout.
-void str_print(String *str);
+void str_print(const String *str);
 // Frees the buffer and the String struct.
 void str_discard(String *str);
 

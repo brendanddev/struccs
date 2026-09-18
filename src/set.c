@@ -26,7 +26,7 @@ Set* set_create(size_t element_size) {
     return set;
 }
 
-bool set_add(Set *set, void *value) {
+bool set_add(Set *set, const void *value) {
     if (!ht_contains(set->table, value, set->element_size)) {
         ht_insert(set->table, value, set->element_size, (const void*) &SET_DUMMY, sizeof(char));
         return true;
@@ -34,11 +34,11 @@ bool set_add(Set *set, void *value) {
     return false;
 }
 
-bool set_remove(Set *set, void *value) {
+bool set_remove(Set *set, const void *value) {
     return ht_remove(set->table, value, set->element_size);
 }
 
-bool set_contains(Set *set, void *value) {
+bool set_contains(const Set *set, const void *value) {
     return ht_contains(set->table, value, set->element_size);
 }
 
@@ -46,7 +46,7 @@ int set_size(const Set *set) {
     return ht_size(set->table);
 }
 
-void set_print(Set *set, void (*printfunc)(void*, void*)) {
+void set_print(const Set *set, void (*printfunc)(const void*, const void*)) {
     ht_print(set->table, printfunc);
 }
 

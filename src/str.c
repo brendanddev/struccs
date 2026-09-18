@@ -61,10 +61,10 @@ bool str_append(String *str, const char *data) {
     }
 }
 
-bool str_contains(String *str, const char *substr) {
-    char *curr_str = str->data;
+bool str_contains(const String *str, const char *substr) {
+    const char *curr_str = str->data;
     const char *curr_substr = substr;
-    char *match_start = NULL;
+    const char *match_start = NULL;
 
     // Naive search: retry the match one character further along str after every
     // failed attempt.
@@ -83,9 +83,9 @@ bool str_contains(String *str, const char *substr) {
     return false;
 }
 
-int str_compare(String *a, String *b) {
-    char *curr_a = a->data;
-    char *curr_b = b->data;
+int str_compare(const String *a, const String *b) {
+    const char *curr_a = a->data;
+    const char *curr_b = b->data;
 
     while (*curr_a != '\0' && *curr_b != '\0') {
         if (*curr_a > *curr_b) {
@@ -102,17 +102,17 @@ int str_compare(String *a, String *b) {
     return *curr_a - *curr_b;
 }
 
-String* str_copy(String *src) {
+String* str_copy(const String *src) {
     if (src == NULL) return NULL;
     String *new_str = str_create(src->data);
     return new_str;
 }
 
-bool str_equals(String *a, String *b) {
+bool str_equals(const String *a, const String *b) {
     return str_compare(a, b) == 0;
 }
 
-String* str_concat(String *str, String *substr) {
+String* str_concat(const String *str, const String *substr) {
     if (str == NULL) {
         return NULL;
     }
@@ -125,7 +125,7 @@ String* str_concat(String *str, String *substr) {
     }
 }
 
-String* str_to_upper(String *str) {
+String* str_to_upper(const String *str) {
     if (str == NULL) {
         return NULL;
     }
@@ -141,7 +141,7 @@ String* str_to_upper(String *str) {
     return str_upper;
 }
 
-String* str_to_lower(String *str) {
+String* str_to_lower(const String *str) {
     if (str == NULL) {
         return NULL;
     }
@@ -157,15 +157,15 @@ String* str_to_lower(String *str) {
     return str_lower;
 }
 
-String *str_trim(String *str) {
+String *str_trim(const String *str) {
     if (str == NULL) {
         return NULL;
     }
 
-    char *start = str->data;
+    const char *start = str->data;
     // NOTE: assumes str is non-empty. For a zero-length String this is data - 1,
     // and the trailing-whitespace loop below then reads before the buffer.
-    char *end = str->data + str_len(str) - 1;
+    const char *end = str->data + str_len(str) - 1;
 
     while (is_whitespace(*start) && *start != '\0') {
         start++;
@@ -202,8 +202,8 @@ size_t str_len(const String *str) {
     return str->length;
 }
 
-void str_print(String *str) {
-    char *current = str->data;
+void str_print(const String *str) {
+    const char *current = str->data;
     while (*current != '\0') {
         printf("%c", *current);
         current++;

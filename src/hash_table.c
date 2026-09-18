@@ -22,8 +22,8 @@ typedef struct Node {
 } Node;
 
 // Prototypes
-static struct Node* ht_create_node(void *key, size_t ksize, const void *value, size_t vsize);
-static int ht_hash(void *key, size_t key_size, int capacity);
+static struct Node* ht_create_node(const void *key, size_t ksize, const void *value, size_t vsize);
+static int ht_hash(const void *key, size_t key_size, int capacity);
 static void ht_resize(struct HashTable *hashtable);
 static void ht_discard_node(struct Node *node);
 static void ht_discard_all_nodes(struct HashTable *hashtable);
@@ -45,7 +45,7 @@ struct HashTable* ht_create() {
     return hashtable;
 }
 
-bool ht_insert(struct HashTable *hashtable, void *key, size_t ksize, const void *value, size_t vsize) {
+bool ht_insert(struct HashTable *hashtable, const void *key, size_t ksize, const void *value, size_t vsize) {
     if (ht_load_factor(hashtable) > LOAD_THRESHOLD) {
         printf("Resizing internal array...\n");
         ht_resize(hashtable);
@@ -85,7 +85,7 @@ bool ht_insert(struct HashTable *hashtable, void *key, size_t ksize, const void 
     return false;
 }
 
-bool ht_remove(struct HashTable *hashtable, void *key, size_t ksize) {
+bool ht_remove(struct HashTable *hashtable, const void *key, size_t ksize) {
     if (ht_is_empty(hashtable)) return false;
 
     int hash = ht_hash(key, ksize, hashtable->capacity);
@@ -120,7 +120,7 @@ bool ht_remove(struct HashTable *hashtable, void *key, size_t ksize) {
     return false;
 }
 
-bool ht_get(struct HashTable *hashtable, void *key, size_t ksize, void *out) {
+bool ht_get(const struct HashTable *hashtable, const void *key, size_t ksize, void *out) {
     if (ht_is_empty(hashtable)) return false;
 
     int hash = ht_hash(key, ksize, hashtable->capacity);
@@ -136,7 +136,7 @@ bool ht_get(struct HashTable *hashtable, void *key, size_t ksize, void *out) {
     return false;
 }
 
-bool ht_contains(struct HashTable *hashtable, void *key, size_t ksize) {
+bool ht_contains(const struct HashTable *hashtable, const void *key, size_t ksize) {
     if (ht_is_empty(hashtable)) return false;
 
     int hash = ht_hash(key, ksize, hashtable->capacity);
@@ -162,7 +162,7 @@ void ht_clear(struct HashTable *hashtable) {
     if (hashtable->buckets == NULL) return;
 }
 
-void ht_print(struct HashTable *hashtable, void (* print_fn)(void*, void*)) {
+void ht_print(const struct HashTable *hashtable, void (* print_fn)(const void*, const void*)) {
     for (int i = 0; i < hashtable->capacity; i++) {
         printf("Bucket %d -> ", i);
 
@@ -209,7 +209,7 @@ float ht_load_factor(const struct HashTable *hashtable) {
 
 
 // Deep-copies key (ksize bytes) and value (vsize bytes); the node owns both.
-static struct Node* ht_create_node(void *key, size_t ksize, const void *value, size_t vsize) {
+static struct Node* ht_create_node(const void *key, size_t ksize, const void *value, size_t vsize) {
     struct Node *node = malloc(sizeof(struct Node));
     if (node == NULL) {
         return NULL;
@@ -239,8 +239,8 @@ static struct Node* ht_create_node(void *key, size_t ksize, const void *value, s
 
 // Sum of the key's bytes modulo capacity: cheap, but order-insensitive and
 // clusters badly for similar keys.
-static int ht_hash(void *key, size_t key_size, int capacity) {
-    unsigned char *bytes = (unsigned char *) key;
+static int ht_hash(const void *key, size_t key_size, int capacity) {
+    const unsigned char *bytes = (const unsigned char *) key;
     int hash_value = 0;
 
     for (size_t i = 0; i < key_size; i++) {

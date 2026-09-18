@@ -18,19 +18,19 @@ typedef struct Node {
 
 
 // Prototypes
-static struct Node* bst_insert_rec(struct Node *root, void *value, size_t value_size, int (*compare)(void*, void*));
-static struct Node* bst_remove_rec(struct Node *root, void *value, int (*compare)(void*, void*), bool *found);
-static bool bst_contains_rec(struct Node *root, void *value, int (*compare)(void*, void*));
-static struct Node* bst_search_rec(struct Node *root, void *value, int (*compare)(void*, void*));
-static void* bst_min_rec(struct Node *root);
-static void* bst_max_rec(struct Node *root);
-static int bst_height_rec(struct Node *root);
-static void bst_print_rec(struct Node *root, void (* print_fn)(void*), int depth);
-static void bst_inorder_rec(struct Node *root, void (* print_fn)(void*));
-static void bst_postorder_rec(struct Node *root, void (* print_fn)(void*));
-static void bst_preorder_rec(struct Node *root, void (* print_fn)(void*));
+static struct Node* bst_insert_rec(struct Node *root, const void *value, size_t value_size, int (*compare)(const void*, const void*));
+static struct Node* bst_remove_rec(struct Node *root, const void *value, int (*compare)(const void*, const void*), bool *found);
+static bool bst_contains_rec(const struct Node *root, const void *value, int (*compare)(const void*, const void*));
+static const struct Node* bst_search_rec(const struct Node *root, const void *value, int (*compare)(const void*, const void*));
+static void* bst_min_rec(const struct Node *root);
+static void* bst_max_rec(const struct Node *root);
+static int bst_height_rec(const struct Node *root);
+static void bst_print_rec(const struct Node *root, void (* print_fn)(const void*), int depth);
+static void bst_inorder_rec(const struct Node *root, void (* print_fn)(const void*));
+static void bst_postorder_rec(const struct Node *root, void (* print_fn)(const void*));
+static void bst_preorder_rec(const struct Node *root, void (* print_fn)(const void*));
 static struct Node* bst_get_successor(struct Node *root);
-static struct Node* bst_create_node(void *value, size_t value_size);
+static struct Node* bst_create_node(const void *value, size_t value_size);
 static void bst_discard_node(struct Node *node);
 static void bst_discard_all_nodes(struct BinarySearchTree *tree);
 static void bst_discard_all_nodes_rec(struct Node *root);
@@ -45,14 +45,14 @@ struct BinarySearchTree* bst_create() {
     return tree;
 }
 
-void bst_insert(struct BinarySearchTree *tree, void *value, size_t value_size, int (*compare)(void*, void*)) {
+void bst_insert(struct BinarySearchTree *tree, const void *value, size_t value_size, int (*compare)(const void*, const void*)) {
     tree->root = bst_insert_rec(tree->root, value, value_size, compare);
     tree->length++;
 }
 
 // Each call returns the (possibly new) root of the subtree it was handed, which
 // the caller rebinds into root->left / root->right as it unwinds.
-static struct Node* bst_insert_rec(struct Node *root, void *value, size_t value_size, int (*compare)(void*, void*)) {
+static struct Node* bst_insert_rec(struct Node *root, const void *value, size_t value_size, int (*compare)(const void*, const void*)) {
     if (root == NULL) {
         return bst_create_node(value, value_size);
     } else if (compare(value, root->value) < 0) {
@@ -64,7 +64,7 @@ static struct Node* bst_insert_rec(struct Node *root, void *value, size_t value_
     }
 }
 
-void bst_remove(struct BinarySearchTree *tree, void *value, int (*compare)(void*, void*)) {
+void bst_remove(struct BinarySearchTree *tree, const void *value, int (*compare)(const void*, const void*)) {
     bool found = false;
     tree->root = bst_remove_rec(tree->root, value, compare, &found);
     if (found) tree->length--;
@@ -73,7 +73,7 @@ void bst_remove(struct BinarySearchTree *tree, void *value, int (*compare)(void*
 // Returns the replacement root for this subtree; every branch hands back the node
 // the parent should point its child pointer at (NULL, the lone child, or root
 // itself carrying the successor's value). *found reports whether value was present.
-static Node* bst_remove_rec(struct Node *root, void *value, int (*compare)(void*, void*), bool *found) {
+static Node* bst_remove_rec(struct Node *root, const void *value, int (*compare)(const void*, const void*), bool *found) {
     if (root == NULL) {
         *found = false;
         return root;
@@ -123,12 +123,12 @@ static Node* bst_remove_rec(struct Node *root, void *value, int (*compare)(void*
     }
 }
 
-bool bst_contains(struct BinarySearchTree *tree, void *value, int (*compare)(void*, void*)) {
+bool bst_contains(const struct BinarySearchTree *tree, const void *value, int (*compare)(const void*, const void*)) {
     if (bst_isempty(tree)) return false;
     return bst_contains_rec(tree->root, value, compare);
 }
 
-static bool bst_contains_rec(struct Node *root, void *value, int (*compare)(void*, void*)) {
+static bool bst_contains_rec(const struct Node *root, const void *value, int (*compare)(const void*, const void*)) {
     if (root == NULL) return false;
 
     if (compare(value, root->value) == 0) {
@@ -140,12 +140,12 @@ static bool bst_contains_rec(struct Node *root, void *value, int (*compare)(void
     }
 }
 
-struct Node* bst_search(struct BinarySearchTree *tree, void *value, int (*compare)(void*, void*)) {
+const struct Node* bst_search(const struct BinarySearchTree *tree, const void *value, int (*compare)(const void*, const void*)) {
     if (bst_isempty(tree)) return NULL;
     return bst_search_rec(tree->root, value, compare);
 }
 
-static struct Node* bst_search_rec(struct Node *root, void *value, int (*compare)(void*, void*)) {
+static const struct Node* bst_search_rec(const struct Node *root, const void *value, int (*compare)(const void*, const void*)) {
     if (root == NULL) return NULL;
 
     if (compare(value, root->value) == 0) {
@@ -157,34 +157,34 @@ static struct Node* bst_search_rec(struct Node *root, void *value, int (*compare
     }
 }
 
-void* bst_min(struct BinarySearchTree *tree) {
+void* bst_min(const struct BinarySearchTree *tree) {
     if (bst_isempty(tree)) return NULL;
     return bst_min_rec(tree->root);
 }
 
 // Precondition: root != NULL (callers guard with bst_isempty). Walks left to the
 // smallest value; bst_max_rec is the mirror image.
-static void* bst_min_rec(struct Node *root) {
+static void* bst_min_rec(const struct Node *root) {
     if (root->left == NULL) return root->value;
     return bst_min_rec(root->left);
 }
 
-void* bst_max(struct BinarySearchTree *tree) {
+void* bst_max(const struct BinarySearchTree *tree) {
     if (bst_isempty(tree)) return NULL;
     return bst_max_rec(tree->root);
 }
 
-static void* bst_max_rec(struct Node *root) {
+static void* bst_max_rec(const struct Node *root) {
     if (root->right == NULL) return root->value;
     return bst_max_rec(root->right);
 }
 
-int bst_height(struct BinarySearchTree *tree) {
+int bst_height(const struct BinarySearchTree *tree) {
     if (bst_isempty(tree)) return 0;
     return bst_height_rec(tree->root);
 }
 
-static int bst_height_rec(struct Node *root) {
+static int bst_height_rec(const struct Node *root) {
     if (root == NULL) return 0;
 
     int left_height = bst_height_rec(root->left);
@@ -195,11 +195,11 @@ static int bst_height_rec(struct Node *root) {
     return right_height + 1;
 }
 
-void bst_print(struct BinarySearchTree *tree, void (* print_fn)(void*)) {
+void bst_print(const struct BinarySearchTree *tree, void (* print_fn)(const void*)) {
     bst_print_rec(tree->root, print_fn, 0);
 }
 
-static void bst_print_rec(struct Node *root, void (* print_fn)(void*), int depth) {
+static void bst_print_rec(const struct Node *root, void (* print_fn)(const void*), int depth) {
     if (root == NULL) return;
 
     // In-order (left, node, right): values print in ascending order, one per
@@ -213,12 +213,12 @@ static void bst_print_rec(struct Node *root, void (* print_fn)(void*), int depth
     bst_print_rec(root->right, print_fn, depth + 1);
 }
 
-void bst_inorder(struct BinarySearchTree *tree, void (* print_fn)(void*)) {
+void bst_inorder(const struct BinarySearchTree *tree, void (* print_fn)(const void*)) {
     if (bst_isempty(tree)) return;
     bst_inorder_rec(tree->root, print_fn);
 }
 
-static void bst_inorder_rec(struct Node *root, void (* print_fn)(void*)) {
+static void bst_inorder_rec(const struct Node *root, void (* print_fn)(const void*)) {
     if (root == NULL) return;
 
     bst_inorder_rec(root->left, print_fn);
@@ -226,12 +226,12 @@ static void bst_inorder_rec(struct Node *root, void (* print_fn)(void*)) {
     bst_inorder_rec(root->right, print_fn);
 }
 
-void bst_postorder(struct BinarySearchTree *tree, void (* print_fn)(void*)) {
+void bst_postorder(const struct BinarySearchTree *tree, void (* print_fn)(const void*)) {
     if (bst_isempty(tree)) return;
     bst_postorder_rec(tree->root, print_fn);
 }
 
-static void bst_postorder_rec(struct Node *root, void (* print_fn)(void*)) {
+static void bst_postorder_rec(const struct Node *root, void (* print_fn)(const void*)) {
     if (root == NULL) return;
 
     bst_postorder_rec(root->left, print_fn);
@@ -239,12 +239,12 @@ static void bst_postorder_rec(struct Node *root, void (* print_fn)(void*)) {
     print_fn(root->value);
 }
 
-void bst_preorder(struct BinarySearchTree *tree, void (* print_fn)(void*)) {
+void bst_preorder(const struct BinarySearchTree *tree, void (* print_fn)(const void*)) {
     if (bst_isempty(tree)) return;
     bst_preorder_rec(tree->root, print_fn);
 }
 
-static void bst_preorder_rec(struct Node *root, void (* print_fn)(void*)) {
+static void bst_preorder_rec(const struct Node *root, void (* print_fn)(const void*)) {
     if (root == NULL) return;
 
     print_fn(root->value);
@@ -282,7 +282,7 @@ static struct Node* bst_get_successor(struct Node *root) {
 }
 
 // Deep-copies value_size bytes from value; the node owns the copy.
-static struct Node* bst_create_node(void *value, size_t value_size) {
+static struct Node* bst_create_node(const void *value, size_t value_size) {
     struct Node *node = malloc(sizeof(struct Node));
     if (node == NULL) return NULL;
 

@@ -38,7 +38,7 @@ void *mp_alloc(struct MemoryPool *pool);
 // pointer from this pool.
 void mp_free(struct MemoryPool *pool, void *ptr);
 // Prints the free-block count and the address of each free block.
-void mp_print(struct MemoryPool *pool);
+void mp_print(const struct MemoryPool *pool);
 // Frees the backing buffer and the pool struct.
 void mp_discard(struct MemoryPool *pool);
 

@@ -23,13 +23,13 @@ typedef struct HashTable {
 struct HashTable* ht_create();
 // Inserts a copy of the key (ksize bytes) and value (vsize bytes), or overwrites
 // the value in place if the key is already present. Returns true.
-bool ht_insert(struct HashTable *hashtable, void *key, size_t ksize, const void *value, size_t vsize);
+bool ht_insert(struct HashTable *hashtable, const void *key, size_t ksize, const void *value, size_t vsize);
 // Removes the entry for key. Returns false if the key is absent.
-bool ht_remove(struct HashTable *hashtable, void *key, size_t ksize);
+bool ht_remove(struct HashTable *hashtable, const void *key, size_t ksize);
 // Copies the value for key into out. Returns false if the key is absent.
-bool ht_get(struct HashTable *hashtable, void *key, size_t ksize, void *out);
+bool ht_get(const struct HashTable *hashtable, const void *key, size_t ksize, void *out);
 // Returns true if key is present.
-bool ht_contains(struct HashTable *hashtable, void *key, size_t ksize);
+bool ht_contains(const struct HashTable *hashtable, const void *key, size_t ksize);
 // Frees every entry and resets the table to its initial capacity.
 void ht_clear(struct HashTable *hashtable);
 // Returns true if no entries are stored.
@@ -41,7 +41,7 @@ int ht_capacity(const struct HashTable *hashtable);
 // Returns length / capacity.
 float ht_load_factor(const struct HashTable *hashtable);
 // Applies print_fn(key, value) to every entry, bucket by bucket.
-void ht_print(struct HashTable *hashtable, void (* print_fn)(void*, void*));
+void ht_print(const struct HashTable *hashtable, void (* print_fn)(const void*, const void*));
 // Frees every entry, the bucket array, and the table struct.
 void ht_discard(struct HashTable *hashtable);
 
