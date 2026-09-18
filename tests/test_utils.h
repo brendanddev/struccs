@@ -3,6 +3,8 @@
 // Brendan Dileo - 2026
 
 static int g_test_failures = 0;
+static int g_test_passed = 0;
+static int g_test_failed = 0;
 
 #define ASSERT_EQ(actual, expected) \
     if ((actual) != (expected)) { \
@@ -37,7 +39,20 @@ static int g_test_failures = 0;
 
 #define TEST(name) \
     printf("Running %s...\n", #name); \
-    name(); \
+    { \
+        int before = g_test_failures; \
+        name(); \
+        if (g_test_failures == before) { \
+            g_test_passed++; \
+        } else { \
+            g_test_failed++; \
+        } \
+    } \
     printf("  done\n");
 
-#define TEST_MAIN_END return (g_test_failures > 0) ? 1 : 0
+#define TEST_MAIN_END \
+    { \
+        int total = g_test_passed + g_test_failed; \
+        printf("%d passed, %d failed, %d tests ran total\n", g_test_passed, g_test_failed, total); \
+        return (g_test_failed > 0) ? 1 : 0; \
+    }

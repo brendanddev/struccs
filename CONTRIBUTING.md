@@ -83,6 +83,40 @@ Follow this checklist when adding a new data structure:
 
 ---
 
+## Type Conventions
+
+- **Byte sizes and byte counts** — anything passed to `malloc`/`realloc`/ `memcpy`, or documented as "N bytes" — use `size_t`.
+- **Element counts** — how many items/nodes/entries a structure holds — use `int`.
+- **`String` is a deliberate exception**: its `length`/`capacity` fields are `size_t`, not `int`, because for a string, 1 character is 1 byte, so its element count and byte count are the same value. This mirrors how `strlen` works in the C standard library.
+- When adding a new structure, if a field or parameter represents a byte quantity, it must be `size_t`. If in doubt, ask: "does this ever get multiplied against or compared to something `sizeof` or `malloc` would produce?" If yes, it's `size_t`.
+
+---
+
+## Error Handling
+
+struccs follows one consistent convention for reporting failure:
+
+- **Constructors** (`_create`) return `NULL` on allocation failure. Never call `exit()` or `abort()` from library code — a library must never unilaterally kill the caller's process.
+- **Operations** that can fail (insert, remove, set, get) return `bool` — `true` on success, `false` on failure. They do not report *why* an operation failed beyond that.
+- **`Result`** is available for cases where a caller genuinely needs to know *why* something failed, not just that it did. It is not the default return type — most functions don't need it. Use it deliberately, not reflexively.
+- **`Option`** is available for representing "a value may or may not be present" as a return type, as an alternative to sentinel values (`-1`, `NULL`) or out-parameters plus a `bool`.
+
+When a function performs a secondary operation that isn't essential to its own contract (e.g. `shrink()` after a successful removal, purely to reclaim memory), a failure in that secondary step should not cause the primary operation to report failure. Document this explicitly in the function's comment if it isn't obvious.
+
+Every caller of a function that can return `NULL` or `false` is responsible for checking it before using the result.
+
+---
+
+## Const-Correctness
+
+- Any pointer parameter that a function only reads from — never writes through, directly or via a helper it calls — should be `const`.
+- This includes: struct pointers passed to query/inspection functions (`_size`, `_isempty`, `_get`, `_contains`, `_print`), `void*` data parameters that are only copied out of (not written to), and comparator/callback function pointer parameters.
+- A function that *mutates* a structure should not be marked `const`, even if it would technically compile, C's `const` is shallow, so a `const` struct pointer doesn't prevent writes through a member pointer inside it. Marking a mutating function `const` would compile but lie about what the function does. Correctness of intent matters more than what the compiler will silently allow.
+- A function that returns a pointer *into* a structure it was given as `const` (e.g. searching a tree and returning a pointer to a found node) may keep a non-`const` return type. Forcing the return type `const` too is a legitimate stricter option, but is not required — document the choice either way rather than leaving it accidental.
+- When changing a callback's parameter types to `const`, every function that accepts that callback type, and every test file with a matching callback, must be updated in the same change. A callback signature mismatch is a compile error, not a warning.
+
+---
+
 ## Testing
 
 Every new structure needs a test file in `tests/` covering:
@@ -102,6 +136,8 @@ ASSERT_NULL(ptr);
 ASSERT_NOT_NULL(ptr);
 TEST(function_name);
 ```
+
+Every public function should have at least one test exercising its documented behavior, including its failure/edge-case paths, not just its happy path — a test suite that only calls a function once, successfully, does not protect against regressions in how that function handles invalid input, empty structures, or allocation failure.
 
 ---
 
