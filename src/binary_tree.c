@@ -9,7 +9,7 @@
 #include "binary_tree.h"
 
 // Prototypes
-static void print_recursive(struct BinaryTree *tree, int index, int depth, void (*print_fn)(void*));
+static void print_recursive(const struct BinaryTree *tree, int index, int depth, void (*print_fn)(void*));
 static bool resize(struct BinaryTree *tree);
 static void swap(void *a, void *b, size_t element_size);
 static int parent_index(int index);
@@ -53,7 +53,7 @@ void bt_remove(struct BinaryTree *tree, int index) {
     tree->length--;
 }
 
-bool bt_get(struct BinaryTree *tree, int index, void *out) {
+bool bt_get(const struct BinaryTree *tree, int index, void *out) {
     if (index < 0 || index >= tree->length) return false;
 
     void *current = (char*) tree->elements + index * tree->element_size;
@@ -69,7 +69,7 @@ bool bt_set(struct BinaryTree *tree, int index, void *value) {
     return true;
 }
 
-bool bt_contains(struct BinaryTree *tree, void *value, int (*comparator)(void*, void*)) {
+bool bt_contains(const struct BinaryTree *tree, void *value, int (*comparator)(void*, void*)) {
     for (int i = 0; i < tree->length; i++) {
         void *current = (char*) tree->elements + i * tree->element_size;
         if (comparator(current, value) == 0) {
@@ -79,7 +79,7 @@ bool bt_contains(struct BinaryTree *tree, void *value, int (*comparator)(void*, 
     return false;
 }
 
-int bt_find(struct BinaryTree *tree, void *value, int (*comparator)(void*, void*)) {
+int bt_find(const struct BinaryTree *tree, void *value, int (*comparator)(void*, void*)) {
     for (int i = 0; i < tree->length; i++) {
         void *current = (char*) tree->elements + i * tree->element_size;
         if (comparator(current, value) == 0) {
@@ -89,7 +89,7 @@ int bt_find(struct BinaryTree *tree, void *value, int (*comparator)(void*, void*
     return -1;
 }
 
-int bt_height(struct BinaryTree *tree) {
+int bt_height(const struct BinaryTree *tree) {
     if (bt_isempty(tree)) return -1;
 
     // The tree is complete, so the last array element sits at maximum depth.
@@ -105,7 +105,7 @@ int bt_height(struct BinaryTree *tree) {
     return height;
 }
 
-int bt_leaves(struct BinaryTree *tree) {
+int bt_leaves(const struct BinaryTree *tree) {
     if (bt_isempty(tree)) return 0;
 
     int current = 0;
@@ -121,12 +121,12 @@ int bt_leaves(struct BinaryTree *tree) {
     return leaves;
 }
 
-void bt_print(struct BinaryTree *tree, void (*print_fn)(void*)) {
+void bt_print(const struct BinaryTree *tree, void (*print_fn)(void*)) {
     if (bt_isempty(tree)) return;
     print_recursive(tree, 0, 0, print_fn);
 }
 
-static void print_recursive(struct BinaryTree *tree, int index, int depth, void (*print_fn)(void*)) {
+static void print_recursive(const struct BinaryTree *tree, int index, int depth, void (*print_fn)(void*)) {
     if (index >= tree->length) return;
 
     void *curr = (char*) tree->elements + index * tree->element_size;
