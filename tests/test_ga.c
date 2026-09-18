@@ -47,7 +47,7 @@ int main(void) {
     TEST(test_ga_clear);
     TEST(test_ga_large_operations);
 
-    return 0;
+    TEST_MAIN_END;
 }
 
 void test_ga_create(void) {

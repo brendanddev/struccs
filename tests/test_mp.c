@@ -20,7 +20,7 @@ int main(void) {
     TEST(test_mp_create);
     TEST(test_mp_alloc);
     TEST(test_mp_free);
-    return 0;
+    TEST_MAIN_END;
 }
 
 void test_mp_create(void) {

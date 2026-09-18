@@ -24,7 +24,7 @@ int main(void) {
     TEST(test_option_null_safety);
     TEST(test_option_some_with_null_value);
 
-    return 0;
+    TEST_MAIN_END;
 }
 
 void test_option_some(void) {

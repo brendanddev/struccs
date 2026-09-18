@@ -49,7 +49,7 @@ int main(void) {
     TEST(test_str_stress_append);
     TEST(test_str_null_inputs);
 
-    return 0;
+    TEST_MAIN_END;
 }
 
 void test_str_create_empty(void) {

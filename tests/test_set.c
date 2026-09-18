@@ -25,7 +25,7 @@ int main(void) {
     TEST(test_set_size_consistency);
     TEST(test_set_bulk_behavior);
 
-    return 0;
+    TEST_MAIN_END;
 }
 
 

@@ -54,7 +54,7 @@ int main(void) {
     TEST(test_heap_duplicates);
     TEST(test_heap_stress_mix);
 
-    return 0;
+    TEST_MAIN_END;
 }
 
 void test_heap_create(void) {

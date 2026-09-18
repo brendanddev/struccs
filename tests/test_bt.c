@@ -54,7 +54,7 @@ int main() {
     TEST(test_bt_height);
     TEST(test_bt_leaves);
 
-    return 0;
+    TEST_MAIN_END;
 }
 
 void test_bt_init(void) {

@@ -30,7 +30,7 @@ int main() {
     TEST(test_hashtable_capacity);
     TEST(test_hashtable_load_factor);
 
-    return 0;
+    TEST_MAIN_END;
 }
 
 void test_hashtable_create(void) {

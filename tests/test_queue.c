@@ -36,7 +36,7 @@ int main(void) {
     TEST(test_queue_struct_type);
     TEST(test_queue_string_pointer);
 
-    return 0;
+    TEST_MAIN_END;
 }
 
 void test_queue_create(void) {

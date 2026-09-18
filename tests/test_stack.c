@@ -40,7 +40,7 @@ int main(void) {
     TEST(test_stack_struct_type);
     TEST(test_stack_string_pointer);
 
-    return 0;
+    TEST_MAIN_END;
 }
 
 void test_stack_create(void) {

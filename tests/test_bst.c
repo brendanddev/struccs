@@ -47,7 +47,7 @@ int main() {
     TEST(test_bst_max);
     TEST(test_bst_height);
 
-    return 0;
+    TEST_MAIN_END;
 }
 
 void test_bst_init(void) {

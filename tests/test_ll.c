@@ -58,7 +58,7 @@ int main(void) {
     TEST(test_linkedlist_string_pointer);
     TEST(test_linkedlist_large_operations);
 
-    return 0;
+    TEST_MAIN_END;
 }
 
 void test_linkedlist_create(void) {

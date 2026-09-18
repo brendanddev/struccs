@@ -22,7 +22,7 @@ int main(void) {
     TEST(test_result_unwrap_or);
     TEST(test_result_null_safety);
 
-    return 0;
+    TEST_MAIN_END;
 }
 
 void test_result_ok(void) {
